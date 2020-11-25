@@ -1,11 +1,11 @@
 CELL_ID                  1
-TAC                      1
-ENB_IP_ADDR              192.168.200.159
+TAC                      5
+ENB_IP_ADDR              172.30.13.10
 MME_ID                   1
-MME_ADDR                 192.168.200.157
-SCTP_IP_ADDR             192.168.200.159
+MME_ADDR                 172.30.13.2
+SCTP_IP_ADDR             172.30.13.10
 ENB_NAME                 "RADISYS"
-PLMN_ID                  50502
+PLMN_ID                  20893
 HEARTBEAT_INTERVAL       5000
 RTO_INITIAL              200
 RTO_MIN                  100
@@ -18,6 +18,7 @@ MAX_EXPIRY               200
 S1_SETUP_TMR_VAL         2000
 NO_OF_SCTP_IN_STREAMS    3
 NO_OF_SCTP_OUT_STREAMS   3
-UE_ETH_INTF              enp1s0f1
+UE_ETH_INTF              ens4
 VS_IP_ADDR               192.168.200.136
 CFGEND
+
