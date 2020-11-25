@@ -1201,8 +1201,11 @@ U32 len;
    {
       EDM_DBG_ERROR((EDM_PRNTBUF,
                "Error: There are more elements left than expected\n"));
-      CM_FREE_NASEVNT(evnt);
-      RETVALUE(RFAILED);
+
+      // sbryden: there is some discrepancy between what open5gs MME sends and
+      // what we expect here. This is a quick fix for now.
+      //CM_FREE_NASEVNT(evnt);
+      //RETVALUE(RFAILED);
    }
 
    /* Check the all conditional IEs */

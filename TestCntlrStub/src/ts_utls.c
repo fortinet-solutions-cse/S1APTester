@@ -254,9 +254,8 @@ int TC_msg_recv(int msgid, int timeout)
       else
       {
          printf("\n[Stub] Received msgptr.mtype = %ld\n", msgptr.msgType);
-         msg_recvd = TRUE;
+         msg_recvd = FALSE;
          retVal = FAIL;
-         exit(0);
       }
    }
 
@@ -554,16 +553,6 @@ void tsStepByStepAttachWithImsi(unsigned char ueId)
    tfwApi(UE_SEC_MOD_COMPLETE,msgptr);
    free(msgptr);
 
-   /* Wait for Initial Context Setup indication */
-   if (TC_msg_recv(INT_CTX_SETUP_IND, 10)== SUCC)
-   {
-      printf("\n[Stub] Received Initial Context Setup indication\n");
-   }
-   else
-   {
-      printf("\n[Stub] Initial Context Setup indication failed\n");
-   }
-
    /* Wait for Attach Accept indication */
    if (TC_msg_recv(UE_ATTACH_ACCEPT_IND, 10)== SUCC)
    {
@@ -582,8 +571,8 @@ void tsStepByStepAttachWithImsi(unsigned char ueId)
    printf("\n[Stub] Sending Attach complete\n");
    tfwApi(UE_ATTACH_COMPLETE, msgptr);
    free(msgptr);
-
 }
+
 void tsAttachWithAUTV(unsigned char ueId)
 {
    void* msgptr = NULL;
@@ -1760,16 +1749,18 @@ int tsSendResetReq(unsigned int resetType, int numOfUes, unsigned char *ueLst)
    }
    else if(resetType == PARTIAL_RESET)
    {
+      printf("PartialReset not implemented!!");
+      numOfUes = 0;
       ((ResetReq*)msgptr)->rstType = PARTIAL_RESET;
       ((ResetReq*)msgptr)->cause.causeType = 1;
       ((ResetReq*)msgptr)->cause.causeVal = 1;
 
       ((ResetReq*)msgptr)->r.partialRst.numOfConn = numOfUes;
-      ((ResetReq*)msgptr)->r.partialRst.ueIdLst = malloc(numOfUes);
-      memcpy(((ResetReq*)msgptr)->r.partialRst.ueIdLst, ueLst, numOfUes);
+      //((ResetReq*)msgptr)->r.partialRst.ueIdLst = malloc(numOfUes);
+      //memcpy(((ResetReq*)msgptr)->r.partialRst.ueIdLst, ueLst, numOfUes);
 
       tfwApi(RESET_REQ, msgptr);
-      free(((ResetReq*)msgptr)->r.partialRst.ueIdLst);
+      //free(((ResetReq*)msgptr)->r.partialRst.ueIdLst);
       free(msgptr);
    }
 
