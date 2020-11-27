@@ -2630,6 +2630,8 @@ PRIVATE S16 ueAppUtlBldSecModReject(UeCb *ueCb, CmNasEvnt **ueEvt, U8 cause)
    secModRej->cause.pres = TRUE;
    secModRej->cause.cause = cause;
 
+   
+
    UE_LOG_EXITFN(ueAppCb, ret);
 }
 /*
@@ -2650,6 +2652,7 @@ PRIVATE S16 ueAppUtlBldSecModComplete(UeCb *ueCb, CmNasEvnt **ueEvt)
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
    CmEmmMsg* emmMsg;
+   CmEmmSecModeCmp *secModCmp;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
@@ -2674,6 +2677,7 @@ PRIVATE S16 ueAppUtlBldSecModComplete(UeCb *ueCb, CmNasEvnt **ueEvt)
    }
 
    (*ueEvt)->m.emmEvnt = emmMsg;
+   secModCmp = &((*ueEvt)->m.emmEvnt->u.secModCmp);
 
    /*Fill header information*/
    /*(*ueEvt)->secHT = UE_APP_SEC_HT_INT_PRTD_ENC_NEW_SEC_CTXT;*/
@@ -2686,6 +2690,15 @@ PRIVATE S16 ueAppUtlBldSecModComplete(UeCb *ueCb, CmNasEvnt **ueEvt)
    emmMsg->secHdrType = CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG;
    emmMsg->msgId      = CM_EMM_MSG_SEC_MODE_CMP;
    emmMsg->protDisc   = CM_EMM_PD;
+
+   /* Fill IMEI-SV */
+   secModCmp->imeisv.pres = true;
+   secModCmp->imeisv.type = CM_EMM_MID_TYPE_IMEISV;
+   secModCmp->imeisv.len = CM_EMM_MAX_IMEI_DIGS;
+   secModCmp->imeisv.evenOddInd = ((secModCmp->imeisv.len % 2) != 0) ? \
+                                       (UE_ODD):(UE_EVEN);
+   cmMemcpy((U8 *)&secModCmp->imeisv.u.imei.id,
+                  (U8 *)&ueCb->ueCtxt.ueImei, secModCmp->imeisv.len);
 
    UE_LOG_EXITFN(ueAppCb, ret);
 }

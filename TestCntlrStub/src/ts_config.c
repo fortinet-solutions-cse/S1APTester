@@ -54,22 +54,22 @@ void tsUeConfig(unsigned char ueId, unsigned char *imsi, int imsiLen)
    {
       ((ueConfig_t*)msgptr)->imsi[imsiIdx]= imsi[imsiIdx];
    }
-   ((ueConfig_t*)msgptr)->imei[0]= 1;
-   ((ueConfig_t*)msgptr)->imei[1]= 1;
-   ((ueConfig_t*)msgptr)->imei[2]= 1;
-   ((ueConfig_t*)msgptr)->imei[3]= 1;
-   ((ueConfig_t*)msgptr)->imei[4]= 1;
-   ((ueConfig_t*)msgptr)->imei[5]= 1;
-   ((ueConfig_t*)msgptr)->imei[6]= 1;
-   ((ueConfig_t*)msgptr)->imei[7]= 1;
-   ((ueConfig_t*)msgptr)->imei[8]= 1;
-   ((ueConfig_t*)msgptr)->imei[9]= 1;
-   ((ueConfig_t*)msgptr)->imei[10]= 1;
-   ((ueConfig_t*)msgptr)->imei[11]= 1;
-   ((ueConfig_t*)msgptr)->imei[12]= 1;
-   ((ueConfig_t*)msgptr)->imei[13]= 1;
+   ((ueConfig_t*)msgptr)->imei[0]= 3;
+   ((ueConfig_t*)msgptr)->imei[1]= 5;
+   ((ueConfig_t*)msgptr)->imei[2]= 3;
+   ((ueConfig_t*)msgptr)->imei[3]= 4;
+   ((ueConfig_t*)msgptr)->imei[4]= 9;
+   ((ueConfig_t*)msgptr)->imei[5]= 0;
+   ((ueConfig_t*)msgptr)->imei[6]= 0;
+   ((ueConfig_t*)msgptr)->imei[7]= 6;
+   ((ueConfig_t*)msgptr)->imei[8]= 9;
+   ((ueConfig_t*)msgptr)->imei[9]= 0;
+   ((ueConfig_t*)msgptr)->imei[10]= 0;
+   ((ueConfig_t*)msgptr)->imei[11]= (ueId / 100) % 10;
+   ((ueConfig_t*)msgptr)->imei[12]= (ueId / 10) % 10;
+   ((ueConfig_t*)msgptr)->imei[13]= ueId % 10;
    ((ueConfig_t*)msgptr)->imei[14]= 1;
-   ((ueConfig_t*)msgptr)->imei[15]= 1;
+   ((ueConfig_t*)msgptr)->imei[15]= 0;
 
    printf("\n[STUB]: Sending Ue Config.\n");
    tfwApi(UE_CONFIG, msgptr);

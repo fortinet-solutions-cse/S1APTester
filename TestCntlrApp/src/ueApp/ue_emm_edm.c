@@ -2340,12 +2340,44 @@ U16 *len;
          buf[lenIndx] = tmpLen;
          break;
       }
-#if 0
+
       case CM_EMM_MID_TYPE_IMEISV:
       {
+            /* encode type of ID */
+         buf[*indx] = CM_EMM_MID_TYPE_IMEISV;
+
+         /* encode even or odd indicator */
+         buf[*indx] |= mi->evenOddInd << 3;
+
+         /* encode first digit */
+         buf[(*indx)++] |= mi->u.imei.id[0] << 4;
+
+         while ((digs < mi->len) && (digs < CM_EMM_MAX_IMEI_DIGS))
+         {
+            if (digs % 2)
+            {
+               buf[*indx] = mi->u.imei.id[digs];
+            }
+            else
+            {
+               buf[(*indx)++] |= mi->u.imei.id[digs] << 4;
+            }
+            digs++;
+         }
+
+         if (mi->len % 2 == 0)
+         {
+            buf[(*indx)++] |= 0xf0;
+         }
+
+         /* calculate length */
+         tmpLen = mi->len / 2 + 1;
+
+         /* fill length */
+         buf[lenIndx] = tmpLen;
          break;
       }
-#endif
+
       case CM_EMM_MID_TYPE_TMSI:
       {
          /* encode spare bits */
