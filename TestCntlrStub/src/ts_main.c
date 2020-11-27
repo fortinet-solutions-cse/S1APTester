@@ -124,6 +124,7 @@ static int init_timer(void)
 int main(int argc, char *argv[])
 {
    int noOfUe = 0;
+   int ueAttachTime;
    unsigned char id = 0;
    int flag = 0, eof = 0, isFile = 0, maxue = 0, currue = 0;
    unsigned char ueIdLst[20] = {0};
@@ -194,7 +195,7 @@ int main(int argc, char *argv[])
       exit(1);
    }
 
-   if (argc == 2)
+   if (argc > 1)
    {
       if (!strcmp(argv[1], "ENodeBConfig"))
       {
@@ -310,8 +311,17 @@ int main(int argc, char *argv[])
    }
 
    /* Configure Ue App */
+   if (argc < 2) {
+      printf("UE tests require the <num UEs> parameter");
+      exit(1);
+   }
    tsUeAppConfig();
-   noOfUe = (int)atoi(argv[2]);
+   noOfUe = atoi(argv[2]);
+   if (argc == 4) {
+      ueAttachTime = atoi(argv[3]);
+   } else {
+      ueAttachTime = 30; // 30 seconds default time between UE attach and detach
+   }
 
    /* Read imsi from file and send ue config request for 
     * required num of Ues */
@@ -324,13 +334,13 @@ int main(int argc, char *argv[])
    /* Configure EnodeB App */
    enbCfgWithS1Setup();
 
-   if (argc > 3)
+   if (argc > 4)
    {
       printf("[Stub] ERROR: Excess command line arguments !\n");
       exit(0);
    }
 
-   for (;((argc == 3) && !eof); )
+   for (;((argc > 2) && !eof); )
    {
       if(isFile)
       {
@@ -355,8 +365,8 @@ int main(int argc, char *argv[])
             tsStepByStepAttachWithImsi(id);
          }
 
+         sleep(ueAttachTime);
          printf("[Stub] Detaching UEs...\n");
-         sleep(2);
 
          for (id = 1; id <= noOfUe; id++)
          {
@@ -385,8 +395,8 @@ int main(int argc, char *argv[])
             tsStepByStepAttachWithGuti(id);
          }
 
+         sleep(ueAttachTime);
          printf("[Stub] Detaching UEs...\n");
-         sleep(2);
 
          for (id = 1; id <= noOfUe; id++)
          {
@@ -404,8 +414,8 @@ int main(int argc, char *argv[])
             tsStepByStepReAttach(id);
          }
 
+         sleep(ueAttachTime);
          printf("[Stub] Detaching UEs...\n");
-         sleep(2);
 
          for (id = 1; id <= noOfUe; id++)
          {
@@ -422,9 +432,9 @@ int main(int argc, char *argv[])
             tsCompleteAttach(id);
          }
 
+         sleep(ueAttachTime);
          printf("[Stub] Detaching UEs...\n");
-         sleep(2);
-
+   
          for (id = 1; id <= noOfUe; id++)
          {
             tsSendDetachRequest(id, UE_SWITCHOFF_DETACH, UE_IN_CONNECTED_MODE);
@@ -440,8 +450,8 @@ int main(int argc, char *argv[])
             tsAttach_PCO_DRX(id);
          }
 
+         sleep(ueAttachTime);
          printf("[Stub] Detaching UEs...\n");
-         sleep(10);
 
          for (id = 1; id <= noOfUe; id++)
          {
@@ -458,8 +468,8 @@ int main(int argc, char *argv[])
             tsAttachEmergency(id);
          }
 
+         sleep(ueAttachTime);
          printf("[Stub] Detaching UEs...\n");
-         sleep(10);
 
          for (id = 1; id <= noOfUe; id++)
          {
@@ -476,8 +486,8 @@ int main(int argc, char *argv[])
             tsAttachWithAUTV(id);
          }
 
+         sleep(ueAttachTime);
          printf("[Stub] Detaching UEs...\n");
-         sleep(10);
 
          for (id = 1; id <= noOfUe; id++)
          {

@@ -1494,7 +1494,7 @@ void tsCompleteAttach(unsigned char ueId)
    tfwApi(UE_END_TO_END_ATTACH_REQUEST, msgptr);
    free(msgptr);
 
-   /* Wait for Initial Context Setup indication */
+   /* Wait for Initial Context Setup indication 
    if (TC_msg_recv(INT_CTX_SETUP_IND, 10)== SUCC)
    {
       printf("\n[Stub] Received Initial Context Setup indication\n");
@@ -1503,7 +1503,7 @@ void tsCompleteAttach(unsigned char ueId)
    {
       printf("\n[Stub] Initial Context Setup indication failed\n");
    }
-
+   */
    /* Wait for Attach Accept indication */
    if (TC_msg_recv(UE_ATTACH_ACCEPT_IND, 10) == SUCC)
    {
