@@ -1,2 +1,1 @@
-TFW_IP_ADDR 172.16.5.7
-CFGEND
+../../TestCntlrApp/cfg/tfwAppcfg.txt

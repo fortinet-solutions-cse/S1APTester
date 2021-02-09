@@ -23,20 +23,20 @@
 **********************************************************************/
 
 #include <stdbool.h>
-#include "envopt.h"        /* environment options */
-#include "envdep.h"        /* environment dependent */
-#include "envind.h"        /* environment independent */
-#include "gen.h"           /* General */
-#include "ssi.h"           /* System Services */
-#include "cm_tkns.h"       /* common tokens */
-#include "cm_hash.h"       /* common structs 1 */
-#include "cm_mblk.h"       /* common memory */
-#include "cm_llist.h"      /* cm link list */
-#include "cm5.h"           /* common structs 3 */
-#include "cm_inet.h"       /* common tokens  */
-#include "cm_tkns.h"       /* common tokens */
-#include "cm_tpt.h"        /* common transport */
-#include "cm_dns.h"        /* common DNS library */
+#include "envopt.h"   /* environment options */
+#include "envdep.h"   /* environment dependent */
+#include "envind.h"   /* environment independent */
+#include "gen.h"      /* General */
+#include "ssi.h"      /* System Services */
+#include "cm_tkns.h"  /* common tokens */
+#include "cm_hash.h"  /* common structs 1 */
+#include "cm_mblk.h"  /* common memory */
+#include "cm_llist.h" /* cm link list */
+#include "cm5.h"      /* common structs 3 */
+#include "cm_inet.h"  /* common tokens  */
+#include "cm_tkns.h"  /* common tokens */
+#include "cm_tpt.h"   /* common transport */
+#include "cm_dns.h"   /* common DNS library */
 #include "cm_inet.h"
 #include "cm_tpt.h"
 #include "lfw.h"
@@ -53,22 +53,22 @@
 #include "ue_app.h"
 
 /* Header Include Files (.x) */
-#include "gen.x"           /* General */
-#include "ssi.x"           /* System Services */
-#include "cm_tkns.x"       /* common tokens */
-#include "cm_hash.x"       /* common structs 1 */
-#include "cm_lib.x"        /* common library */
-#include "cm_mblk.x"       /* common memory */
-#include "cm_llist.x"      /* cm link list */
-#include "cm5.x"           /* common structs 3 */
-#include "cm_inet.x"       /* common transport */
-#include "cm_tpt.x"        /* common transport */
-#include "cm_dns.x"        /* common DNS library */
+#include "gen.x"      /* General */
+#include "ssi.x"      /* System Services */
+#include "cm_tkns.x"  /* common tokens */
+#include "cm_hash.x"  /* common structs 1 */
+#include "cm_lib.x"   /* common library */
+#include "cm_mblk.x"  /* common memory */
+#include "cm_llist.x" /* cm link list */
+#include "cm5.x"      /* common structs 3 */
+#include "cm_inet.x"  /* common transport */
+#include "cm_tpt.x"   /* common transport */
+#include "cm_dns.x"   /* common DNS library */
 #include "cm_tkns.x"
 #include "cm_tpt.x"
 #include "lue.x"
 #include "uet.x"
-#include "ue.x"            /* S6a Layer */
+#include "ue.x" /* S6a Layer */
 #include "ue_emm.x"
 #include "ue_esm.x"
 #include "ue_emm_esm.x"
@@ -80,72 +80,70 @@
 
 EXTERN UeAppCb gueAppCb;
 
-EXTERN S16 ueAppEdmEncode(CmNasEvnt*, NhuDedicatedInfoNAS*);
-EXTERN PUBLIC S16 ueSendUeRadCapInd(UeCb*);
-EXTERN S16 ueSendToTfwApp(UetMessage*, Pst*);
-EXTERN S16 ueSendInitialUeMsg(NbuInitialUeMsg*, Pst*);
-EXTERN S16 ueSendUlNasMsgToNb(NbuUlNasMsg*, Pst*);
-EXTERN S16 ueSendUlRrcMsgToNb(NbuUlRrcMsg*, Pst*);
-EXTERN S16 ueDbmFetchUe(U32, PTR*);
-EXTERN S16 ueDbmAddUe(UeCb*);
+EXTERN S16 ueAppEdmEncode(CmNasEvnt *, NhuDedicatedInfoNAS *);
+EXTERN PUBLIC S16 ueSendUeRadCapInd(UeCb *);
+EXTERN S16 ueSendToTfwApp(UetMessage *, Pst *);
+EXTERN S16 ueSendInitialUeMsg(NbuInitialUeMsg *, Pst *);
+EXTERN S16 ueSendUlNasMsgToNb(NbuUlNasMsg *, Pst *);
+EXTERN S16 ueSendUlRrcMsgToNb(NbuUlRrcMsg *, Pst *);
+EXTERN S16 ueDbmFetchUe(U32, PTR *);
+EXTERN S16 ueDbmAddUe(UeCb *);
 EXTERN S16 ueDbmDelAllUe(Void);
 EXTERN S16 ueDbmInit(Void);
 EXTERN S16 ueDbmDeInit(Void);
-EXTERN S16 ueAppBldAndSndIpAddrToNb(U8, U8*, U8, Pst*);
-EXTERN S16 ueDbmFetchUeWithS_TMSI(UePagingMsg*, PTR*);
-EXTERN S16 ueDbmDelUe(UeAppCb*, U32);
-EXTERN S16 ueUiProcErabsInfoMsg(Pst*, NbuErabsInfo*);
-EXTERN S16 ueAppBldAndSndIpInfoRspToNb(UeCb*, U8, Pst*);
-PUBLIC S16 ueSendErabRelInd(NbuErabRelIndList*, Pst*);
-PRIVATE S16 ueProcUeActvDedBerAcc(UetMessage *p_ueMsg,Pst *pst);
-PRIVATE S16 ueProcUeDeActvBerAcc(UetMessage *p_ueMsg,Pst *pst);
+EXTERN S16 ueAppBldAndSndIpAddrToNb(U8, U8 *, U8, Pst *);
+EXTERN S16 ueDbmFetchUeWithS_TMSI(UePagingMsg *, PTR *);
+EXTERN S16 ueDbmDelUe(UeAppCb *, U32);
+EXTERN S16 ueUiProcErabsInfoMsg(Pst *, NbuErabsInfo *);
+EXTERN S16 ueAppBldAndSndIpInfoRspToNb(UeCb *, U8, Pst *);
+PUBLIC S16 ueSendErabRelInd(NbuErabRelIndList *, Pst *);
+PRIVATE S16 ueProcUeActvDedBerAcc(UetMessage *p_ueMsg, Pst *pst);
+PRIVATE S16 ueProcUeDeActvBerAcc(UetMessage *p_ueMsg, Pst *pst);
 PRIVATE S16 ueAppUtlBldActDedBerContextReject(UeCb *ueCb, CmNasEvnt **esmEvnt,
-                U8 epsBearerId, U8 esmCause);
-PRIVATE Void ueAppAuthHexDump
-(
-U8    *buf,
-U16   len
-);
-PRIVATE S16 ueProcUeActvDedBerRej(UetMessage *p_ueMsg,Pst *pst);
+                                              U8 epsBearerId, U8 esmCause);
+PRIVATE Void ueAppAuthHexDump(
+    U8 *buf,
+    U16 len);
+PRIVATE S16 ueProcUeActvDedBerRej(UetMessage *p_ueMsg, Pst *pst);
 PRIVATE S16 ueAppBuildAndSendActDefltBerContextAccept(UeCb *ueCb, U8 bearerId);
 PRIVATE S16 ueAppBuildAndSendActDedBerContextAccept(UeCb *ueCb, U8 bearerId);
 PRIVATE S16 ueAppBuildAndSendDeActvBerContextAccept(UeCb *ueCb, U8 bearerId);
-PRIVATE S16 ueAppBuildAndSendActDedBerContextReject(UeCb *ueCb, U8 bearerId,U8 esmCause);
+PRIVATE S16 ueAppBuildAndSendActDedBerContextReject(UeCb *ueCb, U8 bearerId, U8 esmCause);
 PRIVATE S16 ueAppEdmDecode(NhuDedicatedInfoNAS *nasPdu, CmNasEvnt **ueEvnt);
-PRIVATE S16 ueAppSendIncActDedBerReqInd(UeCb *ueCb,U8 drbIdx);
-PRIVATE S16 ueAppEsmHndlIncActDedBearerReq(UeEsmCb*,CmNasEvnt*,UeCb*,U8);
-PRIVATE S16 ueAppUtlBldBearerResAllocReq (CmNasEvnt**,UeUetBearerAllocReq*);
+PRIVATE S16 ueAppSendIncActDedBerReqInd(UeCb *ueCb, U8 drbIdx);
+PRIVATE S16 ueAppEsmHndlIncActDedBearerReq(UeEsmCb *, CmNasEvnt *, UeCb *, U8);
+PRIVATE S16 ueAppUtlBldBearerResAllocReq(CmNasEvnt **, UeUetBearerAllocReq *);
 PRIVATE S16 ueProcUeAppConfigReq(UetMessage *pCfgReq, Pst *pst);
 PRIVATE S16 ueProcUeConfigReq(UetMessage *pCfgReq, Pst *pst);
 PRIVATE S16 sendUeAppCfgCompInd(Void);
 PRIVATE S16 sendUeConfigCompInd(Void);
 PRIVATE S16 ueAppGetDrb(UeCb *ueCb, U8 *drb);
-PRIVATE S16 ueAppUtlBldIdentResp(UeCb*, CmNasEvnt**, U8);
-PRIVATE S16 ueAppUtlBldAuthResp(UeCb*, CmNasEvnt**, CmEmmAuthPrmRES*);
+PRIVATE S16 ueAppUtlBldIdentResp(UeCb *, CmNasEvnt **, U8);
+PRIVATE S16 ueAppUtlBldAuthResp(UeCb *, CmNasEvnt **, CmEmmAuthPrmRES *);
 PRIVATE S16 ueAppSndIdentResponse(UeCb *ueCb, U8 idType);
-PRIVATE S16 ueAppSndAuthResponse(UeCb *ueCb, UeSQN sqnRcvd,UeSQN maxSqnRcvd,UeRand randRcvd);
+PRIVATE S16 ueAppSndAuthResponse(UeCb *ueCb, UeSQN sqnRcvd, UeSQN maxSqnRcvd, UeRand randRcvd);
 PRIVATE S16 ueProcUeIdentResp(UetMessage *tfwMsg, Pst *pst);
 PRIVATE S16 ueProcUeAuthResp(UetMessage *tfwMsg, Pst *pst);
 PRIVATE S16 ueAppUtlBldPdnConReq(UeCb *ueCb,
-	        CmNasEvnt **esmEvnt, UeEsmProtCfgOpt *protCfgOpt, U32 pdnType, Bool eti);
-PRIVATE S16 ueAppUtlBldAttachReq(UeCb*, CmNasEvnt**, U8, U8,U8,
-	        UeEmmNasAddUpdType*,UeEsmProtCfgOpt*,UeEmmDrxPrm*, U32 pdnType, Bool eti);
+                                 CmNasEvnt **esmEvnt, UeEsmProtCfgOpt *protCfgOpt, U32 pdnType, Bool eti);
+PRIVATE S16 ueAppUtlBldAttachReq(UeCb *, CmNasEvnt **, U8, U8, U8,
+                                 UeEmmNasAddUpdType *, UeEsmProtCfgOpt *, UeEmmDrxPrm *, U32 pdnType, Bool eti);
 PRIVATE S16 ueAppEsmHndlOutActDefBearerAcc(UeEsmCb *esmCb, CmNasEvnt *evnt);
 PRIVATE S16 ueAppEsmHndlOutActDedBearerAcc(UeEsmCb *esmCb, CmNasEvnt *evnt);
 PRIVATE S16 ueAppEsmHndlOutActDedBearerRej(UeEsmCb *esmCb, CmNasEvnt *evnt);
 PRIVATE S16 ueAppEsmHndlOutBerResAllocReq(UeEsmCb *esmCb, CmNasEvnt *evnt);
 PRIVATE S16 ueAppEsmHndlOutPDNConnectReq(UeEsmCb *esmCb, CmNasEvnt *evnt);
 PRIVATE S16 ueAppUtlAddEsmCb(UeEsmCb **esmCb, UeCb *ueCb);
-PRIVATE S16 ueAppUtlFndEsmCb(UeEsmCb**, U8, UeAppEsmKeyType, UeCb*);
+PRIVATE S16 ueAppUtlFndEsmCb(UeEsmCb **, U8, UeAppEsmKeyType, UeCb *);
 PRIVATE S16 ueAppEsmHndlInvEvnt(UeEsmCb *esmCb, CmNasEvnt *evnt, UeCb *ueCb);
 PRIVATE S16 ueAppEsmHdlOutUeEvnt(CmNasEvnt *evnt, UeCb *ueCb);
 PRIVATE S16 ueProcUeAttachReq(UetMessage *p_ueMsg, Pst *pst);
 PRIVATE S16 ueAppUtlBldSecModComplete(UeCb *ueCb, CmNasEvnt **ueEvt);
 PRIVATE S16 ueAppUtlBldSecModReject(UeCb *ueCb, CmNasEvnt **ueEvt, U8 cause);
-PRIVATE S16 ueAppUtlBldActDefltBerContextAccept(UeCb*, CmNasEvnt**, U8);
-PRIVATE S16 ueAppUtlBldActDedBerContextAccept(UeCb*, CmNasEvnt**, U8);
-PRIVATE S16 ueAppUtlBldDeActvBerContextAccept(UeCb*, CmNasEvnt**, U8);
-PRIVATE S16 ueAppUtlBldActDedBerContextReject(UeCb*, CmNasEvnt**, U8,U8);
+PRIVATE S16 ueAppUtlBldActDefltBerContextAccept(UeCb *, CmNasEvnt **, U8);
+PRIVATE S16 ueAppUtlBldActDedBerContextAccept(UeCb *, CmNasEvnt **, U8);
+PRIVATE S16 ueAppUtlBldDeActvBerContextAccept(UeCb *, CmNasEvnt **, U8);
+PRIVATE S16 ueAppUtlBldActDedBerContextReject(UeCb *, CmNasEvnt **, U8, U8);
 PRIVATE S16 ueAppUtlBldAttachComplete(UeCb *ueCb, CmNasEvnt **ueEvt);
 PRIVATE S16 ueAppSndAttachComplete(UeCb *ueCb);
 PRIVATE S16 ueProcUeAttachComplete(UetMessage *p_ueMsg, Pst *pst);
@@ -157,81 +155,81 @@ PRIVATE S16 ueAppEmmHndlInDetachAccept(CmNasEvnt *evnt, UeCb *ueCb);
 PRIVATE S16 ueAppEmmHndlInIdentReq(CmNasEvnt *evnt, UeCb *ueCb);
 PRIVATE S16 ueAppEmmHndlInAuthReq(CmNasEvnt *evnt, UeCb *ueCb);
 PRIVATE S16 ueAppEmmHndlInSecModecmd(CmNasEvnt *evnt, UeCb *ueCb);
-PRIVATE S16 ueAppEsmHndlIncActDefBearerReq(UeEsmCb*, CmNasEvnt*, UeCb*,U8*,U8);
-PRIVATE S16 ueAppEmmHndlInAttachAccept(CmNasEvnt *evnt, UeCb  *ueCb);
-EXTERN S16 ueUiProcIpInfoReqMsg(UeCb * p_ueCb, U8 bearerId);
+PRIVATE S16 ueAppEsmHndlIncActDefBearerReq(UeEsmCb *, CmNasEvnt *, UeCb *, U8 *, U8);
+PRIVATE S16 ueAppEmmHndlInAttachAccept(CmNasEvnt *evnt, UeCb *ueCb);
+EXTERN S16 ueUiProcIpInfoReqMsg(UeCb *p_ueCb, U8 bearerId);
 EXTERN S16 ueUiProcIpInfoUpdtMsg(UeCb *p_ueCb, NbuUeIpInfoUpdt *);
 PRIVATE S16 ueAppEsmHndlOutEsmInformationRsp(UeEsmCb *esmCb, CmNasEvnt *evnt);
 #if 0
 PRIVATE S16 handleUeCntxtRcvdIndFromEnb(UeCb *ueCb);
 #endif
-PRIVATE S16 ueAppUtlBldDetachReq(UeCb*, CmNasEvnt**, U8, U8, U8);
+PRIVATE S16 ueAppUtlBldDetachReq(UeCb *, CmNasEvnt **, U8, U8, U8);
 PRIVATE S16 ueSendDetachRequest(UeCb *ueCb, U8 detCause);
 PRIVATE S16 ueProcUeDetachRequest(UetMessage *p_ueMsg, Pst *pst);
-PRIVATE S16 ueBldIdentReqIndMsgToTfw(UetMessage *tfwMsg, UeCb*, U8);
+PRIVATE S16 ueBldIdentReqIndMsgToTfw(UetMessage *tfwMsg, UeCb *, U8);
 PRIVATE S16 ueBldAuthReqIndMsgToTfw(UetMessage *tfwMsg, UeCb *ueCb);
 PRIVATE S16 ueAppUtlBldAuthFailure(UeCb *ueCb, CmNasEvnt **ueEvt);
 PRIVATE S16 ueBldSecModeCmdIndToTfw(UetMessage *tfwMsg, UeCb *ueCb);
 PRIVATE S16 ueBldAttachAcceptToTfw(UetMessage *tfwMsg, UeCb *ueCb);
 PRIVATE Void updateGutiInUeCb(UeCb *ueCb, CmEmmEpsMI *guti);
 PRIVATE S16 compareGutiInUeCb(UeCb *ueCb, CmEmmEpsMI *epsMi);
-PRIVATE Void reverse(U8* str);
-PRIVATE U8* itoa(int num, U8* str, int base);
+PRIVATE Void reverse(U8 *str);
+PRIVATE U8 *itoa(int num, U8 *str, int base);
 PUBLIC Void populateIpInfo(UeCb *ueCb, U8 bearerId, NbuUeIpInfoRsp *);
 PRIVATE S16 ueAppRcvEmmMsg(CmNasEvnt *evnt, U8 emmMsgType, UeCb *ueCb);
 PRIVATE S16 ueAppUtlMovEsmCbTransToBid(UeEsmCb *esmCb, UeCb *ueCb);
-PRIVATE S16 uefillDefEsmInfoToUeCb(UeCb *ueCb, CmNasEvnt*, U8, U8);
-PRIVATE S16 ueAppEsmHdlIncUeEvnt(CmNasEvnt*, UeCb*, U8);
+PRIVATE S16 uefillDefEsmInfoToUeCb(UeCb *ueCb, CmNasEvnt *, U8, U8);
+PRIVATE S16 ueAppEsmHdlIncUeEvnt(CmNasEvnt *, UeCb *, U8);
 PRIVATE S16 ueAppEmmHdlIncUeEvnt(CmNasEvnt *ueEvnt, UeCb *ueCb);
 PRIVATE S16 ueProcUeTauRequest(UetMessage *p_ueMsg, Pst *pst);
 PRIVATE S16 ueProcUeTauComplete(UetMessage *p_ueMsg, Pst *pst);
-PRIVATE S16 ueAppUtlBldTauReq(UeCb *ueCb, CmNasEvnt**, UetMessage*);
+PRIVATE S16 ueAppUtlBldTauReq(UeCb *ueCb, CmNasEvnt **, UetMessage *);
 PRIVATE S16 ueAppUtlBldTauComp(UeCb *ueCb, CmNasEvnt **ueEvt);
-PRIVATE S16 ueBldTauAcceptToTfw(UetMessage*, CmEmmTAUAccept*, UeCb*);
-PRIVATE S16 ueBldAttachRejectIndToTfw(UetMessage*, UeCb*, U8);
-PRIVATE S16 ueBldServiceRejectIndToTfw(UetMessage*, UeCb*, U8);
-PRIVATE S16 ueBldDetachAcceptIndToTfw(UetMessage*, UeCb*, U8);
-PRIVATE S16 ueProcUeAttachFail(UetMessage*, Pst*);
+PRIVATE S16 ueBldTauAcceptToTfw(UetMessage *, CmEmmTAUAccept *, UeCb *);
+PRIVATE S16 ueBldAttachRejectIndToTfw(UetMessage *, UeCb *, U8);
+PRIVATE S16 ueBldServiceRejectIndToTfw(UetMessage *, UeCb *, U8);
+PRIVATE S16 ueBldDetachAcceptIndToTfw(UetMessage *, UeCb *, U8);
+PRIVATE S16 ueProcUeAttachFail(UetMessage *, Pst *);
 PRIVATE S16 ueAppUtlBldServiceReq(UeCb *ueCb, CmNasEvnt **ueEvt);
 PRIVATE S16 ueSendServiceRequest(UeCb *ueCb, U32 mTmsi, U8 rrcCause);
 PRIVATE S16 ueProcUeServiceRequest(UetMessage *p_ueMsg, Pst *pst);
 PRIVATE S16 ueAppEmmHndlInAttachReject(CmNasEvnt *evnt, UeCb *ueCb);
 PRIVATE S16 ueBldTauRejectIndToTfw(UetMessage *tfwMsg, UeCb *ueCb, U8 cause);
 PRIVATE S16 ueAppEmmHndlInTauReject(CmNasEvnt *evnt, UeCb *ueCb);
-PRIVATE S16 ueProcUePdnConReq(UetMessage *p_ueMsg,Pst *pst);
-PRIVATE S16 ueAppUtlBldStandAlonePdnConReq(CmNasEvnt**, UeUetPdnConReq*);
-PRIVATE S16 ueUiBldAndSendPagingInfo(UeCb*, UePagingMsg*);
-PUBLIC S16 ueUiProcPagingMsg(UePagingMsg*, Pst*);
-PUBLIC S16 ueUiProcessTfwMsg(UetMessage*, Pst*);
-PUBLIC S16 ueUiProcessNbMsg(NbuDlNasMsg*, Pst*);
-PRIVATE S16 ueProcUeBearResAllocReq(UetMessage *p_ueMsg,Pst *pst);
+PRIVATE S16 ueProcUePdnConReq(UetMessage *p_ueMsg, Pst *pst);
+PRIVATE S16 ueAppUtlBldStandAlonePdnConReq(CmNasEvnt **, UeUetPdnConReq *);
+PRIVATE S16 ueUiBldAndSendPagingInfo(UeCb *, UePagingMsg *);
+PUBLIC S16 ueUiProcPagingMsg(UePagingMsg *, Pst *);
+PUBLIC S16 ueUiProcessTfwMsg(UetMessage *, Pst *);
+PUBLIC S16 ueUiProcessNbMsg(NbuDlNasMsg *, Pst *);
+PRIVATE S16 ueProcUeBearResAllocReq(UetMessage *p_ueMsg, Pst *pst);
 PRIVATE S16 ueAppFillLinkedBrIdAndSendErabRelInd(UeCb *ueCb, UeErabRelInd *pErabRel);
 PRIVATE S16 ueAppEmmHndlInEmmInformation(CmNasEvnt *evnt, UeCb *ueCb);
 PRIVATE S16 ueBldEmmInformationToTfw(UetMessage *tfwMsg, UeCb *ueCb);
 PRIVATE S16 ueAppEmmHndlInAuthReject(CmNasEvnt *evnt, UeCb *ueCb);
 PRIVATE S16 ueBldAuthRejToTfw(UetMessage *tfwMsg, UeCb *ueCb);
-PRIVATE S16 ueAppEsmHndlIncDeActvBearerReq(UeEsmCb*,CmNasEvnt*,UeCb*,U8);
-PRIVATE S16 ueAppSendIncDeActvBerReqInd(UeCb *ueCb,U8 bId);
+PRIVATE S16 ueAppEsmHndlIncDeActvBearerReq(UeEsmCb *, CmNasEvnt *, UeCb *, U8);
+PRIVATE S16 ueAppSendIncDeActvBerReqInd(UeCb *ueCb, U8 bId);
 PRIVATE S16 ueProcUeEsmInformationRsp(UetMessage *p_ueMsg, Pst *pst);
 PRIVATE S16 ueAppEsmHndlIncEsmInfoReq(UeEsmCb *esmCb, CmNasEvnt *evnt, UeCb *ueCb);
-PRIVATE S16 ueAppUtlBldEsmInformationRsp(CmNasEvnt **esmEvnt, UeUetEsmInformationRsp  *ueEsmInformationRsp);
-PRIVATE S16 ueProcUePdnDisconnectReq(UetMessage *p_ueMsg,Pst *pst);
+PRIVATE S16 ueAppUtlBldEsmInformationRsp(CmNasEvnt **esmEvnt, UeUetEsmInformationRsp *ueEsmInformationRsp);
+PRIVATE S16 ueProcUePdnDisconnectReq(UetMessage *p_ueMsg, Pst *pst);
 PRIVATE S16 ueAppUtlBldStandAlonePdnDisconnectReq(
-  CmNasEvnt **esmEvnt,
-  UeUetPdnDisconnectReq *ueUetPdnDisConReq);
+    CmNasEvnt **esmEvnt,
+    UeUetPdnDisconnectReq *ueUetPdnDisConReq);
 PRIVATE S16 ueAppEsmHndlOutPDNDisConnectReq(UeEsmCb *esmCb, CmNasEvnt *evnt);
-PRIVATE S16 ueAppEsmHndlIncPdnDisconRej(UeEsmCb *esmCb,CmNasEvnt *evnt,
-  UeCb *ueCb);
+PRIVATE S16 ueAppEsmHndlIncPdnDisconRej(UeEsmCb *esmCb, CmNasEvnt *evnt,
+                                        UeCb *ueCb);
 void ueSendErabSetupRspForFailedBearers(NbuErabsInfo *pNbuErabsInfo);
 PRIVATE S16 ueProcUeStandAloneActvDfltBerCtxtRej(UetMessage *p_ueMsg, Pst *pst);
 PRIVATE S16 ueAppBuildAndSendActDefltBerContextReject(UeCb *ueCb, U8 bearerId);
 
 PRIVATE S16 ueAppGetDrb(UeCb *ueCb, U8 *drb)
 {
-   U8  idx;
+   U8 idx;
 
    /* drb id can range between 1..32 */
-   for(idx = 1; idx < UE_APP_MAX_DRBS; idx++)
+   for (idx = 1; idx < UE_APP_MAX_DRBS; idx++)
    {
       if (ueCb->drbs[idx] == UE_APP_DRB_AVAILABLE)
       {
@@ -256,15 +254,13 @@ PRIVATE S16 ueAppGetDrb(UeCb *ueCb, U8 *drb)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlBldIdentResp
-(
-   UeCb *ueCb,
-   CmNasEvnt **ueEvt,
-   U8 idType
-)
+PRIVATE S16 ueAppUtlBldIdentResp(
+    UeCb *ueCb,
+    CmNasEvnt **ueEvt,
+    U8 idType)
 {
    CmEmmIdRsp *identRsp;
-   CmEmmMsg* emmMsg;
+   CmEmmMsg *emmMsg;
    UeAppCb *ueAppCb;
 
    UE_GET_CB(ueAppCb);
@@ -278,7 +274,7 @@ PRIVATE S16 ueAppUtlBldIdentResp
    }
 
    /* Allocate memory for pdu */
-   CM_ALLOC_NASEVNT (ueEvt, CM_EMM_PD);
+   CM_ALLOC_NASEVNT(ueEvt, CM_EMM_PD);
 
    if (*ueEvt == NULLP)
    {
@@ -308,35 +304,33 @@ PRIVATE S16 ueAppUtlBldIdentResp
    /* Fill mandatory IEs */
    switch (idType)
    {
-      case CM_EMM_MID_TYPE_IMSI:
-      {
-         UE_LOG_DEBUG(ueAppCb, "Filling IMSI in Identity Response");
-         identRsp->msId.pres = TRUE;
-         identRsp->msId.type = CM_EMM_MID_TYPE_IMSI;
-         identRsp->msId.len = ueCb->ueCtxt.imsiLen;
-         identRsp->msId.evenOddInd = (((identRsp->msId.len) % 2) != 0) ? \
-                                       (UE_ODD):(UE_EVEN);
-         cmMemcpy((U8 *)&identRsp->msId.u.imsi.id,
-                  (U8 *)&ueCb->ueCtxt.ueImsi, identRsp->msId.len);
-         break;
-      }
-      case CM_EMM_MID_TYPE_IMEI:
-      {
-         UE_LOG_DEBUG(ueAppCb, "Filling IMEI in Identity Response");
-         identRsp->msId.pres = TRUE;
-         identRsp->msId.type = CM_EMM_MID_TYPE_IMEI;
-         identRsp->msId.len = CM_EMM_MAX_IMEI_DIGS;
-         identRsp->msId.evenOddInd = (((identRsp->msId.len) % 2) != 0) ? \
-                                       (UE_ODD):(UE_EVEN);
-         cmMemcpy((U8 *)&identRsp->msId.u.imei.id,
-                  (U8 *)&ueCb->ueCtxt.ueImei, identRsp->msId.len);
-         break;
-      }
-      default:
-      {
-         UE_LOG_ERROR(ueAppCb, "Invalid idType");
-         RETVALUE(RFAILED);
-      }
+   case CM_EMM_MID_TYPE_IMSI:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Filling IMSI in Identity Response");
+      identRsp->msId.pres = TRUE;
+      identRsp->msId.type = CM_EMM_MID_TYPE_IMSI;
+      identRsp->msId.len = ueCb->ueCtxt.imsiLen;
+      identRsp->msId.evenOddInd = (((identRsp->msId.len) % 2) != 0) ? (UE_ODD) : (UE_EVEN);
+      cmMemcpy((U8 *)&identRsp->msId.u.imsi.id,
+               (U8 *)&ueCb->ueCtxt.ueImsi, identRsp->msId.len);
+      break;
+   }
+   case CM_EMM_MID_TYPE_IMEI:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Filling IMEI in Identity Response");
+      identRsp->msId.pres = TRUE;
+      identRsp->msId.type = CM_EMM_MID_TYPE_IMEI;
+      identRsp->msId.len = CM_EMM_MAX_IMEI_DIGS;
+      identRsp->msId.evenOddInd = (((identRsp->msId.len) % 2) != 0) ? (UE_ODD) : (UE_EVEN);
+      cmMemcpy((U8 *)&identRsp->msId.u.imei.id,
+               (U8 *)&ueCb->ueCtxt.ueImei, identRsp->msId.len);
+      break;
+   }
+   default:
+   {
+      UE_LOG_ERROR(ueAppCb, "Invalid idType");
+      RETVALUE(RFAILED);
+   }
    }
 
    RETVALUE(OK);
@@ -355,15 +349,13 @@ PRIVATE S16 ueAppUtlBldIdentResp
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlBldAuthResp
-(
- UeCb *ueCb,
- CmNasEvnt **ueEvt,
- CmEmmAuthPrmRES *authParmRes
-)
+PRIVATE S16 ueAppUtlBldAuthResp(
+    UeCb *ueCb,
+    CmNasEvnt **ueEvt,
+    CmEmmAuthPrmRES *authParmRes)
 {
    UeAppCb *ueAppCb = NULLP;
-   CmEmmAuthRsp  *authRsp = NULLP;
+   CmEmmAuthRsp *authRsp = NULLP;
    CmEmmMsg *emmMsg = NULLP;
 
    UE_GET_CB(ueAppCb);
@@ -371,14 +363,14 @@ PRIVATE S16 ueAppUtlBldAuthResp
 
    UE_LOG_DEBUG(ueAppCb, "Building Authentication response");
 
-   if(ueEvt == NULLP)
+   if (ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
    /* Allocate memory for pdu */
-   CM_ALLOC_NASEVNT (ueEvt, CM_EMM_PD);
+   CM_ALLOC_NASEVNT(ueEvt, CM_EMM_PD);
 
-   if(*ueEvt == NULLP)
+   if (*ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
@@ -420,14 +412,14 @@ PRIVATE S16 ueAppUtlBldAuthResp
  */
 PRIVATE S16 ueAppSndIdentResponse(UeCb *ueCb, U8 idType)
 {
-   U8                   isPlainMsg   = TRUE;
-   S16                  ret          = ROK;
-   UeAppCb              *ueAppCb;
-   UeAppMsg             srcMsg;
-   UeAppMsg             dstMsg;
-   CmNasEvnt            *identRspEvnt = NULLP;
-   NbuUlNasMsg          *pUlNbMsg    = NULLP;
-   NhuDedicatedInfoNAS  nasEncPdu;
+   U8 isPlainMsg = TRUE;
+   S16 ret = ROK;
+   UeAppCb *ueAppCb;
+   UeAppMsg srcMsg;
+   UeAppMsg dstMsg;
+   CmNasEvnt *identRspEvnt = NULLP;
+   NbuUlNasMsg *pUlNbMsg = NULLP;
+   NhuDedicatedInfoNAS nasEncPdu;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
@@ -514,40 +506,40 @@ PRIVATE S16 ueAppSndIdentResponse(UeCb *ueCb, U8 idType)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppSndAuthResponse(UeCb *ueCb, UeSQN sqnRcvd,UeSQN maxSqnRcvd,UeRand randRcvd)
+PRIVATE S16 ueAppSndAuthResponse(UeCb *ueCb, UeSQN sqnRcvd, UeSQN maxSqnRcvd, UeRand randRcvd)
 {
-   U8                   isPlainMsg   = TRUE;
-   S16                  ret          = ROK;
-   UeAppCb              *ueAppCb = NULLP;
-   UeAppMsg             srcMsg;
-   UeAppMsg             dstMsg;
-   CmNasEvnt            *authRspEvnt = NULLP;
-   CmEmmAuthPrmRES      authParmRes;
-   NbuUlNasMsg          *pUlNbMsg    = NULLP;
-   NhuDedicatedInfoNAS  nasEncPdu;
+   U8 isPlainMsg = TRUE;
+   S16 ret = ROK;
+   UeAppCb *ueAppCb = NULLP;
+   UeAppMsg srcMsg;
+   UeAppMsg dstMsg;
+   CmNasEvnt *authRspEvnt = NULLP;
+   CmEmmAuthPrmRES authParmRes;
+   NbuUlNasMsg *pUlNbMsg = NULLP;
+   NhuDedicatedInfoNAS nasEncPdu;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
 
    UE_LOG_DEBUG(ueAppCb, "Authenticating the MME");
    ret = ueUsimGenAuthRsp(&ueCb->ueInfo,
-         &ueCb->ueAuthKeys,
-         sqnRcvd,
-         ueCb->srvPlmn,
-         ueCb->res.val,
-         ueCb->secCtxt.kasme,
-         &ueCb->authFlr.cause.cause,
-         ueCb->authFlr.failrPrm.authFailPrm,
-         maxSqnRcvd);
+                          &ueCb->ueAuthKeys,
+                          sqnRcvd,
+                          ueCb->srvPlmn,
+                          ueCb->res.val,
+                          ueCb->secCtxt.kasme,
+                          &ueCb->authFlr.cause.cause,
+                          ueCb->authFlr.failrPrm.authFailPrm,
+                          maxSqnRcvd);
 
    if (ROK != ret)
    {
       UE_LOG_DEBUG(ueAppCb, "Authentication Failed, Failure cause is %d",
-            ueCb->authFlr.cause.cause);
+                   ueCb->authFlr.cause.cause);
       printf("Authentication Failed, Failure cause is %d\n",
-            ueCb->authFlr.cause.cause);
+             ueCb->authFlr.cause.cause);
       ueCb->authFlr.cause.pres = TRUE;
-      if(UE_APP_USIM_SYNC_FAILURE == ueCb->authFlr.cause.cause)
+      if (UE_APP_USIM_SYNC_FAILURE == ueCb->authFlr.cause.cause)
       {
          ueCb->authFlr.failrPrm.pres = TRUE;
          ueCb->authFlr.failrPrm.len = UE_AUTS_SIZE;
@@ -555,8 +547,8 @@ PRIVATE S16 ueAppSndAuthResponse(UeCb *ueCb, UeSQN sqnRcvd,UeSQN maxSqnRcvd,UeRa
       ret = ueAppSndAuthFailure(ueCb);
       if (ret != ROK)
       {
-         UE_LOG_ERROR(ueAppCb, "Sending Authentication Failure "\
-               "message to ENB failed");
+         UE_LOG_ERROR(ueAppCb, "Sending Authentication Failure "
+                               "message to ENB failed");
       }
       RETVALUE(ret);
    }
@@ -564,20 +556,20 @@ PRIVATE S16 ueAppSndAuthResponse(UeCb *ueCb, UeSQN sqnRcvd,UeSQN maxSqnRcvd,UeRa
    UE_LOG_DEBUG(ueAppCb, "Sending Authentication response");
 
    /* Fill authParmRes */
-   cmMemset((U8*)&authParmRes, 0, sizeof(CmEmmAuthPrmRES));
+   cmMemset((U8 *)&authParmRes, 0, sizeof(CmEmmAuthPrmRES));
    authParmRes.pres = TRUE;
    authParmRes.len = 16;
-   if(randRcvd.pres == TRUE)
+   if (randRcvd.pres == TRUE)
    {
       U8 ak[UE_USIM_AK_SIZE] = {0};
       U8 ck[UE_USIM_CK_SIZE] = {0};
       U8 ik[UE_USIM_IK_SIZE] = {0};
       U8 res[CM_EMM_MAX_RES] = {0};
       ueUsimCalcAuthKeys(&ueCb->ueInfo, &ueCb->ueAuthKeys,
-      res, ueCb->ueAuthKeys.autn,
-      randRcvd.val,ak,ck,ik);
+                         res, ueCb->ueAuthKeys.autn,
+                         randRcvd.val, ak, ck, ik);
       /* copy random genearted string */
-      cmMemcpy(authParmRes.val,res, 16);
+      cmMemcpy(authParmRes.val, res, 16);
    }
    else
    {
@@ -585,7 +577,7 @@ PRIVATE S16 ueAppSndAuthResponse(UeCb *ueCb, UeSQN sqnRcvd,UeSQN maxSqnRcvd,UeRa
    }
 
    ret = ueAppUtlBldAuthResp(ueCb, &authRspEvnt, &authParmRes);
-   if(ROK != ret)
+   if (ROK != ret)
    {
       UE_LOG_DEBUG(ueAppCb, "Could not Build the Authentication response");
       RETVALUE(ret);
@@ -603,14 +595,14 @@ PRIVATE S16 ueAppSndAuthResponse(UeCb *ueCb, UeSQN sqnRcvd,UeSQN maxSqnRcvd,UeRa
    }
 
    /** Integrity Protected **/
-   if(CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != authRspEvnt->secHT)
+   if (CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != authRspEvnt->secHT)
    {
       isPlainMsg = FALSE;
       srcMsg.val = nasEncPdu.val;
       srcMsg.len = nasEncPdu.len;
       ret = ueAppCmpUplnkSec(&ueCb->secCtxt, authRspEvnt->secHT, &srcMsg,
-            &dstMsg);
-      if(ROK != ret)
+                             &dstMsg);
+      if (ROK != ret)
       {
          UE_LOG_ERROR(ueAppCb, "Uplink Security Failed");
          authRspEvnt->pdu = NULLP;
@@ -630,13 +622,13 @@ PRIVATE S16 ueAppSndAuthResponse(UeCb *ueCb, UeSQN sqnRcvd,UeSQN maxSqnRcvd,UeRa
 
    pUlNbMsg->nasPdu.val = (U8 *)ueAlloc(pUlNbMsg->nasPdu.len);
    cmMemcpy((U8 *)pUlNbMsg->nasPdu.val, (U8 *)nasEncPdu.val,
-         pUlNbMsg->nasPdu.len);
+            pUlNbMsg->nasPdu.len);
 
-   if(isPlainMsg)
+   if (isPlainMsg)
    {
       EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
    }
-   ret = ueSendUlNasMsgToNb(pUlNbMsg,&ueAppCb->nbPst);
+   ret = ueSendUlNasMsgToNb(pUlNbMsg, &ueAppCb->nbPst);
    if (ret != ROK)
    {
       UE_LOG_DEBUG(ueAppCb, "Could not Send the Authentication response.\n");
@@ -671,7 +663,7 @@ PRIVATE S16 ueProcUeIdentResp(UetMessage *tfwMsg, Pst *pst)
    ueId = tfwMsg->msg.ueUetIdentRsp.ueId;
 
    /* Fetching the UeCb */
-   ret = ueDbmFetchUe(ueId, (PTR*)&ueCb);
+   ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
@@ -706,9 +698,9 @@ PRIVATE S16 ueProcUeAuthResp(UetMessage *tfwMsg, Pst *pst)
 {
    S16 ret = ROK;
    U32 ueId;
-   UeSQN sqnRcvd    = {0};
+   UeSQN sqnRcvd = {0};
    UeSQN maxSqnRcvd = {0};
-   UeRand randRcvd  = {0};
+   UeRand randRcvd = {0};
 
    UeAppCb *ueAppCb = NULLP;
    UeCb *ueCb = NULLP;
@@ -718,29 +710,29 @@ PRIVATE S16 ueProcUeAuthResp(UetMessage *tfwMsg, Pst *pst)
    ueId = tfwMsg->msg.ueUetAuthRsp.ueId;
 
    /* Fetching the UeCb */
-   ret = ueDbmFetchUe(ueId, (PTR*)&ueCb);
+   ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
       RETVALUE(ret);
    }
-   if(tfwMsg->msg.ueUetAuthRsp.nonEPSAuthFail == TRUE)
+   if (tfwMsg->msg.ueUetAuthRsp.nonEPSAuthFail == TRUE)
    {
       ueCb->authFlr.cause.cause = UE_APP_USIM_NON_EPS_AUTH_FAIL;
       UE_LOG_DEBUG(ueAppCb, "Authentication Failed, Failure cause is %d",
-	   ueCb->authFlr.cause.cause);
+                   ueCb->authFlr.cause.cause);
       ueCb->authFlr.cause.pres = TRUE;
       ueCb->authFlr.failrPrm.pres = TRUE;
       ueCb->authFlr.failrPrm.len = UE_AUTS_SIZE;
       ret = ueAppSndAuthFailure(ueCb);
       if (ret != ROK)
       {
-         UE_LOG_ERROR(ueAppCb, "Sending Authentication Failure "\
-               "message to ENB failed");
+         UE_LOG_ERROR(ueAppCb, "Sending Authentication Failure "
+                               "message to ENB failed");
       }
       RETVALUE(ret);
    }
-   if(tfwMsg->msg.ueUetAuthRsp.sqnRcvd.pres == TRUE)
+   if (tfwMsg->msg.ueUetAuthRsp.sqnRcvd.pres == TRUE)
    {
       sqnRcvd.pres = TRUE;
       cmMemcpy(sqnRcvd.sqn, tfwMsg->msg.ueUetAuthRsp.sqnRcvd.sqn, 6);
@@ -752,7 +744,7 @@ PRIVATE S16 ueProcUeAuthResp(UetMessage *tfwMsg, Pst *pst)
       sqnRcvd.pres = FALSE;
       cmMemcpy(sqnRcvd.sqn, ueCb->ueAuthKeys.sqnRcvd, 6);
    }
-   if(tfwMsg->msg.ueUetAuthRsp.maxSqnRcvd.pres == TRUE)
+   if (tfwMsg->msg.ueUetAuthRsp.maxSqnRcvd.pres == TRUE)
    {
       maxSqnRcvd.pres = TRUE;
       cmMemcpy(maxSqnRcvd.sqn, tfwMsg->msg.ueUetAuthRsp.maxSqnRcvd.sqn, 6);
@@ -763,7 +755,7 @@ PRIVATE S16 ueProcUeAuthResp(UetMessage *tfwMsg, Pst *pst)
    {
       maxSqnRcvd.pres = FALSE;
    }
-   if(tfwMsg->msg.ueUetAuthRsp.maxSqnRcvd.pres == TRUE)
+   if (tfwMsg->msg.ueUetAuthRsp.maxSqnRcvd.pres == TRUE)
    {
       maxSqnRcvd.pres = TRUE;
       cmMemcpy(maxSqnRcvd.sqn, tfwMsg->msg.ueUetAuthRsp.maxSqnRcvd.sqn, 6);
@@ -774,29 +766,37 @@ PRIVATE S16 ueProcUeAuthResp(UetMessage *tfwMsg, Pst *pst)
    {
       maxSqnRcvd.pres = FALSE;
    }
-   if(tfwMsg->msg.ueUetAuthRsp.randRcvd.pres == TRUE)
+   if (tfwMsg->msg.ueUetAuthRsp.randRcvd.pres == TRUE)
    {
       randRcvd.pres = TRUE;
-      randRcvd.val  =  tfwMsg->msg.ueUetAuthRsp.randRcvd.val;
+      randRcvd.val = tfwMsg->msg.ueUetAuthRsp.randRcvd.val;
       UE_LOG_DEBUG(ueAppCb, "RAND RECEIVED FROM TEST STUB");
       ueAppAuthHexDump(tfwMsg->msg.ueUetAuthRsp.randRcvd.val, 16);
    }
-   if (sqnRcvd.pres){
-   for (int i = 0; i < 6; i++) {
+   if (sqnRcvd.pres)
+   {
+      for (int i = 0; i < 6; i++)
+      {
+      }
    }
-   } else {
+   else
+   {
    }
 
-   if (maxSqnRcvd.pres){
-   for (int i = 0; i < 6; i++) {
+   if (maxSqnRcvd.pres)
+   {
+      for (int i = 0; i < 6; i++)
+      {
+      }
    }
-   } else {
+   else
+   {
    }
-   ret = ueAppSndAuthResponse(ueCb, sqnRcvd,maxSqnRcvd,randRcvd);
+   ret = ueAppSndAuthResponse(ueCb, sqnRcvd, maxSqnRcvd, randRcvd);
    if (ret != ROK)
    {
-      UE_LOG_ERROR(ueAppCb, "Could not send the Auth Response message to "\
-            "eNodeB");
+      UE_LOG_ERROR(ueAppCb, "Could not send the Auth Response message to "
+                            "eNodeB");
       RETVALUE(ret);
    }
    UE_LOG_EXITFN(ueAppCb, ret);
@@ -815,37 +815,40 @@ PRIVATE S16 ueProcUeAuthResp(UetMessage *tfwMsg, Pst *pst)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcUeAuthFailure(UetMessage *tfwMsg, Pst *pst) {
-  S16 ret = ROK;
-  U32 ueId;
+PRIVATE S16 ueProcUeAuthFailure(UetMessage *tfwMsg, Pst *pst)
+{
+   S16 ret = ROK;
+   U32 ueId;
 
-  UeAppCb *ueAppCb = NULLP;
-  UeCb *ueCb = NULLP;
-  UE_GET_CB(ueAppCb);
+   UeAppCb *ueAppCb = NULLP;
+   UeCb *ueCb = NULLP;
+   UE_GET_CB(ueAppCb);
 
-  UE_LOG_ENTERFN(ueAppCb);
-  ueId = tfwMsg->msg.ueUetAuthFailure.ueId;
+   UE_LOG_ENTERFN(ueAppCb);
+   ueId = tfwMsg->msg.ueUetAuthFailure.ueId;
 
-  /* Fetching the UeCb */
-  ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
-  if (ret != ROK) {
-    UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
-    RETVALUE(ret);
-  }
-  ueCb->authFlr.cause.cause = tfwMsg->msg.ueUetAuthFailure.cause;
-  UE_LOG_DEBUG(ueAppCb, "Authentication Failed, Failure cause is %d",
-               ueCb->authFlr.cause.cause);
-  ueCb->authFlr.cause.pres = TRUE;
-  ueCb->authFlr.failrPrm.pres = TRUE;
-  ueCb->authFlr.failrPrm.len = UE_AUTS_SIZE;
-  ret = ueAppSndAuthFailure(ueCb);
-  if (ret != ROK) {
-    UE_LOG_ERROR(ueAppCb,
-                 "Sending Authentication Failure "
-                 "message to ENB failed");
-  }
-  UE_LOG_EXITFN(ueAppCb, ret);
-  RETVALUE(ret);
+   /* Fetching the UeCb */
+   ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
+   if (ret != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
+      RETVALUE(ret);
+   }
+   ueCb->authFlr.cause.cause = tfwMsg->msg.ueUetAuthFailure.cause;
+   UE_LOG_DEBUG(ueAppCb, "Authentication Failed, Failure cause is %d",
+                ueCb->authFlr.cause.cause);
+   ueCb->authFlr.cause.pres = TRUE;
+   ueCb->authFlr.failrPrm.pres = TRUE;
+   ueCb->authFlr.failrPrm.len = UE_AUTS_SIZE;
+   ret = ueAppSndAuthFailure(ueCb);
+   if (ret != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb,
+                   "Sending Authentication Failure "
+                   "message to ENB failed");
+   }
+   UE_LOG_EXITFN(ueAppCb, ret);
+   RETVALUE(ret);
 }
 /*
  *
@@ -860,11 +863,9 @@ PRIVATE S16 ueProcUeAuthFailure(UetMessage *tfwMsg, Pst *pst) {
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppEdmDecode
-(
- NhuDedicatedInfoNAS *nasPdu,
- CmNasEvnt **ueEvnt
-)
+PRIVATE S16 ueAppEdmDecode(
+    NhuDedicatedInfoNAS *nasPdu,
+    CmNasEvnt **ueEvnt)
 {
    UeAppCb *ueAppCb = NULLP;
 
@@ -876,41 +877,38 @@ PRIVATE S16 ueAppEdmDecode
    /* check the protocol discriminator and call respective decoder */
    switch (nasPdu->val[0] & 0x0f)
    {
-      case CM_EMM_PD:
-         {
-            RETVALUE(cmEmmDecMsg(nasPdu->val, ueEvnt, nasPdu->len));
-         }
-      case CM_ESM_PD:
-         {
-            RETVALUE(cmEsmDecMsg(nasPdu->val, ueEvnt, nasPdu->len));
-         }
-      default:
-         {
-            UE_LOG_ERROR(ueAppCb, "Unknown PD(%x) in NAS message",
-                  nasPdu->val[0] & 0x0f);
-            RETVALUE(RFAILED);
-         }
+   case CM_EMM_PD:
+   {
+      RETVALUE(cmEmmDecMsg(nasPdu->val, ueEvnt, nasPdu->len));
+   }
+   case CM_ESM_PD:
+   {
+      RETVALUE(cmEsmDecMsg(nasPdu->val, ueEvnt, nasPdu->len));
+   }
+   default:
+   {
+      UE_LOG_ERROR(ueAppCb, "Unknown PD(%x) in NAS message",
+                   nasPdu->val[0] & 0x0f);
+      RETVALUE(RFAILED);
+   }
    }
 
    RETVALUE(ROK);
 }
 
-PRIVATE S16 encode_apn
-(
- CmEsmAccessPtName *dst_apn,
- UeEmmNasPdnApn *src_apn
-)
+PRIVATE S16 encode_apn(
+    CmEsmAccessPtName *dst_apn,
+    UeEmmNasPdnApn *src_apn)
 {
    U8 *str = malloc(src_apn->len);
-   U8  idx = 0;
-   U8  str_len = 0;
-   memset(str,0,src_apn->len);
+   U8 idx = 0;
+   U8 str_len = 0;
+   memset(str, 0, src_apn->len);
 #define APN_FIRST_LABEL_LEN_PLACE_HOLDER 1
    U8 *temp_apn = malloc(src_apn->len +
-		         APN_FIRST_LABEL_LEN_PLACE_HOLDER);
-   memset(temp_apn,0,src_apn->len +
-	                 APN_FIRST_LABEL_LEN_PLACE_HOLDER);
-   for (str = strtok(src_apn->apn,"."); str != NULL;
+                         APN_FIRST_LABEL_LEN_PLACE_HOLDER);
+   memset(temp_apn, 0, src_apn->len + APN_FIRST_LABEL_LEN_PLACE_HOLDER);
+   for (str = strtok(src_apn->apn, "."); str != NULL;
         str = strtok(NULL, "."))
    {
       str_len = strlen(str);
@@ -919,8 +917,8 @@ PRIVATE S16 encode_apn
       strcat(&temp_apn[idx], str);
       idx += str_len;
    }
-   cmMemcpy((U8 *)&dst_apn->apn[0],temp_apn,strlen(temp_apn));
-   dst_apn->len    =  strlen(&dst_apn->apn);
+   cmMemcpy((U8 *)&dst_apn->apn[0], temp_apn, strlen(temp_apn));
+   dst_apn->len = strlen(&dst_apn->apn);
 
    RETVALUE(RFAILED);
 }
@@ -928,57 +926,64 @@ PRIVATE S16 encode_apn
 PRIVATE S16 ueAppUtlBldStandAlonePdnConReq(CmNasEvnt **esmEvnt,
                                            UeUetPdnConReq *ueUetPdnConReq)
 {
-  CmEsmMsg *msg = NULLP;
-  printf("Building PDN Connection Request\n");
+   CmEsmMsg *msg = NULLP;
+   printf("Building PDN Connection Request\n");
 
-  if (esmEvnt == NULLP) {
-    RETVALUE(RFAILED);
-  }
+   if (esmEvnt == NULLP)
+   {
+      RETVALUE(RFAILED);
+   }
 
-  /* Allocate memory for mme evnt */
-  CM_ALLOC_NASEVNT(esmEvnt, CM_ESM_PD);
-  if (*esmEvnt == NULLP) {
-    RETVALUE(RFAILED);
-  }
+   /* Allocate memory for mme evnt */
+   CM_ALLOC_NASEVNT(esmEvnt, CM_ESM_PD);
+   if (*esmEvnt == NULLP)
+   {
+      RETVALUE(RFAILED);
+   }
 
-  /*Allocate memory for ESM message*/
-  if (cmGetMem(&(*esmEvnt)->memCp, sizeof(CmEsmMsg), (Ptr *)&msg) != ROK) {
-    CM_FREE_NASEVNT(esmEvnt);
-    RETVALUE(RFAILED);
-  }
+   /*Allocate memory for ESM message*/
+   if (cmGetMem(&(*esmEvnt)->memCp, sizeof(CmEsmMsg), (Ptr *)&msg) != ROK)
+   {
+      CM_FREE_NASEVNT(esmEvnt);
+      RETVALUE(RFAILED);
+   }
 
-  msg->protDisc = CM_ESM_PD;
-  (*esmEvnt)->m.esmEvnt = msg;
+   msg->protDisc = CM_ESM_PD;
+   (*esmEvnt)->m.esmEvnt = msg;
 
-  (*esmEvnt)->secHT = CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC;
-  /* Fill ESM PDN connectivity request message */
+   (*esmEvnt)->secHT = CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC;
+   /* Fill ESM PDN connectivity request message */
 
-  /*Fill mandatory IE's*/
-  /* EPS barer ID IE*/
-  msg->bearerId = 0;
+   /*Fill mandatory IE's*/
+   /* EPS barer ID IE*/
+   msg->bearerId = 0;
 
-  /* PDN connectivity request message idenmtity*/
-  msg->msgType = CM_ESM_MSG_PDN_CONN_REQ;
+   /* PDN connectivity request message idenmtity*/
+   msg->msgType = CM_ESM_MSG_PDN_CONN_REQ;
 
-  /* Request type IE*/
-  msg->u.conReq.reqType.pres = TRUE;
-  msg->u.conReq.reqType.val = CM_ESM_REQTYPE_INIT;
-  /* PDN type IE*/
-  msg->u.conReq.pdnType.pres = TRUE;
-  msg->u.conReq.pdnType.val = ueUetPdnConReq->pdnType;
+   /* Request type IE*/
+   msg->u.conReq.reqType.pres = TRUE;
+   msg->u.conReq.reqType.val = CM_ESM_REQTYPE_INIT;
+   /* PDN type IE*/
+   msg->u.conReq.pdnType.pres = TRUE;
+   msg->u.conReq.pdnType.val = ueUetPdnConReq->pdnType;
 
-  if (ueUetPdnConReq->nasPdnApn.len != 0) {
-    msg->u.conReq.apn.pres = TRUE;
-    encode_apn(&msg->u.conReq.apn, &ueUetPdnConReq->nasPdnApn);
-  } else {
-    msg->u.conReq.apn.pres = FALSE;
-  }
-  /* protocol configuration options */
-  if (ueUetPdnConReq->protCfgOpt.pres == TRUE) {
-    cmMemcpy(&msg->u.conReq.protCfgOpt, &ueUetPdnConReq->protCfgOpt,
-             sizeof(ueUetPdnConReq->protCfgOpt));
-  }
-  RETVALUE(ROK);
+   if (ueUetPdnConReq->nasPdnApn.len != 0)
+   {
+      msg->u.conReq.apn.pres = TRUE;
+      encode_apn(&msg->u.conReq.apn, &ueUetPdnConReq->nasPdnApn);
+   }
+   else
+   {
+      msg->u.conReq.apn.pres = FALSE;
+   }
+   /* protocol configuration options */
+   if (ueUetPdnConReq->protCfgOpt.pres == TRUE)
+   {
+      cmMemcpy(&msg->u.conReq.protCfgOpt, &ueUetPdnConReq->protCfgOpt,
+               sizeof(ueUetPdnConReq->protCfgOpt));
+   }
+   RETVALUE(ROK);
 }
 
 /*
@@ -994,14 +999,12 @@ PRIVATE S16 ueAppUtlBldStandAlonePdnConReq(CmNasEvnt **esmEvnt,
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlBldPdnConReq
-(
- UeCb *ueCb,
- CmNasEvnt **esmEvnt,
- UeEsmProtCfgOpt *protCfgOpt,
- U32   pdnType,
- Bool eti
-)
+PRIVATE S16 ueAppUtlBldPdnConReq(
+    UeCb *ueCb,
+    CmNasEvnt **esmEvnt,
+    UeEsmProtCfgOpt *protCfgOpt,
+    U32 pdnType,
+    Bool eti)
 {
    CmEsmMsg *msg = NULLP;
    UeAppCb *ueAppCb = NULLP;
@@ -1018,7 +1021,7 @@ PRIVATE S16 ueAppUtlBldPdnConReq
    }
 
    /* Allocate memory for mme evnt */
-   CM_ALLOC_NASEVNT (esmEvnt, CM_ESM_PD);
+   CM_ALLOC_NASEVNT(esmEvnt, CM_ESM_PD);
    if (*esmEvnt == NULLP)
    {
       RETVALUE(RFAILED);
@@ -1043,10 +1046,10 @@ PRIVATE S16 ueAppUtlBldPdnConReq
    msg->bearerId = 0;
 
    /* Procedure transaction identity IE*/
-   msg->prTxnId  = 0;
+   msg->prTxnId = 0;
 
    /* PDN connectivity request message idenmtity*/
-   msg->msgType  = CM_ESM_MSG_PDN_CONN_REQ;
+   msg->msgType = CM_ESM_MSG_PDN_CONN_REQ;
 
    /* Request type IE*/
    msg->u.conReq.reqType.pres = TRUE;
@@ -1057,15 +1060,18 @@ PRIVATE S16 ueAppUtlBldPdnConReq
    msg->u.conReq.pdnType.val = pdnType;
 
    /*ESM Information Transfer Flag*/
-   if (eti == 1) {
-     msg->u.conReq.infoTransFlg.pres = TRUE;
-     msg->u.conReq.infoTransFlg.val = eti;
-   } else {
-     msg->u.conReq.infoTransFlg.pres = FALSE;
+   if (eti == 1)
+   {
+      msg->u.conReq.infoTransFlg.pres = TRUE;
+      msg->u.conReq.infoTransFlg.val = eti;
+   }
+   else
+   {
+      msg->u.conReq.infoTransFlg.pres = FALSE;
    }
 
    /* protocol configuration options */
-   if(protCfgOpt->pres == TRUE)
+   if (protCfgOpt->pres == TRUE)
    {
       msg->u.conReq.protCfgOpt.pres = TRUE;
       msg->u.conReq.protCfgOpt.cfgProt = protCfgOpt->cfgProt;
@@ -1073,21 +1079,21 @@ PRIVATE S16 ueAppUtlBldPdnConReq
       msg->u.conReq.protCfgOpt.numProtId = protCfgOpt->numProtId;
       msg->u.conReq.protCfgOpt.numContId = protCfgOpt->numContId;
 
-     for (count=0;count<protCfgOpt->numProtId;count ++)
-     {
-  	msg->u.conReq.protCfgOpt.p[count].pid = protCfgOpt->p[count].pid;
-  	msg->u.conReq.protCfgOpt.p[count].len = protCfgOpt->p[count].len;
-	cmMemcpy(msg->u.conReq.protCfgOpt.p[count].val,
-		   protCfgOpt->p[count].val,
-		   protCfgOpt->p[count].len);
-     }
-     for (count=0;count<protCfgOpt->numContId;count ++)
-     {
-  	msg->u.conReq.protCfgOpt.c[count].cid = protCfgOpt->c[count].cid;
-  	msg->u.conReq.protCfgOpt.c[count].len = protCfgOpt->c[count].len;
-	cmMemcpy(msg->u.conReq.protCfgOpt.c[count].val,
-		   protCfgOpt->c[count].val,
-		   protCfgOpt->c[count].len);
+      for (count = 0; count < protCfgOpt->numProtId; count++)
+      {
+         msg->u.conReq.protCfgOpt.p[count].pid = protCfgOpt->p[count].pid;
+         msg->u.conReq.protCfgOpt.p[count].len = protCfgOpt->p[count].len;
+         cmMemcpy(msg->u.conReq.protCfgOpt.p[count].val,
+                  protCfgOpt->p[count].val,
+                  protCfgOpt->p[count].len);
+      }
+      for (count = 0; count < protCfgOpt->numContId; count++)
+      {
+         msg->u.conReq.protCfgOpt.c[count].cid = protCfgOpt->c[count].cid;
+         msg->u.conReq.protCfgOpt.c[count].len = protCfgOpt->c[count].len;
+         cmMemcpy(msg->u.conReq.protCfgOpt.c[count].val,
+                  protCfgOpt->c[count].val,
+                  protCfgOpt->c[count].len);
       }
    }
 
@@ -1107,24 +1113,22 @@ PRIVATE S16 ueAppUtlBldPdnConReq
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlBldAttachReq
-(
- UeCb *ueCb,
- CmNasEvnt **ueEvt,
- U8 mIdType,
- U8 useOldSecCtxt,
- U8 epsAttachType,
- UeEmmNasAddUpdType *addUpdType,
- UeEsmProtCfgOpt *protCfgOpt,
- UeEmmDrxPrm *drxParm,
- U32 pdnType,
- Bool eti
-)
+PRIVATE S16 ueAppUtlBldAttachReq(
+    UeCb *ueCb,
+    CmNasEvnt **ueEvt,
+    U8 mIdType,
+    U8 useOldSecCtxt,
+    U8 epsAttachType,
+    UeEmmNasAddUpdType *addUpdType,
+    UeEsmProtCfgOpt *protCfgOpt,
+    UeEmmDrxPrm *drxParm,
+    U32 pdnType,
+    Bool eti)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
    CmEmmAttachRequest *attachReq = NULLP;
-   CmEmmMsg* emmMsg;
+   CmEmmMsg *emmMsg;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
@@ -1138,7 +1142,7 @@ PRIVATE S16 ueAppUtlBldAttachReq
       RETVALUE(RFAILED);
    }
    /* Allocate memory for pdu */
-   CM_ALLOC_NASEVNT (ueEvt, CM_EMM_PD);
+   CM_ALLOC_NASEVNT(ueEvt, CM_EMM_PD);
 
    if (*ueEvt == NULLP)
    {
@@ -1178,94 +1182,92 @@ PRIVATE S16 ueAppUtlBldAttachReq
 
    switch (mIdType)
    {
-      case CM_EMM_MID_TYPE_IMSI:
-      {
-         /* Fill Mobile Id */
-         attachReq->epsMi.pres = TRUE;
-         attachReq->epsMi.type = CM_EMM_MID_TYPE_IMSI;
-         attachReq->epsMi.len = ueCb->ueCtxt.imsiLen;
-         attachReq->epsMi.evenOddInd = (((attachReq->epsMi.len)%2) != 0)? \
-                                       (UE_ODD):(UE_EVEN);
-         cmMemcpy((U8 *)&attachReq->epsMi.u.imsi.id,
+   case CM_EMM_MID_TYPE_IMSI:
+   {
+      /* Fill Mobile Id */
+      attachReq->epsMi.pres = TRUE;
+      attachReq->epsMi.type = CM_EMM_MID_TYPE_IMSI;
+      attachReq->epsMi.len = ueCb->ueCtxt.imsiLen;
+      attachReq->epsMi.evenOddInd = (((attachReq->epsMi.len) % 2) != 0) ? (UE_ODD) : (UE_EVEN);
+      cmMemcpy((U8 *)&attachReq->epsMi.u.imsi.id,
                (U8 *)&ueCb->ueCtxt.ueImsi, attachReq->epsMi.len);
-         break;
-      }
-      case CM_EMM_MID_TYPE_GUTI:
+      break;
+   }
+   case CM_EMM_MID_TYPE_GUTI:
+   {
+      if (useOldSecCtxt)
       {
-         if (useOldSecCtxt)
-         {
-            /* Fill old ksi from UeCb */
-            attachReq->nasKsi.id = ueCb->secCtxt.ksi;
-            attachReq->nasKsi.tsc = ueCb->secCtxt.tsc;
-         }
-
-         /* Fill Mobile Id */
-         attachReq->epsMi.pres = TRUE;
-         attachReq->epsMi.type = CM_EMM_MID_TYPE_GUTI;
-         attachReq->epsMi.evenOddInd = UE_EVEN;
-         attachReq->epsMi.len = sizeof(GUTI);
-         cmMemcpy((U8 *)&attachReq->epsMi.u.guti, (U8 *)&ueCb->ueCtxt.ueGuti,
-                  attachReq->epsMi.len);
-         break;
+         /* Fill old ksi from UeCb */
+         attachReq->nasKsi.id = ueCb->secCtxt.ksi;
+         attachReq->nasKsi.tsc = ueCb->secCtxt.tsc;
       }
-	  case CM_EMM_MID_TYPE_IMEI:
-      {
-         if (useOldSecCtxt)
-         {
-            /* Fill old ksi from UeCb */
-            attachReq->nasKsi.id = ueCb->secCtxt.ksi;
-            attachReq->nasKsi.tsc = ueCb->secCtxt.tsc;
-         }
 
-         /* Fill Mobile Id */
-         attachReq->epsMi.pres = TRUE;
-         attachReq->epsMi.type = CM_EMM_MID_TYPE_IMEISV;
-         attachReq->epsMi.evenOddInd = UE_EVEN;
-         attachReq->epsMi.len = 15;
-         attachReq->epsMi.evenOddInd = (((attachReq->epsMi.len)%2) != 0)? \
-                                       (UE_ODD):(UE_EVEN);
-         cmMemcpy((U8 *)&attachReq->epsMi.u.imei.id,
+      /* Fill Mobile Id */
+      attachReq->epsMi.pres = TRUE;
+      attachReq->epsMi.type = CM_EMM_MID_TYPE_GUTI;
+      attachReq->epsMi.evenOddInd = UE_EVEN;
+      attachReq->epsMi.len = sizeof(GUTI);
+      cmMemcpy((U8 *)&attachReq->epsMi.u.guti, (U8 *)&ueCb->ueCtxt.ueGuti,
+               attachReq->epsMi.len);
+      break;
+   }
+   case CM_EMM_MID_TYPE_IMEI:
+   {
+      if (useOldSecCtxt)
+      {
+         /* Fill old ksi from UeCb */
+         attachReq->nasKsi.id = ueCb->secCtxt.ksi;
+         attachReq->nasKsi.tsc = ueCb->secCtxt.tsc;
+      }
+
+      /* Fill Mobile Id */
+      attachReq->epsMi.pres = TRUE;
+      attachReq->epsMi.type = CM_EMM_MID_TYPE_IMEISV;
+      attachReq->epsMi.evenOddInd = UE_EVEN;
+      attachReq->epsMi.len = 15;
+      attachReq->epsMi.evenOddInd = (((attachReq->epsMi.len) % 2) != 0) ? (UE_ODD) : (UE_EVEN);
+      cmMemcpy((U8 *)&attachReq->epsMi.u.imei.id,
                (U8 *)&ueCb->ueCtxt.ueImei, attachReq->epsMi.len);
-         break;
-      }
-      default:
-      {
-         UE_LOG_ERROR(ueAppCb, "Invalid miType");
-         ret = RFAILED;
-         break;
-      }
+      break;
+   }
+   default:
+   {
+      UE_LOG_ERROR(ueAppCb, "Invalid miType");
+      ret = RFAILED;
+      break;
+   }
    }
 
    /*Copy UE capabilities from UE Cb*/
-   cmMemcpy((U8 *) &attachReq->ueNwCap, (U8 *)&ueCb->ueCtxt.ueNwCap,
+   cmMemcpy((U8 *)&attachReq->ueNwCap, (U8 *)&ueCb->ueCtxt.ueNwCap,
             sizeof(CmEmmUeNwCap));
 
    /*Include Additional Update Type */
    if (addUpdType->pres == TRUE)
    {
-      attachReq->addUpdType.pres = TRUE; /* Additional Update Type*/
+      attachReq->addUpdType.pres = TRUE;             /* Additional Update Type*/
       attachReq->addUpdType.type = addUpdType->type; /* Additional Update Type*/
    }
    /*Include DRX Parameter Ie */
-   if(drxParm->pres == TRUE)
-   	{
-   	  attachReq->drxPrm.pres = TRUE;
-	  attachReq->drxPrm.spltPGCycle = drxParm->spltPGCycle;
-	  attachReq->drxPrm.nonDrxTmr= drxParm->nonDrxTmr;
-	  attachReq->drxPrm.spltOnCcch= drxParm->spltOnCcch;
-	  attachReq->drxPrm.u.drxVal = drxParm->u.drxVal;
-	}
+   if (drxParm->pres == TRUE)
+   {
+      attachReq->drxPrm.pres = TRUE;
+      attachReq->drxPrm.spltPGCycle = drxParm->spltPGCycle;
+      attachReq->drxPrm.nonDrxTmr = drxParm->nonDrxTmr;
+      attachReq->drxPrm.spltOnCcch = drxParm->spltOnCcch;
+      attachReq->drxPrm.u.drxVal = drxParm->u.drxVal;
+   }
    attachReq->suppCodecLst.pres = TRUE;
-   attachReq->suppCodecLst.len  = 2;
+   attachReq->suppCodecLst.len = 2;
    attachReq->suppCodecLst.codec[0].sysId = 0x04;
    attachReq->suppCodecLst.codec[0].bmpLen = 2;
    attachReq->suppCodecLst.codec[0].bmp = (0x60 << 8) | 0x04;
 
    attachReq->suppCodecLst.codec[1].sysId = 0x00;
    attachReq->suppCodecLst.codec[1].bmpLen = 2;
-   attachReq->suppCodecLst.codec[1].bmp = (0x1c<< 8);
+   attachReq->suppCodecLst.codec[1].bmp = (0x1c << 8);
    /*ESM message container IE*/
-   if ((ret = ueAppUtlBldPdnConReq(ueCb, &(attachReq->esmEvnt),protCfgOpt, pdnType, eti)) != ROK)
+   if ((ret = ueAppUtlBldPdnConReq(ueCb, &(attachReq->esmEvnt), protCfgOpt, pdnType, eti)) != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Building PDN Connection Request Failed\n");
       CM_FREE_NASEVNT(ueEvt);
@@ -1287,18 +1289,16 @@ PRIVATE S16 ueAppUtlBldAttachReq
  *       File:  ue_app.c
  *
  */
-PUBLIC S16 ueAppUtlBldTauReq
-(
- UeCb *ueCb,
- CmNasEvnt **ueEvt,
- UetMessage *p_ueMsg
-)
+PUBLIC S16 ueAppUtlBldTauReq(
+    UeCb *ueCb,
+    CmNasEvnt **ueEvt,
+    UetMessage *p_ueMsg)
 {
    S16 ret = ROK;
    U32 mTmsi = 0;
    UeAppCb *ueAppCb = NULLP;
-   CmEmmTAURequest  *tauReq;
-   CmEmmMsg* emmMsg;
+   CmEmmTAURequest *tauReq;
+   CmEmmMsg *emmMsg;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
@@ -1311,15 +1311,15 @@ PUBLIC S16 ueAppUtlBldTauReq
       RETVALUE(RFAILED);
    }
    /* Allocate memory for pdu */
-   CM_ALLOC_NASEVNT (ueEvt, CM_EMM_PD);
+   CM_ALLOC_NASEVNT(ueEvt, CM_EMM_PD);
 
-   if(*ueEvt == NULLP)
+   if (*ueEvt == NULLP)
    {
       UE_LOG_ERROR(ueAppCb, "ueEvnt NULL Pointer !");
       RETVALUE(RFAILED);
    }
 
-   if(p_ueMsg->msg.ueUetTauRequest.ueMtmsi.pres == TRUE)
+   if (p_ueMsg->msg.ueUetTauRequest.ueMtmsi.pres == TRUE)
    {
       mTmsi = p_ueMsg->msg.ueUetTauRequest.ueMtmsi.mTmsi;
    }
@@ -1360,7 +1360,7 @@ PUBLIC S16 ueAppUtlBldTauReq
    tauReq->epsMi.evenOddInd = UE_EVEN;
    tauReq->epsMi.len = sizeof(Guti);
    cmMemcpy((U8 *)&tauReq->epsMi.u.guti, (U8 *)&ueCb->ueCtxt.ueGuti,
-         sizeof(Guti));
+            sizeof(Guti));
    tauReq->epsMi.u.guti.mTMSI = mTmsi;
 
    UE_LOG_EXITFN(ueAppCb, ret);
@@ -1383,7 +1383,7 @@ PRIVATE S16 ueAppUtlBldTauComp(UeCb *ueCb, CmNasEvnt **ueEvt)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   CmEmmMsg* emmMsg;
+   CmEmmMsg *emmMsg;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
@@ -1429,7 +1429,6 @@ PRIVATE S16 ueAppUtlBldTauComp(UeCb *ueCb, CmNasEvnt **ueEvt)
    UE_LOG_EXITFN(ueAppCb, ret);
 }
 
-
 /*
  *
  *   Fun:   ueAppEdmEncode
@@ -1451,8 +1450,8 @@ PUBLIC S16 ueAppEdmEncode(CmNasEvnt *ueEvnt, NhuDedicatedInfoNAS *nasPdu)
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
 
-   UE_LOG_DEBUG(ueAppCb, "Encoding the EDM message and sending it to "\
-         "lower layer");
+   UE_LOG_DEBUG(ueAppCb, "Encoding the EDM message and sending it to "
+                         "lower layer");
 
    if (NULLP == ueEvnt)
    {
@@ -1464,24 +1463,24 @@ PUBLIC S16 ueAppEdmEncode(CmNasEvnt *ueEvnt, NhuDedicatedInfoNAS *nasPdu)
    /* Check the protocol discriminator and call respective encoder */
    switch (ueEvnt->protDisc)
    {
-      case CM_EMM_PD:
-      {
-         UE_LOG_DEBUG(ueAppCb, "Protocol descriptor is CM_EMM_PD");
-         ret = cmEmmEncMsg(ueEvnt, &nasPdu->val, &nasPdu->len);
-         break;
-      }
-      case CM_ESM_PD:
-      {
-         UE_LOG_DEBUG(ueAppCb, "Protocol descriptor is CM_ESM_PD");
-         ret = cmEsmEncMsg(ueEvnt, &nasPdu->val, &nasPdu->len);
-         break;
-      }
-      default:
-      {
-         UE_LOG_ERROR(ueAppCb, "Invaild protocal discription!!");
-         ret = RFAILED;
-         break;
-      }
+   case CM_EMM_PD:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Protocol descriptor is CM_EMM_PD");
+      ret = cmEmmEncMsg(ueEvnt, &nasPdu->val, &nasPdu->len);
+      break;
+   }
+   case CM_ESM_PD:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Protocol descriptor is CM_ESM_PD");
+      ret = cmEsmEncMsg(ueEvnt, &nasPdu->val, &nasPdu->len);
+      break;
+   }
+   default:
+   {
+      UE_LOG_ERROR(ueAppCb, "Invaild protocal discription!!");
+      ret = RFAILED;
+      break;
+   }
    }
    UE_LOG_EXITFN(ueAppCb, ret);
 
@@ -1542,7 +1541,6 @@ PRIVATE S16 ueAppEsmHndlOutDeActvBearerAcc(UeEsmCb *esmCb, CmNasEvnt *evnt)
 
    UE_LOG_EXITFN(ueAppCb, ROK);
 } /* ueAppEsmHndlOutActDedBearerAcc */
-
 
 /*
  *
@@ -1678,7 +1676,7 @@ PRIVATE S16 ueAppEsmHndlOutBerResAllocReq(UeEsmCb *esmCb, CmNasEvnt *evnt)
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
 
-      UE_LOG_DEBUG(ueAppCb, " Baerer Resource Allocation Request");
+   UE_LOG_DEBUG(ueAppCb, " Baerer Resource Allocation Request");
 
    /* Update procedure transaction state */
    esmCb->pState = UE_ESM_ST_PROC_TXN_PENDING;
@@ -1734,7 +1732,7 @@ PRIVATE S16 ueAppUtlAddEsmCb(UeEsmCb **esmCb, UeCb *ueCb)
    if (newEsmCb->tId == 0)
    {
       UE_LOG_ERROR(ueAppCb, "Failed to get available transId");
-      ueFree((U8*)newEsmCb, sizeof(UeEsmCb));
+      ueFree((U8 *)newEsmCb, sizeof(UeEsmCb));
       RETVALUE(RFAILED);
    }
 
@@ -1767,7 +1765,7 @@ PRIVATE S16 ueAppEsmHndlInvEvnt(UeEsmCb *esmCb, CmNasEvnt *evnt, UeCb *ueCb)
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
 
-      /* Invalid message in the state, returing RFAILED */
+   /* Invalid message in the state, returing RFAILED */
    UE_LOG_ERROR(ueAppCb, "Invalid message");
 
    UE_LOG_EXITFN(ueAppCb, ret);
@@ -1828,7 +1826,7 @@ PUBLIC S16 ueAppUtlFndEsmCb(UeEsmCb **esmCb, U8 key, UeAppEsmKeyType type,
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlFndRbCb(U8 *rbIdx,UeCb *ueCb,U8 bearerId)
+PRIVATE S16 ueAppUtlFndRbCb(U8 *rbIdx, UeCb *ueCb, U8 bearerId)
 {
    UeAppCb *ueAppCb = NULLP;
    U8 idx;
@@ -1837,12 +1835,12 @@ PRIVATE S16 ueAppUtlFndRbCb(U8 *rbIdx,UeCb *ueCb,U8 bearerId)
    UE_LOG_ENTERFN(ueAppCb);
 
    /* drb id can range between 1..32 */
-   for(idx = 1; idx < UE_APP_MAX_DRBS; idx++)
+   for (idx = 1; idx < UE_APP_MAX_DRBS; idx++)
    {
-      if ((ueCb->drbs[idx] == UE_APP_DRB_INUSE) &&\
-            (ueCb->ueRabCb[idx-1].epsBearerId == bearerId))
+      if ((ueCb->drbs[idx] == UE_APP_DRB_INUSE) &&
+          (ueCb->ueRabCb[idx - 1].epsBearerId == bearerId))
       {
-         *rbIdx = idx-1;
+         *rbIdx = idx - 1;
          RETVALUE(ROK);
       }
    }
@@ -1867,12 +1865,12 @@ PRIVATE S16 ueAppEsmHdlOutUeEvnt(CmNasEvnt *evnt, UeCb *ueCb)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   UeEsmCb  *esmCb = NULLP;
+   UeEsmCb *esmCb = NULLP;
    CmEsmMsg *esmMsg = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
-   if(evnt == NULLP)
+   if (evnt == NULLP)
    {
       UE_LOG_ERROR(ueAppCb, "Invalid esm event");
       RETVALUE(RFAILED);
@@ -1881,16 +1879,14 @@ PRIVATE S16 ueAppEsmHdlOutUeEvnt(CmNasEvnt *evnt, UeCb *ueCb)
    UE_LOG_DEBUG(ueAppCb, "Outgoing esm events");
 
    esmMsg = evnt->m.esmEvnt;
-   if ((esmMsg->msgType != CM_ESM_MSG_PDN_CONN_REQ) && (esmMsg->msgType != CM_ESM_MSG_BEAR_RES_ALLOC_REQ)
-   && (esmMsg->msgType != CM_ESM_MSG_ESM_INFO_RSP)
-   && (esmMsg->msgType != CM_ESM_MSG_PDN_DISCONN_REQ))
+   if ((esmMsg->msgType != CM_ESM_MSG_PDN_CONN_REQ) && (esmMsg->msgType != CM_ESM_MSG_BEAR_RES_ALLOC_REQ) && (esmMsg->msgType != CM_ESM_MSG_ESM_INFO_RSP) && (esmMsg->msgType != CM_ESM_MSG_PDN_DISCONN_REQ))
    {
-       /*esmMsg->bearerId = 6;*/
+      /*esmMsg->bearerId = 6;*/
       ret = ueAppUtlFndEsmCb(&esmCb, esmMsg->bearerId, UE_ESM_BID_KEY, ueCb);
    }
    else if (esmMsg->msgType == CM_ESM_MSG_ESM_INFO_RSP)
    {
-     ret = ueAppUtlFndEsmCb(&esmCb, esmMsg->prTxnId, UE_ESM_TRANS_KEY, ueCb);
+      ret = ueAppUtlFndEsmCb(&esmCb, esmMsg->prTxnId, UE_ESM_TRANS_KEY, ueCb);
    }
    else
    {
@@ -1909,55 +1905,55 @@ PRIVATE S16 ueAppEsmHdlOutUeEvnt(CmNasEvnt *evnt, UeCb *ueCb)
       RETVALUE(RFAILED);
    }
 
-   switch(esmMsg->msgType)
+   switch (esmMsg->msgType)
    {
-      case CM_ESM_MSG_PDN_CONN_REQ:
-         {
-            ret = ueAppEsmHndlOutPDNConnectReq(esmCb, evnt);
-            break;
-         }
-      case CM_ESM_MSG_ACTV_DEF_BEAR_ACC:
-         {
-            ret = ueAppEsmHndlOutActDefBearerAcc(esmCb, evnt);
-            break;
-         }
-      case CM_ESM_MSG_BEAR_RES_ALLOC_REQ:
-         {
-            ret = ueAppEsmHndlOutBerResAllocReq(esmCb, evnt);
-            break;
-         }
-      case CM_ESM_MSG_ACTV_DED_BEAR_ACC:
-         {
-            ret = ueAppEsmHndlOutActDedBearerAcc(esmCb, evnt);
-            break;
-         }
-      case CM_ESM_MSG_DEACTV_BEAR_ACC:
-         {
-            ret = ueAppEsmHndlOutDeActvBearerAcc(esmCb, evnt);
-            break;
-         }
+   case CM_ESM_MSG_PDN_CONN_REQ:
+   {
+      ret = ueAppEsmHndlOutPDNConnectReq(esmCb, evnt);
+      break;
+   }
+   case CM_ESM_MSG_ACTV_DEF_BEAR_ACC:
+   {
+      ret = ueAppEsmHndlOutActDefBearerAcc(esmCb, evnt);
+      break;
+   }
+   case CM_ESM_MSG_BEAR_RES_ALLOC_REQ:
+   {
+      ret = ueAppEsmHndlOutBerResAllocReq(esmCb, evnt);
+      break;
+   }
+   case CM_ESM_MSG_ACTV_DED_BEAR_ACC:
+   {
+      ret = ueAppEsmHndlOutActDedBearerAcc(esmCb, evnt);
+      break;
+   }
+   case CM_ESM_MSG_DEACTV_BEAR_ACC:
+   {
+      ret = ueAppEsmHndlOutDeActvBearerAcc(esmCb, evnt);
+      break;
+   }
 
-      case CM_ESM_MSG_ACTV_DED_BEAR_REJ:
-         {
-            ret = ueAppEsmHndlOutActDedBearerRej(esmCb, evnt);
-            break;
-         }
-      case CM_ESM_MSG_ESM_INFO_RSP:
-         {
-            ret = ueAppEsmHndlOutEsmInformationRsp(esmCb, evnt);
-            break;
-         }
-      case CM_ESM_MSG_PDN_DISCONN_REQ:
-         {
-            ret = ueAppEsmHndlOutPDNDisConnectReq(esmCb, evnt);
-            break;
-         }
+   case CM_ESM_MSG_ACTV_DED_BEAR_REJ:
+   {
+      ret = ueAppEsmHndlOutActDedBearerRej(esmCb, evnt);
+      break;
+   }
+   case CM_ESM_MSG_ESM_INFO_RSP:
+   {
+      ret = ueAppEsmHndlOutEsmInformationRsp(esmCb, evnt);
+      break;
+   }
+   case CM_ESM_MSG_PDN_DISCONN_REQ:
+   {
+      ret = ueAppEsmHndlOutPDNDisConnectReq(esmCb, evnt);
+      break;
+   }
 
-      default:
-         {
-            ret = ueAppEsmHndlInvEvnt(esmCb, evnt, ueCb);
-            break;
-         }
+   default:
+   {
+      ret = ueAppEsmHndlInvEvnt(esmCb, evnt, ueCb);
+      break;
+   }
    }
 
    if (ret != ROK)
@@ -1989,18 +1985,19 @@ PRIVATE S16 ueProcUeAttachReq(UetMessage *p_ueMsg, Pst *pst)
    U8 mIdType, useOldSecCtxt, epsAtchType;
    UeEmmNasAddUpdType *addUpdType;
    UeEsmProtCfgOpt *protCfgOpt;
-   UeEmmDrxPrm    *drxParm;
+   UeEmmDrxPrm *drxParm;
    Bool eti = FALSE;
-   S16     ret = ROK;
-   U32     ueId;
+   S16 ret = ROK;
+   U32 ueId;
    UeAppCb *ueAppCb = NULLP;
-   UeCb    *ueCb = NULLP;
+   UeCb *ueCb = NULLP;
    NhuDedicatedInfoNAS nasEncPdu;
-   CmNasEvnt  *attachReqEvnt = NULLP;
-   NbuInitialUeMsg  *nbuInitialUeMsg = NULLP;
+   CmNasEvnt *attachReqEvnt = NULLP;
+   NbuInitialUeMsg *nbuInitialUeMsg = NULLP;
    NbuUlNasMsg *pUlNbMsg = NULLP;
    UeAppMsg srcMsg;
    UeAppMsg dstMsg;
+   int i;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
@@ -2012,20 +2009,20 @@ PRIVATE S16 ueProcUeAttachReq(UetMessage *p_ueMsg, Pst *pst)
    addUpdType = &(p_ueMsg->msg.ueUetAttachReq.addUpdType);
    protCfgOpt = &(p_ueMsg->msg.ueUetAttachReq.protCfgOpt);
    drxParm = &(p_ueMsg->msg.ueUetAttachReq.drxParm);
-   epsAtchType =  p_ueMsg->msg.ueUetAttachReq.epsAtchType.type;
+   epsAtchType = p_ueMsg->msg.ueUetAttachReq.epsAtchType.type;
    pdnType = p_ueMsg->msg.ueUetAttachReq.pdnType;
-   eti     = p_ueMsg->msg.ueUetAttachReq.eti;
+   eti = p_ueMsg->msg.ueUetAttachReq.eti;
 
    /* Fetching the UeCb */
-   ret = ueDbmFetchUe(ueId, (PTR*)&ueCb);
+   ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
       RETVALUE(ret);
    }
 
-   ret = ueAppUtlBldAttachReq(ueCb,&attachReqEvnt, mIdType, useOldSecCtxt, epsAtchType,\
-   	                       addUpdType, protCfgOpt, drxParm, pdnType, eti);
+   ret = ueAppUtlBldAttachReq(ueCb, &attachReqEvnt, mIdType, useOldSecCtxt, epsAtchType,
+                              addUpdType, protCfgOpt, drxParm, pdnType, eti);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Attach Request Building failed");
@@ -2033,7 +2030,7 @@ PRIVATE S16 ueProcUeAttachReq(UetMessage *p_ueMsg, Pst *pst)
    }
 
    if ((ret = ueAppEsmHdlOutUeEvnt(attachReqEvnt->m.emmEvnt->u.atchReq.esmEvnt,
-        ueCb))!= ROK)
+                                   ueCb)) != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Handling Attach Request failed");
       RETVALUE(RFAILED);
@@ -2075,7 +2072,7 @@ PRIVATE S16 ueProcUeAttachReq(UetMessage *p_ueMsg, Pst *pst)
 
    CM_FREE_NASEVNT(&attachReqEvnt);
 
-   if(ueCb->ecmCb.state == UE_ECM_CONNECTED)
+   if (ueCb->ecmCb.state == UE_ECM_CONNECTED)
    {
       pUlNbMsg = (NbuUlNasMsg *)ueAlloc(sizeof(NbuUlNasMsg));
       pUlNbMsg->ueId = ueCb->ueId;
@@ -2083,7 +2080,7 @@ PRIVATE S16 ueProcUeAttachReq(UetMessage *p_ueMsg, Pst *pst)
       pUlNbMsg->nasPdu.len = nasEncPdu.len;
       pUlNbMsg->nasPdu.val = (U8 *)ueAlloc(pUlNbMsg->nasPdu.len);
       cmMemcpy((U8 *)pUlNbMsg->nasPdu.val, (U8 *)nasEncPdu.val,
-               pUlNbMsg->nasPdu.len );
+               pUlNbMsg->nasPdu.len);
 
       UE_LOG_DEBUG(ueAppCb, "Sending UL NAS Message to eNodeB");
       ret = ueSendUlNasMsgToNb(pUlNbMsg, &ueAppCb->nbPst);
@@ -2094,10 +2091,10 @@ PRIVATE S16 ueProcUeAttachReq(UetMessage *p_ueMsg, Pst *pst)
       nbuInitialUeMsg->ueId = ueId;
       nbuInitialUeMsg->rrcCause = 3;
 
-      if(mIdType == CM_EMM_MID_TYPE_GUTI)
+      if (mIdType == CM_EMM_MID_TYPE_GUTI)
       {
-         nbuInitialUeMsg->stmsi.pres  = TRUE;
-         nbuInitialUeMsg->stmsi.mmec  = ueCb->ueCtxt.ueGuti.mmeCode;
+         nbuInitialUeMsg->stmsi.pres = TRUE;
+         nbuInitialUeMsg->stmsi.mmec = ueCb->ueCtxt.ueGuti.mmeCode;
          nbuInitialUeMsg->stmsi.mTMSI = ueCb->ueCtxt.ueGuti.mTMSI;
       }
 
@@ -2139,16 +2136,16 @@ PRIVATE S16 ueProcUeAttachReq(UetMessage *p_ueMsg, Pst *pst)
 PRIVATE S16 ueProcUeTauRequest(UetMessage *p_ueMsg, Pst *pst)
 {
    U8 isPlainMsg = TRUE;
-   S16     ret = ROK;
-   U32     ueId = 0;
+   S16 ret = ROK;
+   U32 ueId = 0;
    UeAppCb *ueAppCb = NULLP;
-   UeCb    *ueCb = NULLP;
+   UeCb *ueCb = NULLP;
    UeAppMsg srcMsg;
    UeAppMsg dstMsg;
 
    NhuDedicatedInfoNAS nasEncPdu;
-   CmNasEvnt           *tauReqEvnt = NULLP;
-   NbuInitialUeMsg      *nbUeTauReq = NULLP;
+   CmNasEvnt *tauReqEvnt = NULLP;
+   NbuInitialUeMsg *nbUeTauReq = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
@@ -2157,8 +2154,8 @@ PRIVATE S16 ueProcUeTauRequest(UetMessage *p_ueMsg, Pst *pst)
    ueId = p_ueMsg->msg.ueUetTauRequest.ueId;
 
    /* Fetching the UeCb */
-   ret = ueDbmFetchUe(ueId,(PTR*)&ueCb);
-   if(ret != ROK)
+   ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "ueProcUeTauReq: UeCb List NULL ueId = %d", ueId);
       RETVALUE(ret);
@@ -2208,8 +2205,8 @@ PRIVATE S16 ueProcUeTauRequest(UetMessage *p_ueMsg, Pst *pst)
    nbUeTauReq->ueId = ueId;
    nbUeTauReq->rrcCause = 3;
 
-   nbUeTauReq->stmsi.pres  = TRUE;
-   nbUeTauReq->stmsi.mmec  = ueCb->ueCtxt.ueGuti.mmeCode;
+   nbUeTauReq->stmsi.pres = TRUE;
+   nbUeTauReq->stmsi.mmec = ueCb->ueCtxt.ueGuti.mmeCode;
    if (p_ueMsg->msg.ueUetTauRequest.ueMtmsi.pres == TRUE)
    {
       nbUeTauReq->stmsi.mTMSI = p_ueMsg->msg.ueUetTauRequest.ueMtmsi.mTmsi;
@@ -2274,7 +2271,7 @@ PRIVATE S16 ueProcUeTauComplete(UetMessage *p_ueMsg, Pst *pst)
                 ueId);
 
    /* Fetching the UeCb */
-   ret = ueDbmFetchUe(ueId,(PTR*)&ueCb);
+   ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
@@ -2305,7 +2302,7 @@ PRIVATE S16 ueProcUeTauComplete(UetMessage *p_ueMsg, Pst *pst)
       srcMsg.val = nasEncPdu.val;
       srcMsg.len = nasEncPdu.len;
       ret = ueAppCmpUplnkSec(&ueCb->secCtxt, tauCompEvnt->secHT, &srcMsg,
-            &dstMsg);
+                             &dstMsg);
       if (ROK != ret)
       {
          UE_LOG_ERROR(ueAppCb, "Uplink Security Failed");
@@ -2327,7 +2324,7 @@ PRIVATE S16 ueProcUeTauComplete(UetMessage *p_ueMsg, Pst *pst)
    nbUeTauComp->nasPdu.len = nasEncPdu.len;
    nbUeTauComp->nasPdu.val = (U8 *)ueAlloc(nbUeTauComp->nasPdu.len);
    cmMemcpy((U8 *)nbUeTauComp->nasPdu.val, nasEncPdu.val,
-         nbUeTauComp->nasPdu.len);
+            nbUeTauComp->nasPdu.len);
 
    if (isPlainMsg)
    {
@@ -2404,7 +2401,7 @@ PRIVATE S16 sendUeConfigCompInd(Void)
       UE_LOG_EXITFN(ueAppCb, RFAILED);
    }
 
-   cmMemset((U8*)tfwMsg, 0, sizeof(UetMessage));
+   cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
    tfwMsg->msgType = UE_CONFIG_COMPLETE_TYPE;
 
    ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
@@ -2443,11 +2440,11 @@ PRIVATE S16 ueProcUeConfigReq(UetMessage *pCfgReq, Pst *pst)
 
    ueCb->ueId = pCfgReq->msg.ueCfgReq.ueId;
    ueCb->ueCtxt.imsiLen = pCfgReq->msg.ueCfgReq.imsiLen;
-   cmMemcpy((U8*)ueCb->ueCtxt.ueImsi, (U8*)pCfgReq->msg.ueCfgReq.imsi,
-         ueCb->ueCtxt.imsiLen);
+   cmMemcpy((U8 *)ueCb->ueCtxt.ueImsi, (U8 *)pCfgReq->msg.ueCfgReq.imsi,
+            ueCb->ueCtxt.imsiLen);
 
-   cmMemcpy((U8*)ueCb->ueCtxt.ueImei, (U8*)pCfgReq->msg.ueCfgReq.imei,
-         MAX_IMEI_LEN);
+   cmMemcpy((U8 *)ueCb->ueCtxt.ueImei, (U8 *)pCfgReq->msg.ueCfgReq.imei,
+            MAX_IMEI_LEN);
 
    ueCb->secCtxt.encAlg = pCfgReq->msg.ueCfgReq.NASCyphCfg;
    ueCb->secCtxt.intAlg = pCfgReq->msg.ueCfgReq.NASIntProtCfg;
@@ -2455,12 +2452,12 @@ PRIVATE S16 ueProcUeConfigReq(UetMessage *pCfgReq, Pst *pst)
 
    cmMemset((U8 *)&ueCb->ueCtxt.ueNwCap, 0, sizeof(CmEmmUeNwCap));
 
-   ueCb->ueCtxt.ueNwCap.pres     = TRUE;
-   ueCb->ueCtxt.ueNwCap.len      = 2;
-   ueCb->ueCtxt.ueNwCap.eia0     = pCfgReq->msg.ueCfgReq.ueNwCap.eia0;
+   ueCb->ueCtxt.ueNwCap.pres = TRUE;
+   ueCb->ueCtxt.ueNwCap.len = 2;
+   ueCb->ueCtxt.ueNwCap.eia0 = pCfgReq->msg.ueCfgReq.ueNwCap.eia0;
    ueCb->ueCtxt.ueNwCap.eia1_128 = pCfgReq->msg.ueCfgReq.ueNwCap.eia1_128;
    ueCb->ueCtxt.ueNwCap.eia2_128 = pCfgReq->msg.ueCfgReq.ueNwCap.eia2_128;
-   ueCb->ueCtxt.ueNwCap.eea0     = pCfgReq->msg.ueCfgReq.ueNwCap.eea0;
+   ueCb->ueCtxt.ueNwCap.eea0 = pCfgReq->msg.ueCfgReq.ueNwCap.eea0;
    ueCb->ueCtxt.ueNwCap.eea1_128 = pCfgReq->msg.ueCfgReq.ueNwCap.eea1_128;
    ueCb->ueCtxt.ueNwCap.eea2_128 = pCfgReq->msg.ueCfgReq.ueNwCap.eea2_128;
 
@@ -2474,16 +2471,16 @@ PRIVATE S16 ueProcUeConfigReq(UetMessage *pCfgReq, Pst *pst)
 
    /* filling OP key value UE_USIM_SHARED_KEY_SIZE, UE_USIM_OP_KEY_SIZE,
     * UE_USIM_SEQ_NMB_SIZE*/
-   ueCb->ueInfo.sharedKey[0]  = pCfgReq->msg.ueCfgReq.sharedKey[0];
-   ueCb->ueInfo.sharedKey[1]  = pCfgReq->msg.ueCfgReq.sharedKey[1];
-   ueCb->ueInfo.sharedKey[2]  = pCfgReq->msg.ueCfgReq.sharedKey[2];
-   ueCb->ueInfo.sharedKey[3]  = pCfgReq->msg.ueCfgReq.sharedKey[3];
-   ueCb->ueInfo.sharedKey[4]  = pCfgReq->msg.ueCfgReq.sharedKey[4];
-   ueCb->ueInfo.sharedKey[5]  = pCfgReq->msg.ueCfgReq.sharedKey[5];
-   ueCb->ueInfo.sharedKey[6]  = pCfgReq->msg.ueCfgReq.sharedKey[6];
-   ueCb->ueInfo.sharedKey[7]  = pCfgReq->msg.ueCfgReq.sharedKey[7];
-   ueCb->ueInfo.sharedKey[8]  = pCfgReq->msg.ueCfgReq.sharedKey[8];
-   ueCb->ueInfo.sharedKey[9]  = pCfgReq->msg.ueCfgReq.sharedKey[9];
+   ueCb->ueInfo.sharedKey[0] = pCfgReq->msg.ueCfgReq.sharedKey[0];
+   ueCb->ueInfo.sharedKey[1] = pCfgReq->msg.ueCfgReq.sharedKey[1];
+   ueCb->ueInfo.sharedKey[2] = pCfgReq->msg.ueCfgReq.sharedKey[2];
+   ueCb->ueInfo.sharedKey[3] = pCfgReq->msg.ueCfgReq.sharedKey[3];
+   ueCb->ueInfo.sharedKey[4] = pCfgReq->msg.ueCfgReq.sharedKey[4];
+   ueCb->ueInfo.sharedKey[5] = pCfgReq->msg.ueCfgReq.sharedKey[5];
+   ueCb->ueInfo.sharedKey[6] = pCfgReq->msg.ueCfgReq.sharedKey[6];
+   ueCb->ueInfo.sharedKey[7] = pCfgReq->msg.ueCfgReq.sharedKey[7];
+   ueCb->ueInfo.sharedKey[8] = pCfgReq->msg.ueCfgReq.sharedKey[8];
+   ueCb->ueInfo.sharedKey[9] = pCfgReq->msg.ueCfgReq.sharedKey[9];
    ueCb->ueInfo.sharedKey[10] = pCfgReq->msg.ueCfgReq.sharedKey[10];
    ueCb->ueInfo.sharedKey[11] = pCfgReq->msg.ueCfgReq.sharedKey[11];
    ueCb->ueInfo.sharedKey[12] = pCfgReq->msg.ueCfgReq.sharedKey[12];
@@ -2492,16 +2489,16 @@ PRIVATE S16 ueProcUeConfigReq(UetMessage *pCfgReq, Pst *pst)
    ueCb->ueInfo.sharedKey[15] = pCfgReq->msg.ueCfgReq.sharedKey[15];
 
    /* 69 d5 c2 eb 2e 2e 62 47 50 54 1d 3b bc 69 2b a5  */
-   ueCb->ueInfo.opKey[0]  = pCfgReq->msg.ueCfgReq.opKey[0];
-   ueCb->ueInfo.opKey[1]  = pCfgReq->msg.ueCfgReq.opKey[1];
-   ueCb->ueInfo.opKey[2]  = pCfgReq->msg.ueCfgReq.opKey[2];
-   ueCb->ueInfo.opKey[3]  = pCfgReq->msg.ueCfgReq.opKey[3];
-   ueCb->ueInfo.opKey[4]  = pCfgReq->msg.ueCfgReq.opKey[4];
-   ueCb->ueInfo.opKey[5]  = pCfgReq->msg.ueCfgReq.opKey[5];
-   ueCb->ueInfo.opKey[6]  = pCfgReq->msg.ueCfgReq.opKey[6];
-   ueCb->ueInfo.opKey[7]  = pCfgReq->msg.ueCfgReq.opKey[7];
-   ueCb->ueInfo.opKey[8]  = pCfgReq->msg.ueCfgReq.opKey[8];
-   ueCb->ueInfo.opKey[9]  = pCfgReq->msg.ueCfgReq.opKey[9];
+   ueCb->ueInfo.opKey[0] = pCfgReq->msg.ueCfgReq.opKey[0];
+   ueCb->ueInfo.opKey[1] = pCfgReq->msg.ueCfgReq.opKey[1];
+   ueCb->ueInfo.opKey[2] = pCfgReq->msg.ueCfgReq.opKey[2];
+   ueCb->ueInfo.opKey[3] = pCfgReq->msg.ueCfgReq.opKey[3];
+   ueCb->ueInfo.opKey[4] = pCfgReq->msg.ueCfgReq.opKey[4];
+   ueCb->ueInfo.opKey[5] = pCfgReq->msg.ueCfgReq.opKey[5];
+   ueCb->ueInfo.opKey[6] = pCfgReq->msg.ueCfgReq.opKey[6];
+   ueCb->ueInfo.opKey[7] = pCfgReq->msg.ueCfgReq.opKey[7];
+   ueCb->ueInfo.opKey[8] = pCfgReq->msg.ueCfgReq.opKey[8];
+   ueCb->ueInfo.opKey[9] = pCfgReq->msg.ueCfgReq.opKey[9];
    ueCb->ueInfo.opKey[10] = pCfgReq->msg.ueCfgReq.opKey[10];
    ueCb->ueInfo.opKey[11] = pCfgReq->msg.ueCfgReq.opKey[11];
    ueCb->ueInfo.opKey[12] = pCfgReq->msg.ueCfgReq.opKey[12];
@@ -2517,11 +2514,11 @@ PRIVATE S16 ueProcUeConfigReq(UetMessage *pCfgReq, Pst *pst)
    ueCb->ueCtxt.ueRadCap.rrcPDU = (U8 *)ueAlloc(ueCb->ueCtxt.ueRadCap.len);
 
    cmMemcpy(ueCb->ueCtxt.ueRadCap.rrcPDU,
-         pCfgReq->msg.ueCfgReq.radCapIndRrcPdu,
-         pCfgReq->msg.ueCfgReq.radCapIndRrcPdulen);
+            pCfgReq->msg.ueCfgReq.radCapIndRrcPdu,
+            pCfgReq->msg.ueCfgReq.radCapIndRrcPdulen);
 
    ueFree(pCfgReq->msg.ueCfgReq.radCapIndRrcPdu,
-         pCfgReq->msg.ueCfgReq.radCapIndRrcPdulen);
+          pCfgReq->msg.ueCfgReq.radCapIndRrcPdulen);
 
    ret = ueDbmAddUe(ueCb);
    if (ret != ROK)
@@ -2564,7 +2561,7 @@ PRIVATE S16 sendUeAppCfgCompInd(Void)
       UE_LOG_EXITFN(ueAppCb, RFAILED);
    }
 
-   cmMemset((U8*)tfwMsg, 0, sizeof(UetMessage));
+   cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
    tfwMsg->msgType = UE_APP_CONFIG_COMPLETE_TYPE;
 
    ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
@@ -2588,7 +2585,7 @@ PRIVATE S16 ueAppUtlBldSecModReject(UeCb *ueCb, CmNasEvnt **ueEvt, U8 cause)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   CmEmmMsg* emmMsg;
+   CmEmmMsg *emmMsg;
    CmEmmSecModeRej *secModRej;
 
    UE_GET_CB(ueAppCb);
@@ -2596,14 +2593,14 @@ PRIVATE S16 ueAppUtlBldSecModReject(UeCb *ueCb, CmNasEvnt **ueEvt, U8 cause)
 
    UE_LOG_DEBUG(ueAppCb, "Building Security Mode Reject  for Ue");
 
-   if(ueEvt == NULLP)
+   if (ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
    /* Allocate memory for pdu */
-   CM_ALLOC_NASEVNT (ueEvt, CM_EMM_PD);
+   CM_ALLOC_NASEVNT(ueEvt, CM_EMM_PD);
 
-   if(*ueEvt == NULLP)
+   if (*ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
@@ -2624,13 +2621,11 @@ PRIVATE S16 ueAppUtlBldSecModReject(UeCb *ueCb, CmNasEvnt **ueEvt, U8 cause)
    /* Security header type is "Plain NAS message, not security protected" */
    /*emmMsg->secHdrType = CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG;*/
    emmMsg->secHdrType = CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG;
-   emmMsg->msgId      = CM_EMM_MSG_SEC_MODE_REJ;
-   emmMsg->protDisc   = CM_EMM_PD;
+   emmMsg->msgId = CM_EMM_MSG_SEC_MODE_REJ;
+   emmMsg->protDisc = CM_EMM_PD;
    /* Fill Security mode Reject EMM Cause */
    secModRej->cause.pres = TRUE;
    secModRej->cause.cause = cause;
-
-   
 
    UE_LOG_EXITFN(ueAppCb, ret);
 }
@@ -2651,7 +2646,7 @@ PRIVATE S16 ueAppUtlBldSecModComplete(UeCb *ueCb, CmNasEvnt **ueEvt)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   CmEmmMsg* emmMsg;
+   CmEmmMsg *emmMsg;
    CmEmmSecModeCmp *secModCmp;
 
    UE_GET_CB(ueAppCb);
@@ -2659,14 +2654,14 @@ PRIVATE S16 ueAppUtlBldSecModComplete(UeCb *ueCb, CmNasEvnt **ueEvt)
 
    UE_LOG_DEBUG(ueAppCb, "Building Security Mode complete  for Ue");
 
-   if(ueEvt == NULLP)
+   if (ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
    /* Allocate memory for pdu */
-   CM_ALLOC_NASEVNT (ueEvt, CM_EMM_PD);
+   CM_ALLOC_NASEVNT(ueEvt, CM_EMM_PD);
 
-   if(*ueEvt == NULLP)
+   if (*ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
@@ -2688,17 +2683,16 @@ PRIVATE S16 ueAppUtlBldSecModComplete(UeCb *ueCb, CmNasEvnt **ueEvt)
    /* Security header type is "Plain NAS message, not security protected" */
    /*emmMsg->secHdrType = CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG;*/
    emmMsg->secHdrType = CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG;
-   emmMsg->msgId      = CM_EMM_MSG_SEC_MODE_CMP;
-   emmMsg->protDisc   = CM_EMM_PD;
+   emmMsg->msgId = CM_EMM_MSG_SEC_MODE_CMP;
+   emmMsg->protDisc = CM_EMM_PD;
 
    /* Fill IMEI-SV */
    secModCmp->imeisv.pres = true;
    secModCmp->imeisv.type = CM_EMM_MID_TYPE_IMEISV;
    secModCmp->imeisv.len = CM_EMM_MAX_IMEI_DIGS;
-   secModCmp->imeisv.evenOddInd = ((secModCmp->imeisv.len % 2) != 0) ? \
-                                       (UE_ODD):(UE_EVEN);
+   secModCmp->imeisv.evenOddInd = ((secModCmp->imeisv.len % 2) != 0) ? (UE_ODD) : (UE_EVEN);
    cmMemcpy((U8 *)&secModCmp->imeisv.u.imei.id,
-                  (U8 *)&ueCb->ueCtxt.ueImei, secModCmp->imeisv.len);
+            (U8 *)&ueCb->ueCtxt.ueImei, secModCmp->imeisv.len);
 
    UE_LOG_EXITFN(ueAppCb, ret);
 }
@@ -2755,7 +2749,7 @@ PRIVATE S16 ueBldTauRejectIndToTfw(UetMessage *tfwMsg, UeCb *ueCb, U8 cause)
    UE_LOG_DEBUG(ueAppCb, "Building Tracking Area Update  Reject Indication to TFWAPP");
 
    tfwMsg->msgType = UE_TAU_REJECT_TYPE;
-   tfwMsg->msg.ueUetTauReject.ueId  = ueCb->ueId;
+   tfwMsg->msg.ueUetTauReject.ueId = ueCb->ueId;
    tfwMsg->msg.ueUetTauReject.cause = cause;
 
    UE_LOG_EXITFN(ueAppCb, ret);
@@ -2802,12 +2796,10 @@ PRIVATE S16 ueBldDetachAcceptIndToTfw(UetMessage *tfwMsg, UeCb *ueCb, U8 status)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueBldServiceRejectIndToTfw
-(
- UetMessage *tfwMsg,
- UeCb *ueCb,
- U8 cause
-)
+PRIVATE S16 ueBldServiceRejectIndToTfw(
+    UetMessage *tfwMsg,
+    UeCb *ueCb,
+    U8 cause)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -2837,13 +2829,11 @@ PRIVATE S16 ueBldServiceRejectIndToTfw
  *
  */
 
-PRIVATE S16 ueBldNwInitDetachReqToTfw
-(
- UetMessage *tfwMsg,
- UeCb *ueCb,
- CmEmmDetachType detachType,
- CmEmmCause emmCause
-)
+PRIVATE S16 ueBldNwInitDetachReqToTfw(
+    UetMessage *tfwMsg,
+    UeCb *ueCb,
+    CmEmmDetachType detachType,
+    CmEmmCause emmCause)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -2874,8 +2864,6 @@ PRIVATE S16 ueBldNwInitDetachReqToTfw
    UE_LOG_EXITFN(ueAppCb, ret);
 }
 
-
-
 /*
  *
  *       Fun: ueAppUtlBldActDefltBerContextAccept
@@ -2889,29 +2877,27 @@ PRIVATE S16 ueBldNwInitDetachReqToTfw
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlBldActDefltBerContextAccept
-(
- UeCb *ueCb,
- CmNasEvnt **esmEvnt,
- U8 epsBearerId
-)
+PRIVATE S16 ueAppUtlBldActDefltBerContextAccept(
+    UeCb *ueCb,
+    CmNasEvnt **esmEvnt,
+    U8 epsBearerId)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   CmEsmMsg    *msg = NULLP;
+   CmEsmMsg *msg = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
    UE_LOG_DEBUG(ueAppCb, "Building UE Activate Default Bearer Context Accept");
 
-   if(ueCb == NULLP || esmEvnt == NULLP)
+   if (ueCb == NULLP || esmEvnt == NULLP)
    {
       ret = RFAILED;
       RETVALUE(ret);
    }
 
    /* Allocate memory for mme evnt */
-   CM_ALLOC_NASEVNT (esmEvnt, CM_ESM_PD);
+   CM_ALLOC_NASEVNT(esmEvnt, CM_ESM_PD);
 
    if (*esmEvnt == NULLP)
    {
@@ -2939,7 +2925,7 @@ PRIVATE S16 ueAppUtlBldActDefltBerContextAccept
 
    /* Activate defaule EPS barer context accept*/
    msg->msgType = CM_ESM_MSG_ACTV_DEF_BEAR_ACC;
-   ueCb->numPdns ++;
+   ueCb->numPdns++;
    UE_LOG_EXITFN(ueAppCb, ret);
 }
 /*
@@ -2955,29 +2941,27 @@ PRIVATE S16 ueAppUtlBldActDefltBerContextAccept
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlBldActDfltBerContextReject
-(
- UeCb *ueCb,
- CmNasEvnt **esmEvnt,
- U8 epsBearerId
-)
+PRIVATE S16 ueAppUtlBldActDfltBerContextReject(
+    UeCb *ueCb,
+    CmNasEvnt **esmEvnt,
+    U8 epsBearerId)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   CmEsmMsg    *msg = NULLP;
+   CmEsmMsg *msg = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
    UE_LOG_DEBUG(ueAppCb, "Building UE Activate Default EPS Bearer Context Reject");
 
-   if(ueCb == NULLP || esmEvnt == NULLP)
+   if (ueCb == NULLP || esmEvnt == NULLP)
    {
       ret = RFAILED;
       RETVALUE(ret);
    }
 
    /* Allocate memory for mme evnt */
-   CM_ALLOC_NASEVNT (esmEvnt, CM_ESM_PD);
+   CM_ALLOC_NASEVNT(esmEvnt, CM_ESM_PD);
 
    if (*esmEvnt == NULLP)
    {
@@ -3017,28 +3001,26 @@ PRIVATE S16 ueAppUtlBldActDfltBerContextReject
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlBldDeActvBerContextAccept
-(
- UeCb *ueCb,
- CmNasEvnt **esmEvnt,
- U8 epsBearerId
-)
+PRIVATE S16 ueAppUtlBldDeActvBerContextAccept(
+    UeCb *ueCb,
+    CmNasEvnt **esmEvnt,
+    U8 epsBearerId)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   CmEsmMsg    *msg = NULLP;
+   CmEsmMsg *msg = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
    UE_LOG_DEBUG(ueAppCb, "Building UE De Activate Bearer Context Accept");
-   if(ueCb == NULLP || esmEvnt == NULLP)
+   if (ueCb == NULLP || esmEvnt == NULLP)
    {
       ret = RFAILED;
       RETVALUE(ret);
    }
 
    /* Allocate memory for mme evnt */
-   CM_ALLOC_NASEVNT (esmEvnt, CM_ESM_PD);
+   CM_ALLOC_NASEVNT(esmEvnt, CM_ESM_PD);
 
    if (*esmEvnt == NULLP)
    {
@@ -3061,7 +3043,7 @@ PRIVATE S16 ueAppUtlBldDeActvBerContextAccept
    msg->bearerId = epsBearerId;
 
    /* Activate defaule EPS barer context accept*/
-   msg->msgType  = CM_ESM_MSG_DEACTV_BEAR_ACC;
+   msg->msgType = CM_ESM_MSG_DEACTV_BEAR_ACC;
    UE_LOG_EXITFN(ueAppCb, ret);
 }
 
@@ -3078,28 +3060,26 @@ PRIVATE S16 ueAppUtlBldDeActvBerContextAccept
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlBldActDedBerContextAccept
-(
- UeCb *ueCb,
- CmNasEvnt **esmEvnt,
- U8 epsBearerId
-)
+PRIVATE S16 ueAppUtlBldActDedBerContextAccept(
+    UeCb *ueCb,
+    CmNasEvnt **esmEvnt,
+    U8 epsBearerId)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   CmEsmMsg    *msg = NULLP;
+   CmEsmMsg *msg = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
    UE_LOG_DEBUG(ueAppCb, "Building UE Activate Dedicate Bearer Context Accept");
-   if(ueCb == NULLP || esmEvnt == NULLP)
+   if (ueCb == NULLP || esmEvnt == NULLP)
    {
       ret = RFAILED;
       RETVALUE(ret);
    }
 
    /* Allocate memory for mme evnt */
-   CM_ALLOC_NASEVNT (esmEvnt, CM_ESM_PD);
+   CM_ALLOC_NASEVNT(esmEvnt, CM_ESM_PD);
 
    if (*esmEvnt == NULLP)
    {
@@ -3122,10 +3102,9 @@ PRIVATE S16 ueAppUtlBldActDedBerContextAccept
    msg->bearerId = epsBearerId;
 
    /* Activate Dedicated EPS bearer context accept*/
-   msg->msgType  = CM_ESM_MSG_ACTV_DED_BEAR_ACC;
+   msg->msgType = CM_ESM_MSG_ACTV_DED_BEAR_ACC;
    UE_LOG_EXITFN(ueAppCb, ret);
 }
-
 
 /*
  *
@@ -3140,30 +3119,28 @@ PRIVATE S16 ueAppUtlBldActDedBerContextAccept
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlBldActDedBerContextReject
-(
- UeCb *ueCb,
- CmNasEvnt **esmEvnt,
- U8 epsBearerId,
- U8 esmCause
-)
+PRIVATE S16 ueAppUtlBldActDedBerContextReject(
+    UeCb *ueCb,
+    CmNasEvnt **esmEvnt,
+    U8 epsBearerId,
+    U8 esmCause)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   CmEsmMsg    *msg = NULLP;
+   CmEsmMsg *msg = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
    UE_LOG_DEBUG(ueAppCb, "Building UE Activate Dedicate Bearer Context Reject");
 
-   if(ueCb == NULLP || esmEvnt == NULLP)
+   if (ueCb == NULLP || esmEvnt == NULLP)
    {
       ret = RFAILED;
       RETVALUE(ret);
    }
 
    /* Allocate memory for mme evnt */
-   CM_ALLOC_NASEVNT (esmEvnt, CM_ESM_PD);
+   CM_ALLOC_NASEVNT(esmEvnt, CM_ESM_PD);
 
    if (*esmEvnt == NULLP)
    {
@@ -3206,21 +3183,21 @@ PRIVATE S16 ueAppUtlBldEmmStatus(UeCb *ueCb, CmNasEvnt **ueEvt, U8 cause)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   CmEmmStatus  *emmStatusMsg;
-   CmEmmMsg* emmMsg;
+   CmEmmStatus *emmStatusMsg;
+   CmEmmMsg *emmMsg;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
    UE_LOG_DEBUG(ueAppCb, "Building UE Emm Status message To EnodeB");
 
-   if(ueEvt == NULLP)
+   if (ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
    /* Allocate memory for pdu */
-   CM_ALLOC_NASEVNT (ueEvt, CM_EMM_PD);
+   CM_ALLOC_NASEVNT(ueEvt, CM_EMM_PD);
 
-   if(*ueEvt == NULLP)
+   if (*ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
@@ -3265,21 +3242,21 @@ PRIVATE S16 ueAppUtlBldAttachComplete(UeCb *ueCb, CmNasEvnt **ueEvt)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   CmEmmAttachComplete  *attachCmplt;
-   CmEmmMsg* emmMsg;
+   CmEmmAttachComplete *attachCmplt;
+   CmEmmMsg *emmMsg;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
    UE_LOG_DEBUG(ueAppCb, "Building UE Attach Complete message To EnodeB");
 
-   if(ueEvt == NULLP)
+   if (ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
    /* Allocate memory for pdu */
-   CM_ALLOC_NASEVNT (ueEvt, CM_EMM_PD);
+   CM_ALLOC_NASEVNT(ueEvt, CM_EMM_PD);
 
-   if(*ueEvt == NULLP)
+   if (*ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
@@ -3304,24 +3281,24 @@ PRIVATE S16 ueAppUtlBldAttachComplete(UeCb *ueCb, CmNasEvnt **ueEvt)
    /* ESM message container IE*/
    if (ueCb->is_actv_dflt_eps_ber_ctxt_rej == TRUE)
    {
-      if((ret = ueAppUtlBldActDfltBerContextReject(ueCb, &(attachCmplt->esmEvnt),
-                  ueCb->ueRabCb[0].epsBearerId)) != ROK)
+      if ((ret = ueAppUtlBldActDfltBerContextReject(ueCb, &(attachCmplt->esmEvnt),
+                                                    ueCb->ueRabCb[0].epsBearerId)) != ROK)
       {
-         UE_LOG_ERROR(ueAppCb, "Building Activate Default Bearer Context Reject "\
-			 "message failed");
-	 CM_FREE_NASEVNT(ueEvt);
-	 RETVALUE(RFAILED);
+         UE_LOG_ERROR(ueAppCb, "Building Activate Default Bearer Context Reject "
+                               "message failed");
+         CM_FREE_NASEVNT(ueEvt);
+         RETVALUE(RFAILED);
       }
    }
    else
    {
-      if((ret = ueAppUtlBldActDefltBerContextAccept(ueCb, &(attachCmplt->esmEvnt),
-                  ueCb->ueRabCb[0].epsBearerId)) != ROK)
+      if ((ret = ueAppUtlBldActDefltBerContextAccept(ueCb, &(attachCmplt->esmEvnt),
+                                                     ueCb->ueRabCb[0].epsBearerId)) != ROK)
       {
-         UE_LOG_ERROR(ueAppCb, "Building Activate Default Bearer Context Accept "\
-			 "message failed");
-	 CM_FREE_NASEVNT(ueEvt);
-	 RETVALUE(RFAILED);
+         UE_LOG_ERROR(ueAppCb, "Building Activate Default Bearer Context Accept "
+                               "message failed");
+         CM_FREE_NASEVNT(ueEvt);
+         RETVALUE(RFAILED);
       }
    }
 
@@ -3345,9 +3322,9 @@ PRIVATE S16 ueAppSndAttachComplete(UeCb *ueCb)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   UeAppMsg     srcMsg;
-   UeAppMsg     dstMsg;
-   CmNasEvnt   *attachCompEvnt = NULLP;
+   UeAppMsg srcMsg;
+   UeAppMsg dstMsg;
+   CmNasEvnt *attachCompEvnt = NULLP;
    NhuDedicatedInfoNAS nasEncPdu;
    NbuUlNasMsg *pUlNbMsg = NULLP;
 
@@ -3357,7 +3334,7 @@ PRIVATE S16 ueAppSndAttachComplete(UeCb *ueCb)
    UE_LOG_DEBUG(ueAppCb, "Sending UE Attach Complete message To EnodeB");
 
    ret = ueAppUtlBldAttachComplete(ueCb, &attachCompEvnt);
-   if(ROK != ret)
+   if (ROK != ret)
    {
       UE_LOG_ERROR(ueAppCb, "Building Attach Complete failed");
       ret = RFAILED;
@@ -3375,13 +3352,13 @@ PRIVATE S16 ueAppSndAttachComplete(UeCb *ueCb)
       RETVALUE(ret);
    }
    /** Integrity Protected **/
-   if(CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != attachCompEvnt->secHT)
+   if (CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != attachCompEvnt->secHT)
    {
       srcMsg.val = nasEncPdu.val;
       srcMsg.len = nasEncPdu.len;
       ret = ueAppCmpUplnkSec(&ueCb->secCtxt, attachCompEvnt->secHT, &srcMsg,
-            &dstMsg);
-      if(ROK != ret)
+                             &dstMsg);
+      if (ROK != ret)
       {
          UE_LOG_ERROR(ueAppCb, "Uplink Security Failed");
          attachCompEvnt->pdu = NULLP;
@@ -3395,14 +3372,14 @@ PRIVATE S16 ueAppSndAttachComplete(UeCb *ueCb)
    }
    CM_FREE_NASEVNT(&attachCompEvnt);
 
-   pUlNbMsg->ueId        = ueCb->ueId;
+   pUlNbMsg->ueId = ueCb->ueId;
    pUlNbMsg->nasPdu.pres = TRUE;
-   pUlNbMsg->nasPdu.len  = nasEncPdu.len;
-   pUlNbMsg->nasPdu.val  = (U8 *)ueAlloc(pUlNbMsg->nasPdu.len);
+   pUlNbMsg->nasPdu.len = nasEncPdu.len;
+   pUlNbMsg->nasPdu.val = (U8 *)ueAlloc(pUlNbMsg->nasPdu.len);
    cmMemcpy((U8 *)pUlNbMsg->nasPdu.val, (U8 *)nasEncPdu.val,
-         pUlNbMsg->nasPdu.len );
+            pUlNbMsg->nasPdu.len);
 
-   ret = ueSendUlNasMsgToNb(pUlNbMsg,&ueAppCb->nbPst);
+   ret = ueSendUlNasMsgToNb(pUlNbMsg, &ueAppCb->nbPst);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Could not Send the Attach Complete message");
@@ -3427,7 +3404,7 @@ PRIVATE S16 ueAppSndAttachComplete(UeCb *ueCb)
 PRIVATE S16 ueProcUeAttachComplete(UetMessage *p_ueMsg, Pst *pst)
 {
    S16 ret = ROK;
-   U32  ueId;
+   U32 ueId;
    UeAppCb *ueAppCb = NULLP;
    UeCb *ueCb = NULLP;
 
@@ -3436,8 +3413,8 @@ PRIVATE S16 ueProcUeAttachComplete(UetMessage *p_ueMsg, Pst *pst)
    UE_LOG_DEBUG(ueAppCb, "Processing UE Attach Complete message from TFWAPP");
 
    ueId = p_ueMsg->msg.ueUetAttachComplete.ueId;
-   ret = ueDbmFetchUe(ueId,(PTR*)&ueCb);
-   if( ret != ROK )
+   ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
       RETVALUE(ret);
@@ -3464,7 +3441,7 @@ PRIVATE S16 ueProcUeAttachComplete(UetMessage *p_ueMsg, Pst *pst)
 PRIVATE S16 ueProcUeAttachCompleteWithActvDfltBerCtxtRej(UetMessage *p_ueMsg, Pst *pst)
 {
    S16 ret = ROK;
-   U32  ueId;
+   U32 ueId;
    UeAppCb *ueAppCb = NULLP;
    UeCb *ueCb = NULLP;
 
@@ -3473,8 +3450,8 @@ PRIVATE S16 ueProcUeAttachCompleteWithActvDfltBerCtxtRej(UetMessage *p_ueMsg, Ps
    UE_LOG_DEBUG(ueAppCb, "Processing UE Attach Complete + Activate Default EPS Bearer Context Rejectmessage from TFWAPP");
 
    ueId = p_ueMsg->msg.ueActDfltBerRej.ueId;
-   ret = ueDbmFetchUe(ueId,(PTR*)&ueCb);
-   if( ret != ROK )
+   ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
       RETVALUE(ret);
@@ -3503,7 +3480,7 @@ PRIVATE S16 ueProcUeAttachCompleteWithActvDfltBerCtxtRej(UetMessage *p_ueMsg, Ps
 PRIVATE S16 ueProcUeAttachFail(UetMessage *p_ueMsg, Pst *pst)
 {
    S16 ret = ROK;
-   U32  ueId;
+   U32 ueId;
    UeAppCb *ueAppCb = NULLP;
 
    UE_GET_CB(ueAppCb);
@@ -3525,7 +3502,6 @@ PRIVATE S16 ueProcUeAttachFail(UetMessage *p_ueMsg, Pst *pst)
    UE_LOG_EXITFN(ueAppCb, ret);
 }
 
-
 /*
  *
  *       Fun: ueProcUeSecModeRejectCmd
@@ -3545,28 +3521,28 @@ PRIVATE S16 ueProcUeSecModeRejectCmd(UetMessage *p_ueMsg, Pst *pst)
    U32 ueId;
    UeAppCb *ueAppCb = NULLP;
    UeCb *ueCb = NULLP;
-   U8           cause;
+   U8 cause;
 
-   CmNasEvnt   *secModeRejEvnt = NULLP;
+   CmNasEvnt *secModeRejEvnt = NULLP;
    NbuUlNasMsg *pUlNbMsg = NULLP;
-   NhuDedicatedInfoNAS  nasEncPdu;
+   NhuDedicatedInfoNAS nasEncPdu;
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
    ueId = p_ueMsg->msg.ueUetSecModeReject.ueId;
    cause = p_ueMsg->msg.ueUetSecModeReject.cause;
    /* Fetching the UeCb */
    ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
-   if( ret != ROK )
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
       RETVALUE(ret);
    }
 
-   ret = ueAppUtlBldSecModReject(ueCb, &secModeRejEvnt,cause);
-   if(ROK != ret)
+   ret = ueAppUtlBldSecModReject(ueCb, &secModeRejEvnt, cause);
+   if (ROK != ret)
    {
-      UE_LOG_ERROR(ueAppCb, "Could not build  and send the "\
-            "security mode Reject");
+      UE_LOG_ERROR(ueAppCb, "Could not build  and send the "
+                            "security mode Reject");
       RETVALUE(ret);
    }
 
@@ -3574,7 +3550,7 @@ PRIVATE S16 ueProcUeSecModeRejectCmd(UetMessage *p_ueMsg, Pst *pst)
    pUlNbMsg = (NbuUlNasMsg *)ueAlloc(sizeof(NbuUlNasMsg));
    /* Encoding Nas PDU */
    ret = ueAppEdmEncode(secModeRejEvnt, &nasEncPdu);
-   if(ret != ROK)
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Encoding failed");
       CM_FREE_NASEVNT(&secModeRejEvnt);
@@ -3603,14 +3579,14 @@ PRIVATE S16 ueProcUeSecModeRejectCmd(UetMessage *p_ueMsg, Pst *pst)
    CM_FREE_NASEVNT(&secModeRejEvnt);
    /** END **/
    /* NB message filliing */
-   pUlNbMsg->ueId        = ueCb->ueId;
+   pUlNbMsg->ueId = ueCb->ueId;
    pUlNbMsg->nasPdu.pres = TRUE;
-   pUlNbMsg->nasPdu.len  = nasEncPdu.len;
+   pUlNbMsg->nasPdu.len = nasEncPdu.len;
 
    pUlNbMsg->nasPdu.val = (U8 *)ueAlloc(pUlNbMsg->nasPdu.len);
-   cmMemcpy((U8 *)pUlNbMsg->nasPdu.val, (U8 *)nasEncPdu.val, pUlNbMsg->nasPdu.len );
+   cmMemcpy((U8 *)pUlNbMsg->nasPdu.val, (U8 *)nasEncPdu.val, pUlNbMsg->nasPdu.len);
 
-   ret = ueSendUlNasMsgToNb(pUlNbMsg,&ueAppCb->nbPst);
+   ret = ueSendUlNasMsgToNb(pUlNbMsg, &ueAppCb->nbPst);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Could not Send Security Mode Reject NAS message");
@@ -3638,29 +3614,29 @@ PRIVATE S16 ueProcUeSecModeCmdComplete(UetMessage *p_ueMsg, Pst *pst)
    U32 ueId;
    UeAppCb *ueAppCb = NULLP;
    UeCb *ueCb = NULLP;
-   UeAppMsg     srcMsg;
-   UeAppMsg     dstMsg;
+   UeAppMsg srcMsg;
+   UeAppMsg dstMsg;
 
-   CmNasEvnt   *secModeCompEvnt = NULLP;
+   CmNasEvnt *secModeCompEvnt = NULLP;
    NbuUlNasMsg *pUlNbMsg = NULLP;
-   NhuDedicatedInfoNAS  nasEncPdu;
+   NhuDedicatedInfoNAS nasEncPdu;
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
    ueId = p_ueMsg->msg.ueUetSecModeComplete.ueId;
 
    /* Fetching the UeCb */
    ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
-   if( ret != ROK )
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
       RETVALUE(ret);
    }
 
    ret = ueAppUtlBldSecModComplete(ueCb, &secModeCompEvnt);
-   if(ROK != ret)
+   if (ROK != ret)
    {
-      UE_LOG_ERROR(ueAppCb, "Could not build  and send the "\
-            "security mode complete");
+      UE_LOG_ERROR(ueAppCb, "Could not build  and send the "
+                            "security mode complete");
       RETVALUE(ret);
    }
 
@@ -3668,20 +3644,20 @@ PRIVATE S16 ueProcUeSecModeCmdComplete(UetMessage *p_ueMsg, Pst *pst)
    pUlNbMsg = (NbuUlNasMsg *)ueAlloc(sizeof(NbuUlNasMsg));
    /* Encoding Nas PDU */
    ret = ueAppEdmEncode(secModeCompEvnt, &nasEncPdu);
-   if(ret != ROK)
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Encoding failed");
       CM_FREE_NASEVNT(&secModeCompEvnt);
       RETVALUE(ret);
    }
    /** Integrity Protected **/
-   if(CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != secModeCompEvnt->secHT)
+   if (CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != secModeCompEvnt->secHT)
    {
       srcMsg.val = nasEncPdu.val;
       srcMsg.len = nasEncPdu.len;
       ret = ueAppCmpUplnkSec(&ueCb->secCtxt, secModeCompEvnt->secHT, &srcMsg,
-            &dstMsg);
-      if(ROK != ret)
+                             &dstMsg);
+      if (ROK != ret)
       {
          UE_LOG_ERROR(ueAppCb, "Uplink Security Failed");
          secModeCompEvnt->pdu = NULLP;
@@ -3696,15 +3672,15 @@ PRIVATE S16 ueProcUeSecModeCmdComplete(UetMessage *p_ueMsg, Pst *pst)
    CM_FREE_NASEVNT(&secModeCompEvnt);
    /** END **/
    /* NB message filliing */
-   pUlNbMsg->ueId        = ueCb->ueId;
+   pUlNbMsg->ueId = ueCb->ueId;
    pUlNbMsg->nasPdu.pres = TRUE;
-   pUlNbMsg->nasPdu.len  = nasEncPdu.len;
+   pUlNbMsg->nasPdu.len = nasEncPdu.len;
 
    pUlNbMsg->nasPdu.val = (U8 *)ueAlloc(pUlNbMsg->nasPdu.len);
    cmMemcpy((U8 *)pUlNbMsg->nasPdu.val, (U8 *)nasEncPdu.val,
-         pUlNbMsg->nasPdu.len);
+            pUlNbMsg->nasPdu.len);
 
-   ret = ueSendUlNasMsgToNb(pUlNbMsg,&ueAppCb->nbPst);
+   ret = ueSendUlNasMsgToNb(pUlNbMsg, &ueAppCb->nbPst);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Could not Send the Authentication response");
@@ -3727,19 +3703,17 @@ PRIVATE S16 ueProcUeSecModeCmdComplete(UetMessage *p_ueMsg, Pst *pst)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlBldDetachReq
-(
- UeCb *ueCb,
- CmNasEvnt **ueEvt,
- U8 detachType,
- U8 miType,
- U8 detCause
-)
+PRIVATE S16 ueAppUtlBldDetachReq(
+    UeCb *ueCb,
+    CmNasEvnt **ueEvt,
+    U8 detachType,
+    U8 miType,
+    U8 detCause)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   CmEmmDetachReq  *detachReq = NULLP;
-   CmEmmMsg* emmMsg;
+   CmEmmDetachReq *detachReq = NULLP;
+   CmEmmMsg *emmMsg;
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
 
@@ -3751,7 +3725,7 @@ PRIVATE S16 ueAppUtlBldDetachReq
    }
 
    /* Allocate memory for pdu */
-   CM_ALLOC_NASEVNT (ueEvt, CM_EMM_PD);
+   CM_ALLOC_NASEVNT(ueEvt, CM_EMM_PD);
 
    if (*ueEvt == NULLP)
    {
@@ -3769,7 +3743,7 @@ PRIVATE S16 ueAppUtlBldDetachReq
    (*ueEvt)->m.emmEvnt = emmMsg;
    detachReq = &((*ueEvt)->m.emmEvnt->u.dtchReq);
 
-   if(ueCb->ecmCb.state == UE_ECM_IDLE)
+   if (ueCb->ecmCb.state == UE_ECM_IDLE)
    {
       /*Fill header information*/
       (*ueEvt)->secHT = CM_NAS_SEC_HDR_TYPE_INT_PRTD;
@@ -3797,33 +3771,31 @@ PRIVATE S16 ueAppUtlBldDetachReq
 
    switch (miType)
    {
-      case CM_EMM_MID_TYPE_IMSI:
-      {
-         detachReq->epsMi.pres = TRUE;
-         detachReq->epsMi.type = CM_EMM_MID_TYPE_IMSI;
-         detachReq->epsMi.len = 15; /*cmStrlen(ueCb->ueCtxt.ueImsi);*/
-         detachReq->epsMi.evenOddInd = (((detachReq->epsMi.len)%2) != 0) ? \
-                                       UE_ODD : UE_EVEN;
-         cmMemcpy((U8 *)&detachReq->epsMi.u.imsi.id, (U8 *)&ueCb->ueCtxt.\
-                  ueImsi, detachReq->epsMi.len);
-         break;
-      }
-      case CM_EMM_MID_TYPE_GUTI:
-      {
-         detachReq->epsMi.pres = TRUE;
-         detachReq->epsMi.type = CM_EMM_MID_TYPE_GUTI;
-         detachReq->epsMi.evenOddInd = UE_EVEN;
-         detachReq->epsMi.len  = sizeof(GUTI);
-         cmMemcpy((U8 *)&detachReq->epsMi.u.guti, (U8 *)&ueCb->ueCtxt.ueGuti,
-                  sizeof(GUTI));
-         break;
-      }
-      default:
-      {
-         UE_LOG_ERROR(ueAppCb, "Invalid miType\n");
-         ret = RFAILED;
-         break;
-      }
+   case CM_EMM_MID_TYPE_IMSI:
+   {
+      detachReq->epsMi.pres = TRUE;
+      detachReq->epsMi.type = CM_EMM_MID_TYPE_IMSI;
+      detachReq->epsMi.len = 15; /*cmStrlen(ueCb->ueCtxt.ueImsi);*/
+      detachReq->epsMi.evenOddInd = (((detachReq->epsMi.len) % 2) != 0) ? UE_ODD : UE_EVEN;
+      cmMemcpy((U8 *)&detachReq->epsMi.u.imsi.id, (U8 *)&ueCb->ueCtxt.ueImsi, detachReq->epsMi.len);
+      break;
+   }
+   case CM_EMM_MID_TYPE_GUTI:
+   {
+      detachReq->epsMi.pres = TRUE;
+      detachReq->epsMi.type = CM_EMM_MID_TYPE_GUTI;
+      detachReq->epsMi.evenOddInd = UE_EVEN;
+      detachReq->epsMi.len = sizeof(GUTI);
+      cmMemcpy((U8 *)&detachReq->epsMi.u.guti, (U8 *)&ueCb->ueCtxt.ueGuti,
+               sizeof(GUTI));
+      break;
+   }
+   default:
+   {
+      UE_LOG_ERROR(ueAppCb, "Invalid miType\n");
+      ret = RFAILED;
+      break;
+   }
    }
 
    UE_LOG_EXITFN(ueAppCb, ret);
@@ -3842,11 +3814,9 @@ PRIVATE S16 ueAppUtlBldDetachReq
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueSendDetachRequest
-(
- UeCb *ueCb,
- U8 detCause
-)
+PRIVATE S16 ueSendDetachRequest(
+    UeCb *ueCb,
+    U8 detCause)
 {
    S16 ret = ROK;
    U8 isPlainMsg = TRUE;
@@ -3862,7 +3832,7 @@ PRIVATE S16 ueSendDetachRequest
    UE_LOG_ENTERFN(ueAppCb);
 
    ret = ueAppUtlBldDetachReq(ueCb, &detachReq, UE_DETACH_EPS,
-         CM_EMM_MID_TYPE_GUTI, detCause);
+                              CM_EMM_MID_TYPE_GUTI, detCause);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Building DetachReq Failed\n");
@@ -3879,7 +3849,7 @@ PRIVATE S16 ueSendDetachRequest
    }
 
    /** Integrity Protected **/
-   if(CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != detachReq->secHT)
+   if (CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != detachReq->secHT)
    {
       isPlainMsg = FALSE;
       srcMsg.val = nasEncPdu.val;
@@ -3904,8 +3874,8 @@ PRIVATE S16 ueSendDetachRequest
       printf("%x ", *(srcMsg.val + count));
 #endif
       ret = ueAppCmpUplnkSec(&ueCb->secCtxt, detachReq->secHT, &srcMsg,
-            &dstMsg);
-      if(ROK != ret)
+                             &dstMsg);
+      if (ROK != ret)
       {
          UE_LOG_ERROR(ueAppCb, "Uplink Security Failed");
          detachReq->pdu = NULLP;
@@ -3919,21 +3889,21 @@ PRIVATE S16 ueSendDetachRequest
    }
    CM_FREE_NASEVNT(&detachReq);
 
-   if(ueCb->ecmCb.state == UE_ECM_IDLE)
+   if (ueCb->ecmCb.state == UE_ECM_IDLE)
    {
       nbuInitialUeMsg = (NbuInitialUeMsg *)ueAlloc(sizeof(NbuInitialUeMsg));
       nbuInitialUeMsg->ueId = ueCb->ueId;
       nbuInitialUeMsg->rrcCause = 3;
 
-      nbuInitialUeMsg->stmsi.pres  = TRUE;
-      nbuInitialUeMsg->stmsi.mmec  = ueCb->ueCtxt.ueGuti.mmeCode;
+      nbuInitialUeMsg->stmsi.pres = TRUE;
+      nbuInitialUeMsg->stmsi.mmec = ueCb->ueCtxt.ueGuti.mmeCode;
       nbuInitialUeMsg->stmsi.mTMSI = ueCb->ueCtxt.ueGuti.mTMSI;
 
       nbuInitialUeMsg->nasPdu.pres = TRUE;
       nbuInitialUeMsg->nasPdu.len = nasEncPdu.len;
       nbuInitialUeMsg->nasPdu.val = (U8 *)ueAlloc(nbuInitialUeMsg->nasPdu.len);
       cmMemcpy((U8 *)nbuInitialUeMsg->nasPdu.val, nasEncPdu.val,
-            nbuInitialUeMsg->nasPdu.len);
+               nbuInitialUeMsg->nasPdu.len);
 
       ret = ueSendInitialUeMsg(nbuInitialUeMsg, &ueAppCb->nbPst);
       if (ret != ROK)
@@ -3945,12 +3915,12 @@ PRIVATE S16 ueSendDetachRequest
    else
    {
       pUlNbMsg = (NbuUlNasMsg *)ueAlloc(sizeof(NbuUlNasMsg));
-      pUlNbMsg->ueId        = ueCb->ueId;
+      pUlNbMsg->ueId = ueCb->ueId;
       pUlNbMsg->nasPdu.pres = TRUE;
-      pUlNbMsg->nasPdu.len  = nasEncPdu.len;
+      pUlNbMsg->nasPdu.len = nasEncPdu.len;
       pUlNbMsg->nasPdu.val = (U8 *)ueAlloc(pUlNbMsg->nasPdu.len);
       cmMemcpy((U8 *)pUlNbMsg->nasPdu.val, (U8 *)nasEncPdu.val,
-            pUlNbMsg->nasPdu.len);
+               pUlNbMsg->nasPdu.len);
 
       ret = ueSendUlNasMsgToNb(pUlNbMsg, &ueAppCb->nbPst);
       if (ret != ROK)
@@ -3960,7 +3930,7 @@ PRIVATE S16 ueSendDetachRequest
       }
    }
 
-   if(isPlainMsg)
+   if (isPlainMsg)
    {
       EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
    }
@@ -3981,14 +3951,12 @@ PRIVATE S16 ueSendDetachRequest
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcUeDetachRequest
-(
- UetMessage *p_ueMsg,
- Pst *pst
-)
+PRIVATE S16 ueProcUeDetachRequest(
+    UetMessage *p_ueMsg,
+    Pst *pst)
 {
    S16 ret = ROK;
-   U32  ueId;
+   U32 ueId;
    U8 detCause;
    UeAppCb *ueAppCb = NULLP;
    UeCb *ueCb = NULLP;
@@ -3999,16 +3967,16 @@ PRIVATE S16 ueProcUeDetachRequest
    UE_LOG_DEBUG(ueAppCb, "Recieved Ue Detach Request");
    ueId = p_ueMsg->msg.ueUetDetachReq.ueId;
    ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
-   if(ret != ROK)
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb is empty for ueId = %d", ueId);
       UE_LOG_EXITFN(ueAppCb, ret);
    }
-   if(p_ueMsg->msg.ueUetDetachReq.ueDetType == UET_NORMAL_DETACH)
+   if (p_ueMsg->msg.ueUetDetachReq.ueDetType == UET_NORMAL_DETACH)
    {
       detCause = UE_DETACH_NORMAL;
    }
-   else if(p_ueMsg->msg.ueUetDetachReq.ueDetType == UET_SWITCHOFF_DETACH)
+   else if (p_ueMsg->msg.ueUetDetachReq.ueDetType == UET_SWITCHOFF_DETACH)
    {
       detCause = UE_DETACH_SWITCHOFF;
    }
@@ -4026,10 +3994,11 @@ PRIVATE S16 ueProcUeDetachRequest
    }
    /* Free all the DRBs allocated for this ueId */
    UE_LOG_DEBUG(ueAppCb, "Freeing all the DRBs allocated for ueId: %d", ueId);
-   for (U8 idx = 0; idx < UE_APP_MAX_DRBS; idx++) {
-     cmMemset((U8 *)&(ueCb->ueRabCb[idx]), 0, sizeof(ueCb->ueRabCb[idx]));
-     ueCb->drbs[idx] = UE_APP_DRB_AVAILABLE;
-     ueCb->numRabs--;
+   for (U8 idx = 0; idx < UE_APP_MAX_DRBS; idx++)
+   {
+      cmMemset((U8 *)&(ueCb->ueRabCb[idx]), 0, sizeof(ueCb->ueRabCb[idx]));
+      ueCb->drbs[idx] = UE_APP_DRB_AVAILABLE;
+      ueCb->numRabs--;
    }
 
    UE_LOG_EXITFN(ueAppCb, ret);
@@ -4048,16 +4017,14 @@ PRIVATE S16 ueProcUeDetachRequest
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlBldUeTrigDetachAcc
-(
- CmNasEvnt **ueEvt
-)
+PRIVATE S16 ueAppUtlBldUeTrigDetachAcc(
+    CmNasEvnt **ueEvt)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-/*   CmEmmDetachReq  *detachReq = NULLP;*/
-   CmEmmDetachAcc  *dtchAcc = NULLP;
-   CmEmmMsg* emmMsg;
+   /*   CmEmmDetachReq  *detachReq = NULLP;*/
+   CmEmmDetachAcc *dtchAcc = NULLP;
+   CmEmmMsg *emmMsg;
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
 
@@ -4069,7 +4036,7 @@ PRIVATE S16 ueAppUtlBldUeTrigDetachAcc
    }
 
    /* Allocate memory for pdu */
-   CM_ALLOC_NASEVNT (ueEvt, CM_EMM_PD);
+   CM_ALLOC_NASEVNT(ueEvt, CM_EMM_PD);
 
    if (*ueEvt == NULLP)
    {
@@ -4115,10 +4082,8 @@ PRIVATE S16 ueAppUtlBldUeTrigDetachAcc
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueSendUeTrigDetachAcc
-(
- UeCb *ueCb
-)
+PRIVATE S16 ueSendUeTrigDetachAcc(
+    UeCb *ueCb)
 {
    S16 ret = ROK;
    U8 isPlainMsg = TRUE;
@@ -4150,7 +4115,7 @@ PRIVATE S16 ueSendUeTrigDetachAcc
    }
 
    /** Integrity Protected **/
-   if(CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != detachAcc->secHT)
+   if (CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != detachAcc->secHT)
    {
       isPlainMsg = FALSE;
       srcMsg.val = nasEncPdu.val;
@@ -4175,8 +4140,8 @@ PRIVATE S16 ueSendUeTrigDetachAcc
       printf("%x ", *(srcMsg.val + count));
 #endif
       ret = ueAppCmpUplnkSec(&ueCb->secCtxt, detachAcc->secHT, &srcMsg,
-            &dstMsg);
-      if(ROK != ret)
+                             &dstMsg);
+      if (ROK != ret)
       {
          UE_LOG_ERROR(ueAppCb, "Uplink Security Failed");
          detachAcc->pdu = NULLP;
@@ -4190,21 +4155,21 @@ PRIVATE S16 ueSendUeTrigDetachAcc
    }
    CM_FREE_NASEVNT(&detachAcc);
 
-   if(ueCb->ecmCb.state == UE_ECM_IDLE)
+   if (ueCb->ecmCb.state == UE_ECM_IDLE)
    {
       nbuInitialUeMsg = (NbuInitialUeMsg *)ueAlloc(sizeof(NbuInitialUeMsg));
       nbuInitialUeMsg->ueId = ueCb->ueId;
       nbuInitialUeMsg->rrcCause = 3;
 
-      nbuInitialUeMsg->stmsi.pres  = TRUE;
-      nbuInitialUeMsg->stmsi.mmec  = ueCb->ueCtxt.ueGuti.mmeCode;
+      nbuInitialUeMsg->stmsi.pres = TRUE;
+      nbuInitialUeMsg->stmsi.mmec = ueCb->ueCtxt.ueGuti.mmeCode;
       nbuInitialUeMsg->stmsi.mTMSI = ueCb->ueCtxt.ueGuti.mTMSI;
 
       nbuInitialUeMsg->nasPdu.pres = TRUE;
       nbuInitialUeMsg->nasPdu.len = nasEncPdu.len;
       nbuInitialUeMsg->nasPdu.val = (U8 *)ueAlloc(nbuInitialUeMsg->nasPdu.len);
       cmMemcpy((U8 *)nbuInitialUeMsg->nasPdu.val, nasEncPdu.val,
-            nbuInitialUeMsg->nasPdu.len);
+               nbuInitialUeMsg->nasPdu.len);
 
       ret = ueSendInitialUeMsg(nbuInitialUeMsg, &ueAppCb->nbPst);
       if (ret != ROK)
@@ -4216,12 +4181,12 @@ PRIVATE S16 ueSendUeTrigDetachAcc
    else
    {
       pUlNbMsg = (NbuUlNasMsg *)ueAlloc(sizeof(NbuUlNasMsg));
-      pUlNbMsg->ueId        = ueCb->ueId;
+      pUlNbMsg->ueId = ueCb->ueId;
       pUlNbMsg->nasPdu.pres = TRUE;
-      pUlNbMsg->nasPdu.len  = nasEncPdu.len;
+      pUlNbMsg->nasPdu.len = nasEncPdu.len;
       pUlNbMsg->nasPdu.val = (U8 *)ueAlloc(pUlNbMsg->nasPdu.len);
       cmMemcpy((U8 *)pUlNbMsg->nasPdu.val, (U8 *)nasEncPdu.val,
-            pUlNbMsg->nasPdu.len);
+               pUlNbMsg->nasPdu.len);
 
       ret = ueSendUlNasMsgToNb(pUlNbMsg, &ueAppCb->nbPst);
       if (ret != ROK)
@@ -4231,7 +4196,7 @@ PRIVATE S16 ueSendUeTrigDetachAcc
       }
    }
 
-   if(isPlainMsg)
+   if (isPlainMsg)
    {
       EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
    }
@@ -4252,14 +4217,12 @@ PRIVATE S16 ueSendUeTrigDetachAcc
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcUeTrigDetachAcc
-(
- UetMessage *p_ueMsg,
- Pst *pst
-)
+PRIVATE S16 ueProcUeTrigDetachAcc(
+    UetMessage *p_ueMsg,
+    Pst *pst)
 {
    S16 ret = ROK;
-   U32  ueId;
+   U32 ueId;
    UeAppCb *ueAppCb = NULLP;
    UeCb *ueCb = NULLP;
 
@@ -4269,7 +4232,7 @@ PRIVATE S16 ueProcUeTrigDetachAcc
    UE_LOG_DEBUG(ueAppCb, "Recieved Ue Triggered Detach Accept");
    ueId = p_ueMsg->msg.ueUetUeTrigDetachAcc.ueId;
    ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
-   if( ret != ROK )
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb is empty for ueId = %d", ueId);
       UE_LOG_EXITFN(ueAppCb, ret);
@@ -4281,7 +4244,6 @@ PRIVATE S16 ueProcUeTrigDetachAcc
       UE_LOG_ERROR(ueAppCb, "Sending Ue Triggered Detach Accept message failed");
       UE_LOG_EXITFN(ueAppCb, ret);
    }
-
 
    UE_LOG_EXITFN(ueAppCb, ret);
 }
@@ -4298,11 +4260,9 @@ PRIVATE S16 ueProcUeTrigDetachAcc
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcUeFlush
-(
- UetMessage *p_ueMsg,
- Pst *pst
-)
+PRIVATE S16 ueProcUeFlush(
+    UetMessage *p_ueMsg,
+    Pst *pst)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -4312,7 +4272,7 @@ PRIVATE S16 ueProcUeFlush
 
    UE_LOG_DEBUG(ueAppCb, "Recieved Ue Flush Command");
    ret = ueDbmDelAllUe();
-   if( ret != ROK )
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Flushing all UE's Failed");
       UE_LOG_EXITFN(ueAppCb, ret);
@@ -4333,11 +4293,9 @@ PRIVATE S16 ueProcUeFlush
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcErabRelInd
-(
- UetMessage *p_ueMsg,
- Pst *pst
-)
+PRIVATE S16 ueProcErabRelInd(
+    UetMessage *p_ueMsg,
+    Pst *pst)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -4357,8 +4315,8 @@ PRIVATE S16 ueProcErabRelInd
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
       RETVALUE(ret);
    }
-   ret = ueAppFillLinkedBrIdAndSendErabRelInd(ueCb,&p_ueMsg->msg.ueErabRelInd);
-   if( ret != ROK )
+   ret = ueAppFillLinkedBrIdAndSendErabRelInd(ueCb, &p_ueMsg->msg.ueErabRelInd);
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Erab Release Indication Failed");
       UE_LOG_EXITFN(ueAppCb, ret);
@@ -4367,29 +4325,27 @@ PRIVATE S16 ueProcErabRelInd
    UE_LOG_EXITFN(ueAppCb, ret);
 }
 
-PRIVATE S16 ueAppFillLinkedBrIdAndSendErabRelInd
-(
- UeCb *ueCb,
- UeErabRelInd *pErabRel
-)
+PRIVATE S16 ueAppFillLinkedBrIdAndSendErabRelInd(
+    UeCb *ueCb,
+    UeErabRelInd *pErabRel)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   U8 rbIdx = 0, flag=0;
+   U8 rbIdx = 0, flag = 0;
    U8 noOfErabIds = pErabRel->numOfErabIds;
 
    U8 *tempErabIdLst = (U8 *)ueAlloc((sizeof(U8)) * UE_APP_MAX_DRBS);
    /*cmMemset((U8 *)&(tempErabIdLst), 0, ((sizeof(U8))*UE_APP_MAX_DRBS));
    */
-   U8 brCount=0,ctxtCount=0,dCount=0,tempCount=0,mCount=0;
+   U8 brCount = 0, ctxtCount = 0, dCount = 0, tempCount = 0, mCount = 0;
    NbuErabRelIndList *nbuErabRelInd = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
-   UE_LOG_DEBUG(ueAppCb, "Filling LinkedBrIds in the Erab List And "\
-         "Sending Erab Rel Indication");
+   UE_LOG_DEBUG(ueAppCb, "Filling LinkedBrIds in the Erab List And "
+                         "Sending Erab Rel Indication");
 
-   if(ueCb == NULLP)
+   if (ueCb == NULLP)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb is Empty");
       RETVALUE(RFAILED);
@@ -4398,30 +4354,28 @@ PRIVATE S16 ueAppFillLinkedBrIdAndSendErabRelInd
    nbuErabRelInd = (NbuErabRelIndList *)ueAlloc(sizeof(NbuErabRelIndList));
    nbuErabRelInd->ueId = pErabRel->ueId;
    nbuErabRelInd->numOfErabIds = pErabRel->numOfErabIds;
-   nbuErabRelInd->erabIdLst = (U8 *)ueAlloc((sizeof(U8)) * \
-         nbuErabRelInd->numOfErabIds);
-   cmMemset((U8 *)(nbuErabRelInd->erabIdLst), 0, ((sizeof(U8)) * \
-            nbuErabRelInd->numOfErabIds));
+   nbuErabRelInd->erabIdLst = (U8 *)ueAlloc((sizeof(U8)) *
+                                            nbuErabRelInd->numOfErabIds);
+   cmMemset((U8 *)(nbuErabRelInd->erabIdLst), 0, ((sizeof(U8)) * nbuErabRelInd->numOfErabIds));
    cmMemcpy((U8 *)nbuErabRelInd->erabIdLst, pErabRel->erabIdLst,
-         nbuErabRelInd->numOfErabIds);
+            nbuErabRelInd->numOfErabIds);
 
-   for(brCount=0;brCount<noOfErabIds;brCount++)
+   for (brCount = 0; brCount < noOfErabIds; brCount++)
    {
       /*Find the bearer index*/
-      if((ueAppUtlFndRbCb(&rbIdx, ueCb,
-                  nbuErabRelInd->erabIdLst[brCount]) == ROK) && (ueCb->\
-                  ueRabCb[rbIdx].bearerType == DEFAULT_BEARER))
+      if ((ueAppUtlFndRbCb(&rbIdx, ueCb,
+                           nbuErabRelInd->erabIdLst[brCount]) == ROK) &&
+          (ueCb->ueRabCb[rbIdx].bearerType == DEFAULT_BEARER))
       {
-         for(ctxtCount = 0; ctxtCount < UE_APP_MAX_DRBS; ctxtCount++)
+         for (ctxtCount = 0; ctxtCount < UE_APP_MAX_DRBS; ctxtCount++)
          {
-            if(nbuErabRelInd->erabIdLst[brCount] == ueCb->ueRabCb[ctxtCount].\
-                  lnkEpsBearId)
+            if (nbuErabRelInd->erabIdLst[brCount] == ueCb->ueRabCb[ctxtCount].lnkEpsBearId)
             {
                tempErabIdLst[tempCount] = ueCb->ueRabCb[ctxtCount].epsBearerId;
                tempCount++;
 
                cmMemset((U8 *)&(ueCb->ueRabCb[ctxtCount]), 0,
-                     sizeof(ueCb->ueRabCb[ctxtCount]));
+                        sizeof(ueCb->ueRabCb[ctxtCount]));
                ueCb->drbs[ctxtCount] = UE_APP_DRB_AVAILABLE;
             }
          }
@@ -4429,15 +4383,15 @@ PRIVATE S16 ueAppFillLinkedBrIdAndSendErabRelInd
       else if (ueCb->ueRabCb[rbIdx].bearerType == DEDICATED_BEARER)
       {
          cmMemset((U8 *)&(ueCb->ueRabCb[rbIdx]), 0,
-               sizeof(ueCb->ueRabCb[rbIdx]));
+                  sizeof(ueCb->ueRabCb[rbIdx]));
          ueCb->drbs[rbIdx + 1] = UE_APP_DRB_AVAILABLE;
       }
    }
 
    /*check duplicates and merge the templist and ErabList*/
-   for(mCount=0; mCount<tempCount;mCount++)
+   for (mCount = 0; mCount < tempCount; mCount++)
    {
-      for(dCount=0;dCount<noOfErabIds;dCount++)
+      for (dCount = 0; dCount < noOfErabIds; dCount++)
       {
          if (tempErabIdLst[mCount] == nbuErabRelInd->erabIdLst[dCount])
          {
@@ -4446,7 +4400,7 @@ PRIVATE S16 ueAppFillLinkedBrIdAndSendErabRelInd
       }
       if (flag == 0)
       {
-         nbuErabRelInd->erabIdLst[brCount]=tempErabIdLst[mCount];
+         nbuErabRelInd->erabIdLst[brCount] = tempErabIdLst[mCount];
          nbuErabRelInd->numOfErabIds++;
          brCount++;
       }
@@ -4455,8 +4409,8 @@ PRIVATE S16 ueAppFillLinkedBrIdAndSendErabRelInd
 
    if (ret != ROK)
    {
-      UE_LOG_ERROR(ueAppCb, "Filling Erab List And Sending Erab Rel "\
-            "Indication failed");
+      UE_LOG_ERROR(ueAppCb, "Filling Erab List And Sending Erab Rel "
+                            "Indication failed");
       RETVALUE(ret);
    }
    UE_LOG_EXITFN(ueAppCb, ret);
@@ -4479,8 +4433,8 @@ PRIVATE S16 ueAppFillLinkedBrIdAndSendErabRelInd
 PRIVATE S16 ueAppUtlBldServiceReq(UeCb *ueCb, CmNasEvnt **ueEvt)
 {
    UeAppCb *ueAppCb = NULLP;
-   CmEmmServiceReq  *serviceReq;
-   CmEmmMsg* emmMsg;
+   CmEmmServiceReq *serviceReq;
+   CmEmmMsg *emmMsg;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
@@ -4490,9 +4444,9 @@ PRIVATE S16 ueAppUtlBldServiceReq(UeCb *ueCb, CmNasEvnt **ueEvt)
    UE_LOG_DEBUG(ueAppCb, "Building a Service Request");
 
    /* Allocate memory for pdu */
-   CM_ALLOC_NASEVNT (ueEvt, CM_EMM_PD);
+   CM_ALLOC_NASEVNT(ueEvt, CM_EMM_PD);
 
-   if(*ueEvt == NULLP)
+   if (*ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
@@ -4517,11 +4471,11 @@ PRIVATE S16 ueAppUtlBldServiceReq(UeCb *ueCb, CmNasEvnt **ueEvt)
    /* KSI and Sequence Number IE*/
    serviceReq->ksiSeqNum.pres = TRUE;
    serviceReq->ksiSeqNum.seqNum = 0;
-   serviceReq->ksiSeqNum.Ksi    = CM_EMM_NONAS_KEY_AVAILABLE;
+   serviceReq->ksiSeqNum.Ksi = CM_EMM_NONAS_KEY_AVAILABLE;
 
    /*Short MAC IE*/
    serviceReq->shortMac.pres = TRUE;
-   serviceReq->shortMac.val  = 0;
+   serviceReq->shortMac.val = 0;
 
    RETVALUE(ROK);
 } /* ueAppUtlBldServiceReq */
@@ -4539,12 +4493,10 @@ PRIVATE S16 ueAppUtlBldServiceReq(UeCb *ueCb, CmNasEvnt **ueEvt)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueSendServiceRequest
-(
- UeCb *ueCb,
- U32 mTmsi,
- U8 rrcCause
-)
+PRIVATE S16 ueSendServiceRequest(
+    UeCb *ueCb,
+    U32 mTmsi,
+    U8 rrcCause)
 {
    S16 ret = ROK;
    U8 isPlainMsg = TRUE;
@@ -4562,7 +4514,7 @@ PRIVATE S16 ueSendServiceRequest
 
    ueCb->ecmCb.state = UE_ECM_CONNECTED;
    ret = ueAppUtlBldServiceReq(ueCb, &serviceReqEvnt);
-   if(ROK != ret)
+   if (ROK != ret)
    {
       UE_LOG_ERROR(ueAppCb, "Could not send the Service request\n");
       RETVALUE(ret);
@@ -4573,7 +4525,7 @@ PRIVATE S16 ueSendServiceRequest
 
    /* Encoding Nas PDU */
    ret = ueAppEdmEncode(serviceReqEvnt, &nasEncPdu);
-   if(ret != ROK)
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Encoding failed");
       CM_FREE_NASEVNT(&serviceReqEvnt);
@@ -4581,14 +4533,14 @@ PRIVATE S16 ueSendServiceRequest
    }
 
    /** Integrity Protected **/
-   if(CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != serviceReqEvnt->secHT)
+   if (CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != serviceReqEvnt->secHT)
    {
       isPlainMsg = FALSE;
       srcMsg.val = nasEncPdu.val;
       srcMsg.len = nasEncPdu.len;
       ret = ueAppCmpUplnkSec(&ueCb->secCtxt, serviceReqEvnt->secHT, &srcMsg,
-            &dstMsg);
-      if(ROK != ret)
+                             &dstMsg);
+      if (ROK != ret)
       {
          UE_LOG_ERROR(ueAppCb, "Uplink Security Failed");
          serviceReqEvnt->pdu = NULLP;
@@ -4604,20 +4556,20 @@ PRIVATE S16 ueSendServiceRequest
    CM_FREE_NASEVNT(&serviceReqEvnt);
 
    /* NB message filling */
-   nbuInitialUeMsg->ueId        = ueCb->ueId;
-   nbuInitialUeMsg->rrcCause    = rrcCause;
+   nbuInitialUeMsg->ueId = ueCb->ueId;
+   nbuInitialUeMsg->rrcCause = rrcCause;
 
-   nbuInitialUeMsg->stmsi.pres  = TRUE;
-   nbuInitialUeMsg->stmsi.mmec  = ueCb->ueCtxt.ueGuti.mmeCode;
+   nbuInitialUeMsg->stmsi.pres = TRUE;
+   nbuInitialUeMsg->stmsi.mmec = ueCb->ueCtxt.ueGuti.mmeCode;
    nbuInitialUeMsg->stmsi.mTMSI = mTmsi;
 
    nbuInitialUeMsg->nasPdu.pres = TRUE;
-   nbuInitialUeMsg->nasPdu.len  = nasEncPdu.len;
+   nbuInitialUeMsg->nasPdu.len = nasEncPdu.len;
    nbuInitialUeMsg->nasPdu.val = (U8 *)ueAlloc(nbuInitialUeMsg->nasPdu.len);
    cmMemcpy((U8 *)nbuInitialUeMsg->nasPdu.val, (U8 *)nasEncPdu.val,
-         nbuInitialUeMsg->nasPdu.len);
+            nbuInitialUeMsg->nasPdu.len);
 
-   if(isPlainMsg)
+   if (isPlainMsg)
    {
       EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
    }
@@ -4645,20 +4597,18 @@ PRIVATE S16 ueSendServiceRequest
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcUePdnConReq
-(
- UetMessage *p_ueMsg,
- Pst *pst
-)
+PRIVATE S16 ueProcUePdnConReq(
+    UetMessage *p_ueMsg,
+    Pst *pst)
 {
    S16 ret = ROK;
-   U32  ueId = 0;
+   U32 ueId = 0;
    U8 isPlainMsg = TRUE;
    UeAppMsg srcMsg;
    UeAppMsg dstMsg;
    UeAppCb *ueAppCb = NULLP;
    UeCb *ueCb = NULLP;
-   CmNasEvnt           *pdnConReqEvnt = NULLP;
+   CmNasEvnt *pdnConReqEvnt = NULLP;
    NhuDedicatedInfoNAS nasEncPdu;
    NbuUlNasMsg *nbUePdnConReq = NULLP;
 
@@ -4668,19 +4618,19 @@ PRIVATE S16 ueProcUePdnConReq
    UE_LOG_DEBUG(ueAppCb, "Recieved Ue Service Request");
    ueId = p_ueMsg->msg.ueUetPdnConReq.ueId;
    ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
-   if( ret != ROK )
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
    }
    ret = ueAppUtlBldStandAlonePdnConReq(&pdnConReqEvnt,
-         &p_ueMsg->msg.ueUetPdnConReq);
+                                        &p_ueMsg->msg.ueUetPdnConReq);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Building pdn connection req message failed");
       RETVALUE(ret);
    }
 
-   if ((ret = ueAppEsmHdlOutUeEvnt(pdnConReqEvnt, ueCb))!= ROK)
+   if ((ret = ueAppEsmHdlOutUeEvnt(pdnConReqEvnt, ueCb)) != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Handling PDN connection Request failed \n");
       RETVALUE(RFAILED);
@@ -4724,11 +4674,11 @@ PRIVATE S16 ueProcUePdnConReq
    nbUePdnConReq->nasPdu.len = nasEncPdu.len;
    nbUePdnConReq->nasPdu.val = (U8 *)ueAlloc(nbUePdnConReq->nasPdu.len);
    cmMemcpy((U8 *)nbUePdnConReq->nasPdu.val, nasEncPdu.val,
-         nbUePdnConReq->nasPdu.len);
+            nbUePdnConReq->nasPdu.len);
 
    if (isPlainMsg)
    {
-   EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
    }
 
    ret = ueSendUlNasMsgToNb(nbUePdnConReq, &ueAppCb->nbPst);
@@ -4748,14 +4698,14 @@ PRIVATE S16 ueAppBuildAndSendActDefltBerContextAccept(UeCb *ueCb, U8 bearerId)
    UeAppMsg srcMsg;
    UeAppMsg dstMsg;
    UeAppCb *ueAppCb = NULLP;
-   CmNasEvnt           *BearerAccEvnt = NULLP;
+   CmNasEvnt *BearerAccEvnt = NULLP;
    NhuDedicatedInfoNAS nasEncPdu;
    NbuUlNasMsg *nbUeBearerAccReq = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
 
-   ret = ueAppUtlBldActDefltBerContextAccept(ueCb,&BearerAccEvnt,bearerId);
+   ret = ueAppUtlBldActDefltBerContextAccept(ueCb, &BearerAccEvnt, bearerId);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Building Activate Deafult Bearer Acc failed");
@@ -4763,7 +4713,7 @@ PRIVATE S16 ueAppBuildAndSendActDefltBerContextAccept(UeCb *ueCb, U8 bearerId)
    }
 
    BearerAccEvnt->secHT = CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC;
-   if ((ret = ueAppEsmHdlOutUeEvnt(BearerAccEvnt,ueCb))!= ROK)
+   if ((ret = ueAppEsmHdlOutUeEvnt(BearerAccEvnt, ueCb)) != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Handling Activate Deafult Bearer Acc failed \n");
       RETVALUE(RFAILED);
@@ -4807,18 +4757,18 @@ PRIVATE S16 ueAppBuildAndSendActDefltBerContextAccept(UeCb *ueCb, U8 bearerId)
    nbUeBearerAccReq->nasPdu.len = nasEncPdu.len;
    nbUeBearerAccReq->nasPdu.val = (U8 *)ueAlloc(nbUeBearerAccReq->nasPdu.len);
    cmMemcpy((U8 *)nbUeBearerAccReq->nasPdu.val, nasEncPdu.val,
-         nbUeBearerAccReq->nasPdu.len);
+            nbUeBearerAccReq->nasPdu.len);
 
    if (isPlainMsg)
    {
-   EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
    }
 
    ret = ueSendUlNasMsgToNb(nbUeBearerAccReq, &ueAppCb->nbPst);
    if (ret != ROK)
    {
-      UE_LOG_ERROR(ueAppCb, "Sending Activate Default Berarer accept to "\
-            "Enodeb Failed");
+      UE_LOG_ERROR(ueAppCb, "Sending Activate Default Berarer accept to "
+                            "Enodeb Failed");
       ret = RFAILED;
    }
    UE_LOG_EXITFN(ueAppCb, ret);
@@ -4831,14 +4781,14 @@ PRIVATE S16 ueAppBuildAndSendDeActvBerContextAccept(UeCb *ueCb, U8 bearerId)
    UeAppMsg srcMsg;
    UeAppMsg dstMsg;
    UeAppCb *ueAppCb = NULLP;
-   CmNasEvnt           *deActvBearerAccEvnt = NULLP;
+   CmNasEvnt *deActvBearerAccEvnt = NULLP;
    NhuDedicatedInfoNAS nasEncPdu;
    NbuUlNasMsg *nbUeDeActvBearerAccReq = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
 
-   ret = ueAppUtlBldDeActvBerContextAccept(ueCb,&deActvBearerAccEvnt,bearerId);
+   ret = ueAppUtlBldDeActvBerContextAccept(ueCb, &deActvBearerAccEvnt, bearerId);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Building De Activate Bearer Acc failed");
@@ -4847,7 +4797,7 @@ PRIVATE S16 ueAppBuildAndSendDeActvBerContextAccept(UeCb *ueCb, U8 bearerId)
 
    deActvBearerAccEvnt->secHT = CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC;
 
-   if ((ret = ueAppEsmHdlOutUeEvnt(deActvBearerAccEvnt,ueCb))!= ROK)
+   if ((ret = ueAppEsmHdlOutUeEvnt(deActvBearerAccEvnt, ueCb)) != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Handling De Activate Bearer Acc failed \n");
       RETVALUE(RFAILED);
@@ -4891,18 +4841,18 @@ PRIVATE S16 ueAppBuildAndSendDeActvBerContextAccept(UeCb *ueCb, U8 bearerId)
    nbUeDeActvBearerAccReq->nasPdu.len = nasEncPdu.len;
    nbUeDeActvBearerAccReq->nasPdu.val = (U8 *)ueAlloc(nbUeDeActvBearerAccReq->nasPdu.len);
    cmMemcpy((U8 *)nbUeDeActvBearerAccReq->nasPdu.val, nasEncPdu.val,
-         nbUeDeActvBearerAccReq->nasPdu.len);
+            nbUeDeActvBearerAccReq->nasPdu.len);
 
    if (isPlainMsg)
    {
-   EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
    }
 
    ret = ueSendUlNasMsgToNb(nbUeDeActvBearerAccReq, &ueAppCb->nbPst);
    if (ret != ROK)
    {
-      UE_LOG_ERROR(ueAppCb, "Sending DeActivate Bearer Accept to "\
-            "Enodeb Failed");
+      UE_LOG_ERROR(ueAppCb, "Sending DeActivate Bearer Accept to "
+                            "Enodeb Failed");
       ret = RFAILED;
    }
 
@@ -4916,15 +4866,14 @@ PRIVATE S16 ueAppBuildAndSendActDedBerContextAccept(UeCb *ueCb, U8 bearerId)
    UeAppMsg srcMsg;
    UeAppMsg dstMsg;
    UeAppCb *ueAppCb = NULLP;
-   CmNasEvnt           *BearerAccEvnt = NULLP;
+   CmNasEvnt *BearerAccEvnt = NULLP;
    NhuDedicatedInfoNAS nasEncPdu;
    NbuUlNasMsg *nbUeBearerAccReq = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
 
-
-   ret = ueAppUtlBldActDedBerContextAccept(ueCb,&BearerAccEvnt,bearerId);
+   ret = ueAppUtlBldActDedBerContextAccept(ueCb, &BearerAccEvnt, bearerId);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Building Activate Dedicated Bearer Acc failed");
@@ -4932,7 +4881,7 @@ PRIVATE S16 ueAppBuildAndSendActDedBerContextAccept(UeCb *ueCb, U8 bearerId)
    }
 
    BearerAccEvnt->secHT = CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC;
-   if ((ret = ueAppEsmHdlOutUeEvnt(BearerAccEvnt,ueCb))!= ROK)
+   if ((ret = ueAppEsmHdlOutUeEvnt(BearerAccEvnt, ueCb)) != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Handling Activate Dedicated Bearer Acc failed \n");
       RETVALUE(RFAILED);
@@ -4976,40 +4925,39 @@ PRIVATE S16 ueAppBuildAndSendActDedBerContextAccept(UeCb *ueCb, U8 bearerId)
    nbUeBearerAccReq->nasPdu.len = nasEncPdu.len;
    nbUeBearerAccReq->nasPdu.val = (U8 *)ueAlloc(nbUeBearerAccReq->nasPdu.len);
    cmMemcpy((U8 *)nbUeBearerAccReq->nasPdu.val, nasEncPdu.val,
-         nbUeBearerAccReq->nasPdu.len);
+            nbUeBearerAccReq->nasPdu.len);
 
    if (isPlainMsg)
    {
-   EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
    }
 
    ret = ueSendUlNasMsgToNb(nbUeBearerAccReq, &ueAppCb->nbPst);
    if (ret != ROK)
    {
-      UE_LOG_ERROR(ueAppCb, "Sending Activate Dedicated Berarer Accept to "\
-            "Enodeb Failed");
+      UE_LOG_ERROR(ueAppCb, "Sending Activate Dedicated Berarer Accept to "
+                            "Enodeb Failed");
       ret = RFAILED;
    }
 
    UE_LOG_EXITFN(ueAppCb, ret);
 }
 
-PRIVATE S16 ueAppBuildAndSendActDedBerContextReject(UeCb *ueCb, U8 bearerId,U8 esmCause)
+PRIVATE S16 ueAppBuildAndSendActDedBerContextReject(UeCb *ueCb, U8 bearerId, U8 esmCause)
 {
    S16 ret = ROK;
    U8 isPlainMsg = TRUE;
    UeAppMsg srcMsg;
    UeAppMsg dstMsg;
    UeAppCb *ueAppCb = NULLP;
-   CmNasEvnt           *BearerRejEvnt = NULLP;
+   CmNasEvnt *BearerRejEvnt = NULLP;
    NhuDedicatedInfoNAS nasEncPdu;
    NbuUlNasMsg *nbUeBearerAccReq = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
 
-
-   ret = ueAppUtlBldActDedBerContextReject(ueCb,&BearerRejEvnt,bearerId,esmCause);
+   ret = ueAppUtlBldActDedBerContextReject(ueCb, &BearerRejEvnt, bearerId, esmCause);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Building Activate Dedicated Bearer Rej failed");
@@ -5018,7 +4966,7 @@ PRIVATE S16 ueAppBuildAndSendActDedBerContextReject(UeCb *ueCb, U8 bearerId,U8 e
 
    BearerRejEvnt->secHT = CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC;
 
-   if ((ret = ueAppEsmHdlOutUeEvnt(BearerRejEvnt,ueCb))!= ROK)
+   if ((ret = ueAppEsmHdlOutUeEvnt(BearerRejEvnt, ueCb)) != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Handling Activate Dedicated Bearer Rej failed \n");
       RETVALUE(RFAILED);
@@ -5062,18 +5010,18 @@ PRIVATE S16 ueAppBuildAndSendActDedBerContextReject(UeCb *ueCb, U8 bearerId,U8 e
    nbUeBearerAccReq->nasPdu.len = nasEncPdu.len;
    nbUeBearerAccReq->nasPdu.val = (U8 *)ueAlloc(nbUeBearerAccReq->nasPdu.len);
    cmMemcpy((U8 *)nbUeBearerAccReq->nasPdu.val, nasEncPdu.val,
-         nbUeBearerAccReq->nasPdu.len);
+            nbUeBearerAccReq->nasPdu.len);
 
    if (isPlainMsg)
    {
-   EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
    }
 
    ret = ueSendUlNasMsgToNb(nbUeBearerAccReq, &ueAppCb->nbPst);
    if (ret != ROK)
    {
-      UE_LOG_ERROR(ueAppCb, "Sending Activate Dedicated Berarer Reject to "\
-            "Enodeb Failed");
+      UE_LOG_ERROR(ueAppCb, "Sending Activate Dedicated Berarer Reject to "
+                            "Enodeb Failed");
       ret = RFAILED;
    }
 
@@ -5093,14 +5041,12 @@ PRIVATE S16 ueAppBuildAndSendActDedBerContextReject(UeCb *ueCb, U8 bearerId,U8 e
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcUeServiceRequest
-(
- UetMessage *p_ueMsg,
- Pst *pst
-)
+PRIVATE S16 ueProcUeServiceRequest(
+    UetMessage *p_ueMsg,
+    Pst *pst)
 {
    S16 ret = ROK;
-   U32  ueId = 0;
+   U32 ueId = 0;
    U32 mTmsi = 0;
    U8 rrcCause = 0;
    UeAppCb *ueAppCb = NULLP;
@@ -5113,11 +5059,11 @@ PRIVATE S16 ueProcUeServiceRequest
    ueId = p_ueMsg->msg.ueUetServiceReq.ueId;
    rrcCause = p_ueMsg->msg.ueUetServiceReq.rrcCause;
    ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
-   if( ret != ROK )
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
    }
-   if(p_ueMsg->msg.ueUetServiceReq.ueMtmsi.pres == TRUE)
+   if (p_ueMsg->msg.ueUetServiceReq.ueMtmsi.pres == TRUE)
    {
       mTmsi = p_ueMsg->msg.ueUetServiceReq.ueMtmsi.mTmsi;
    }
@@ -5146,10 +5092,8 @@ PRIVATE S16 ueProcUeServiceRequest
  *       File:  ue_app.c
  *
  */
-PUBLIC S16 ueSendUeRadCapInd
-(
- UeCb *ueCb
-)
+PUBLIC S16 ueSendUeRadCapInd(
+    UeCb *ueCb)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -5159,9 +5103,9 @@ PUBLIC S16 ueSendUeRadCapInd
    UE_LOG_ENTERFN(ueAppCb);
    pUlNbRrcMsg = (NbuUlRrcMsg *)ueAlloc(sizeof(NbuUlRrcMsg));
    pUlNbRrcMsg->ueId = ueCb->ueId;
-   pUlNbRrcMsg->rrcPdu.val = (U8*) ueAlloc(ueCb->ueCtxt.ueRadCap.len);
+   pUlNbRrcMsg->rrcPdu.val = (U8 *)ueAlloc(ueCb->ueCtxt.ueRadCap.len);
    cmMemcpy((U8 *)pUlNbRrcMsg->rrcPdu.val, (U8 *)ueCb->ueCtxt.ueRadCap.rrcPDU,
-         ueCb->ueCtxt.ueRadCap.len);
+            ueCb->ueCtxt.ueRadCap.len);
    pUlNbRrcMsg->rrcPdu.len = ueCb->ueCtxt.ueRadCap.len;
    UE_LOG_DEBUG(ueAppCb, "Sending UE Radio Capability message");
    /* vinay: to do - send message to enbApp */
@@ -5182,14 +5126,12 @@ PUBLIC S16 ueSendUeRadCapInd
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcUeRadCapUpdateReq
-(
- UetMessage *p_ueMsg,
- Pst *pst
-)
+PRIVATE S16 ueProcUeRadCapUpdateReq(
+    UetMessage *p_ueMsg,
+    Pst *pst)
 {
    S16 ret = ROK;
-   U32  ueId = 0;
+   U32 ueId = 0;
    UeAppCb *ueAppCb = NULLP;
    UeCb *ueCb = NULLP;
 
@@ -5199,28 +5141,26 @@ PRIVATE S16 ueProcUeRadCapUpdateReq
    UE_LOG_DEBUG(ueAppCb, "Recieved Ue Radio capability update Request");
    ueId = p_ueMsg->msg.ueUetRadCapUpdReq.ueId;
    ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
-   if( ret != ROK )
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
    }
-   if(p_ueMsg->msg.ueUetRadCapUpdReq.upd_ueRadCap == TRUE)
+   if (p_ueMsg->msg.ueUetRadCapUpdReq.upd_ueRadCap == TRUE)
    {
-      if (ueCb->ueCtxt.ueRadCap.pres==TRUE)
+      if (ueCb->ueCtxt.ueRadCap.pres == TRUE)
       {
          ueFree(ueCb->ueCtxt.ueRadCap.rrcPDU,
-               ueCb->ueCtxt.ueRadCap.len * sizeof(U8));
+                ueCb->ueCtxt.ueRadCap.len * sizeof(U8));
       }
-      ueCb->ueCtxt.ueRadCap.rrcPDU = (U8 *)ueAlloc(p_ueMsg->msg.\
-            ueUetRadCapUpdReq.len);
-      cmMemcpy(ueCb->ueCtxt.ueRadCap.rrcPDU,p_ueMsg->msg.ueUetRadCapUpdReq.\
-            radCapMsg , p_ueMsg->msg.ueUetRadCapUpdReq.len);
+      ueCb->ueCtxt.ueRadCap.rrcPDU = (U8 *)ueAlloc(p_ueMsg->msg.ueUetRadCapUpdReq.len);
+      cmMemcpy(ueCb->ueCtxt.ueRadCap.rrcPDU, p_ueMsg->msg.ueUetRadCapUpdReq.radCapMsg, p_ueMsg->msg.ueUetRadCapUpdReq.len);
       ueCb->ueCtxt.ueRadCap.len = p_ueMsg->msg.ueUetRadCapUpdReq.len;
       ueCb->ueCtxt.ueRadCap.pres = TRUE;
-      ueFree((U8*)p_ueMsg->msg.ueUetRadCapUpdReq.radCapMsg,
-            p_ueMsg->msg.ueUetRadCapUpdReq.len * sizeof(U8));
+      ueFree((U8 *)p_ueMsg->msg.ueUetRadCapUpdReq.radCapMsg,
+             p_ueMsg->msg.ueUetRadCapUpdReq.len * sizeof(U8));
    }
 
-   if(p_ueMsg->msg.ueUetRadCapUpdReq.send_s1ap_msg == TRUE)
+   if (p_ueMsg->msg.ueUetRadCapUpdReq.send_s1ap_msg == TRUE)
    {
       ret = ueSendUeRadCapInd(ueCb);
    }
@@ -5248,9 +5188,9 @@ PRIVATE S16 ueAppSndEmmStatus(UeCb *ueCb, U8 cause)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   UeAppMsg     srcMsg;
-   UeAppMsg     dstMsg;
-   CmNasEvnt   *emmStatusEvnt = NULLP;
+   UeAppMsg srcMsg;
+   UeAppMsg dstMsg;
+   CmNasEvnt *emmStatusEvnt = NULLP;
    NhuDedicatedInfoNAS nasEncPdu;
    NbuUlNasMsg *pUlNbMsg = NULLP;
 
@@ -5259,7 +5199,7 @@ PRIVATE S16 ueAppSndEmmStatus(UeCb *ueCb, U8 cause)
 
    UE_LOG_DEBUG(ueAppCb, "Sending UE EMM Status message To EnodeB");
    ret = ueAppUtlBldEmmStatus(ueCb, &emmStatusEvnt, cause);
-   if(ROK != ret)
+   if (ROK != ret)
    {
       UE_LOG_ERROR(ueAppCb, "Building EMM STATUS failed");
       ret = RFAILED;
@@ -5277,13 +5217,13 @@ PRIVATE S16 ueAppSndEmmStatus(UeCb *ueCb, U8 cause)
       RETVALUE(ret);
    }
    /** Integrity Protected **/
-   if(CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != emmStatusEvnt->secHT)
+   if (CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != emmStatusEvnt->secHT)
    {
       srcMsg.val = nasEncPdu.val;
       srcMsg.len = nasEncPdu.len;
       ret = ueAppCmpUplnkSec(&ueCb->secCtxt, emmStatusEvnt->secHT, &srcMsg,
-            &dstMsg);
-      if(ROK != ret)
+                             &dstMsg);
+      if (ROK != ret)
       {
          UE_LOG_ERROR(ueAppCb, "Uplink Security Failed");
          emmStatusEvnt->pdu = NULLP;
@@ -5297,14 +5237,14 @@ PRIVATE S16 ueAppSndEmmStatus(UeCb *ueCb, U8 cause)
    }
    CM_FREE_NASEVNT(&emmStatusEvnt);
 
-   pUlNbMsg->ueId        = ueCb->ueId;
+   pUlNbMsg->ueId = ueCb->ueId;
    pUlNbMsg->nasPdu.pres = TRUE;
-   pUlNbMsg->nasPdu.len  = nasEncPdu.len;
-   pUlNbMsg->nasPdu.val  = (U8 *)ueAlloc(pUlNbMsg->nasPdu.len);
+   pUlNbMsg->nasPdu.len = nasEncPdu.len;
+   pUlNbMsg->nasPdu.val = (U8 *)ueAlloc(pUlNbMsg->nasPdu.len);
    cmMemcpy((U8 *)pUlNbMsg->nasPdu.val, (U8 *)nasEncPdu.val,
-         pUlNbMsg->nasPdu.len );
+            pUlNbMsg->nasPdu.len);
 
-   ret = ueSendUlNasMsgToNb(pUlNbMsg,&ueAppCb->nbPst);
+   ret = ueSendUlNasMsgToNb(pUlNbMsg, &ueAppCb->nbPst);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Could not Send the Emm Status message");
@@ -5328,7 +5268,7 @@ PRIVATE S16 ueAppSndEmmStatus(UeCb *ueCb, U8 cause)
 PRIVATE S16 ueProcUeEmmStatus(UetMessage *p_ueMsg, Pst *pst)
 {
    S16 ret = ROK;
-   U32  ueId;
+   U32 ueId;
    UeAppCb *ueAppCb = NULLP;
    UeCb *ueCb = NULLP;
 
@@ -5337,8 +5277,8 @@ PRIVATE S16 ueProcUeEmmStatus(UetMessage *p_ueMsg, Pst *pst)
    UE_LOG_DEBUG(ueAppCb, "Processing UE EMM STATUS from TFWAPP");
 
    ueId = p_ueMsg->msg.ueUetEmmStatus.ueId;
-   ret = ueDbmFetchUe(ueId,(PTR*)&ueCb);
-   if( ret != ROK )
+   ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
       RETVALUE(ret);
@@ -5370,195 +5310,197 @@ PUBLIC S16 ueUiProcessTfwMsg(UetMessage *p_ueMsg, Pst *pst)
 
    switch (p_ueMsg->msgType)
    {
-      case UE_APP_CONFIG_REQ_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECIEVED UE APP CONFIGURATION REQUEST MESSAGE "\
-               "FROM TFWAPP");
-         ret = ueProcUeAppConfigReq(p_ueMsg, pst);
-         break;
-      }
-      case UE_CONFIG_REQ_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECIEVED UE CONFIGURATION REQUEST MESSAGE "\
-               "FROM TFWAPP");
-         ret = ueProcUeConfigReq(p_ueMsg, pst);
-         break;
-      }
-      case UE_ATTACH_REQ_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECIEVED UE ATTACH REQUEST MESSAGE FROM "\
-               "TFWAPP");
-         ret = ueProcUeAttachReq(p_ueMsg, pst);
-         break;
-      }
-      case UE_IDENTITY_RES_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECIEVED UE IDENTITY RESPONSE MESSAGE FROM "\
-               "TFWAPP");
-         ret = ueProcUeIdentResp(p_ueMsg, pst);
-         break;
-      }
-      case UE_AUTH_RES_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECIEVED UE AUTHENTICATION RESPONSE "\
-               "MESSAGE FROM TFWAPP");
-         ret = ueProcUeAuthResp(p_ueMsg, pst);
-         break;
-      }
-      case UE_SEC_MOD_CMP_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED UE SECURITY MODE COMMAND COMPLETE "\
-               "FROM TFWAPP");
-         ret = ueProcUeSecModeCmdComplete(p_ueMsg, pst);
-         break;
-      }
-      case UE_SEC_MOD_REJ_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb,
-                      "RECEIVED UE SECURITY MODE COMMAND REJECT FROM TFWAPP");
-         ret = ueProcUeSecModeRejectCmd(p_ueMsg, pst);
-         break;
-      }
-      case UE_ATTACH_COMPLETE_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED UE ATTACH COMPLETE FROM TFWAPP");
-         ret = ueProcUeAttachComplete(p_ueMsg, pst);
-         break;
-      }
-      case UE_ATTACH_FAIL_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED UE ATTACH FAIL FROM TFWAPP");
-         ret = ueProcUeAttachFail(p_ueMsg, pst);
-         break;
-      }
-      case UE_DETACH_REQUEST_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED UE DETACH REQUEST FROM TFWAPP");
-         ret = ueProcUeDetachRequest(p_ueMsg, pst);
-         break;
-      }
-      case UE_TAU_REQUEST_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb,
-                      "RECEIVED UE TRACKING AREA UPDATE REQUEST FROM TFWAPP");
-         ret = ueProcUeTauRequest(p_ueMsg, pst);
-         break;
-      }
-      case UE_TAU_COMPLETE_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED UE TRACKING AREA UPDATE COMPLETE "\
-               "FROM TFWAPP");
-         ret = ueProcUeTauComplete(p_ueMsg, pst);
-         break;
-      }
-      case UE_SERVICE_REQUEST_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED UE SERVICE REQUEST FROM TFWAPP");
-         ret = ueProcUeServiceRequest(p_ueMsg, pst);
-         break;
-      }
-      case UE_PDN_CON_REQ_TYPE:
-      {
-            UE_LOG_DEBUG(ueAppCb, "RECEIVED UE PDN CONNECTION REQ FROM TFWAPP");
-            ret = ueProcUePdnConReq(p_ueMsg, pst);
-            break;
-      }
-      case UE_RAD_CAP_UPD_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED UE RADIO CAPABILITY UPDATE FROM TFW");
-         ret = ueProcUeRadCapUpdateReq(p_ueMsg, pst);
-         break;
-      }
-      case UE_TRIG_DETACH_ACCEPT_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED UE RADIO CAPABILITY UPDATE FROM TFW");
-         ret = ueProcUeTrigDetachAcc(p_ueMsg, pst);
-         break;
-      }
-      case UE_FLUSH_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED UE FLUSH COMMAND FROM TFW");
-         ret = ueProcUeFlush(p_ueMsg, pst);
-         break;
-      }
-      case UE_BEAR_RES_ALLOC_REQ:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED Bearer Resource Allocation requestion TFW");
-         ret = ueProcUeBearResAllocReq(p_ueMsg, pst);
-         break;
-      }
-      case UE_ERAB_REL_IND:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED UE Erab Release Indication FROM TFW");
-         ret = ueProcErabRelInd(p_ueMsg, pst);
-         break;
-      }
-      case UE_EPS_DED_BER_ACC:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED Actv Dedicated Bearer Acc from TFW");
-         ret = ueProcUeActvDedBerAcc(p_ueMsg, pst);
-         break;
-      }
-      case UE_EPS_DED_BER_REJ:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED Actv Dedicated Bearer Rej from TFW");
-         ret = ueProcUeActvDedBerRej(p_ueMsg, pst);
-         break;
-      }
-      case UE_EMM_STATUS_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED EMM STATUS from TFW");
-         ret = ueProcUeEmmStatus(p_ueMsg, pst);
-         //ret = ueProcUeActvDedBerRej(p_ueMsg, pst);
-         break;
-      }
-      case UE_EPS_DEFAULT_BER_REJ:
-      {
-         UE_LOG_DEBUG(ueAppCb, "UE ATTACH COMPLETE + ACTIVATE DEFAULT EPS BEARER CONTEXT REJECT from TFW");
-         ret = ueProcUeAttachCompleteWithActvDfltBerCtxtRej(p_ueMsg, pst);
+   case UE_APP_CONFIG_REQ_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECIEVED UE APP CONFIGURATION REQUEST MESSAGE "
+                            "FROM TFWAPP");
+      ret = ueProcUeAppConfigReq(p_ueMsg, pst);
+      break;
+   }
+   case UE_CONFIG_REQ_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECIEVED UE CONFIGURATION REQUEST MESSAGE "
+                            "FROM TFWAPP");
+      ret = ueProcUeConfigReq(p_ueMsg, pst);
+      break;
+   }
+   case UE_ATTACH_REQ_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECIEVED UE ATTACH REQUEST MESSAGE FROM "
+                            "TFWAPP");
+      ret = ueProcUeAttachReq(p_ueMsg, pst);
+      break;
+   }
+   case UE_IDENTITY_RES_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECIEVED UE IDENTITY RESPONSE MESSAGE FROM "
+                            "TFWAPP");
+      ret = ueProcUeIdentResp(p_ueMsg, pst);
+      break;
+   }
+   case UE_AUTH_RES_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECIEVED UE AUTHENTICATION RESPONSE "
+                            "MESSAGE FROM TFWAPP");
+      ret = ueProcUeAuthResp(p_ueMsg, pst);
+      break;
+   }
+   case UE_SEC_MOD_CMP_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED UE SECURITY MODE COMMAND COMPLETE "
+                            "FROM TFWAPP");
+      ret = ueProcUeSecModeCmdComplete(p_ueMsg, pst);
+      break;
+   }
+   case UE_SEC_MOD_REJ_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb,
+                   "RECEIVED UE SECURITY MODE COMMAND REJECT FROM TFWAPP");
+      ret = ueProcUeSecModeRejectCmd(p_ueMsg, pst);
+      break;
+   }
+   case UE_ATTACH_COMPLETE_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED UE ATTACH COMPLETE FROM TFWAPP");
+      ret = ueProcUeAttachComplete(p_ueMsg, pst);
+      break;
+   }
+   case UE_ATTACH_FAIL_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED UE ATTACH FAIL FROM TFWAPP");
+      ret = ueProcUeAttachFail(p_ueMsg, pst);
+      break;
+   }
+   case UE_DETACH_REQUEST_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED UE DETACH REQUEST FROM TFWAPP");
+      ret = ueProcUeDetachRequest(p_ueMsg, pst);
+      break;
+   }
+   case UE_TAU_REQUEST_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb,
+                   "RECEIVED UE TRACKING AREA UPDATE REQUEST FROM TFWAPP");
+      ret = ueProcUeTauRequest(p_ueMsg, pst);
+      break;
+   }
+   case UE_TAU_COMPLETE_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED UE TRACKING AREA UPDATE COMPLETE "
+                            "FROM TFWAPP");
+      ret = ueProcUeTauComplete(p_ueMsg, pst);
+      break;
+   }
+   case UE_SERVICE_REQUEST_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED UE SERVICE REQUEST FROM TFWAPP");
+      ret = ueProcUeServiceRequest(p_ueMsg, pst);
+      break;
+   }
+   case UE_PDN_CON_REQ_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED UE PDN CONNECTION REQ FROM TFWAPP");
+      ret = ueProcUePdnConReq(p_ueMsg, pst);
+      break;
+   }
+   case UE_RAD_CAP_UPD_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED UE RADIO CAPABILITY UPDATE FROM TFW");
+      ret = ueProcUeRadCapUpdateReq(p_ueMsg, pst);
+      break;
+   }
+   case UE_TRIG_DETACH_ACCEPT_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED UE RADIO CAPABILITY UPDATE FROM TFW");
+      ret = ueProcUeTrigDetachAcc(p_ueMsg, pst);
+      break;
+   }
+   case UE_FLUSH_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED UE FLUSH COMMAND FROM TFW");
+      ret = ueProcUeFlush(p_ueMsg, pst);
+      break;
+   }
+   case UE_BEAR_RES_ALLOC_REQ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED Bearer Resource Allocation requestion TFW");
+      ret = ueProcUeBearResAllocReq(p_ueMsg, pst);
+      break;
+   }
+   case UE_ERAB_REL_IND:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED UE Erab Release Indication FROM TFW");
+      ret = ueProcErabRelInd(p_ueMsg, pst);
+      break;
+   }
+   case UE_EPS_DED_BER_ACC:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED Actv Dedicated Bearer Acc from TFW");
+      ret = ueProcUeActvDedBerAcc(p_ueMsg, pst);
+      break;
+   }
+   case UE_EPS_DED_BER_REJ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED Actv Dedicated Bearer Rej from TFW");
+      ret = ueProcUeActvDedBerRej(p_ueMsg, pst);
+      break;
+   }
+   case UE_EMM_STATUS_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED EMM STATUS from TFW");
+      ret = ueProcUeEmmStatus(p_ueMsg, pst);
+      //ret = ueProcUeActvDedBerRej(p_ueMsg, pst);
+      break;
+   }
+   case UE_EPS_DEFAULT_BER_REJ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "UE ATTACH COMPLETE + ACTIVATE DEFAULT EPS BEARER CONTEXT REJECT from TFW");
+      ret = ueProcUeAttachCompleteWithActvDfltBerCtxtRej(p_ueMsg, pst);
 
-         break;
-      }
-      case UE_EPS_DEACTIVATE_BER_ACC:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED De Activate Bearer Acc from TFW");
-         ret = ueProcUeDeActvBerAcc(p_ueMsg, pst);
-         break;
-      }
-      case UE_ESM_INFORMATION_RSP_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "UE_ESM_INFORMATION_RSP_TYPE");
-         ret = ueProcUeEsmInformationRsp(p_ueMsg, pst);
+      break;
+   }
+   case UE_EPS_DEACTIVATE_BER_ACC:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED De Activate Bearer Acc from TFW");
+      ret = ueProcUeDeActvBerAcc(p_ueMsg, pst);
+      break;
+   }
+   case UE_ESM_INFORMATION_RSP_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "UE_ESM_INFORMATION_RSP_TYPE");
+      ret = ueProcUeEsmInformationRsp(p_ueMsg, pst);
 
-         break;
-      }
-      case UE_PDN_DISCONNECT_REQ_TYPE:
-      {
-         UE_LOG_DEBUG(ueAppCb, "RECEIVED UE PDN DISCONNECT REQ FROM TFWAPP");
-         ret = ueProcUePdnDisconnectReq(p_ueMsg, pst);
-         break;
-      }
-      case UE_AUTH_FAILURE_TYPE: {
-        UE_LOG_DEBUG(ueAppCb,
-                     "RECIEVED UE AUTHENTICATION FAILURE "
-                     "MESSAGE FROM TFWAPP");
-        ret = ueProcUeAuthFailure(p_ueMsg, pst);
-        break;
-      }
-      case UE_STANDALONE_DEFAULT_EPS_BER_REJ: {
-        UE_LOG_DEBUG(ueAppCb,
-                     "Received UE_STANDALONE_DEFAULT_EPS_BER_REJ from TFW");
-        ret = ueProcUeStandAloneActvDfltBerCtxtRej(p_ueMsg, pst);
+      break;
+   }
+   case UE_PDN_DISCONNECT_REQ_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb, "RECEIVED UE PDN DISCONNECT REQ FROM TFWAPP");
+      ret = ueProcUePdnDisconnectReq(p_ueMsg, pst);
+      break;
+   }
+   case UE_AUTH_FAILURE_TYPE:
+   {
+      UE_LOG_DEBUG(ueAppCb,
+                   "RECIEVED UE AUTHENTICATION FAILURE "
+                   "MESSAGE FROM TFWAPP");
+      ret = ueProcUeAuthFailure(p_ueMsg, pst);
+      break;
+   }
+   case UE_STANDALONE_DEFAULT_EPS_BER_REJ:
+   {
+      UE_LOG_DEBUG(ueAppCb,
+                   "Received UE_STANDALONE_DEFAULT_EPS_BER_REJ from TFW");
+      ret = ueProcUeStandAloneActvDfltBerCtxtRej(p_ueMsg, pst);
 
-        break;
-      }
-      default:
-      {
-         UE_LOG_ERROR(ueAppCb, "Recieved Invalid message of type: %d",
-               p_ueMsg->msgType);
-         ret = RFAILED;
-         break;
-      }
+      break;
+   }
+   default:
+   {
+      UE_LOG_ERROR(ueAppCb, "Recieved Invalid message of type: %d",
+                   p_ueMsg->msgType);
+      ret = RFAILED;
+      break;
+   }
    }
    RETVALUE(ret);
 }
@@ -5576,12 +5518,10 @@ PUBLIC S16 ueUiProcessTfwMsg(UetMessage *p_ueMsg, Pst *pst)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueBldIdentReqIndMsgToTfw
-(
-   UetMessage *tfwMsg,
-   UeCb *ueCb,
-   U8 idType
-)
+PRIVATE S16 ueBldIdentReqIndMsgToTfw(
+    UetMessage *tfwMsg,
+    UeCb *ueCb,
+    U8 idType)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -5647,22 +5587,22 @@ PRIVATE S16 ueAppUtlBldAuthFailure(UeCb *ueCb, CmNasEvnt **ueEvt)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   CmEmmAuthFailure  *authFail;
-   CmEmmMsg* emmMsg;
+   CmEmmAuthFailure *authFail;
+   CmEmmMsg *emmMsg;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
 
    UE_LOG_DEBUG(ueAppCb, "Building a  Authentication failure message to MME");
 
-   if(ueEvt == NULLP)
+   if (ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
    /* Allocate memory for pdu */
-   CM_ALLOC_NASEVNT (ueEvt, CM_EMM_PD);
+   CM_ALLOC_NASEVNT(ueEvt, CM_EMM_PD);
 
-   if(*ueEvt == NULLP)
+   if (*ueEvt == NULLP)
    {
       RETVALUE(RFAILED);
    }
@@ -5683,7 +5623,7 @@ PRIVATE S16 ueAppUtlBldAuthFailure(UeCb *ueCb, CmNasEvnt **ueEvt)
 
    /* Fill mandatory IEs */
    /* Auth response parameter*/
-   cmMemcpy((U8 *)authFail, (U8*)&ueCb->authFlr, sizeof(CmEmmAuthFailure));
+   cmMemcpy((U8 *)authFail, (U8 *)&ueCb->authFlr, sizeof(CmEmmAuthFailure));
 
    UE_LOG_EXITFN(ueAppCb, ret);
 }
@@ -5715,7 +5655,7 @@ PRIVATE S16 ueAppSndAuthFailure(UeCb *ueCb)
    UE_LOG_DEBUG(ueAppCb, "Sending Authentication failure");
 
    ret = ueAppUtlBldAuthFailure(ueCb, &authFlrEvnt);
-   if(ROK != ret)
+   if (ROK != ret)
    {
       UE_LOG_ERROR(ueAppCb, "Could not send the Authentication failure");
       RETVALUE(ret);
@@ -5731,20 +5671,20 @@ PRIVATE S16 ueAppSndAuthFailure(UeCb *ueCb)
    }
 
    CM_FREE_NASEVNT(&authFlrEvnt);
-   pNbUlNasMsg->ueId        = ueCb->ueId;
+   pNbUlNasMsg->ueId = ueCb->ueId;
    pNbUlNasMsg->nasPdu.pres = TRUE;
-   pNbUlNasMsg->nasPdu.len  = nasEncPdu.len;
+   pNbUlNasMsg->nasPdu.len = nasEncPdu.len;
    pNbUlNasMsg->nasPdu.val = (U8 *)ueAlloc(pNbUlNasMsg->nasPdu.len);
 
    cmMemcpy((U8 *)pNbUlNasMsg->nasPdu.val, (U8 *)nasEncPdu.val,
-         pNbUlNasMsg->nasPdu.len);
+            pNbUlNasMsg->nasPdu.len);
    EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
 
    ret = ueSendUlNasMsgToNb(pNbUlNasMsg, &ueAppCb->nbPst);
    if (ret != ROK)
    {
-      UE_LOG_ERROR(ueAppCb, "Could not Send the Authentication Failure "\
-            "message to NB");
+      UE_LOG_ERROR(ueAppCb, "Could not Send the Authentication Failure "
+                            "message to NB");
       RETVALUE(RFAILED);
    }
    UE_LOG_EXITFN(ueAppCb, ret);
@@ -5770,18 +5710,18 @@ PRIVATE S16 ueBldSecModeCmdIndToTfw(UetMessage *tfwMsg, UeCb *ueCb)
    UE_LOG_ENTERFN(ueAppCb);
    UE_LOG_DEBUG(ueAppCb, "Building SEC MODE CMD Indication to TFWAPP");
    tfwMsg->msgType = UE_SEC_MOD_CMD_IND_TYPE;
-   tfwMsg->msg.ueUetSecModeCmdInd.ueId          = ueCb->ueId;
-   tfwMsg->msg.ueUetSecModeCmdInd.NasCyphCfg    = ueCb->secCtxt.encAlg;
+   tfwMsg->msg.ueUetSecModeCmdInd.ueId = ueCb->ueId;
+   tfwMsg->msg.ueUetSecModeCmdInd.NasCyphCfg = ueCb->secCtxt.encAlg;
    tfwMsg->msg.ueUetSecModeCmdInd.NasIntProtCfg = ueCb->secCtxt.intAlg;
 
    cmMemcpy((U8 *)&tfwMsg->msg.ueUetSecModeCmdInd.Kasme,
-         (U8 *)&ueCb->secCtxt.kasme, UE_APP_SZ_KASME_KEY);
+            (U8 *)&ueCb->secCtxt.kasme, UE_APP_SZ_KASME_KEY);
    cmMemcpy((U8 *)&tfwMsg->msg.ueUetSecModeCmdInd.KNasEnc,
-         (U8 *)&ueCb->secCtxt.encKey, UE_APP_SZ_NAS_ENC_KEY);
+            (U8 *)&ueCb->secCtxt.encKey, UE_APP_SZ_NAS_ENC_KEY);
    cmMemcpy((U8 *)&tfwMsg->msg.ueUetSecModeCmdInd.KNasInt,
-         (U8 *)&ueCb->secCtxt.intKey, UE_APP_SZ_NAS_INT_KEY);
+            (U8 *)&ueCb->secCtxt.intKey, UE_APP_SZ_NAS_INT_KEY);
 
-   tfwMsg->msg.ueUetSecModeCmdInd.KNasVrfySts    = TRUE;
+   tfwMsg->msg.ueUetSecModeCmdInd.KNasVrfySts = TRUE;
 
    UE_LOG_EXITFN(ueAppCb, ret);
 }
@@ -5799,12 +5739,10 @@ PRIVATE S16 ueBldSecModeCmdIndToTfw(UetMessage *tfwMsg, UeCb *ueCb)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueBldTauAcceptToTfw
-(
-   UetMessage *tfwMsg,
-   CmEmmTAUAccept *tauAccept,
-   UeCb *ueCb
-)
+PRIVATE S16 ueBldTauAcceptToTfw(
+    UetMessage *tfwMsg,
+    CmEmmTAUAccept *tauAccept,
+    UeCb *ueCb)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -5812,7 +5750,7 @@ PRIVATE S16 ueBldTauAcceptToTfw
    UE_LOG_ENTERFN(ueAppCb);
 
    UE_LOG_DEBUG(ueAppCb, "Building TAU Accept Indication for ueId(%d)",
-         ueCb->ueId);
+                ueCb->ueId);
 
    tfwMsg->msgType = UE_TAU_ACCEPT_TYPE;
    tfwMsg->msg.ueUetTauAccept.ueId = ueCb->ueId;
@@ -5850,11 +5788,9 @@ PRIVATE S16 ueBldTauAcceptToTfw
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueBldAttachAcceptToTfw
-(
- UetMessage *tfwMsg,
- UeCb *ueCb
-)
+PRIVATE S16 ueBldAttachAcceptToTfw(
+    UetMessage *tfwMsg,
+    UeCb *ueCb)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -5868,15 +5804,14 @@ PRIVATE S16 ueBldAttachAcceptToTfw
    tfwMsg->msg.ueUetAttachAcceptInd.epsAtchRes = ueCb->epsAtchRes;
    tfwMsg->msg.ueUetAttachAcceptInd.t3412 = ueCb->t3412;
    cmMemcpy(tfwMsg->msg.ueUetAttachAcceptInd.msId, ueCb->ueCtxt.msId,
-         CM_EMM_MAX_MOBILE_ID_DIGS);
+            CM_EMM_MAX_MOBILE_ID_DIGS);
 
    /* GUTI */
    cmMemcpy((U8 *)&tfwMsg->msg.ueUetAttachAcceptInd.guti.mcc,
-         (U8 *)&ueCb->ueCtxt.ueGuti.mcc, 3);
+            (U8 *)&ueCb->ueCtxt.ueGuti.mcc, 3);
    cmMemcpy((U8 *)&tfwMsg->msg.ueUetAttachAcceptInd.guti.mnc,
-         (U8 *)&ueCb->ueCtxt.ueGuti.mnc,3);
-   tfwMsg->msg.ueUetAttachAcceptInd.guti.mmeGrpId = ueCb->ueCtxt.ueGuti.\
-                                                    mmeGrpId;
+            (U8 *)&ueCb->ueCtxt.ueGuti.mnc, 3);
+   tfwMsg->msg.ueUetAttachAcceptInd.guti.mmeGrpId = ueCb->ueCtxt.ueGuti.mmeGrpId;
    tfwMsg->msg.ueUetAttachAcceptInd.guti.mmeCode = ueCb->ueCtxt.ueGuti.mmeCode;
    tfwMsg->msg.ueUetAttachAcceptInd.guti.mTMSI = ueCb->ueCtxt.ueGuti.mTMSI;
 
@@ -5884,75 +5819,65 @@ PRIVATE S16 ueBldAttachAcceptToTfw
    tfwMsg->msg.ueUetAttachAcceptInd.t3402 = ueCb->t3402;
    tfwMsg->msg.ueUetAttachAcceptInd.t3423 = ueCb->t3423;
    cmMemcpy((U8 *)&tfwMsg->msg.ueUetAttachAcceptInd.plmnList,
-         (U8 *)&ueCb->plmnLst, sizeof(CmEmmPlmnId));
+            (U8 *)&ueCb->plmnLst, sizeof(CmEmmPlmnId));
 
    /* Populating ESM INFO  */
-   if(ueCb->ueRabCb[0].qos.pres)
+   if (ueCb->ueRabCb[0].qos.pres)
    {
-      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.qos.qci = ueCb->ueRabCb[0].\
-                                                         epsQos.qci;
-      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.qos.\
-         maxBitRateUL = ueCb->ueRabCb[0].qos.maxBitRateUL;
-      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.qos.\
-         maxBitRateDL = ueCb->ueRabCb[0].qos.maxBitRateDL;
-      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.qos.\
-         guaraBitRateUL = ueCb->ueRabCb[0].qos.guaraBitRateUL;
-      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.qos.\
-         guaraBitRateDL = ueCb->ueRabCb[0].qos.guaraBitRateDL;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.qos.qci = ueCb->ueRabCb[0].epsQos.qci;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.qos.maxBitRateUL = ueCb->ueRabCb[0].qos.maxBitRateUL;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.qos.maxBitRateDL = ueCb->ueRabCb[0].qos.maxBitRateDL;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.qos.guaraBitRateUL = ueCb->ueRabCb[0].qos.guaraBitRateUL;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.qos.guaraBitRateDL = ueCb->ueRabCb[0].qos.guaraBitRateDL;
    }
-   if(ueCb->ueRabCb[0].apn.pres)
+   if (ueCb->ueRabCb[0].apn.pres)
    {
-      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.apn.len = ueCb->ueRabCb[0].\
-                                                         apn.len;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.apn.len = ueCb->ueRabCb[0].apn.len;
       cmMemcpy(tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.apn.apn,
-            ueCb->ueRabCb[0].apn.apn, ueCb->ueRabCb[0].apn.len);
+               ueCb->ueRabCb[0].apn.apn, ueCb->ueRabCb[0].apn.len);
    }
-   if(ueCb->ueRabCb[0].pAddr.pres)
+   if (ueCb->ueRabCb[0].pAddr.pres)
    {
-      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.pAddr.\
-         pdnType = ueCb->ueRabCb[0].pAddr.pdnType;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.pAddr.pdnType = ueCb->ueRabCb[0].pAddr.pdnType;
       cmMemcpy(tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.pAddr.addrInfo,
-            ueCb->ueRabCb[0].pAddr.addrInfo, CM_ESM_MAX_LEN_PDN_ADDRESS);
+               ueCb->ueRabCb[0].pAddr.addrInfo, CM_ESM_MAX_LEN_PDN_ADDRESS);
    }
-   if(ueCb->ueRabCb[0].apnAmbr.pres)
+   if (ueCb->ueRabCb[0].apnAmbr.pres)
    {
-      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.apnAmbr.\
-         len = ueCb->ueRabCb[0].apnAmbr.len;
-      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.apnAmbr.\
-         dl  = ueCb->ueRabCb[0].apnAmbr.dl;
-      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.\
-         apnAmbr.ul = ueCb->ueRabCb[0].apnAmbr.ul;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.apnAmbr.len = ueCb->ueRabCb[0].apnAmbr.len;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.apnAmbr.dl = ueCb->ueRabCb[0].apnAmbr.dl;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.apnAmbr.ul = ueCb->ueRabCb[0].apnAmbr.ul;
    }
-   if(ueCb->ueRabCb[0].protCfgOpt.pres)
+   if (ueCb->ueRabCb[0].protCfgOpt.pres)
    {
-     tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.pres = TRUE;
-     tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.len = \
-	 	ueCb->ueRabCb[0].protCfgOpt.len;
-     tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.numProtId = \
-	 	ueCb->ueRabCb[0].protCfgOpt.numProtId;
-     tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.numContId = \
-	 	ueCb->ueRabCb[0].protCfgOpt.numContId;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.pres = TRUE;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.len =
+          ueCb->ueRabCb[0].protCfgOpt.len;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.numProtId =
+          ueCb->ueRabCb[0].protCfgOpt.numProtId;
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.numContId =
+          ueCb->ueRabCb[0].protCfgOpt.numContId;
 
-     for (count=0;count<ueCb->ueRabCb[0].protCfgOpt.numProtId;count++)
- 	{
- 	  tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.p[count].pid =\
-	  	ueCb->ueRabCb[0].protCfgOpt.p[count].pid;
-	  tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.p[count].len =\
-	  	ueCb->ueRabCb[0].protCfgOpt.p[count].len;
-	  cmMemcpy(tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.p[count].val,\
-	  	ueCb->ueRabCb[0].protCfgOpt.p[count].val,\
-	  	ueCb->ueRabCb[0].protCfgOpt.p[count].len);
- 	}
-     for (count=0;count<ueCb->ueRabCb[0].protCfgOpt.numContId;count++)
- 	{
- 	  tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.c[count].cid =\
-	  	ueCb->ueRabCb[0].protCfgOpt.c[count].cid;
-	  tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.c[count].len =\
-	  	ueCb->ueRabCb[0].protCfgOpt.c[count].len;
-	  cmMemcpy(tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.c[count].val,\
-	  	ueCb->ueRabCb[0].protCfgOpt.c[count].val,\
-	  	ueCb->ueRabCb[0].protCfgOpt.c[count].len);
- 	}
+      for (count = 0; count < ueCb->ueRabCb[0].protCfgOpt.numProtId; count++)
+      {
+         tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.p[count].pid =
+             ueCb->ueRabCb[0].protCfgOpt.p[count].pid;
+         tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.p[count].len =
+             ueCb->ueRabCb[0].protCfgOpt.p[count].len;
+         cmMemcpy(tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.p[count].val,
+                  ueCb->ueRabCb[0].protCfgOpt.p[count].val,
+                  ueCb->ueRabCb[0].protCfgOpt.p[count].len);
+      }
+      for (count = 0; count < ueCb->ueRabCb[0].protCfgOpt.numContId; count++)
+      {
+         tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.c[count].cid =
+             ueCb->ueRabCb[0].protCfgOpt.c[count].cid;
+         tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.c[count].len =
+             ueCb->ueRabCb[0].protCfgOpt.c[count].len;
+         cmMemcpy(tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.protCfgOpt.c[count].val,
+                  ueCb->ueRabCb[0].protCfgOpt.c[count].val,
+                  ueCb->ueRabCb[0].protCfgOpt.c[count].len);
+      }
    }
    UE_LOG_EXITFN(ueAppCb, ret);
 }
@@ -5970,11 +5895,9 @@ PRIVATE S16 ueBldAttachAcceptToTfw
  *       File:  ue_app.c
  *
  */
-PRIVATE Void updateGutiInUeCb
-(
-   UeCb *ueCb,
-   CmEmmEpsMI *epsMi
-)
+PRIVATE Void updateGutiInUeCb(
+    UeCb *ueCb,
+    CmEmmEpsMI *epsMi)
 {
    cmMemcpy(ueCb->ueCtxt.ueGuti.mcc, epsMi->u.guti.mcc, 3);
    cmMemcpy(ueCb->ueCtxt.ueGuti.mnc, epsMi->u.guti.mnc, 3);
@@ -5998,11 +5921,9 @@ PRIVATE Void updateGutiInUeCb
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 compareGutiInUeCb
-(
-   UeCb *ueCb,
-   CmEmmEpsMI *epsMi
-)
+PRIVATE S16 compareGutiInUeCb(
+    UeCb *ueCb,
+    CmEmmEpsMI *epsMi)
 {
    S16 ret = RFAILED;
 
@@ -6037,18 +5958,18 @@ PRIVATE S16 compareGutiInUeCb
  *       File:  ue_app.c
  *
  */
-PRIVATE Void reverse(U8* str)
+PRIVATE Void reverse(U8 *str)
 {
    U32 i, j;
    U8 temp;
-   i=j=temp=0;
+   i = j = temp = 0;
 
-   j=strlen((S8*)str)-1;
-   for (i=0; i<j; i++, j--)
+   j = strlen((S8 *)str) - 1;
+   for (i = 0; i < j; i++, j--)
    {
-      temp=str[i];
-      str[i]=str[j];
-      str[j]=temp;
+      temp = str[i];
+      str[i] = str[j];
+      str[j] = temp;
    }
 }
 
@@ -6065,7 +5986,7 @@ PRIVATE Void reverse(U8* str)
  *       File:  ue_app.c
  *
  */
-PRIVATE U8* itoa(int num, U8* str, int base)
+PRIVATE U8 *itoa(int num, U8 *str, int base)
 {
    U32 i = 0;
    U32 isNegative = 0;
@@ -6090,8 +6011,8 @@ PRIVATE U8* itoa(int num, U8* str, int base)
    while (num != 0)
    {
       int rem = num % base;
-      str[i++] = (rem > 9)? (rem-10) + 'a' : rem + '0';
-      num = num/base;
+      str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0';
+      num = num / base;
    }
 
    /* If number is negative, append '-'*/
@@ -6122,69 +6043,79 @@ PRIVATE U8* itoa(int num, U8* str, int base)
 
 PRIVATE Void _fill_pf_comp(U8 idx, UeCb *ueCb, NbuUeIpInfoRsp *ueIpInfoRsp)
 {
-  U8 itrn = idx - 1;
-  ueIpInfoRsp->noOfPfs = ueCb->ueRabCb[itrn].tft.noOfPfs;
-  for (U8 pf_idx = 0; pf_idx < ueCb->ueRabCb[itrn].tft.noOfPfs; pf_idx++) {
-    ueIpInfoRsp->pfList[pf_idx].id = ueCb->ueRabCb[itrn].tft.pfList[pf_idx].id;
-    ueIpInfoRsp->pfList[pf_idx].dir =
-        ueCb->ueRabCb[itrn].tft.pfList[pf_idx].dir;
-    ueIpInfoRsp->pfList[pf_idx].preced =
-        ueCb->ueRabCb[itrn].tft.pfList[pf_idx].preced;
-    if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv4.pres) {
-      ueIpInfoRsp->pfList[pf_idx].presenceMask |= IPV4_REM_ADDR_PKT_FLTR_MASK;
-      ueIpInfoRsp->pfList[pf_idx].remoteIpv4 =
-          (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv4.ip4[0] << 24) +
-          (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv4.ip4[1] << 16) +
-          (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv4.ip4[2] << 8) +
-          (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv4.ip4[3]);
-    }
-    if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv6.pres) {
-      ueIpInfoRsp->pfList[pf_idx].presenceMask |= IPV6_REM_ADDR_PKT_FLTR_MASK;
-      cmMemcpy(ueIpInfoRsp->pfList[pf_idx].remoteIpv6Addr,
-               ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv6.ip6,
-               CM_ESM_IPV6_SIZE);
-    }
-    if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].protId.pres) {
-      ueIpInfoRsp->pfList[pf_idx].presenceMask |= PROTO_ID_PKT_FLTR_MASK;
-      ueIpInfoRsp->pfList[pf_idx].protId =
-          ueCb->ueRabCb[itrn].tft.pfList[pf_idx].protId.protType;
-    }
-    if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].localPort.pres) {
-      ueIpInfoRsp->pfList[pf_idx].presenceMask |= SNGL_LOC_PORT_PKT_FLTR_MASK;
-      ueIpInfoRsp->pfList[pf_idx].localPort =
-          ntohs(ueCb->ueRabCb[itrn].tft.pfList[pf_idx].localPort.port);
-    }
-    if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].remotePort.pres) {
-      ueIpInfoRsp->pfList[pf_idx].presenceMask |= SNGL_REM_PORT_PKT_FLTR_MASK;
-      ueIpInfoRsp->pfList[pf_idx].remotePort =
-          ntohs(ueCb->ueRabCb[itrn].tft.pfList[pf_idx].remotePort.port);
-    }
-    if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].locPortRange.pres) {
-      ueIpInfoRsp->pfList[pf_idx].presenceMask |= LOC_PORT_RNG_PKT_FLTR_MASK;
-      ueIpInfoRsp->pfList[pf_idx].locPortRangeLow =
-          ntohs(ueCb->ueRabCb[itrn].tft.pfList[pf_idx].locPortRange.rangeLow);
-      ueIpInfoRsp->pfList[pf_idx].locPortRangeHigh =
-          ntohs(ueCb->ueRabCb[itrn].tft.pfList[pf_idx].locPortRange.rangeHigh);
-    }
-    if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].remPortRange.pres) {
-      ueIpInfoRsp->pfList[pf_idx].presenceMask |= REM_PORT_RNG_PKT_FLTR_MASK;
-      ueIpInfoRsp->pfList[pf_idx].remPortRangeLow =
-          ntohs(ueCb->ueRabCb[itrn].tft.pfList[pf_idx].remPortRange.rangeLow);
-      ueIpInfoRsp->pfList[pf_idx].remPortRangeLow =
-          ntohs(ueCb->ueRabCb[itrn].tft.pfList[pf_idx].remPortRange.rangeHigh);
-    }
-    if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].secParam.pres) {
-      ueIpInfoRsp->pfList[pf_idx].presenceMask |= SECURITY_PARAM_PKT_FLTR_MASK;
-      cmMemcpy((U8 *)&ueIpInfoRsp->pfList[pf_idx].secParam,
-               (U8 *)ueCb->ueRabCb[itrn].tft.pfList[pf_idx].secParam.params,
-               CM_ESM_IP_SEC_SIZE);
-    }
-    if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].tos.pres) {
-      ueIpInfoRsp->pfList[pf_idx].presenceMask |= SERV_N_CLASS_PKT_FLTR_MASK;
-      ueIpInfoRsp->pfList[pf_idx].tos =
-          ueCb->ueRabCb[itrn].tft.pfList[pf_idx].tos.tos;
-    }
-  }
+   U8 itrn = idx - 1;
+   ueIpInfoRsp->noOfPfs = ueCb->ueRabCb[itrn].tft.noOfPfs;
+   for (U8 pf_idx = 0; pf_idx < ueCb->ueRabCb[itrn].tft.noOfPfs; pf_idx++)
+   {
+      ueIpInfoRsp->pfList[pf_idx].id = ueCb->ueRabCb[itrn].tft.pfList[pf_idx].id;
+      ueIpInfoRsp->pfList[pf_idx].dir =
+          ueCb->ueRabCb[itrn].tft.pfList[pf_idx].dir;
+      ueIpInfoRsp->pfList[pf_idx].preced =
+          ueCb->ueRabCb[itrn].tft.pfList[pf_idx].preced;
+      if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv4.pres)
+      {
+         ueIpInfoRsp->pfList[pf_idx].presenceMask |= IPV4_REM_ADDR_PKT_FLTR_MASK;
+         ueIpInfoRsp->pfList[pf_idx].remoteIpv4 =
+             (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv4.ip4[0] << 24) +
+             (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv4.ip4[1] << 16) +
+             (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv4.ip4[2] << 8) +
+             (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv4.ip4[3]);
+      }
+      if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv6.pres)
+      {
+         ueIpInfoRsp->pfList[pf_idx].presenceMask |= IPV6_REM_ADDR_PKT_FLTR_MASK;
+         cmMemcpy(ueIpInfoRsp->pfList[pf_idx].remoteIpv6Addr,
+                  ueCb->ueRabCb[itrn].tft.pfList[pf_idx].ipv6.ip6,
+                  CM_ESM_IPV6_SIZE);
+      }
+      if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].protId.pres)
+      {
+         ueIpInfoRsp->pfList[pf_idx].presenceMask |= PROTO_ID_PKT_FLTR_MASK;
+         ueIpInfoRsp->pfList[pf_idx].protId =
+             ueCb->ueRabCb[itrn].tft.pfList[pf_idx].protId.protType;
+      }
+      if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].localPort.pres)
+      {
+         ueIpInfoRsp->pfList[pf_idx].presenceMask |= SNGL_LOC_PORT_PKT_FLTR_MASK;
+         ueIpInfoRsp->pfList[pf_idx].localPort =
+             ntohs(ueCb->ueRabCb[itrn].tft.pfList[pf_idx].localPort.port);
+      }
+      if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].remotePort.pres)
+      {
+         ueIpInfoRsp->pfList[pf_idx].presenceMask |= SNGL_REM_PORT_PKT_FLTR_MASK;
+         ueIpInfoRsp->pfList[pf_idx].remotePort =
+             ntohs(ueCb->ueRabCb[itrn].tft.pfList[pf_idx].remotePort.port);
+      }
+      if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].locPortRange.pres)
+      {
+         ueIpInfoRsp->pfList[pf_idx].presenceMask |= LOC_PORT_RNG_PKT_FLTR_MASK;
+         ueIpInfoRsp->pfList[pf_idx].locPortRangeLow =
+             ntohs(ueCb->ueRabCb[itrn].tft.pfList[pf_idx].locPortRange.rangeLow);
+         ueIpInfoRsp->pfList[pf_idx].locPortRangeHigh =
+             ntohs(ueCb->ueRabCb[itrn].tft.pfList[pf_idx].locPortRange.rangeHigh);
+      }
+      if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].remPortRange.pres)
+      {
+         ueIpInfoRsp->pfList[pf_idx].presenceMask |= REM_PORT_RNG_PKT_FLTR_MASK;
+         ueIpInfoRsp->pfList[pf_idx].remPortRangeLow =
+             ntohs(ueCb->ueRabCb[itrn].tft.pfList[pf_idx].remPortRange.rangeLow);
+         ueIpInfoRsp->pfList[pf_idx].remPortRangeLow =
+             ntohs(ueCb->ueRabCb[itrn].tft.pfList[pf_idx].remPortRange.rangeHigh);
+      }
+      if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].secParam.pres)
+      {
+         ueIpInfoRsp->pfList[pf_idx].presenceMask |= SECURITY_PARAM_PKT_FLTR_MASK;
+         cmMemcpy((U8 *)&ueIpInfoRsp->pfList[pf_idx].secParam,
+                  (U8 *)ueCb->ueRabCb[itrn].tft.pfList[pf_idx].secParam.params,
+                  CM_ESM_IP_SEC_SIZE);
+      }
+      if (ueCb->ueRabCb[itrn].tft.pfList[pf_idx].tos.pres)
+      {
+         ueIpInfoRsp->pfList[pf_idx].presenceMask |= SERV_N_CLASS_PKT_FLTR_MASK;
+         ueIpInfoRsp->pfList[pf_idx].tos =
+             ueCb->ueRabCb[itrn].tft.pfList[pf_idx].tos.tos;
+      }
+   }
 }
 
 /*
@@ -6203,31 +6134,34 @@ PRIVATE Void _fill_pf_comp(U8 idx, UeCb *ueCb, NbuUeIpInfoRsp *ueIpInfoRsp)
  */
 
 PRIVATE Void ueAppFormIpv4Addr(NbuUeIpInfoRsp *ueIpInfoRsp,
-                               CmEsmPdnAdd *pdn_addr) {
+                               CmEsmPdnAdd *pdn_addr)
+{
 #define IPV4_BUF_SZ 20
-  U8 temp[IPV4_BUF_SZ] = {0}, itrn = 0, cnt = 0;
-  U8 ip_addr[IPV4_BUF_SZ] = {0};
-  U32 counter = 0;
-  U8 idx = 0;
-  U8 offset = 0;
-  /* In case of CM_ESM_PDN_IPV4V6 pdn_addr contains IPv6 addr
+   U8 temp[IPV4_BUF_SZ] = {0}, itrn = 0, cnt = 0;
+   U8 ip_addr[IPV4_BUF_SZ] = {0};
+   U32 counter = 0;
+   U8 idx = 0;
+   U8 offset = 0;
+   /* In case of CM_ESM_PDN_IPV4V6 pdn_addr contains IPv6 addr
    * followed by IPv4 address. Hence skip first 8 bytes*/
-  if (pdn_addr->pdnType == CM_ESM_PDN_IPV4V6) {
-    offset = 8;
-  }
-  for (counter = offset; counter < (pdn_addr->len - 1); counter++) {
-    itoa(pdn_addr->addrInfo[counter], temp, 10);
-    for (cnt = 0; (itrn < IPV4_BUF_SZ) && (temp[cnt] != '\0') &&
-                  (cnt < (IPV4_BUF_SZ - 1));
-         itrn++, cnt++)
-      ip_addr[itrn] = temp[cnt];
-    if (counter != (pdn_addr->len - 2) && (itrn < IPV4_BUF_SZ))
-      ip_addr[itrn++] = '.';
-    if (counter == (pdn_addr->len - 2) && (itrn < IPV4_BUF_SZ))
-      ip_addr[itrn] = '\0';
-  }
-  strcpy(ueIpInfoRsp->Ip4Addr, ip_addr);
-  RETVOID;
+   if (pdn_addr->pdnType == CM_ESM_PDN_IPV4V6)
+   {
+      offset = 8;
+   }
+   for (counter = offset; counter < (pdn_addr->len - 1); counter++)
+   {
+      itoa(pdn_addr->addrInfo[counter], temp, 10);
+      for (cnt = 0; (itrn < IPV4_BUF_SZ) && (temp[cnt] != '\0') &&
+                    (cnt < (IPV4_BUF_SZ - 1));
+           itrn++, cnt++)
+         ip_addr[itrn] = temp[cnt];
+      if (counter != (pdn_addr->len - 2) && (itrn < IPV4_BUF_SZ))
+         ip_addr[itrn++] = '.';
+      if (counter == (pdn_addr->len - 2) && (itrn < IPV4_BUF_SZ))
+         ip_addr[itrn] = '\0';
+   }
+   strcpy(ueIpInfoRsp->Ip4Addr, ip_addr);
+   RETVOID;
 }
 
 /*
@@ -6244,44 +6178,47 @@ PRIVATE Void ueAppFormIpv4Addr(NbuUeIpInfoRsp *ueIpInfoRsp,
  *       File:  ue_app.c
  *
  */
-PRIVATE Void ueAppFormIpv6Addr(NbuUeIpInfoRsp *ueIpInfoRsp, UeRabCb *ueRabCb) {
-  UeAppCb *ueAppCb = NULLP;
-  U8 ip6_str[INET6_ADDRSTRLEN];
+PRIVATE Void ueAppFormIpv6Addr(NbuUeIpInfoRsp *ueIpInfoRsp, UeRabCb *ueRabCb)
+{
+   UeAppCb *ueAppCb = NULLP;
+   U8 ip6_str[INET6_ADDRSTRLEN];
 
-  UE_GET_CB(ueAppCb);
-  UE_LOG_ENTERFN(ueAppCb);
+   UE_GET_CB(ueAppCb);
+   UE_LOG_ENTERFN(ueAppCb);
 
-  /* For default bearer form IPv6 address string by prepending
+   /* For default bearer form IPv6 address string by prepending
    * Link local address-fe80:
    */
-  if (ueRabCb->bearerType == DEFAULT_BEARER) {
-    sprintf(ip6_str, "%s::%02x%02x:%02x%02x:%02x%02x:%02x%02x", "fe80",
-            (int)ueRabCb->pAddr.addrInfo[0], (int)ueRabCb->pAddr.addrInfo[1],
-            (int)ueRabCb->pAddr.addrInfo[2], (int)ueRabCb->pAddr.addrInfo[3],
-            (int)ueRabCb->pAddr.addrInfo[4], (int)ueRabCb->pAddr.addrInfo[5],
-            (int)ueRabCb->pAddr.addrInfo[6], (int)ueRabCb->pAddr.addrInfo[7]);
-
-  } else {
-    /* For dedicated bearer form IPv6 address string using the
+   if (ueRabCb->bearerType == DEFAULT_BEARER)
+   {
+      sprintf(ip6_str, "%s::%02x%02x:%02x%02x:%02x%02x:%02x%02x", "fe80",
+              (int)ueRabCb->pAddr.addrInfo[0], (int)ueRabCb->pAddr.addrInfo[1],
+              (int)ueRabCb->pAddr.addrInfo[2], (int)ueRabCb->pAddr.addrInfo[3],
+              (int)ueRabCb->pAddr.addrInfo[4], (int)ueRabCb->pAddr.addrInfo[5],
+              (int)ueRabCb->pAddr.addrInfo[6], (int)ueRabCb->pAddr.addrInfo[7]);
+   }
+   else
+   {
+      /* For dedicated bearer form IPv6 address string using the
      * ipv6 address in ueRabCb->ipv6Addr as the pAddr.addrInfo contains
      * only interface id
      */
-    sprintf(ip6_str,
-            "%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%"
-            "02x%02x",
-            (int)ueRabCb->ipv6Addr[0], (int)ueRabCb->ipv6Addr[1],
-            (int)ueRabCb->ipv6Addr[2], (int)ueRabCb->ipv6Addr[3],
-            (int)ueRabCb->ipv6Addr[4], (int)ueRabCb->ipv6Addr[5],
-            (int)ueRabCb->ipv6Addr[6], (int)ueRabCb->ipv6Addr[7],
-            (int)ueRabCb->ipv6Addr[8], (int)ueRabCb->ipv6Addr[9],
-            (int)ueRabCb->ipv6Addr[10], (int)ueRabCb->ipv6Addr[11],
-            (int)ueRabCb->ipv6Addr[12], (int)ueRabCb->ipv6Addr[13],
-            (int)ueRabCb->ipv6Addr[14], (int)ueRabCb->ipv6Addr[15]);
-  }
-  cmMemcpy(ueIpInfoRsp->Ip6Addr, ip6_str, INET6_ADDRSTRLEN);
-  UE_LOG_DEBUG(ueAppCb, "Sending ipv6 address %s to enbApp for bearer %d",
-               ip6_str, ueRabCb->epsBearerId);
-  RETVOID;
+      sprintf(ip6_str,
+              "%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%"
+              "02x%02x",
+              (int)ueRabCb->ipv6Addr[0], (int)ueRabCb->ipv6Addr[1],
+              (int)ueRabCb->ipv6Addr[2], (int)ueRabCb->ipv6Addr[3],
+              (int)ueRabCb->ipv6Addr[4], (int)ueRabCb->ipv6Addr[5],
+              (int)ueRabCb->ipv6Addr[6], (int)ueRabCb->ipv6Addr[7],
+              (int)ueRabCb->ipv6Addr[8], (int)ueRabCb->ipv6Addr[9],
+              (int)ueRabCb->ipv6Addr[10], (int)ueRabCb->ipv6Addr[11],
+              (int)ueRabCb->ipv6Addr[12], (int)ueRabCb->ipv6Addr[13],
+              (int)ueRabCb->ipv6Addr[14], (int)ueRabCb->ipv6Addr[15]);
+   }
+   cmMemcpy(ueIpInfoRsp->Ip6Addr, ip6_str, INET6_ADDRSTRLEN);
+   UE_LOG_DEBUG(ueAppCb, "Sending ipv6 address %s to enbApp for bearer %d",
+                ip6_str, ueRabCb->epsBearerId);
+   RETVOID;
 }
 
 /*
@@ -6300,40 +6237,49 @@ PRIVATE Void ueAppFormIpv6Addr(NbuUeIpInfoRsp *ueIpInfoRsp, UeRabCb *ueRabCb) {
 PUBLIC Void populateIpInfo(UeCb *ueCb, U8 bearerId,
                            NbuUeIpInfoRsp *ueIpInfoRsp)
 {
-  U8 idx = 0;
-  CmEsmPdnAdd *pdn_addr = NULLP;
-  ueIpInfoRsp->ueId = ueCb->ueId;
-  ueIpInfoRsp->bearerId = bearerId;
+   U8 idx = 0;
+   CmEsmPdnAdd *pdn_addr = NULLP;
+   ueIpInfoRsp->ueId = ueCb->ueId;
+   ueIpInfoRsp->bearerId = bearerId;
 
-  for (idx = 1; idx < UE_APP_MAX_DRBS; idx++) {
-    if (ueCb->drbs[idx] == UE_APP_DRB_INUSE) {
-      if (ueCb->ueRabCb[idx - 1].epsBearerId == bearerId) {
-        pdn_addr = &ueCb->ueRabCb[idx - 1].pAddr;
-        ueIpInfoRsp->berType = ueCb->ueRabCb[idx - 1].bearerType;
-        ueIpInfoRsp->lnkEpsBearId = bearerId;
-        _fill_pf_comp(idx, ueCb, ueIpInfoRsp);
-        break;
+   for (idx = 1; idx < UE_APP_MAX_DRBS; idx++)
+   {
+      if (ueCb->drbs[idx] == UE_APP_DRB_INUSE)
+      {
+         if (ueCb->ueRabCb[idx - 1].epsBearerId == bearerId)
+         {
+            pdn_addr = &ueCb->ueRabCb[idx - 1].pAddr;
+            ueIpInfoRsp->berType = ueCb->ueRabCb[idx - 1].bearerType;
+            ueIpInfoRsp->lnkEpsBearId = bearerId;
+            _fill_pf_comp(idx, ueCb, ueIpInfoRsp);
+            break;
+         }
       }
-    }
-  }
-  // Construct IP address
-  if ((pdn_addr != NULLP) && pdn_addr->pres) {
-    if (pdn_addr->pdnType == CM_ESM_PDN_IPV4) {
-      ueIpInfoRsp->pdnType = CM_ESM_PDN_IPV4;
-      // Convert IPv4 address arrary to dotted notation(x.x.x.x)
-      ueAppFormIpv4Addr(ueIpInfoRsp, pdn_addr);
-    } else if (pdn_addr->pdnType == CM_ESM_PDN_IPV6) {
-      ueIpInfoRsp->pdnType = CM_ESM_PDN_IPV6;
-      // Convert IPv6 address arrary to ":" separated notation(x:x:x:x:x:x:x:x)
-      ueAppFormIpv6Addr(ueIpInfoRsp, &ueCb->ueRabCb[idx - 1]);
-    } else if (pdn_addr->pdnType == CM_ESM_PDN_IPV4V6) {
-      ueIpInfoRsp->pdnType = CM_ESM_PDN_IPV4V6;
-      // Convert IPv4 address arrary to dotted notation(x.x.x.x)
-      ueAppFormIpv4Addr(ueIpInfoRsp, pdn_addr);
-      // Convert IPv6 address arrary to ":" separated notation(x:x:x:x:x:x:x:x)
-      ueAppFormIpv6Addr(ueIpInfoRsp, &(ueCb->ueRabCb[idx - 1]));
-    }
-  }
+   }
+   // Construct IP address
+   if ((pdn_addr != NULLP) && pdn_addr->pres)
+   {
+      if (pdn_addr->pdnType == CM_ESM_PDN_IPV4)
+      {
+         ueIpInfoRsp->pdnType = CM_ESM_PDN_IPV4;
+         // Convert IPv4 address arrary to dotted notation(x.x.x.x)
+         ueAppFormIpv4Addr(ueIpInfoRsp, pdn_addr);
+      }
+      else if (pdn_addr->pdnType == CM_ESM_PDN_IPV6)
+      {
+         ueIpInfoRsp->pdnType = CM_ESM_PDN_IPV6;
+         // Convert IPv6 address arrary to ":" separated notation(x:x:x:x:x:x:x:x)
+         ueAppFormIpv6Addr(ueIpInfoRsp, &ueCb->ueRabCb[idx - 1]);
+      }
+      else if (pdn_addr->pdnType == CM_ESM_PDN_IPV4V6)
+      {
+         ueIpInfoRsp->pdnType = CM_ESM_PDN_IPV4V6;
+         // Convert IPv4 address arrary to dotted notation(x.x.x.x)
+         ueAppFormIpv4Addr(ueIpInfoRsp, pdn_addr);
+         // Convert IPv6 address arrary to ":" separated notation(x:x:x:x:x:x:x:x)
+         ueAppFormIpv6Addr(ueIpInfoRsp, &(ueCb->ueRabCb[idx - 1]));
+      }
+   }
 }
 
 /*
@@ -6349,12 +6295,10 @@ PUBLIC Void populateIpInfo(UeCb *ueCb, U8 bearerId,
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppRcvEmmMsg
-(
- CmNasEvnt *evnt,
- U8 emmMsgType,
- UeCb *ueCb
-)
+PRIVATE S16 ueAppRcvEmmMsg(
+    CmNasEvnt *evnt,
+    U8 emmMsgType,
+    UeCb *ueCb)
 {
    S16 ret = RFAILED;
    UeAppCb *ueAppCb = NULLP;
@@ -6368,335 +6312,332 @@ PRIVATE S16 ueAppRcvEmmMsg
 
    switch (emmMsgType)
    {
-      case CM_EMM_MSG_ID_REQ: /* Identity request from mme */
+   case CM_EMM_MSG_ID_REQ: /* Identity request from mme */
+   {
+      ueCb->res.pres = TRUE;
+      ueCb->res.len = UE_USIM_RES_SIZE;
+      if (ueCb->ecmCb.state == UE_ECM_IDLE)
       {
-         ueCb->res.pres = TRUE;
-         ueCb->res.len = UE_USIM_RES_SIZE;
-         if (ueCb->ecmCb.state == UE_ECM_IDLE) {
-           ueCb->ecmCb.state = UE_ECM_CONNECTED;
-         }
-         tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-         ret = ueBldIdentReqIndMsgToTfw(tfwMsg, ueCb,
-                                        evnt->m.emmEvnt->u.idReq.idType.type);
-
-         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb,
-                        "Sending Identity Request Indication to TFWAPP failed");
-         }
-         break;
+         ueCb->ecmCb.state = UE_ECM_CONNECTED;
       }
-      case CM_EMM_MSG_AUTH_REQ: /* Authentication request from mme */
+      tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+      ret = ueBldIdentReqIndMsgToTfw(tfwMsg, ueCb,
+                                     evnt->m.emmEvnt->u.idReq.idType.type);
+
+      ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+      if (ret != ROK)
       {
-         ueCb->ueCtxt.rnd[0] = 1;
-         /* Initiate authentication response to MME */
-         if (0 == cmMemcmp(ueCb->ueCtxt.rnd,\
-                           evnt->m.emmEvnt->u.authReq.RAND.val, 16))
-         {
-            UE_LOG_DEBUG(ueAppCb, "RAND Is Matching, Ignoring The AuthRequest");
-            CM_FREE_NASEVNT(&evnt);
-            RETVALUE(RFAILED);
-         }
-
-         cmMemset((U8*)&ueCb->secCtxt, 0, sizeof(ueCb->secCtxt));
-         cmMemcpy(ueCb->ueCtxt.rnd, evnt->m.emmEvnt->u.authReq.RAND.val, 16);
-         cmMemcpy(ueCb->secCtxt.autn, evnt->m.emmEvnt->u.authReq.AUTN.val, 16);
-         ueCb->secCtxt.tsc = evnt->m.emmEvnt->u.authReq.nasKsi.tsc;
-         ueCb->secCtxt.ksi = evnt->m.emmEvnt->u.authReq.nasKsi.id;
-
-         if (ueCb->ecmCb.state == UE_ECM_IDLE) {
-           ueCb->ecmCb.state = UE_ECM_CONNECTED;
-         }
-
-         /* Milanage, Snow3g, AES based auth and security */
-         ueUsimCalcAndStoreAuthKeys(&ueCb->ueInfo, &ueCb->ueAuthKeys,
-               ueCb->res.val, evnt->m.emmEvnt->u.authReq.AUTN.val,
-               evnt->m.emmEvnt->u.authReq.RAND.val);
-
-         UE_LOG_DEBUG(ueAppCb, "Sending Auth Request Indication to Test "\
-               "Controller");
-         ueCb->res.pres = TRUE;
-         ueCb->res.len = UE_USIM_RES_SIZE;
-         tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-         ret = ueBldAuthReqIndMsgToTfw(tfwMsg, ueCb);
-
-         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Sending Authentication Request "\
-                  "Indication to TFWAPP failed");
-         }
-         break;
+         UE_LOG_ERROR(ueAppCb,
+                      "Sending Identity Request Indication to TFWAPP failed");
       }
-      case CM_EMM_MSG_SEC_MODE_CMD:
+      break;
+   }
+   case CM_EMM_MSG_AUTH_REQ: /* Authentication request from mme */
+   {
+      ueCb->ueCtxt.rnd[0] = 1;
+      /* Initiate authentication response to MME */
+      if (0 == cmMemcmp(ueCb->ueCtxt.rnd,
+                        evnt->m.emmEvnt->u.authReq.RAND.val, 16))
       {
-         ueCb->secCtxt.ksi    = evnt->m.emmEvnt->u.secModCmd.nasKsi.id;
-         ueCb->secCtxt.tsc    = evnt->m.emmEvnt->u.secModCmd.nasKsi.tsc;
-         ueCb->secCtxt.status = UE_APP_SEC_CTXT_CRNT;
-         ueCb->secCtxt.intAlg =
-            evnt->m.emmEvnt->u.secModCmd.selNasSecAlgo.intProtAlgo;
-         ueCb->secCtxt.encAlg =
-            evnt->m.emmEvnt->u.secModCmd.selNasSecAlgo.ciphAlgo;
-
-         ret = ueAppGenerateNasKey(&ueCb->secCtxt);
-         if (ROK != ret)
-         {
-            UE_LOG_ERROR(ueAppCb, "NAS Key Gen Failed");
-            ret = RFAILED;
-         }
-         ret = ueAppGenerateEnbKey(&ueCb->secCtxt,
-               (U32)ueCb->secCtxt.lstUsdCnt);
-
-         if (ROK != ret)
-         {
-            UE_LOG_ERROR(ueAppCb, "AS Key Gen Failed");
-            ret = RFAILED;
-         }
-         tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-         ret = ueBldSecModeCmdIndToTfw(tfwMsg, ueCb);
-
-         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Sending SEC MODE SMD Indication to TFWAPP failed");
-         }
-         break;
+         UE_LOG_DEBUG(ueAppCb, "RAND Is Matching, Ignoring The AuthRequest");
+         CM_FREE_NASEVNT(&evnt);
+         RETVALUE(RFAILED);
       }
-      case CM_EMM_MSG_ATTACH_ACC:
+
+      cmMemset((U8 *)&ueCb->secCtxt, 0, sizeof(ueCb->secCtxt));
+      cmMemcpy(ueCb->ueCtxt.rnd, evnt->m.emmEvnt->u.authReq.RAND.val, 16);
+      cmMemcpy(ueCb->secCtxt.autn, evnt->m.emmEvnt->u.authReq.AUTN.val, 16);
+      ueCb->secCtxt.tsc = evnt->m.emmEvnt->u.authReq.nasKsi.tsc;
+      ueCb->secCtxt.ksi = evnt->m.emmEvnt->u.authReq.nasKsi.id;
+
+      if (ueCb->ecmCb.state == UE_ECM_IDLE)
       {
-         /* Updating the Uecb */
-         /* if unit is 0, then multiply the val into 2 seconds */
-         if (evnt->m.emmEvnt->u.atchAcc.t3412.unit == 0)
-         {
-            ueCb->t3412 = evnt->m.emmEvnt->u.atchAcc.t3412.val * 2;
-         }
-         /* if unit is 1, then multiply the val into 60 seconds(1 min) */
-         else if (evnt->m.emmEvnt->u.atchAcc.t3412.unit == 1)
-         {
-            ueCb->t3412 = evnt->m.emmEvnt->u.atchAcc.t3412.val * 60;
-         }
-         /* if unit is 2, then multiply the val into 6*60 seconds(6 min) */
-         else if (evnt->m.emmEvnt->u.atchAcc.t3412.unit == 2)
-         {
-            ueCb->t3412 = evnt->m.emmEvnt->u.atchAcc.t3412.val * 6 * 60;
-         }
-         else
-         {
-            UE_LOG_ERROR(ueAppCb, "Invalid unit for t3412 timer");
-         }
-         ueCb->t3402 = evnt->m.emmEvnt->u.atchAcc.t3402.val;
-         ueCb->t3423 = evnt->m.emmEvnt->u.atchAcc.t3423.val;
-         ueCb->epsAtchRes = evnt->m.emmEvnt->u.atchAcc.epsAtchRes.res;
+         ueCb->ecmCb.state = UE_ECM_CONNECTED;
+      }
 
-         UE_LOG_DEBUG(ueAppCb, "Updating GUTI in UeCb");
-         updateGutiInUeCb(ueCb, &evnt->m.emmEvnt->u.atchAcc.guti);
+      /* Milanage, Snow3g, AES based auth and security */
+      ueUsimCalcAndStoreAuthKeys(&ueCb->ueInfo, &ueCb->ueAuthKeys,
+                                 ueCb->res.val, evnt->m.emmEvnt->u.authReq.AUTN.val,
+                                 evnt->m.emmEvnt->u.authReq.RAND.val);
 
-         cmMemcpy(ueCb->ueCtxt.msId, evnt->m.emmEvnt->u.atchAcc.msId.u.imsi.id,
+      UE_LOG_DEBUG(ueAppCb, "Sending Auth Request Indication to Test "
+                            "Controller");
+      ueCb->res.pres = TRUE;
+      ueCb->res.len = UE_USIM_RES_SIZE;
+      tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+      ret = ueBldAuthReqIndMsgToTfw(tfwMsg, ueCb);
+
+      ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+      if (ret != ROK)
+      {
+         UE_LOG_ERROR(ueAppCb, "Sending Authentication Request "
+                               "Indication to TFWAPP failed");
+      }
+      break;
+   }
+   case CM_EMM_MSG_SEC_MODE_CMD:
+   {
+      ueCb->secCtxt.ksi = evnt->m.emmEvnt->u.secModCmd.nasKsi.id;
+      ueCb->secCtxt.tsc = evnt->m.emmEvnt->u.secModCmd.nasKsi.tsc;
+      ueCb->secCtxt.status = UE_APP_SEC_CTXT_CRNT;
+      ueCb->secCtxt.intAlg =
+          evnt->m.emmEvnt->u.secModCmd.selNasSecAlgo.intProtAlgo;
+      ueCb->secCtxt.encAlg =
+          evnt->m.emmEvnt->u.secModCmd.selNasSecAlgo.ciphAlgo;
+
+      ret = ueAppGenerateNasKey(&ueCb->secCtxt);
+      if (ROK != ret)
+      {
+         UE_LOG_ERROR(ueAppCb, "NAS Key Gen Failed");
+         ret = RFAILED;
+      }
+      ret = ueAppGenerateEnbKey(&ueCb->secCtxt,
+                                (U32)ueCb->secCtxt.lstUsdCnt);
+
+      if (ROK != ret)
+      {
+         UE_LOG_ERROR(ueAppCb, "AS Key Gen Failed");
+         ret = RFAILED;
+      }
+      tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+      ret = ueBldSecModeCmdIndToTfw(tfwMsg, ueCb);
+
+      ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+      if (ret != ROK)
+      {
+         UE_LOG_ERROR(ueAppCb, "Sending SEC MODE SMD Indication to TFWAPP failed");
+      }
+      break;
+   }
+   case CM_EMM_MSG_ATTACH_ACC:
+   {
+      /* Updating the Uecb */
+      /* if unit is 0, then multiply the val into 2 seconds */
+      if (evnt->m.emmEvnt->u.atchAcc.t3412.unit == 0)
+      {
+         ueCb->t3412 = evnt->m.emmEvnt->u.atchAcc.t3412.val * 2;
+      }
+      /* if unit is 1, then multiply the val into 60 seconds(1 min) */
+      else if (evnt->m.emmEvnt->u.atchAcc.t3412.unit == 1)
+      {
+         ueCb->t3412 = evnt->m.emmEvnt->u.atchAcc.t3412.val * 60;
+      }
+      /* if unit is 2, then multiply the val into 6*60 seconds(6 min) */
+      else if (evnt->m.emmEvnt->u.atchAcc.t3412.unit == 2)
+      {
+         ueCb->t3412 = evnt->m.emmEvnt->u.atchAcc.t3412.val * 6 * 60;
+      }
+      else
+      {
+         UE_LOG_ERROR(ueAppCb, "Invalid unit for t3412 timer");
+      }
+      ueCb->t3402 = evnt->m.emmEvnt->u.atchAcc.t3402.val;
+      ueCb->t3423 = evnt->m.emmEvnt->u.atchAcc.t3423.val;
+      ueCb->epsAtchRes = evnt->m.emmEvnt->u.atchAcc.epsAtchRes.res;
+
+      UE_LOG_DEBUG(ueAppCb, "Updating GUTI in UeCb");
+      updateGutiInUeCb(ueCb, &evnt->m.emmEvnt->u.atchAcc.guti);
+
+      cmMemcpy(ueCb->ueCtxt.msId, evnt->m.emmEvnt->u.atchAcc.msId.u.imsi.id,
                CM_EMM_MAX_MOBILE_ID_DIGS);
 
-         ueCb->emmCause = evnt->m.emmEvnt->u.atchAcc.cause.cause;
-         cmMemcpy((U8 *)&ueCb->plmnLst, (U8 *)&evnt->m.emmEvnt->u.atchAcc.\
-               eqPlmnLst.plmnLst, sizeof(CmEmmPlmnId));
+      ueCb->emmCause = evnt->m.emmEvnt->u.atchAcc.cause.cause;
+      cmMemcpy((U8 *)&ueCb->plmnLst, (U8 *)&evnt->m.emmEvnt->u.atchAcc.eqPlmnLst.plmnLst, sizeof(CmEmmPlmnId));
 
-         tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-         cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
+      tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+      cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
 
-         tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.epsBearerId = evnt->m.emmEvnt->u.atchAcc.esmEvnt->m.esmEvnt->bearerId;
-         ret = ueBldAttachAcceptToTfw(tfwMsg, ueCb);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Building Attach Accept Indication to TFWAPP Failed");
-            ret = RFAILED;
-         }
-         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Sending Attach Accept Indication to TFWAPP Failed");
-            ret = RFAILED;
-         }
-         break;
-      }
-      case CM_EMM_MSG_TAU_ACC:
+      tfwMsg->msg.ueUetAttachAcceptInd.esmInfo.epsBearerId = evnt->m.emmEvnt->u.atchAcc.esmEvnt->m.esmEvnt->bearerId;
+      ret = ueBldAttachAcceptToTfw(tfwMsg, ueCb);
+      if (ret != ROK)
       {
-         /* Updating the UeCb */
-         if (evnt->m.emmEvnt->u.tauAcc.t3412.unit == 0)
-         {
-            /* if unit is 0, then multiply the val into 2 seconds */
-            ueCb->t3412 = evnt->m.emmEvnt->u.tauAcc.t3412.val * 2;
-         }
-         else if (evnt->m.emmEvnt->u.tauAcc.t3412.unit == 1)
-         {
-            /* if unt is 1, then multiply the val into 60 seconds(1 min) */
-            ueCb->t3412 = evnt->m.emmEvnt->u.tauAcc.t3412.val * 60;
-         }
-         /* if unit is 2, then multiply the val into 6*60 seconds(6 min) */
-         else if (evnt->m.emmEvnt->u.tauAcc.t3412.unit == 2)
-         {
-            ueCb->t3412 = evnt->m.emmEvnt->u.tauAcc.t3412.val * 6 * 60;
-         }
-         else
-         {
-            UE_LOG_ERROR(ueAppCb, "Invalid unit for t3412 timer");
-         }
+         UE_LOG_ERROR(ueAppCb, "Building Attach Accept Indication to TFWAPP Failed");
+         ret = RFAILED;
+      }
+      ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+      if (ret != ROK)
+      {
+         UE_LOG_ERROR(ueAppCb, "Sending Attach Accept Indication to TFWAPP Failed");
+         ret = RFAILED;
+      }
+      break;
+   }
+   case CM_EMM_MSG_TAU_ACC:
+   {
+      /* Updating the UeCb */
+      if (evnt->m.emmEvnt->u.tauAcc.t3412.unit == 0)
+      {
+         /* if unit is 0, then multiply the val into 2 seconds */
+         ueCb->t3412 = evnt->m.emmEvnt->u.tauAcc.t3412.val * 2;
+      }
+      else if (evnt->m.emmEvnt->u.tauAcc.t3412.unit == 1)
+      {
+         /* if unt is 1, then multiply the val into 60 seconds(1 min) */
+         ueCb->t3412 = evnt->m.emmEvnt->u.tauAcc.t3412.val * 60;
+      }
+      /* if unit is 2, then multiply the val into 6*60 seconds(6 min) */
+      else if (evnt->m.emmEvnt->u.tauAcc.t3412.unit == 2)
+      {
+         ueCb->t3412 = evnt->m.emmEvnt->u.tauAcc.t3412.val * 6 * 60;
+      }
+      else
+      {
+         UE_LOG_ERROR(ueAppCb, "Invalid unit for t3412 timer");
+      }
 
-         ueCb->t3402 = evnt->m.emmEvnt->u.tauAcc.t3402.val;
-         ueCb->t3423 = evnt->m.emmEvnt->u.tauAcc.t3423.val;
+      ueCb->t3402 = evnt->m.emmEvnt->u.tauAcc.t3402.val;
+      ueCb->t3423 = evnt->m.emmEvnt->u.tauAcc.t3423.val;
 
-         cmMemcpy(ueCb->ueCtxt.msId,
-                  evnt->m.emmEvnt->u.tauAcc.msId.u.imsi.id,
-                  CM_EMM_MAX_MOBILE_ID_DIGS);
+      cmMemcpy(ueCb->ueCtxt.msId,
+               evnt->m.emmEvnt->u.tauAcc.msId.u.imsi.id,
+               CM_EMM_MAX_MOBILE_ID_DIGS);
 
-         ueCb->emmCause = evnt->m.emmEvnt->u.tauAcc.cause.cause;
-         cmMemcpy((U8 *)&ueCb->plmnLst,
-                  (U8 *)&evnt->m.emmEvnt->u.tauAcc.eqPlmnLst.plmnLst,
-                  sizeof(CmEmmPlmnId));
+      ueCb->emmCause = evnt->m.emmEvnt->u.tauAcc.cause.cause;
+      cmMemcpy((U8 *)&ueCb->plmnLst,
+               (U8 *)&evnt->m.emmEvnt->u.tauAcc.eqPlmnLst.plmnLst,
+               sizeof(CmEmmPlmnId));
 
-         /* TODO:
+      /* TODO:
             Check if Guti is present,
             Compare with oldGuti,
             If it is diferent update in UeCb, then print */
 
-         /* If GUTI is present then update in UE Db */
-         if (evnt->m.emmEvnt->u.tauAcc.guti.pres)
-         {
-            /* Check if GUTI has changed */
-            ret = compareGutiInUeCb(ueCb, &evnt->m.emmEvnt->u.tauAcc.guti);
-            if (ret == ROK)
-            {
-               ueCb->gutiChanged = TRUE;
-               UE_LOG_DEBUG(ueAppCb, "GUTI changed, updating GUTI in UeCb");
-               updateGutiInUeCb(ueCb, &evnt->m.emmEvnt->u.tauAcc.guti);
-            }
-         }
-
-         tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-         cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
-         ret = ueBldTauAcceptToTfw(tfwMsg, &evnt->m.emmEvnt->u.tauAcc, ueCb);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Building TAU Accept Ind Failed");
-            ret = RFAILED;
-         }
-
-         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Sending of TAU Accept Indication to "\
-                  "TFWAPP Failed");
-            ret = RFAILED;
-         }
-
-         break;
-      }
-      case CM_EMM_MSG_ATTACH_REJ:
+      /* If GUTI is present then update in UE Db */
+      if (evnt->m.emmEvnt->u.tauAcc.guti.pres)
       {
-         tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-         ret = ueBldAttachRejectIndToTfw(tfwMsg, ueCb,
-               evnt->m.emmEvnt->u.atchRej.emmCause.cause);
+         /* Check if GUTI has changed */
+         ret = compareGutiInUeCb(ueCb, &evnt->m.emmEvnt->u.tauAcc.guti);
+         if (ret == ROK)
+         {
+            ueCb->gutiChanged = TRUE;
+            UE_LOG_DEBUG(ueAppCb, "GUTI changed, updating GUTI in UeCb");
+            updateGutiInUeCb(ueCb, &evnt->m.emmEvnt->u.tauAcc.guti);
+         }
+      }
 
-         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Sending Attach Reject Indication to "\
-                  "TFWAPP failed");
-         }
-         break;
-      }
-      case CM_EMM_MSG_TAU_REJ:
+      tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+      cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
+      ret = ueBldTauAcceptToTfw(tfwMsg, &evnt->m.emmEvnt->u.tauAcc, ueCb);
+      if (ret != ROK)
       {
-         if (evnt->m.emmEvnt->u.tauRej.t3346.pres == TRUE)
-         {
-            ueCb->t3346 = evnt->m.emmEvnt->u.tauRej.t3346.val;
-         }
-         tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-         ret = ueBldTauRejectIndToTfw(tfwMsg, ueCb,\
-               evnt->m.emmEvnt->u.tauRej.emmCause.cause);
-
-         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Sending Tracking Area Update Reject "\
-                  "Indication to TFW APP failed");
-         }
-         break;
-      }
-      case CM_EMM_MSG_DETACH_ACC:
-      {
-         tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-         ret = ueBldDetachAcceptIndToTfw(tfwMsg, ueCb, evnt->m.emmEvnt->\
-               u.dtchAcc.type);
-
-         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Sending Detach Accept Indication to "\
-                  "TFWAPP failed");
-         }
-         else
-         {
-            UE_LOG_DEBUG(ueAppCb, "UeCb deleted in Detach "\
-                  "Accept handling");
-         }
-         break;
-      }
-      case CM_EMM_MSG_SVC_REJ:
-      {
-         tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-         ret = ueBldServiceRejectIndToTfw(tfwMsg, ueCb, evnt->m.emmEvnt->\
-               u.srvRej.emmCause.cause);
-
-         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Sending Service Reject Indication to "\
-                  "TFWAPP failed");
-         }
-         break;
-      }
-      case CM_EMM_MSG_DETACH_REQ:
-      {
-         tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-         ret = ueBldNwInitDetachReqToTfw(tfwMsg, ueCb,evnt->m.emmEvnt->\
-               u.dtchReq.detchType, evnt->m.emmEvnt->\
-               u.dtchReq.cause);
-
-         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Sending Network init detach Request"\
-                  "Indication to TFWAPP failed");
-         }
-         break;
-      }
-      case CM_EMM_MSG_EMM_INFO:
-      {
-         tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-         ret = ueBldEmmInformationToTfw(tfwMsg, ueCb);
-         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Sending EMM Information Failed");
-         }
-         break;
-      }
-      case CM_EMM_MSG_AUTH_REJ:
-      {
-         UE_LOG_DEBUG(ueAppCb, "Received Auth Reject message \n");
-         tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-         ret = ueBldAuthRejToTfw(tfwMsg, ueCb);
-         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Sending Authentication Reject Failed");
-         }
-         break;
-      }
-      default:
-      {
-         UE_LOG_ERROR(ueAppCb, "Invalid EMM MsgType");
+         UE_LOG_ERROR(ueAppCb, "Building TAU Accept Ind Failed");
          ret = RFAILED;
       }
+
+      ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+      if (ret != ROK)
+      {
+         UE_LOG_ERROR(ueAppCb, "Sending of TAU Accept Indication to "
+                               "TFWAPP Failed");
+         ret = RFAILED;
+      }
+
+      break;
+   }
+   case CM_EMM_MSG_ATTACH_REJ:
+   {
+      tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+      ret = ueBldAttachRejectIndToTfw(tfwMsg, ueCb,
+                                      evnt->m.emmEvnt->u.atchRej.emmCause.cause);
+
+      ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+      if (ret != ROK)
+      {
+         UE_LOG_ERROR(ueAppCb, "Sending Attach Reject Indication to "
+                               "TFWAPP failed");
+      }
+      break;
+   }
+   case CM_EMM_MSG_TAU_REJ:
+   {
+      if (evnt->m.emmEvnt->u.tauRej.t3346.pres == TRUE)
+      {
+         ueCb->t3346 = evnt->m.emmEvnt->u.tauRej.t3346.val;
+      }
+      tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+      ret = ueBldTauRejectIndToTfw(tfwMsg, ueCb,
+                                   evnt->m.emmEvnt->u.tauRej.emmCause.cause);
+
+      ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+      if (ret != ROK)
+      {
+         UE_LOG_ERROR(ueAppCb, "Sending Tracking Area Update Reject "
+                               "Indication to TFW APP failed");
+      }
+      break;
+   }
+   case CM_EMM_MSG_DETACH_ACC:
+   {
+      tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+      ret = ueBldDetachAcceptIndToTfw(tfwMsg, ueCb, evnt->m.emmEvnt->u.dtchAcc.type);
+
+      ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+      if (ret != ROK)
+      {
+         UE_LOG_ERROR(ueAppCb, "Sending Detach Accept Indication to "
+                               "TFWAPP failed");
+      }
+      else
+      {
+         UE_LOG_DEBUG(ueAppCb, "UeCb deleted in Detach "
+                               "Accept handling");
+      }
+      break;
+   }
+   case CM_EMM_MSG_SVC_REJ:
+   {
+      tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+      ret = ueBldServiceRejectIndToTfw(tfwMsg, ueCb, evnt->m.emmEvnt->u.srvRej.emmCause.cause);
+
+      ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+      if (ret != ROK)
+      {
+         UE_LOG_ERROR(ueAppCb, "Sending Service Reject Indication to "
+                               "TFWAPP failed");
+      }
+      break;
+   }
+   case CM_EMM_MSG_DETACH_REQ:
+   {
+      tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+      ret = ueBldNwInitDetachReqToTfw(tfwMsg, ueCb, evnt->m.emmEvnt->u.dtchReq.detchType, evnt->m.emmEvnt->u.dtchReq.cause);
+
+      ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+      if (ret != ROK)
+      {
+         UE_LOG_ERROR(ueAppCb, "Sending Network init detach Request"
+                               "Indication to TFWAPP failed");
+      }
+      break;
+   }
+   case CM_EMM_MSG_EMM_INFO:
+   {
+      tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+      ret = ueBldEmmInformationToTfw(tfwMsg, ueCb);
+      ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+      if (ret != ROK)
+      {
+         UE_LOG_ERROR(ueAppCb, "Sending EMM Information Failed");
+      }
+      break;
+   }
+   case CM_EMM_MSG_AUTH_REJ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received Auth Reject message \n");
+      tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+      ret = ueBldAuthRejToTfw(tfwMsg, ueCb);
+      ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+      if (ret != ROK)
+      {
+         UE_LOG_ERROR(ueAppCb, "Sending Authentication Reject Failed");
+      }
+      break;
+   }
+   default:
+   {
+      UE_LOG_ERROR(ueAppCb, "Invalid EMM MsgType");
+      ret = RFAILED;
+   }
    }
 
    UE_LOG_EXITFN(ueAppCb, ret);
@@ -6715,11 +6656,9 @@ PRIVATE S16 ueAppRcvEmmMsg
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppEmmHndlInDetachAccept
-(
- CmNasEvnt *evnt,
- UeCb *ueCb
-)
+PRIVATE S16 ueAppEmmHndlInDetachAccept(
+    CmNasEvnt *evnt,
+    UeCb *ueCb)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -6748,11 +6687,9 @@ PRIVATE S16 ueAppEmmHndlInDetachAccept
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppEmmHndlInServiceRej
-(
- CmNasEvnt *evnt,
- UeCb *ueCb
-)
+PRIVATE S16 ueAppEmmHndlInServiceRej(
+    CmNasEvnt *evnt,
+    UeCb *ueCb)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -6875,7 +6812,7 @@ PRIVATE S16 ueAppUtlMovEsmCbTransToBid(UeEsmCb *esmCb, UeCb *ueCb)
    UE_LOG_DEBUG(ueAppCb, "Moving EsmCb to bid list");
 
    ueCb->esmTList[esmCb->tId] = NULLP;
-   if(!ueCb->esmBList[esmCb->bId])
+   if (!ueCb->esmBList[esmCb->bId])
    {
       ueCb->esmBList[esmCb->bId] = esmCb;
    }
@@ -6900,13 +6837,11 @@ PRIVATE S16 ueAppUtlMovEsmCbTransToBid(UeEsmCb *esmCb, UeCb *ueCb)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 uefillDefEsmInfoToUeCb
-(
- UeCb *ueCb,
- CmNasEvnt *evnt,
- U8 drbId,
- U8 epsBearerId
-)
+PRIVATE S16 uefillDefEsmInfoToUeCb(
+    UeCb *ueCb,
+    CmNasEvnt *evnt,
+    U8 drbId,
+    U8 epsBearerId)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -6920,17 +6855,18 @@ PRIVATE S16 uefillDefEsmInfoToUeCb
    ueCb->ueRabCb[drbId].drbId = drbId;
    ueCb->ueRabCb[drbId].epsBearerId = epsBearerId;
    params->bearerType = DEFAULT_BEARER;
-   if(actReq->epsQos.pres == TRUE)
+   if (actReq->epsQos.pres == TRUE)
    {
-      params->epsQos.pres              = TRUE;
-      params->epsQos.lenQosCont        = actReq->epsQos.lenQosCont;
-      params->epsQos.qci               = actReq->epsQos.qci;
-      params->epsQos.maxBitRateUL      = actReq->epsQos.maxBitRateUL;
-      params->epsQos.maxBitRateDL      = actReq->epsQos.maxBitRateDL;;
-      params->epsQos.guaraBitRateUL    = actReq->epsQos.guaraBitRateUL;
-      params->epsQos.guaraBitRateDL    = actReq->epsQos.guaraBitRateDL;
-      params->epsQos.maxBitRateULExt   = actReq->epsQos.maxBitRateULExt;
-      params->epsQos.maxBitRateDLExt   = actReq->epsQos.maxBitRateDLExt;
+      params->epsQos.pres = TRUE;
+      params->epsQos.lenQosCont = actReq->epsQos.lenQosCont;
+      params->epsQos.qci = actReq->epsQos.qci;
+      params->epsQos.maxBitRateUL = actReq->epsQos.maxBitRateUL;
+      params->epsQos.maxBitRateDL = actReq->epsQos.maxBitRateDL;
+      ;
+      params->epsQos.guaraBitRateUL = actReq->epsQos.guaraBitRateUL;
+      params->epsQos.guaraBitRateDL = actReq->epsQos.guaraBitRateDL;
+      params->epsQos.maxBitRateULExt = actReq->epsQos.maxBitRateULExt;
+      params->epsQos.maxBitRateDLExt = actReq->epsQos.maxBitRateDLExt;
       params->epsQos.guaraBitRateULExt = actReq->epsQos.guaraBitRateULExt;
       params->epsQos.guaraBitRateDLExt = actReq->epsQos.guaraBitRateDLExt;
    }
@@ -6938,38 +6874,42 @@ PRIVATE S16 uefillDefEsmInfoToUeCb
    {
       params->epsQos.pres = FALSE;
    }
-   if(actReq->apn.pres == TRUE)
+   if (actReq->apn.pres == TRUE)
    {
       params->apn.pres = TRUE;
       params->apn.len = actReq->apn.len;
       cmMemcpy((U8 *)&params->apn.apn, (U8 *)&actReq->apn.apn,
-            CM_ESM_MAX_LEN_ACCESS_PTNAME);
+               CM_ESM_MAX_LEN_ACCESS_PTNAME);
    }
    else
    {
       params->apn.pres = FALSE;
    }
-   if (actReq->pAddr.pres == TRUE) {
-     params->pAddr.pres = TRUE;
-     params->pAddr.len = actReq->pAddr.len;
-     params->pAddr.pdnType = actReq->pAddr.pdnType;
-     cmMemcpy((U8 *)&params->pAddr.addrInfo, (U8 *)&actReq->pAddr.addrInfo,
-              sizeof(actReq->pAddr.addrInfo));
-   } else {
-     params->pAddr.pres = FALSE;
-   }
-   if(actReq->pAddr.pres == TRUE) {
+   if (actReq->pAddr.pres == TRUE)
+   {
       params->pAddr.pres = TRUE;
       params->pAddr.len = actReq->pAddr.len;
       params->pAddr.pdnType = actReq->pAddr.pdnType;
       cmMemcpy((U8 *)&params->pAddr.addrInfo, (U8 *)&actReq->pAddr.addrInfo,
-            sizeof(actReq->pAddr.addrInfo));
+               sizeof(actReq->pAddr.addrInfo));
    }
    else
    {
       params->pAddr.pres = FALSE;
    }
-   if(actReq->txnId.pres == TRUE)
+   if (actReq->pAddr.pres == TRUE)
+   {
+      params->pAddr.pres = TRUE;
+      params->pAddr.len = actReq->pAddr.len;
+      params->pAddr.pdnType = actReq->pAddr.pdnType;
+      cmMemcpy((U8 *)&params->pAddr.addrInfo, (U8 *)&actReq->pAddr.addrInfo,
+               sizeof(actReq->pAddr.addrInfo));
+   }
+   else
+   {
+      params->pAddr.pres = FALSE;
+   }
+   if (actReq->txnId.pres == TRUE)
    {
       params->txnId.pres = TRUE;
       params->txnId.len = actReq->txnId.len;
@@ -6982,39 +6922,39 @@ PRIVATE S16 uefillDefEsmInfoToUeCb
    {
       params->txnId.pres = FALSE;
    }
-   if(actReq->qos.pres == TRUE)
+   if (actReq->qos.pres == TRUE)
    {
-      params->qos.pres              = TRUE;
-      params->qos.lenQosCont        = actReq->qos.lenQosCont;
-      params->qos.relClass          = actReq->qos.relClass;
-      params->qos.delayClass        = actReq->qos.delayClass;
-      params->qos.precClass         = actReq->qos.precClass;
-      params->qos.peakTp            = actReq->qos.peakTp;
-      params->qos.meanTp            = actReq->qos.meanTp;
-      params->qos.deliveryErrSdu    = actReq->qos.deliveryErrSdu;
-      params->qos.deliveryOrder     = actReq->qos.deliveryOrder;
-      params->qos.trafficClass      = actReq->qos.trafficClass;
-      params->qos.maxSdu            = actReq->qos.maxSdu;
-      params->qos.maxBitRateUL      = actReq->qos.maxBitRateUL;
-      params->qos.maxBitRateDL      = actReq->qos.maxBitRateDL;
-      params->qos.sduErrRatio       = actReq->qos.sduErrRatio;
-      params->qos.residualBer       = actReq->qos.residualBer;
-      params->qos.trafHandPrio      = actReq->qos.trafHandPrio;
-      params->qos.transferDelay     = actReq->qos.transferDelay;
-      params->qos.guaraBitRateUL    = actReq->qos.guaraBitRateUL;
-      params->qos.guaraBitRateDL    = actReq->qos.guaraBitRateDL;
-      params->qos.srcStatDesc       = actReq->qos.srcStatDesc;
-      params->qos.signalInd         = actReq->qos.signalInd;
-      params->qos.maxBitRateDLExt   = actReq->qos.maxBitRateDLExt;
-      params->qos.maxBitRateULExt   = actReq->qos.maxBitRateULExt;
+      params->qos.pres = TRUE;
+      params->qos.lenQosCont = actReq->qos.lenQosCont;
+      params->qos.relClass = actReq->qos.relClass;
+      params->qos.delayClass = actReq->qos.delayClass;
+      params->qos.precClass = actReq->qos.precClass;
+      params->qos.peakTp = actReq->qos.peakTp;
+      params->qos.meanTp = actReq->qos.meanTp;
+      params->qos.deliveryErrSdu = actReq->qos.deliveryErrSdu;
+      params->qos.deliveryOrder = actReq->qos.deliveryOrder;
+      params->qos.trafficClass = actReq->qos.trafficClass;
+      params->qos.maxSdu = actReq->qos.maxSdu;
+      params->qos.maxBitRateUL = actReq->qos.maxBitRateUL;
+      params->qos.maxBitRateDL = actReq->qos.maxBitRateDL;
+      params->qos.sduErrRatio = actReq->qos.sduErrRatio;
+      params->qos.residualBer = actReq->qos.residualBer;
+      params->qos.trafHandPrio = actReq->qos.trafHandPrio;
+      params->qos.transferDelay = actReq->qos.transferDelay;
+      params->qos.guaraBitRateUL = actReq->qos.guaraBitRateUL;
+      params->qos.guaraBitRateDL = actReq->qos.guaraBitRateDL;
+      params->qos.srcStatDesc = actReq->qos.srcStatDesc;
+      params->qos.signalInd = actReq->qos.signalInd;
+      params->qos.maxBitRateDLExt = actReq->qos.maxBitRateDLExt;
+      params->qos.maxBitRateULExt = actReq->qos.maxBitRateULExt;
       params->qos.guaraBitRateDLExt = actReq->qos.guaraBitRateDLExt;
       params->qos.guaraBitRateULExt = actReq->qos.guaraBitRateULExt;
    }
    else
    {
-      params->qos.pres              = FALSE;
+      params->qos.pres = FALSE;
    }
-   if(actReq->llc.pres == TRUE)
+   if (actReq->llc.pres == TRUE)
    {
       params->llc.pres = TRUE;
       params->llc.ieVal = actReq->llc.ieVal;
@@ -7023,7 +6963,7 @@ PRIVATE S16 uefillDefEsmInfoToUeCb
    {
       params->llc.pres = FALSE;
    }
-   if(actReq->radioPrio.pres == TRUE)
+   if (actReq->radioPrio.pres == TRUE)
    {
       params->radioPrio.pres = TRUE;
       params->radioPrio.ieVal = actReq->radioPrio.ieVal;
@@ -7032,7 +6972,7 @@ PRIVATE S16 uefillDefEsmInfoToUeCb
    {
       params->radioPrio.pres = FALSE;
    }
-   if(actReq->pktFlowId.pres == TRUE)
+   if (actReq->pktFlowId.pres == TRUE)
    {
       params->pktFlowId.pres = TRUE;
       params->pktFlowId.len = actReq->pktFlowId.len;
@@ -7042,7 +6982,7 @@ PRIVATE S16 uefillDefEsmInfoToUeCb
    {
       params->pktFlowId.pres = FALSE;
    }
-   if(actReq->apnAmbr.pres == TRUE)
+   if (actReq->apnAmbr.pres == TRUE)
    {
       params->apnAmbr.pres = TRUE;
       params->apnAmbr.len = actReq->apnAmbr.len;
@@ -7057,7 +6997,7 @@ PRIVATE S16 uefillDefEsmInfoToUeCb
    {
       params->apnAmbr.pres = FALSE;
    }
-   if(actReq->cause.pres == TRUE)
+   if (actReq->cause.pres == TRUE)
    {
       params->cause.pres = TRUE;
       params->cause.val = actReq->cause.val;
@@ -7066,36 +7006,35 @@ PRIVATE S16 uefillDefEsmInfoToUeCb
    {
       params->cause.pres = FALSE;
    }
-   if(actReq->protCfgOpt.pres == TRUE)
+   if (actReq->protCfgOpt.pres == TRUE)
    {
-     params->protCfgOpt.pres = TRUE;
-     params->protCfgOpt.len = actReq->protCfgOpt.len;
-     params->protCfgOpt.cfgProt = actReq->protCfgOpt.cfgProt;
-     params->protCfgOpt.ext = actReq->protCfgOpt.ext;
-     params->protCfgOpt.numProtId = actReq->protCfgOpt.numProtId;
-     params->protCfgOpt.numContId = actReq->protCfgOpt.numContId;
+      params->protCfgOpt.pres = TRUE;
+      params->protCfgOpt.len = actReq->protCfgOpt.len;
+      params->protCfgOpt.cfgProt = actReq->protCfgOpt.cfgProt;
+      params->protCfgOpt.ext = actReq->protCfgOpt.ext;
+      params->protCfgOpt.numProtId = actReq->protCfgOpt.numProtId;
+      params->protCfgOpt.numContId = actReq->protCfgOpt.numContId;
 
-     for(count=0;count<actReq->protCfgOpt.numProtId;count++)
-     {
-          params->protCfgOpt.p[count].pid = actReq->protCfgOpt.p[count].pid;
-          params->protCfgOpt.p[count].len = actReq->protCfgOpt.p[count].len;
-          cmMemcpy(params->protCfgOpt.p[count].val,
-             actReq->protCfgOpt.p[count].val,
-             actReq->protCfgOpt.p[count].len);
-     }
-     for(count=0;count<actReq->protCfgOpt.numContId;count++)
-     {
-       params->protCfgOpt.c[count].cid = actReq->protCfgOpt.c[count].cid;
-       params->protCfgOpt.c[count].len = actReq->protCfgOpt.c[count].len;
-       cmMemcpy(params->protCfgOpt.c[count].val,
-          actReq->protCfgOpt.c[count].val,
-       actReq->protCfgOpt.c[count].len);
-     }
-
+      for (count = 0; count < actReq->protCfgOpt.numProtId; count++)
+      {
+         params->protCfgOpt.p[count].pid = actReq->protCfgOpt.p[count].pid;
+         params->protCfgOpt.p[count].len = actReq->protCfgOpt.p[count].len;
+         cmMemcpy(params->protCfgOpt.p[count].val,
+                  actReq->protCfgOpt.p[count].val,
+                  actReq->protCfgOpt.p[count].len);
+      }
+      for (count = 0; count < actReq->protCfgOpt.numContId; count++)
+      {
+         params->protCfgOpt.c[count].cid = actReq->protCfgOpt.c[count].cid;
+         params->protCfgOpt.c[count].len = actReq->protCfgOpt.c[count].len;
+         cmMemcpy(params->protCfgOpt.c[count].val,
+                  actReq->protCfgOpt.c[count].val,
+                  actReq->protCfgOpt.c[count].len);
+      }
    }
    else
    {
-     params->protCfgOpt.pres = FALSE;
+      params->protCfgOpt.pres = FALSE;
    }
 
    UE_LOG_EXITFN(ueAppCb, ret);
@@ -7116,67 +7055,71 @@ PRIVATE S16 uefillDefEsmInfoToUeCb
  */
 PRIVATE S16 ueAppEsmHndlIncActDefBearerReq(UeEsmCb *esmCb, CmNasEvnt *evnt,
                                            UeCb *ueCb, U8 *AllocDrbId,
-                                           U8 epsBearerId) {
-  S16 ret = ROK;
-  UeAppCb *ueAppCb = NULLP;
-  CmInetNetAddr *selfAddr = NULLP;
-  CmEsmPdnAdd *pAddr = NULLP;
-  U8 drbId = 0;
-
-  UE_GET_CB(ueAppCb);
-  UE_LOG_ENTERFN(ueAppCb);
-
-  UE_LOG_DEBUG(ueAppCb, "Activate default bearer request");
-
-  /* Update procedure transaction state */
-  esmCb->pState = UE_ESM_ST_PROC_TXN_INACTIVE;
-
-  /* update bearer Id */
-  esmCb->bId = evnt->m.esmEvnt->bearerId;
-
-  ueAppUtlMovEsmCbTransToBid(esmCb, ueCb);
-  /* If is_actv_dflt_eps_ber_ctxt_rej flag is set
-   * do not create context for the bearer*/
-  if (ueCb->is_actv_dflt_eps_ber_ctxt_rej) {
-    RETVALUE(ROK);
-  }
-  /* Update pdn address in ue context */
-  selfAddr = &(ueCb->ueCtxt.selfAddr);
-  pAddr = &evnt->m.esmEvnt->u.actReq.pAddr;
-
-  if (pAddr->pdnType == CM_ESM_PDN_IPV4) {
-    selfAddr->u.ipv4NetAddr =
-        (((U32)(pAddr->addrInfo[0]) << 24) | ((U32)(pAddr->addrInfo[1]) << 16) |
-         ((U32)(pAddr->addrInfo[2]) << 8) | (U32)(pAddr->addrInfo[3]));
-  } else {
-#ifdef IPV6_SUPPORTED
-    cmMemcpy((U8 *)&selfAddr->u.ipv6NetAddr, (U8 *)pAddr->addrInfo, pAddr->len);
-#endif
-  }
-
-  ret = ueAppGetDrb(ueCb, &drbId);
-  if (ret != ROK) {
-    UE_LOG_ERROR(ueAppCb, "DRB Cb not found");
-    RETVALUE(ret);
-  }
-
-  ueCb->numRabs++;
-
-  ret = uefillDefEsmInfoToUeCb(ueCb, evnt, (drbId - 1), epsBearerId);
-
-  *AllocDrbId = drbId;
-  RETVALUE(ROK);
-} /* ueAppEsmHndlIncActDefBearerReq */
-
-PRIVATE S16 ueAppEsmHndlIncPdnConRej
-(
- UeEsmCb *esmCb,
- CmNasEvnt *evnt,
- UeCb *ueCb
-)
+                                           U8 epsBearerId)
 {
    S16 ret = ROK;
-   UeAppCb *ueAppCb   = NULLP;
+   UeAppCb *ueAppCb = NULLP;
+   CmInetNetAddr *selfAddr = NULLP;
+   CmEsmPdnAdd *pAddr = NULLP;
+   U8 drbId = 0;
+
+   UE_GET_CB(ueAppCb);
+   UE_LOG_ENTERFN(ueAppCb);
+
+   UE_LOG_DEBUG(ueAppCb, "Activate default bearer request");
+
+   /* Update procedure transaction state */
+   esmCb->pState = UE_ESM_ST_PROC_TXN_INACTIVE;
+
+   /* update bearer Id */
+   esmCb->bId = evnt->m.esmEvnt->bearerId;
+
+   ueAppUtlMovEsmCbTransToBid(esmCb, ueCb);
+   /* If is_actv_dflt_eps_ber_ctxt_rej flag is set
+   * do not create context for the bearer*/
+   if (ueCb->is_actv_dflt_eps_ber_ctxt_rej)
+   {
+      RETVALUE(ROK);
+   }
+   /* Update pdn address in ue context */
+   selfAddr = &(ueCb->ueCtxt.selfAddr);
+   pAddr = &evnt->m.esmEvnt->u.actReq.pAddr;
+
+   if (pAddr->pdnType == CM_ESM_PDN_IPV4)
+   {
+      selfAddr->u.ipv4NetAddr =
+          (((U32)(pAddr->addrInfo[0]) << 24) | ((U32)(pAddr->addrInfo[1]) << 16) |
+           ((U32)(pAddr->addrInfo[2]) << 8) | (U32)(pAddr->addrInfo[3]));
+   }
+   else
+   {
+#ifdef IPV6_SUPPORTED
+      cmMemcpy((U8 *)&selfAddr->u.ipv6NetAddr, (U8 *)pAddr->addrInfo, pAddr->len);
+#endif
+   }
+
+   ret = ueAppGetDrb(ueCb, &drbId);
+   if (ret != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "DRB Cb not found");
+      RETVALUE(ret);
+   }
+
+   ueCb->numRabs++;
+
+   ret = uefillDefEsmInfoToUeCb(ueCb, evnt, (drbId - 1), epsBearerId);
+
+   *AllocDrbId = drbId;
+   RETVALUE(ROK);
+} /* ueAppEsmHndlIncActDefBearerReq */
+
+PRIVATE S16 ueAppEsmHndlIncPdnConRej(
+    UeEsmCb *esmCb,
+    CmNasEvnt *evnt,
+    UeCb *ueCb)
+{
+   S16 ret = ROK;
+   UeAppCb *ueAppCb = NULLP;
    UetMessage *tfwMsg = NULLP;
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
@@ -7188,31 +7131,29 @@ PRIVATE S16 ueAppEsmHndlIncPdnConRej
    /* Update procedure transaction state */
    esmCb->pState = UE_ESM_ST_PROC_TXN_INACTIVE;
    /* send pdn connection reject indication to user */
-   tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-   tfwMsg->msg.ueUetPdnConRsp.ueId                        = ueCb->ueId;
-   tfwMsg->msg.ueUetPdnConRsp.status                      = FALSE;
-   tfwMsg->msg.ueUetPdnConRsp.m.pdnConRejInfo.esmCause    = \
-     evnt->m.esmEvnt->u.conRej.cause.val;
+   tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+   tfwMsg->msg.ueUetPdnConRsp.ueId = ueCb->ueId;
+   tfwMsg->msg.ueUetPdnConRsp.status = FALSE;
+   tfwMsg->msg.ueUetPdnConRsp.m.pdnConRejInfo.esmCause =
+       evnt->m.esmEvnt->u.conRej.cause.val;
    tfwMsg->msg.ueUetPdnConRsp.m.pdnConRejInfo.epsBearerId = esmCb->bId;
    tfwMsg->msgType = UE_PDN_CON_RSP_TYPE;
    ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
    if (ret != ROK)
    {
-      UE_LOG_ERROR(ueAppCb, "Sending Attach Reject Indication to "\
-            "TFWAPP failed");
+      UE_LOG_ERROR(ueAppCb, "Sending Attach Reject Indication to "
+                            "TFWAPP failed");
    }
    RETVALUE(ROK);
 } /* ueAppEsmHndlIncPdnConRej */
 
-PRIVATE S16 ueAppEsmHndlIncEsmInfoReq
-(
- UeEsmCb *esmCb,
- CmNasEvnt *evnt,
- UeCb *ueCb
-)
+PRIVATE S16 ueAppEsmHndlIncEsmInfoReq(
+    UeEsmCb *esmCb,
+    CmNasEvnt *evnt,
+    UeCb *ueCb)
 {
    S16 ret = ROK;
-   UeAppCb *ueAppCb   = NULLP;
+   UeAppCb *ueAppCb = NULLP;
    UetMessage *tfwMsg = NULLP;
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
@@ -7224,19 +7165,18 @@ PRIVATE S16 ueAppEsmHndlIncEsmInfoReq
    /* Update procedure transaction state */
    esmCb->pState = UE_ESM_ST_PROC_TXN_INACTIVE;
    /* send ESM Information Indication to user */
-   tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
+   tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
    tfwMsg->msg.ueEsmInformationReq.ueId = ueCb->ueId;
    tfwMsg->msgType = UE_ESM_INFORMATION_REQ_TYPE;
    tfwMsg->msg.ueEsmInformationReq.tId = evnt->m.esmEvnt->prTxnId;
    ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
    if (ret != ROK)
    {
-      UE_LOG_ERROR(ueAppCb, "Sending Esm Information Request Indication to "\
-            "TFWAPP failed");
+      UE_LOG_ERROR(ueAppCb, "Sending Esm Information Request Indication to "
+                            "TFWAPP failed");
    }
    RETVALUE(ROK);
 } /* ueAppEsmHndlIncEsmInfoReq */
-
 
 /*
  *
@@ -7251,16 +7191,14 @@ PRIVATE S16 ueAppEsmHndlIncEsmInfoReq
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppEsmHdlIncUeEvnt
-(
- CmNasEvnt *evnt,
- UeCb *ueCb,
- U8 rcvdAsPiggyBackd
-)
+PRIVATE S16 ueAppEsmHdlIncUeEvnt(
+    CmNasEvnt *evnt,
+    UeCb *ueCb,
+    U8 rcvdAsPiggyBackd)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
-   UeEsmCb  *esmCb = NULLP;
+   UeEsmCb *esmCb = NULLP;
    CmEsmMsg *esmMsg = NULLP;
    UetMessage *tfwMsg = NULLP;
    U8 drbId;
@@ -7268,7 +7206,7 @@ PRIVATE S16 ueAppEsmHdlIncUeEvnt
    UE_LOG_ENTERFN(ueAppCb);
    UE_LOG_DEBUG(ueAppCb, "Handling incoming ESM UE Event");
 
-   if(evnt == NULLP)
+   if (evnt == NULLP)
    {
       UE_LOG_ERROR(ueAppCb, "Invalid esm event");
       RETVALUE(RFAILED);
@@ -7277,122 +7215,127 @@ PRIVATE S16 ueAppEsmHdlIncUeEvnt
    esmMsg = evnt->m.esmEvnt;
 
    ret = ueAppUtlFndEsmCb(&esmCb, esmMsg->prTxnId, UE_ESM_TRANS_KEY, ueCb);
-   if(esmCb == NULLP)
+   if (esmCb == NULLP)
    {
-      if(ueCb->numRabs > 0)
+      if (ueCb->numRabs > 0)
       {
          esmCb = ueCb->esmBList[evnt->m.esmEvnt->bearerId];
       }
-      if(esmCb == NULLP)
+      if (esmCb == NULLP)
       {
-         if (esmMsg->msgType == CM_ESM_MSG_ACTV_DED_BEAR_REQ) {
+         if (esmMsg->msgType == CM_ESM_MSG_ACTV_DED_BEAR_REQ)
+         {
             ret = ueAppUtlAddEsmCb(&esmCb, ueCb);
-         }else {
-         UE_LOG_ERROR(ueAppCb, "esmCb not found");
-         RETVALUE(RFAILED);
+         }
+         else
+         {
+            UE_LOG_ERROR(ueAppCb, "esmCb not found");
+            RETVALUE(RFAILED);
          }
       }
    }
 
-   switch(esmMsg->msgType)
+   switch (esmMsg->msgType)
    {
-      case CM_ESM_MSG_ACTV_DEF_BEAR_REQ:
+   case CM_ESM_MSG_ACTV_DEF_BEAR_REQ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received CM_ESM_MSG_ACTV_DEF_BEAR_REQ: MSG");
+      ret = ueAppEsmHndlIncActDefBearerReq(esmCb, evnt, ueCb, &drbId,
+                                           esmMsg->bearerId);
+      CmEsmActDefBearCtxtReq *actReq = &evnt->m.esmEvnt->u.actReq;
+      /* send as a standalone esm message:user expecting resonse */
+      if ((ret == ROK) && (rcvdAsPiggyBackd == FALSE))
+      {
+         /* send pdn connection response to user */
+         tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+         cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
+         tfwMsg->msg.ueUetPdnConRsp.ueId = ueCb->ueId;
+         tfwMsg->msg.ueUetPdnConRsp.status = TRUE;
+         tfwMsg->msg.ueUetPdnConRsp.m.pdnInfo.epsBearerId = evnt->m.esmEvnt->bearerId;
+         tfwMsg->msgType = UE_PDN_CON_RSP_TYPE;
+         if (actReq->apn.len > 0)
          {
-            UE_LOG_DEBUG(ueAppCb, "Received CM_ESM_MSG_ACTV_DEF_BEAR_REQ: MSG");
-            ret = ueAppEsmHndlIncActDefBearerReq(esmCb, evnt, ueCb, &drbId,
-                esmMsg->bearerId);
-            CmEsmActDefBearCtxtReq *actReq = &evnt->m.esmEvnt->u.actReq;
-           /* send as a standalone esm message:user expecting resonse */
-            if((ret == ROK) && (rcvdAsPiggyBackd == FALSE))
+            tfwMsg->msg.ueUetPdnConRsp.m.pdnInfo.apn.len = actReq->apn.len;
+            cmMemcpy(tfwMsg->msg.ueUetPdnConRsp.m.pdnInfo.apn.apn,
+                     actReq->apn.apn,
+                     tfwMsg->msg.ueUetPdnConRsp.m.pdnInfo.apn.len);
+         }
+         if (actReq->pAddr.addrInfo)
+         {
+            tfwMsg->msg.ueUetPdnConRsp.m.pdnInfo.pAddr.pdnType =
+                actReq->pAddr.pdnType;
+            cmMemcpy(tfwMsg->msg.ueUetPdnConRsp.m.pdnInfo.pAddr.addrInfo,
+                     (U8 *)&actReq->pAddr.addrInfo,
+                     CM_ESM_MAX_LEN_PDN_ADDRESS);
+         }
+         ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+         if (ret != ROK)
+         {
+            UE_LOG_ERROR(ueAppCb, "Sending PDN Connection Response "
+                                  "Indication to TFWAPP Failed");
+         }
+         if (ueCb->is_actv_dflt_eps_ber_ctxt_rej)
+         {
+            /* send stand-alone activate default bearer reject to mme */
+            ret = ueAppBuildAndSendActDefltBerContextReject(ueCb,
+                                                            esmMsg->bearerId);
+            if (ret != ROK)
             {
-               /* send pdn connection response to user */
-               tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-               cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
-               tfwMsg->msg.ueUetPdnConRsp.ueId   = ueCb->ueId;
-               tfwMsg->msg.ueUetPdnConRsp.status = TRUE;
-               tfwMsg->msg.ueUetPdnConRsp.m.pdnInfo.epsBearerId = evnt->m.esmEvnt->bearerId;
-               tfwMsg->msgType = UE_PDN_CON_RSP_TYPE;
-               if(actReq->apn.len > 0)
-               {
-                  tfwMsg->msg.ueUetPdnConRsp.m.pdnInfo.\
-                     apn.len = actReq->apn.len;
-                  cmMemcpy(tfwMsg->msg.ueUetPdnConRsp.m.pdnInfo.apn.apn,
-                        actReq->apn.apn,
-                        tfwMsg->msg.ueUetPdnConRsp.m.pdnInfo.apn.len);
-               }
-               if(actReq->pAddr.addrInfo) {
-                  tfwMsg->msg.ueUetPdnConRsp.m.pdnInfo.pAddr.pdnType = \
-                     actReq->pAddr.pdnType;
-                  cmMemcpy(tfwMsg->msg.ueUetPdnConRsp.m.pdnInfo.pAddr.addrInfo,
-                        (U8 *)&actReq->pAddr.addrInfo,
-                        CM_ESM_MAX_LEN_PDN_ADDRESS);
-               }
-                ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-                if (ret != ROK)
-                {
-                   UE_LOG_ERROR(ueAppCb, "Sending PDN Connection Response "\
-                         "Indication to TFWAPP Failed");
-                }
-                if (ueCb->is_actv_dflt_eps_ber_ctxt_rej) {
-                  /* send stand-alone activate default bearer reject to mme */
-                  ret = ueAppBuildAndSendActDefltBerContextReject(ueCb,
-                        esmMsg->bearerId);
-                  if (ret != ROK) {
-                     UE_LOG_ERROR(ueAppCb, "Sending Activate Default Bearer "\
-                         "Context Reject Failed ");
-                  }
-                  break;
-                }
-               /* send stand-alone activate default bearer accept to mme */
-                ret = ueAppBuildAndSendActDefltBerContextAccept(ueCb,
-                      ueCb->ueRabCb[drbId-1].epsBearerId);
-                if (ret != ROK)
-                {
-                   UE_LOG_ERROR(ueAppCb, "Sending Activate Default Bearer "\
-                         "Context Acccept Failed ");
-                }
+               UE_LOG_ERROR(ueAppCb, "Sending Activate Default Bearer "
+                                     "Context Reject Failed ");
             }
             break;
          }
-      case CM_ESM_MSG_PDN_CONN_REJ:
+         /* send stand-alone activate default bearer accept to mme */
+         ret = ueAppBuildAndSendActDefltBerContextAccept(ueCb,
+                                                         ueCb->ueRabCb[drbId - 1].epsBearerId);
+         if (ret != ROK)
          {
-            UE_LOG_DEBUG(ueAppCb, "Received CM_ESM_MSG_PDN_CONN_REJ: MSG");
-            ret = ueAppEsmHndlIncPdnConRej(esmCb, evnt, ueCb);
-            break;
+            UE_LOG_ERROR(ueAppCb, "Sending Activate Default Bearer "
+                                  "Context Acccept Failed ");
          }
-      case CM_ESM_MSG_ACTV_DED_BEAR_REQ:
-         {
-            UE_LOG_DEBUG(ueAppCb, "Received CM_ESM_MSG_ACTV_DED_BEAR_REQ: MSG");
-            ret = ueAppEsmHndlIncActDedBearerReq(esmCb, evnt, ueCb,
-                  esmMsg->bearerId);
-            break;
-         }
-      case CM_ESM_MSG_DEACTV_BEAR_REQ:
-         {
-            UE_LOG_DEBUG(ueAppCb, "Received CM_ESM_MSG_DEACTV_BEAR_REQ MSG");
-            ret = ueAppEsmHndlIncDeActvBearerReq(esmCb, evnt, ueCb,
-                  esmMsg->bearerId);
-            break;
-         }
-      case CM_ESM_MSG_ESM_INFO_REQ:
-         {
-            UE_LOG_DEBUG(ueAppCb, "Received CM_ESM_MSG_ESM_INFO_REQ: MSG");
-            ret = ueAppEsmHndlIncEsmInfoReq(esmCb, evnt, ueCb);
-            break;
-         }
-      case CM_ESM_MSG_PDN_DISCONN_REJ:
-         {
-            UE_LOG_DEBUG(ueAppCb, "Received CM_ESM_MSG_PDN_DISCONN_REJ: MSG");
-            ret = ueAppEsmHndlIncPdnDisconRej(esmCb, evnt, ueCb);
-            break;
-         }
-      default:
-         {
-            ret = ueAppEsmHndlInvEvnt(esmCb, evnt, ueCb);
-            break;
-         }
+      }
+      break;
    }
-   if(ret != ROK)
+   case CM_ESM_MSG_PDN_CONN_REJ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received CM_ESM_MSG_PDN_CONN_REJ: MSG");
+      ret = ueAppEsmHndlIncPdnConRej(esmCb, evnt, ueCb);
+      break;
+   }
+   case CM_ESM_MSG_ACTV_DED_BEAR_REQ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received CM_ESM_MSG_ACTV_DED_BEAR_REQ: MSG");
+      ret = ueAppEsmHndlIncActDedBearerReq(esmCb, evnt, ueCb,
+                                           esmMsg->bearerId);
+      break;
+   }
+   case CM_ESM_MSG_DEACTV_BEAR_REQ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received CM_ESM_MSG_DEACTV_BEAR_REQ MSG");
+      ret = ueAppEsmHndlIncDeActvBearerReq(esmCb, evnt, ueCb,
+                                           esmMsg->bearerId);
+      break;
+   }
+   case CM_ESM_MSG_ESM_INFO_REQ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received CM_ESM_MSG_ESM_INFO_REQ: MSG");
+      ret = ueAppEsmHndlIncEsmInfoReq(esmCb, evnt, ueCb);
+      break;
+   }
+   case CM_ESM_MSG_PDN_DISCONN_REJ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received CM_ESM_MSG_PDN_DISCONN_REJ: MSG");
+      ret = ueAppEsmHndlIncPdnDisconRej(esmCb, evnt, ueCb);
+      break;
+   }
+   default:
+   {
+      ret = ueAppEsmHndlInvEvnt(esmCb, evnt, ueCb);
+      break;
+   }
+   }
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Failed to handle esm event");
       RETVALUE(RFAILED);
@@ -7414,7 +7357,7 @@ PRIVATE S16 ueAppEsmHdlIncUeEvnt
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppEmmHndlInTauAccept(CmNasEvnt *evnt, UeCb  *ueCb)
+PRIVATE S16 ueAppEmmHndlInTauAccept(CmNasEvnt *evnt, UeCb *ueCb)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -7427,7 +7370,6 @@ PRIVATE S16 ueAppEmmHndlInTauAccept(CmNasEvnt *evnt, UeCb  *ueCb)
    /*send message to USER*/
    ret = ueAppRcvEmmMsg(evnt, evnt->m.emmEvnt->msgId, ueCb);
    UE_LOG_EXITFN(ueAppCb, ret);
-
 }
 
 /*
@@ -7443,7 +7385,7 @@ PRIVATE S16 ueAppEmmHndlInTauAccept(CmNasEvnt *evnt, UeCb  *ueCb)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppEmmHndlInAttachAccept(CmNasEvnt *evnt, UeCb  *ueCb)
+PRIVATE S16 ueAppEmmHndlInAttachAccept(CmNasEvnt *evnt, UeCb *ueCb)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -7451,19 +7393,19 @@ PRIVATE S16 ueAppEmmHndlInAttachAccept(CmNasEvnt *evnt, UeCb  *ueCb)
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
 
-   if(evnt->m.emmEvnt->u.atchAcc.esmEvnt)
+   if (evnt->m.emmEvnt->u.atchAcc.esmEvnt)
    {
-      UE_LOG_DEBUG(ueAppCb, "Handling Incoming ACTIVATE Default bearer "\
-            "ESM message");
+      UE_LOG_DEBUG(ueAppCb, "Handling Incoming ACTIVATE Default bearer "
+                            "ESM message");
       ret = ueAppEsmHdlIncUeEvnt(evnt->m.emmEvnt->u.atchAcc.esmEvnt, ueCb, TRUE);
-      if(ret != ROK)
+      if (ret != ROK)
          RETVALUE(RFAILED);
    }
 
    UE_LOG_DEBUG(ueAppCb, "Handling Incoming Attach Accept message");
    /*copy GUTI received from CNE in to UE's context*/
    cmMemcpy((U8 *)&ueCb->ueCtxt.ueGuti,
-         (U8*)&evnt->m.emmEvnt->u.atchAcc.guti.u.guti, sizeof(GUTI));
+            (U8 *)&evnt->m.emmEvnt->u.atchAcc.guti.u.guti, sizeof(GUTI));
 
    /*send message to USER*/
    ret = ueAppRcvEmmMsg(evnt, evnt->m.emmEvnt->msgId, ueCb);
@@ -7483,11 +7425,9 @@ PRIVATE S16 ueAppEmmHndlInAttachAccept(CmNasEvnt *evnt, UeCb  *ueCb)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppEmmHndlInAttachReject
-(
- CmNasEvnt *evnt,
- UeCb *ueCb
-)
+PRIVATE S16 ueAppEmmHndlInAttachReject(
+    CmNasEvnt *evnt,
+    UeCb *ueCb)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -7557,7 +7497,6 @@ PRIVATE S16 ueAppEmmHndlInNwInitDetachReq(CmNasEvnt *evnt, UeCb *ueCb)
    UE_LOG_EXITFN(ueAppCb, ret);
 }
 
-
 /*
  *
  *       Fun:   ueAppEmmHdlIncUeEvnt
@@ -7589,117 +7528,117 @@ PRIVATE S16 ueAppEmmHdlIncUeEvnt(CmNasEvnt *ueEvnt, UeCb *ueCb)
 
    switch (ueEvnt->m.emmEvnt->msgId)
    {
-      case CM_EMM_MSG_DETACH_ACC:
+   case CM_EMM_MSG_DETACH_ACC:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received Detach Accept");
+      ret = ueAppEmmHndlInDetachAccept(ueEvnt, ueCb);
+      if (ret != ROK)
       {
-         UE_LOG_DEBUG(ueAppCb, "Received Detach Accept");
-         ret = ueAppEmmHndlInDetachAccept(ueEvnt, ueCb);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Handling Detach Accept message failed");
-            ret = RFAILED;
-         }
-         break;
+         UE_LOG_ERROR(ueAppCb, "Handling Detach Accept message failed");
+         ret = RFAILED;
       }
-      case CM_EMM_MSG_SVC_REJ:
+      break;
+   }
+   case CM_EMM_MSG_SVC_REJ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received Service Reject");
+      ret = ueAppEmmHndlInServiceRej(ueEvnt, ueCb);
+      if (ret != ROK)
       {
          UE_LOG_DEBUG(ueAppCb, "Received Service Reject");
          ret = ueAppEmmHndlInServiceRej(ueEvnt, ueCb);
          if (ret != ROK)
          {
-            UE_LOG_DEBUG(ueAppCb, "Received Service Reject");
-            ret = ueAppEmmHndlInServiceRej(ueEvnt, ueCb);
-            if (ret != ROK)
-            {
-               UE_LOG_ERROR(ueAppCb, "Handling Service Reject message failed");
-               ret = RFAILED;
-            }
-         }
-         break;
-      }
-      case CM_EMM_MSG_ID_REQ:
-      {
-         UE_LOG_DEBUG(ueAppCb, "Received Identity Request");
-         ret = ueAppEmmHndlInIdentReq(ueEvnt, ueCb);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Handling Incoming Identity "\
-                  "Request message failed");
+            UE_LOG_ERROR(ueAppCb, "Handling Service Reject message failed");
             ret = RFAILED;
          }
-         break;
       }
-      case CM_EMM_MSG_AUTH_REQ:
+      break;
+   }
+   case CM_EMM_MSG_ID_REQ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received Identity Request");
+      ret = ueAppEmmHndlInIdentReq(ueEvnt, ueCb);
+      if (ret != ROK)
       {
-         UE_LOG_DEBUG(ueAppCb, "Received Authentication Request");
-         ret = ueAppEmmHndlInAuthReq(ueEvnt, ueCb);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Handling Incoming Authentication "\
-                  "Request message failed");
-            ret = RFAILED;
-         }
-         break;
+         UE_LOG_ERROR(ueAppCb, "Handling Incoming Identity "
+                               "Request message failed");
+         ret = RFAILED;
       }
-      case CM_EMM_MSG_SEC_MODE_CMD:
+      break;
+   }
+   case CM_EMM_MSG_AUTH_REQ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received Authentication Request");
+      ret = ueAppEmmHndlInAuthReq(ueEvnt, ueCb);
+      if (ret != ROK)
       {
-         UE_LOG_DEBUG(ueAppCb, "Received Security Mode Command");
-         ret = ueAppEmmHndlInSecModecmd(ueEvnt, ueCb);
-         if (ret != ROK)
-         {
-            UE_LOG_ERROR(ueAppCb, "Handling Incoming SEC MODE CMD failed");
-            ret = RFAILED;
-         }
-         break;
+         UE_LOG_ERROR(ueAppCb, "Handling Incoming Authentication "
+                               "Request message failed");
+         ret = RFAILED;
       }
-      case CM_EMM_MSG_ATTACH_ACC:
+      break;
+   }
+   case CM_EMM_MSG_SEC_MODE_CMD:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received Security Mode Command");
+      ret = ueAppEmmHndlInSecModecmd(ueEvnt, ueCb);
+      if (ret != ROK)
       {
-         UE_LOG_DEBUG(ueAppCb, "Received Attach Accept message");
-         ret = ueAppEmmHndlInAttachAccept(ueEvnt, ueCb);
-         break;
+         UE_LOG_ERROR(ueAppCb, "Handling Incoming SEC MODE CMD failed");
+         ret = RFAILED;
       }
-      case CM_EMM_MSG_TAU_ACC:
-      {
-         UE_LOG_DEBUG(ueAppCb, "Received TAU Accept message");
-         ret = ueAppEmmHndlInTauAccept(ueEvnt, ueCb);
-         break;
-      }
-      case CM_EMM_MSG_ATTACH_REJ:
-      {
-         UE_LOG_DEBUG(ueAppCb, "Received Attach Reject message");
-         ret = ueAppEmmHndlInAttachReject(ueEvnt, ueCb);
-         /*Handling the attach Reject*/
-         break;
-      }
-      case CM_EMM_MSG_TAU_REJ:
-      {
-         UE_LOG_DEBUG(ueAppCb, "Received Tracking Area update Reject message");
-         ret = ueAppEmmHndlInTauReject(ueEvnt, ueCb);
-         break;
-      }
-      case CM_EMM_MSG_DETACH_REQ:
-      {
-         UE_LOG_DEBUG(ueAppCb, "Received Detach request message");
-         ret = ueAppEmmHndlInNwInitDetachReq(ueEvnt, ueCb);
-         break;
-      }
-      case CM_EMM_MSG_EMM_INFO:
-      {
-         UE_LOG_DEBUG(ueAppCb, "Received EMM Information message");
-         ret = ueAppEmmHndlInEmmInformation(ueEvnt, ueCb);
-         break;
-      }
-      case CM_EMM_MSG_AUTH_REJ:
-      {
-         UE_LOG_DEBUG(ueAppCb, "Received Auth Reject message");
-         ret = ueAppEmmHndlInAuthReject(ueEvnt, ueCb);
-         break;
-      }
-      default:
-      {
-         UE_LOG_ERROR(ueAppCb, "Invalid message ESM  message\n");
-         CM_FREE_NASEVNT(&ueEvnt);
-         RETVALUE(RFAILED);
-      }
+      break;
+   }
+   case CM_EMM_MSG_ATTACH_ACC:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received Attach Accept message");
+      ret = ueAppEmmHndlInAttachAccept(ueEvnt, ueCb);
+      break;
+   }
+   case CM_EMM_MSG_TAU_ACC:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received TAU Accept message");
+      ret = ueAppEmmHndlInTauAccept(ueEvnt, ueCb);
+      break;
+   }
+   case CM_EMM_MSG_ATTACH_REJ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received Attach Reject message");
+      ret = ueAppEmmHndlInAttachReject(ueEvnt, ueCb);
+      /*Handling the attach Reject*/
+      break;
+   }
+   case CM_EMM_MSG_TAU_REJ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received Tracking Area update Reject message");
+      ret = ueAppEmmHndlInTauReject(ueEvnt, ueCb);
+      break;
+   }
+   case CM_EMM_MSG_DETACH_REQ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received Detach request message");
+      ret = ueAppEmmHndlInNwInitDetachReq(ueEvnt, ueCb);
+      break;
+   }
+   case CM_EMM_MSG_EMM_INFO:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received EMM Information message");
+      ret = ueAppEmmHndlInEmmInformation(ueEvnt, ueCb);
+      break;
+   }
+   case CM_EMM_MSG_AUTH_REJ:
+   {
+      UE_LOG_DEBUG(ueAppCb, "Received Auth Reject message");
+      ret = ueAppEmmHndlInAuthReject(ueEvnt, ueCb);
+      break;
+   }
+   default:
+   {
+      UE_LOG_ERROR(ueAppCb, "Invalid message ESM  message\n");
+      CM_FREE_NASEVNT(&ueEvnt);
+      RETVALUE(RFAILED);
+   }
    }
 
    if (ret != ROK)
@@ -7731,11 +7670,11 @@ PUBLIC S16 ueUiProcessNbMsg(NbuDlNasMsg *pNbDlMsg, Pst *pst)
    U32 ueId;
    UeAppCb *ueAppCb = NULLP;
    UeCb *ueCb = NULLP;
-   UeAppMsg     srcMsg;
-   UeAppMsg     dstMsg;
+   UeAppMsg srcMsg;
+   UeAppMsg dstMsg;
    NhuDedicatedInfoNAS *nasPdu = NULLP;
    NhuDedicatedInfoNAS nasMsg;
-   CmNasEvnt   *ueEvnt = NULLP;
+   CmNasEvnt *ueEvnt = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
@@ -7744,7 +7683,7 @@ PUBLIC S16 ueUiProcessNbMsg(NbuDlNasMsg *pNbDlMsg, Pst *pst)
 
    ueId = pNbDlMsg->ueId;
    /* Fetching the UeCb */
-   ret = ueDbmFetchUe(ueId,(PTR *)&ueCb);
+   ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
@@ -7795,13 +7734,13 @@ PUBLIC S16 ueUiProcessNbMsg(NbuDlNasMsg *pNbDlMsg, Pst *pst)
    }
 
    /* Handle the incoming events */
-   if(ueEvnt->protDisc == CM_EMM_PD)
+   if (ueEvnt->protDisc == CM_EMM_PD)
    {
       ret = ueAppEmmHdlIncUeEvnt(ueEvnt, ueCb);
    }
-   else if(ueEvnt->protDisc == CM_ESM_PD)
+   else if (ueEvnt->protDisc == CM_ESM_PD)
    {
-      ueAppEsmHdlIncUeEvnt(ueEvnt, ueCb,FALSE);
+      ueAppEsmHdlIncUeEvnt(ueEvnt, ueCb, FALSE);
    }
    if (ret != ROK)
    {
@@ -7809,12 +7748,11 @@ PUBLIC S16 ueUiProcessNbMsg(NbuDlNasMsg *pNbDlMsg, Pst *pst)
       ret = RFAILED;
    }
 
-   if(CM_NAS_SEC_HDR_TYPE_INT_PRTD_NEW_SEC_CTXT == ueEvnt->secHT)
+   if (CM_NAS_SEC_HDR_TYPE_INT_PRTD_NEW_SEC_CTXT == ueEvnt->secHT)
    {
       srcMsg.val = nasPdu->val;
       srcMsg.len = nasPdu->len;
       ret = ueAppVldDwnlnkSec(&ueCb->secCtxt, &srcMsg, &dstMsg);
-
    }
 
    CM_FREE_NASEVNT(&ueEvnt);
@@ -7880,14 +7818,14 @@ PUBLIC S16 ueUiProcPagingMsg(UePagingMsg *p_ueMsg, Pst *pst)
    ret = ueDbmFetchUeWithS_TMSI(p_ueMsg, (PTR *)&ueCb);
    if (ret != ROK)
    {
-      UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d",ueCb->ueId);
+      UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueCb->ueId);
       RETVALUE(ret);
    }
    ret = ueUiBldAndSendPagingInfo(ueCb, p_ueMsg);
-   if(ret != ROK)
+   if (ret != ROK)
    {
-      UE_LOG_ERROR(ueAppCb, "Failed to handle Init Context Message With "\
-            "No NAS PDU");
+      UE_LOG_ERROR(ueAppCb, "Failed to handle Init Context Message With "
+                            "No NAS PDU");
       RETVALUE(ret);
    }
    RETVALUE(ROK);
@@ -7902,7 +7840,7 @@ PRIVATE S16 ueUiBldAndSendPagingInfo(UeCb *ueCb, UePagingMsg *p_ueMsg)
    UE_GET_CB(ueAppCb);
 
    UE_LOG_ENTERFN(ueAppCb);
-   tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
+   tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
 
    tfwMsg->msgType = UE_PAGING_MSG_TYPE;
    tfwMsg->msg.ueUetPagingMsg.ueId = ueCb->ueId;
@@ -7917,19 +7855,19 @@ PUBLIC S16 ueUiProcErabsRelInfoMsg(Pst *pst, NbuErabsRelInfo *pNbuErabsRelInfo)
    S16 ret = ROK;
    U32 ueId;
    UeAppCb *ueAppCb = NULLP;
-   UeAppMsg     srcMsg;
-   UeAppMsg     dstMsg;
+   UeAppMsg srcMsg;
+   UeAppMsg dstMsg;
    UeCb *ueCb = NULLP;
    NhuDedicatedInfoNAS *nasPdu = NULLP;
    NhuDedicatedInfoNAS nasMsg;
-   CmNasEvnt   *ueEvnt = NULLP;
+   CmNasEvnt *ueEvnt = NULLP;
 
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
    UE_LOG_DEBUG(ueAppCb, "Received Downlink Message from ENODEB");
 
    ueId = pNbuErabsRelInfo->ueId;
-   UE_LOG_DEBUG(ueAppCb, "Received Downlink Message from ENODEB with ue id %d\n",ueId);
+   UE_LOG_DEBUG(ueAppCb, "Received Downlink Message from ENODEB with ue id %d\n", ueId);
    /* Fetching the UeCb */
    ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
    if (ret != ROK)
@@ -7942,65 +7880,64 @@ PUBLIC S16 ueUiProcErabsRelInfoMsg(Pst *pst, NbuErabsRelInfo *pNbuErabsRelInfo)
    ret = ueAppEdmDecode(nasPdu, &ueEvnt);
    if (ret != ROK)
    {
-     UE_LOG_ERROR(ueAppCb, "NAS pdu decoding failed");
-     ret = RFAILED;
-     RETVALUE(ret);
+      UE_LOG_ERROR(ueAppCb, "NAS pdu decoding failed");
+      ret = RFAILED;
+      RETVALUE(ret);
    }
    if (ueEvnt == NULLP)
    {
-     UE_LOG_ERROR(ueAppCb, "ueEvnt is NULL");
-     RETVALUE(RFAILED);
+      UE_LOG_ERROR(ueAppCb, "ueEvnt is NULL");
+      RETVALUE(RFAILED);
    }
    if ((CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC == ueEvnt->secHT) ||
-           (CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC_NEW_SEC_CTXT == ueEvnt->secHT))
+       (CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC_NEW_SEC_CTXT == ueEvnt->secHT))
    {
-     srcMsg.val = nasPdu->val;
-     srcMsg.len = nasPdu->len;
-     ret = ueAppVldDwnlnkSec(&ueCb->secCtxt, &srcMsg, &dstMsg);
-     if(ROK != ret)
-     {
-             UE_LOG_ERROR(ueAppCb, "Uplink security validation failed \n");
-             /*Ignore the event*/
-             ueEvnt->pdu = NULLP;
-             CM_FREE_NASEVNT(&ueEvnt);
-             RETVALUE(RFAILED);
-     }
+      srcMsg.val = nasPdu->val;
+      srcMsg.len = nasPdu->len;
+      ret = ueAppVldDwnlnkSec(&ueCb->secCtxt, &srcMsg, &dstMsg);
+      if (ROK != ret)
+      {
+         UE_LOG_ERROR(ueAppCb, "Uplink security validation failed \n");
+         /*Ignore the event*/
+         ueEvnt->pdu = NULLP;
+         CM_FREE_NASEVNT(&ueEvnt);
+         RETVALUE(RFAILED);
+      }
 
-     cmMemcpy((U8 *)&nasMsg, (CONSTANT U8 *)nasPdu,
-          	   sizeof(NhuDedicatedInfoNAS));
-     nasMsg.val = dstMsg.val;
-     nasMsg.len = dstMsg.len;
-     ret = ueAppEdmDecode(&nasMsg, &ueEvnt);
-     if (ROK != ret)
-     {
-             UE_LOG_ERROR(ueAppCb, "Uplink NAS message decode failed\n");
-             RETVALUE(ret); /* Should we send Failure back to eNB */
-     }
-     if (ueEvnt == NULLP)
-     {
-             UE_LOG_ERROR(ueAppCb, "ueEvnt is NULL");
-             RETVALUE(RFAILED);
-     }
+      cmMemcpy((U8 *)&nasMsg, (CONSTANT U8 *)nasPdu,
+               sizeof(NhuDedicatedInfoNAS));
+      nasMsg.val = dstMsg.val;
+      nasMsg.len = dstMsg.len;
+      ret = ueAppEdmDecode(&nasMsg, &ueEvnt);
+      if (ROK != ret)
+      {
+         UE_LOG_ERROR(ueAppCb, "Uplink NAS message decode failed\n");
+         RETVALUE(ret); /* Should we send Failure back to eNB */
+      }
+      if (ueEvnt == NULLP)
+      {
+         UE_LOG_ERROR(ueAppCb, "ueEvnt is NULL");
+         RETVALUE(RFAILED);
+      }
    }
 
    /* Handle the incoming events */
-   if(ueEvnt->protDisc == CM_EMM_PD)
+   if (ueEvnt->protDisc == CM_EMM_PD)
    {
-     ret = ueAppEmmHdlIncUeEvnt(ueEvnt, ueCb);
+      ret = ueAppEmmHdlIncUeEvnt(ueEvnt, ueCb);
    }
-   else if(ueEvnt->protDisc == CM_ESM_PD)
+   else if (ueEvnt->protDisc == CM_ESM_PD)
    {
-     ret = ueAppEsmHdlIncUeEvnt(ueEvnt, ueCb,FALSE);
+      ret = ueAppEsmHdlIncUeEvnt(ueEvnt, ueCb, FALSE);
    }
    if (ret != ROK)
    {
-     UE_LOG_ERROR(ueAppCb, "Handling Initial UE Event failed");
-     ret = RFAILED;
+      UE_LOG_ERROR(ueAppCb, "Handling Initial UE Event failed");
+      ret = RFAILED;
    }
 
-   ueFree((U8*)nasPdu->val, nasPdu->len * sizeof(U8));
+   ueFree((U8 *)nasPdu->val, nasPdu->len * sizeof(U8));
    CM_FREE_NASEVNT(&ueEvnt);
-
 
    UE_LOG_EXITFN(ueAppCb, ret);
 }
@@ -8011,12 +7948,12 @@ PUBLIC S16 ueUiProcErabsInfoMsg(Pst *pst, NbuErabsInfo *pNbuErabsInfo)
    S16 ret = ROK;
    U32 ueId;
    UeAppCb *ueAppCb = NULLP;
-   UeAppMsg     srcMsg;
-   UeAppMsg     dstMsg;
+   UeAppMsg srcMsg;
+   UeAppMsg dstMsg;
    UeCb *ueCb = NULLP;
    NhuDedicatedInfoNAS *nasPdu = NULLP;
    NhuDedicatedInfoNAS nasMsg;
-   CmNasEvnt   *ueEvnt = NULLP;
+   CmNasEvnt *ueEvnt = NULLP;
 
    UE_GET_CB(ueAppCb);
 
@@ -8034,190 +7971,224 @@ PUBLIC S16 ueUiProcErabsInfoMsg(Pst *pst, NbuErabsInfo *pNbuErabsInfo)
 
    if (pNbuErabsInfo->ueRadCapRcvd == FALSE)
    {
-     ret = ueSendUeRadCapInd(ueCb);
+      ret = ueSendUeRadCapInd(ueCb);
    }
-   if (pNbuErabsInfo->erabInfo) {
-     for (idx = 0; idx < pNbuErabsInfo->erabInfo->numOfErab; idx++) {
-       nasPdu = &pNbuErabsInfo->erabInfo->rabCbs[idx].nasPdu;
-       if (nasPdu->val) {
-         /* Decoding the PDU */
-         ret = ueAppEdmDecode(nasPdu, &ueEvnt);
-         if (ret != ROK) {
-           UE_LOG_ERROR(ueAppCb, "NAS pdu decoding failed");
-           RETVALUE(ret);
-         }
-         if (ueEvnt == NULLP) {
-           UE_LOG_ERROR(ueAppCb, "ueEvnt is NULL");
-           RETVALUE(RFAILED);
-         }
-         if ((CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC == ueEvnt->secHT) ||
-             (CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC_NEW_SEC_CTXT == ueEvnt->secHT)) {
-           srcMsg.val = nasPdu->val;
-           srcMsg.len = nasPdu->len;
-           ret = ueAppVldDwnlnkSec(&ueCb->secCtxt, &srcMsg, &dstMsg);
-           if (ROK != ret) {
-             UE_LOG_ERROR(ueAppCb, "Uplink security validation failed \n");
-             /*Ignore the event*/
-             ueEvnt->pdu = NULLP;
-             CM_FREE_NASEVNT(&ueEvnt);
-             RETVALUE(RFAILED);
-           }
+   if (pNbuErabsInfo->erabInfo)
+   {
+      for (idx = 0; idx < pNbuErabsInfo->erabInfo->numOfErab; idx++)
+      {
+         nasPdu = &pNbuErabsInfo->erabInfo->rabCbs[idx].nasPdu;
+         if (nasPdu->val)
+         {
+            /* Decoding the PDU */
+            ret = ueAppEdmDecode(nasPdu, &ueEvnt);
+            if (ret != ROK)
+            {
+               UE_LOG_ERROR(ueAppCb, "NAS pdu decoding failed");
+               RETVALUE(ret);
+            }
+            if (ueEvnt == NULLP)
+            {
+               UE_LOG_ERROR(ueAppCb, "ueEvnt is NULL");
+               RETVALUE(RFAILED);
+            }
+            if ((CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC == ueEvnt->secHT) ||
+                (CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC_NEW_SEC_CTXT == ueEvnt->secHT))
+            {
+               srcMsg.val = nasPdu->val;
+               srcMsg.len = nasPdu->len;
+               ret = ueAppVldDwnlnkSec(&ueCb->secCtxt, &srcMsg, &dstMsg);
+               if (ROK != ret)
+               {
+                  UE_LOG_ERROR(ueAppCb, "Uplink security validation failed \n");
+                  /*Ignore the event*/
+                  ueEvnt->pdu = NULLP;
+                  CM_FREE_NASEVNT(&ueEvnt);
+                  RETVALUE(RFAILED);
+               }
 
-           cmMemcpy((U8 *)&nasMsg, (CONSTANT U8 *)nasPdu,
-                    sizeof(NhuDedicatedInfoNAS));
-           nasMsg.val = dstMsg.val;
-           nasMsg.len = dstMsg.len;
-           ret = ueAppEdmDecode(&nasMsg, &ueEvnt);
-           if (ROK != ret) {
-             UE_LOG_ERROR(ueAppCb, "Uplink NAS message decode failed\n");
-             RETVALUE(ret); /* Should we send Failure back to eNB */
-           }
-           if (ueEvnt == NULLP) {
-             UE_LOG_ERROR(ueAppCb, "ueEvnt is NULL");
-             RETVALUE(RFAILED);
-           }
-         }
+               cmMemcpy((U8 *)&nasMsg, (CONSTANT U8 *)nasPdu,
+                        sizeof(NhuDedicatedInfoNAS));
+               nasMsg.val = dstMsg.val;
+               nasMsg.len = dstMsg.len;
+               ret = ueAppEdmDecode(&nasMsg, &ueEvnt);
+               if (ROK != ret)
+               {
+                  UE_LOG_ERROR(ueAppCb, "Uplink NAS message decode failed\n");
+                  RETVALUE(ret); /* Should we send Failure back to eNB */
+               }
+               if (ueEvnt == NULLP)
+               {
+                  UE_LOG_ERROR(ueAppCb, "ueEvnt is NULL");
+                  RETVALUE(RFAILED);
+               }
+            }
 
-         /* Handle the incoming events */
-         if (ueEvnt->protDisc == CM_EMM_PD) {
-           ret = ueAppEmmHdlIncUeEvnt(ueEvnt, ueCb);
-         } else if (ueEvnt->protDisc == CM_ESM_PD) {
-           ret = ueAppEsmHdlIncUeEvnt(ueEvnt, ueCb, FALSE);
-         }
-         if (ret != ROK) {
-           UE_LOG_ERROR(ueAppCb, "Handling Initial UE Event failed");
-           ret = RFAILED;
-         }
+            /* Handle the incoming events */
+            if (ueEvnt->protDisc == CM_EMM_PD)
+            {
+               ret = ueAppEmmHdlIncUeEvnt(ueEvnt, ueCb);
+            }
+            else if (ueEvnt->protDisc == CM_ESM_PD)
+            {
+               ret = ueAppEsmHdlIncUeEvnt(ueEvnt, ueCb, FALSE);
+            }
+            if (ret != ROK)
+            {
+               UE_LOG_ERROR(ueAppCb, "Handling Initial UE Event failed");
+               ret = RFAILED;
+            }
 
-         ueFree((U8 *)nasPdu->val, nasPdu->len * sizeof(U8));
-         CM_FREE_NASEVNT(&ueEvnt);
-       }
-     }
+            ueFree((U8 *)nasPdu->val, nasPdu->len * sizeof(U8));
+            CM_FREE_NASEVNT(&ueEvnt);
+         }
+      }
    }
    if (pNbuErabsInfo->failedErabList &&
-       pNbuErabsInfo->failedErabList->noOfFailedErabs > 0) {
-     UE_LOG_DEBUG(ueAppCb, "Send E_RAB_SETUP_REQ failed for some bearers \n");
-     ueSendErabSetupRspForFailedBearers(pNbuErabsInfo);
+       pNbuErabsInfo->failedErabList->noOfFailedErabs > 0)
+   {
+      UE_LOG_DEBUG(ueAppCb, "Send E_RAB_SETUP_REQ failed for some bearers \n");
+      ueSendErabSetupRspForFailedBearers(pNbuErabsInfo);
    }
    UE_LOG_EXITFN(ueAppCb, ret);
 }
 
 // This function handles ipv6 address allocation failure
 PRIVATE S16 ueUihandleIpInfoUpdtFail(UeCb *ueCb, NbuUeIpInfoUpdt *ipInfoUpdt,
-                                     uint32_t idx) {
-  UeAppCb *ueAppCb = NULLP;
-  UE_GET_CB(ueAppCb);
-  UE_LOG_ENTERFN(ueAppCb);
+                                     uint32_t idx)
+{
+   UeAppCb *ueAppCb = NULLP;
+   UE_GET_CB(ueAppCb);
+   UE_LOG_ENTERFN(ueAppCb);
 
-  /* 1.If the pdn type is IPv6 and this is a secondary pdn, delete the session
+   /* 1.If the pdn type is IPv6 and this is a secondary pdn, delete the session
    * 2.If the pdn type is IPv6 and this is the default pdn, initiate detach
    * 3.If the pdn type is IPv4v6, do nothing
    */
-  if (ueCb->ueRabCb[idx].pAddr.pdnType == CM_ESM_PDN_IPV6) {
-    if (ueCb->numPdns == 1) {
-      // Initiate detach
-      if (ueSendDetachRequest(ueCb, UE_DETACH_SWITCHOFF) == ROK) {
-        UE_LOG_DEBUG(ueAppCb, "Sending Detach Request for ueId: %d",
-                     ueCb->ueId);
-        UE_LOG_DEBUG(ueAppCb, "Freeing all the DRBs allocated for ueId: %d",
-                     ueCb->ueId);
-        for (U8 itr = 0; itr < UE_APP_MAX_DRBS; itr++) {
-          cmMemset((U8 *)&(ueCb->ueRabCb[itr]), 0, sizeof(ueCb->ueRabCb[itr]));
-          ueCb->drbs[itr] = UE_APP_DRB_AVAILABLE;
-          ueCb->numRabs--;
-        }
-      } else {
-        UE_LOG_ERROR(ueAppCb,
-                     " Error in sending Detach Req for bearer %u, ue %u\n",
-                     ipInfoUpdt->bearerId, ueCb->ueId);
-        RETVALUE(RFAILED);
+   if (ueCb->ueRabCb[idx].pAddr.pdnType == CM_ESM_PDN_IPV6)
+   {
+      if (ueCb->numPdns == 1)
+      {
+         // Initiate detach
+         if (ueSendDetachRequest(ueCb, UE_DETACH_SWITCHOFF) == ROK)
+         {
+            UE_LOG_DEBUG(ueAppCb, "Sending Detach Request for ueId: %d",
+                         ueCb->ueId);
+            UE_LOG_DEBUG(ueAppCb, "Freeing all the DRBs allocated for ueId: %d",
+                         ueCb->ueId);
+            for (U8 itr = 0; itr < UE_APP_MAX_DRBS; itr++)
+            {
+               cmMemset((U8 *)&(ueCb->ueRabCb[itr]), 0, sizeof(ueCb->ueRabCb[itr]));
+               ueCb->drbs[itr] = UE_APP_DRB_AVAILABLE;
+               ueCb->numRabs--;
+            }
+         }
+         else
+         {
+            UE_LOG_ERROR(ueAppCb,
+                         " Error in sending Detach Req for bearer %u, ue %u\n",
+                         ipInfoUpdt->bearerId, ueCb->ueId);
+            RETVALUE(RFAILED);
+         }
       }
-    } else if (ueCb->numPdns > 1) {
-      // Send PDN disconnect
-      UetMessage uetMsg;
-      uetMsg.msg.ueUetPdnDisconnectReq.ueId = ueCb->ueId;
-      uetMsg.msg.ueUetPdnDisconnectReq.bearerId = ipInfoUpdt->bearerId;
-      if (ueProcUePdnDisconnectReq(&uetMsg, NULLP) == ROK) {
-        UE_LOG_DEBUG(ueAppCb, "Pdn Disconnect Req for ueId: %d, bearer %u",
-                     ueCb->ueId, ipInfoUpdt->bearerId);
-      } else {
-        UE_LOG_ERROR(
-            ueAppCb,
-            " Error in sending Pdn Disconnect Req for bearer %u, ue %u\n",
-            ipInfoUpdt->bearerId, ueCb->ueId);
-        RETVALUE(RFAILED);
+      else if (ueCb->numPdns > 1)
+      {
+         // Send PDN disconnect
+         UetMessage uetMsg;
+         uetMsg.msg.ueUetPdnDisconnectReq.ueId = ueCb->ueId;
+         uetMsg.msg.ueUetPdnDisconnectReq.bearerId = ipInfoUpdt->bearerId;
+         if (ueProcUePdnDisconnectReq(&uetMsg, NULLP) == ROK)
+         {
+            UE_LOG_DEBUG(ueAppCb, "Pdn Disconnect Req for ueId: %d, bearer %u",
+                         ueCb->ueId, ipInfoUpdt->bearerId);
+         }
+         else
+         {
+            UE_LOG_ERROR(
+                ueAppCb,
+                " Error in sending Pdn Disconnect Req for bearer %u, ue %u\n",
+                ipInfoUpdt->bearerId, ueCb->ueId);
+            RETVALUE(RFAILED);
+         }
       }
-    }
-  }
-  RETVALUE(ROK);
+   }
+   RETVALUE(ROK);
 }
 
-PUBLIC S16 ueUiProcIpInfoUpdtMsg(UeCb *ueCb, NbuUeIpInfoUpdt *ipInfoUpdt) {
-  UeAppCb *ueAppCb = NULLP;
-  UetMessage *tfwMsg = NULLP;
-  S16 retVal = RFAILED;
-  uint32_t idx;
-  Bool bearerFound = FALSE;
-  UE_GET_CB(ueAppCb);
-  UE_LOG_ENTERFN(ueAppCb);
+PUBLIC S16 ueUiProcIpInfoUpdtMsg(UeCb *ueCb, NbuUeIpInfoUpdt *ipInfoUpdt)
+{
+   UeAppCb *ueAppCb = NULLP;
+   UetMessage *tfwMsg = NULLP;
+   S16 retVal = RFAILED;
+   uint32_t idx;
+   Bool bearerFound = FALSE;
+   UE_GET_CB(ueAppCb);
+   UE_LOG_ENTERFN(ueAppCb);
 
-  for (idx = 0; idx < UE_APP_MAX_DRBS; idx++) {
-    if (ueCb->ueRabCb[idx].epsBearerId == ipInfoUpdt->bearerId) {
-      bearerFound = TRUE;
-      break;
-    }
-  }
-  if (!bearerFound) {
-    UE_LOG_ERROR(ueAppCb, "Bearer id %u not found in ueRabCb for ue %u\n",
-                 ipInfoUpdt->bearerId, ueCb->ueId);
-    RETVALUE(RFAILED);
-  }
+   for (idx = 0; idx < UE_APP_MAX_DRBS; idx++)
+   {
+      if (ueCb->ueRabCb[idx].epsBearerId == ipInfoUpdt->bearerId)
+      {
+         bearerFound = TRUE;
+         break;
+      }
+   }
+   if (!bearerFound)
+   {
+      UE_LOG_ERROR(ueAppCb, "Bearer id %u not found in ueRabCb for ue %u\n",
+                   ipInfoUpdt->bearerId, ueCb->ueId);
+      RETVALUE(RFAILED);
+   }
 
-  if (ipInfoUpdt->status == FAILURE) {
-    retVal = ueUihandleIpInfoUpdtFail(ueCb, ipInfoUpdt, idx);
-    RETVALUE(retVal);
-  }
-  // Update the IPv6 address to ueAppCb
-  cmMemcpy(ueCb->ueRabCb[idx].ipv6Addr, ipInfoUpdt->ipv6Addr,
-           sizeof(ipInfoUpdt->ipv6Addr));
-  // Send message to Test controller
-  tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
-  tfwMsg->msg.ueUetRouterAdv.ueId = ueCb->ueId;
-  tfwMsg->msg.ueUetRouterAdv.bearerId = ipInfoUpdt->bearerId;
-  cmMemcpy(tfwMsg->msg.ueUetRouterAdv.ipv6Addr, ipInfoUpdt->ipv6Addr,
-           sizeof(ipInfoUpdt->ipv6Addr));
-  tfwMsg->msgType = UE_ICMPV6_ROUTER_ADV_TYPE;
-  if (ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst) != ROK) {
-    UE_LOG_ERROR(ueAppCb, "Sending ICMPV6 ROUTER ADVERTISEMENT to "
-                          "TFWAPP failed");
-    RETVALUE(RFAILED);
-  }
-  UE_LOG_DEBUG(
-      ueAppCb,
-      "Sent ICMPV6 ROUTER ADVERTISEMENT to tfwApp for ue %d bearer %d\n",
-      ueCb->ueId, ipInfoUpdt->bearerId);
-  RETVALUE(ROK);
+   if (ipInfoUpdt->status == FAILURE)
+   {
+      retVal = ueUihandleIpInfoUpdtFail(ueCb, ipInfoUpdt, idx);
+      RETVALUE(retVal);
+   }
+   // Update the IPv6 address to ueAppCb
+   cmMemcpy(ueCb->ueRabCb[idx].ipv6Addr, ipInfoUpdt->ipv6Addr,
+            sizeof(ipInfoUpdt->ipv6Addr));
+   // Send message to Test controller
+   tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+   tfwMsg->msg.ueUetRouterAdv.ueId = ueCb->ueId;
+   tfwMsg->msg.ueUetRouterAdv.bearerId = ipInfoUpdt->bearerId;
+   cmMemcpy(tfwMsg->msg.ueUetRouterAdv.ipv6Addr, ipInfoUpdt->ipv6Addr,
+            sizeof(ipInfoUpdt->ipv6Addr));
+   tfwMsg->msgType = UE_ICMPV6_ROUTER_ADV_TYPE;
+   if (ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst) != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "Sending ICMPV6 ROUTER ADVERTISEMENT to "
+                            "TFWAPP failed");
+      RETVALUE(RFAILED);
+   }
+   UE_LOG_DEBUG(
+       ueAppCb,
+       "Sent ICMPV6 ROUTER ADVERTISEMENT to tfwApp for ue %d bearer %d\n",
+       ueCb->ueId, ipInfoUpdt->bearerId);
+   RETVALUE(ROK);
 }
 
-PUBLIC S16 ueUiProcIpInfoReqMsg(UeCb *p_ueCb, U8 bearerId) {
-  UeAppCb *ueAppCb = NULLP;
-  UE_GET_CB(ueAppCb);
-  UE_LOG_ENTERFN(ueAppCb);
+PUBLIC S16 ueUiProcIpInfoReqMsg(UeCb *p_ueCb, U8 bearerId)
+{
+   UeAppCb *ueAppCb = NULLP;
+   UE_GET_CB(ueAppCb);
+   UE_LOG_ENTERFN(ueAppCb);
 
-  p_ueCb->ecmCb.state = UE_ECM_CONNECTED;
-  /* enbApp creates a tunnel after receiving IpInfoRsp message.
+   p_ueCb->ecmCb.state = UE_ECM_CONNECTED;
+   /* enbApp creates a tunnel after receiving IpInfoRsp message.
    * If is_actv_dflt_eps_ber_ctxt_rej flag is set, send IpInfoRej
    * message so that enbApp does not create a tunnel for this bearer
    */
-  if (p_ueCb->is_actv_dflt_eps_ber_ctxt_rej) {
-    p_ueCb->is_actv_dflt_eps_ber_ctxt_rej = FALSE;
-    UE_LOG_DEBUG(ueAppCb, "Sending IpInfoRej message as "
-                          "is_actv_dflt_eps_ber_ctxt_rej flag is set \n");
-    ueAppBldAndSndIpInfoRejToNb(p_ueCb, bearerId, &ueAppCb->nbPst);
-    RETVALUE(ROK);
-  }
-  ueAppBldAndSndIpInfoRspToNb(p_ueCb, bearerId, &ueAppCb->nbPst);
-  RETVALUE(ROK);
+   if (p_ueCb->is_actv_dflt_eps_ber_ctxt_rej)
+   {
+      p_ueCb->is_actv_dflt_eps_ber_ctxt_rej = FALSE;
+      UE_LOG_DEBUG(ueAppCb, "Sending IpInfoRej message as "
+                            "is_actv_dflt_eps_ber_ctxt_rej flag is set \n");
+      ueAppBldAndSndIpInfoRejToNb(p_ueCb, bearerId, &ueAppCb->nbPst);
+      RETVALUE(ROK);
+   }
+   ueAppBldAndSndIpInfoRspToNb(p_ueCb, bearerId, &ueAppCb->nbPst);
+   RETVALUE(ROK);
 }
 
 /*
@@ -8233,22 +8204,20 @@ PUBLIC S16 ueUiProcIpInfoReqMsg(UeCb *p_ueCb, U8 bearerId) {
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcUeBearResAllocReq
-(
- UetMessage *p_ueMsg,
- Pst *pst
-)
+PRIVATE S16 ueProcUeBearResAllocReq(
+    UetMessage *p_ueMsg,
+    Pst *pst)
 {
-   CmNasEvnt           *reqEvnt = NULLP;
+   CmNasEvnt *reqEvnt = NULLP;
    U32 ueId;
-   U8                   isPlainMsg   = TRUE;
+   U8 isPlainMsg = TRUE;
    UeCb *ueCb = NULLP;
    S16 ret;
    NhuDedicatedInfoNAS nasEncPdu;
    NbuUlNasMsg *nbUeBearResAllocReq = NULLP;
    UeAppCb *ueAppCb;
-   UeAppMsg             srcMsg;
-   UeAppMsg             dstMsg;
+   UeAppMsg srcMsg;
+   UeAppMsg dstMsg;
 
    UE_GET_CB(ueAppCb);
 
@@ -8265,14 +8234,14 @@ PRIVATE S16 ueProcUeBearResAllocReq
    }
 
    ret = ueAppUtlBldBearerResAllocReq(&reqEvnt,
-         &p_ueMsg->msg.ueBearerAllocReq);
+                                      &p_ueMsg->msg.ueBearerAllocReq);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Building Bearer Resource Allocation Request failed");
       RETVALUE(ret);
    }
 
-   if ((ret = ueAppEsmHdlOutUeEvnt(reqEvnt,ueCb))!= ROK)
+   if ((ret = ueAppEsmHdlOutUeEvnt(reqEvnt, ueCb)) != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Handling Bearer Resource Allocation Request failed  \n");
       RETVALUE(RFAILED);
@@ -8316,11 +8285,11 @@ PRIVATE S16 ueProcUeBearResAllocReq
    nbUeBearResAllocReq->nasPdu.len = nasEncPdu.len;
    nbUeBearResAllocReq->nasPdu.val = (U8 *)ueAlloc(nbUeBearResAllocReq->nasPdu.len);
    cmMemcpy((U8 *)nbUeBearResAllocReq->nasPdu.val, nasEncPdu.val,
-         nbUeBearResAllocReq->nasPdu.len);
+            nbUeBearResAllocReq->nasPdu.len);
 
    if (isPlainMsg)
    {
-   EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
    }
 
    ret = ueSendUlNasMsgToNb(nbUeBearResAllocReq, &ueAppCb->nbPst);
@@ -8346,11 +8315,9 @@ PRIVATE S16 ueProcUeBearResAllocReq
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcUeDeActvBerAcc
-(
- UetMessage *p_ueMsg,
- Pst *pst
-)
+PRIVATE S16 ueProcUeDeActvBerAcc(
+    UetMessage *p_ueMsg,
+    Pst *pst)
 {
    U32 ueId;
    UeCb *ueCb = NULLP;
@@ -8369,7 +8336,7 @@ PRIVATE S16 ueProcUeDeActvBerAcc
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
       RETVALUE(ret);
    }
-   ret = ueAppBuildAndSendDeActvBerContextAccept(ueCb,p_ueMsg->msg.ueDeActvBerAcc.bearerId);
+   ret = ueAppBuildAndSendDeActvBerContextAccept(ueCb, p_ueMsg->msg.ueDeActvBerAcc.bearerId);
    if (ret != ROK)
    {
       RETVALUE(ret);
@@ -8389,11 +8356,9 @@ PRIVATE S16 ueProcUeDeActvBerAcc
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcUeActvDedBerAcc
-(
- UetMessage *p_ueMsg,
- Pst *pst
-)
+PRIVATE S16 ueProcUeActvDedBerAcc(
+    UetMessage *p_ueMsg,
+    Pst *pst)
 {
    U32 ueId;
    UeCb *ueCb = NULLP;
@@ -8413,7 +8378,7 @@ PRIVATE S16 ueProcUeActvDedBerAcc
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
       RETVALUE(ret);
    }
-   ret = ueAppBuildAndSendActDedBerContextAccept(ueCb,p_ueMsg->msg.ueActDedBerAcc.bearerId);
+   ret = ueAppBuildAndSendActDedBerContextAccept(ueCb, p_ueMsg->msg.ueActDedBerAcc.bearerId);
    if (ret != ROK)
    {
       RETVALUE(ret);
@@ -8434,14 +8399,12 @@ PRIVATE S16 ueProcUeActvDedBerAcc
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcUeActvDedBerRej
-(
- UetMessage *p_ueMsg,
- Pst *pst
-)
+PRIVATE S16 ueProcUeActvDedBerRej(
+    UetMessage *p_ueMsg,
+    Pst *pst)
 {
    U32 ueId;
-   U8  bearerId;
+   U8 bearerId;
    U8 esmCause;
    UeCb *ueCb = NULLP;
    S16 ret;
@@ -8462,7 +8425,7 @@ PRIVATE S16 ueProcUeActvDedBerRej
    }
    bearerId = p_ueMsg->msg.ueActDedBerRej.bearerId;
    esmCause = p_ueMsg->msg.ueActDedBerRej.esmCause;
-   ret = ueAppBuildAndSendActDedBerContextReject(ueCb,bearerId,esmCause);
+   ret = ueAppBuildAndSendActDedBerContextReject(ueCb, bearerId, esmCause);
    if (ret != ROK)
    {
       RETVALUE(ret);
@@ -8470,23 +8433,21 @@ PRIVATE S16 ueProcUeActvDedBerRej
    RETVALUE(ret);
 }
 
-PRIVATE S16 ueAppUtlBldBearerResAllocReq
-(
- CmNasEvnt **esmEvnt,
- UeUetBearerAllocReq *bearAllocReq
-)
+PRIVATE S16 ueAppUtlBldBearerResAllocReq(
+    CmNasEvnt **esmEvnt,
+    UeUetBearerAllocReq *bearAllocReq)
 {
    U8 idx;
-   CmEsmMsg    *msg = NULLP;
+   CmEsmMsg *msg = NULLP;
    printf("Building Bearer Resource Allocation Request for Ue\n");
 
-   if(esmEvnt == NULLP)
+   if (esmEvnt == NULLP)
    {
       RETVALUE(RFAILED);
    }
 
    /* Allocate memory for mme evnt */
-   CM_ALLOC_NASEVNT (esmEvnt, CM_ESM_PD);
+   CM_ALLOC_NASEVNT(esmEvnt, CM_ESM_PD);
    if (*esmEvnt == NULLP)
    {
       RETVALUE(RFAILED);
@@ -8512,12 +8473,12 @@ PRIVATE S16 ueAppUtlBldBearerResAllocReq
    msg->u.bearAllocReq.lnkBearerId = bearAllocReq->lnkEpsBearerId;
 
    /* Bearer Resource Allocation request message identity*/
-   msg->msgType  = CM_ESM_MSG_BEAR_RES_ALLOC_REQ;
+   msg->msgType = CM_ESM_MSG_BEAR_RES_ALLOC_REQ;
 
    msg->u.bearAllocReq.epsQos.pres = bearAllocReq->epsQos.pres;
-   if(msg->u.bearAllocReq.epsQos.pres == TRUE)
+   if (msg->u.bearAllocReq.epsQos.pres == TRUE)
    {
-      msg->u.bearAllocReq.epsQos.lenQosCont   = bearAllocReq->epsQos.lenQosCont;
+      msg->u.bearAllocReq.epsQos.lenQosCont = bearAllocReq->epsQos.lenQosCont;
       msg->u.bearAllocReq.epsQos.maxBitRateUL = bearAllocReq->epsQos.maxBitRateUL;
       msg->u.bearAllocReq.epsQos.maxBitRateDL = bearAllocReq->epsQos.maxBitRateDL;
       msg->u.bearAllocReq.epsQos.guaraBitRateUL = bearAllocReq->epsQos.guaraBitRateUL;
@@ -8525,105 +8486,105 @@ PRIVATE S16 ueAppUtlBldBearerResAllocReq
    }
 
    msg->u.bearAllocReq.tft.pres = bearAllocReq->tft.pres;
-   if(msg->u.bearAllocReq.tft.pres == TRUE)
+   if (msg->u.bearAllocReq.tft.pres == TRUE)
    {
-      msg->u.bearAllocReq.tft.pres       = bearAllocReq->tft.pres;
-      msg->u.bearAllocReq.tft.len        = bearAllocReq->tft.len;
-      msg->u.bearAllocReq.tft.opCode     = bearAllocReq->tft.opCode;
-      msg->u.bearAllocReq.tft.noOfPfs    = bearAllocReq->tft.noOfPfs;
-      msg->u.bearAllocReq.tft.eBit       = bearAllocReq->tft.eBit;
+      msg->u.bearAllocReq.tft.pres = bearAllocReq->tft.pres;
+      msg->u.bearAllocReq.tft.len = bearAllocReq->tft.len;
+      msg->u.bearAllocReq.tft.opCode = bearAllocReq->tft.opCode;
+      msg->u.bearAllocReq.tft.noOfPfs = bearAllocReq->tft.noOfPfs;
+      msg->u.bearAllocReq.tft.eBit = bearAllocReq->tft.eBit;
       msg->u.bearAllocReq.tft.noOfParams = bearAllocReq->tft.noOfParams;
 
-      msg->u.bearAllocReq.tft.noOfPfs  =  bearAllocReq->tft.noOfPfs;
-      for( idx = 0 ; idx < msg->u.bearAllocReq.tft.noOfPfs ; idx++)
+      msg->u.bearAllocReq.tft.noOfPfs = bearAllocReq->tft.noOfPfs;
+      for (idx = 0; idx < msg->u.bearAllocReq.tft.noOfPfs; idx++)
       {
          msg->u.bearAllocReq.tft.pfList[idx].pres = TRUE;
-         msg->u.bearAllocReq.tft.pfList[idx].id =    bearAllocReq->tft.pfList[idx].id;
-         msg->u.bearAllocReq.tft.pfList[idx].dir =   bearAllocReq->tft.pfList[idx].dir;
+         msg->u.bearAllocReq.tft.pfList[idx].id = bearAllocReq->tft.pfList[idx].id;
+         msg->u.bearAllocReq.tft.pfList[idx].dir = bearAllocReq->tft.pfList[idx].dir;
          msg->u.bearAllocReq.tft.pfList[idx].preced = bearAllocReq->tft.pfList[idx].preced;
-         msg->u.bearAllocReq.tft.pfList[idx].len =   bearAllocReq->tft.pfList[idx].len;
-         if(bearAllocReq->tft.pfList[idx].ipv4.pres)
+         msg->u.bearAllocReq.tft.pfList[idx].len = bearAllocReq->tft.pfList[idx].len;
+         if (bearAllocReq->tft.pfList[idx].ipv4.pres)
          {
-            msg->u.bearAllocReq.tft.pfList[idx].ipv4.pres =\
-                                                           bearAllocReq->tft.pfList[idx].ipv4.pres;
-            cmMemcpy((U8 *)&msg->u.bearAllocReq.tft.pfList[idx].ipv4.ip4, \
-                  (U8 *)bearAllocReq->tft.pfList[idx].ipv4.ip4,CM_ESM_IPV4_SIZE);
-            msg->u.bearAllocReq.tft.pfList[idx].ipv4Mask =\
-                                                          bearAllocReq->tft.pfList[idx].ipv4Mask;
+            msg->u.bearAllocReq.tft.pfList[idx].ipv4.pres =
+                bearAllocReq->tft.pfList[idx].ipv4.pres;
+            cmMemcpy((U8 *)&msg->u.bearAllocReq.tft.pfList[idx].ipv4.ip4,
+                     (U8 *)bearAllocReq->tft.pfList[idx].ipv4.ip4, CM_ESM_IPV4_SIZE);
+            msg->u.bearAllocReq.tft.pfList[idx].ipv4Mask =
+                bearAllocReq->tft.pfList[idx].ipv4Mask;
          }
-         if(bearAllocReq->tft.pfList[idx].ipv6.pres)
+         if (bearAllocReq->tft.pfList[idx].ipv6.pres)
          {
-            msg->u.bearAllocReq.tft.pfList[idx].ipv6.pres =\
-               bearAllocReq->tft.pfList[idx].ipv6.pres;
-            cmMemcpy((U8 *)&msg->u.bearAllocReq.tft.pfList[idx].ipv6.ip6, \
-               (U8 *)bearAllocReq->tft.pfList[idx].ipv6.ip6,CM_ESM_IPV6_SIZE);
+            msg->u.bearAllocReq.tft.pfList[idx].ipv6.pres =
+                bearAllocReq->tft.pfList[idx].ipv6.pres;
+            cmMemcpy((U8 *)&msg->u.bearAllocReq.tft.pfList[idx].ipv6.ip6,
+                     (U8 *)bearAllocReq->tft.pfList[idx].ipv6.ip6, CM_ESM_IPV6_SIZE);
          }
-         if(msg->u.bearAllocReq.tft.pfList[idx].protId.pres)
+         if (msg->u.bearAllocReq.tft.pfList[idx].protId.pres)
          {
-            msg->u.bearAllocReq.tft.pfList[idx].protId.pres     =\
-               bearAllocReq->tft.pfList[idx].protId.pres;
-            msg->u.bearAllocReq.tft.pfList[idx].protId.protType =\
-               bearAllocReq->tft.pfList[idx].protId.protType;
+            msg->u.bearAllocReq.tft.pfList[idx].protId.pres =
+                bearAllocReq->tft.pfList[idx].protId.pres;
+            msg->u.bearAllocReq.tft.pfList[idx].protId.protType =
+                bearAllocReq->tft.pfList[idx].protId.protType;
          }
-         if(bearAllocReq->tft.pfList[idx].localPort.pres)
+         if (bearAllocReq->tft.pfList[idx].localPort.pres)
          {
-            msg->u.bearAllocReq.tft.pfList[idx].localPort.pres  =\
-               bearAllocReq->tft.pfList[idx].localPort.pres;
-            msg->u.bearAllocReq.tft.pfList[idx].localPort.port  =\
-               bearAllocReq->tft.pfList[idx].localPort.port;
+            msg->u.bearAllocReq.tft.pfList[idx].localPort.pres =
+                bearAllocReq->tft.pfList[idx].localPort.pres;
+            msg->u.bearAllocReq.tft.pfList[idx].localPort.port =
+                bearAllocReq->tft.pfList[idx].localPort.port;
          }
-         if(bearAllocReq->tft.pfList[idx].remotePort.pres)
+         if (bearAllocReq->tft.pfList[idx].remotePort.pres)
          {
-            msg->u.bearAllocReq.tft.pfList[idx].remotePort.pres =\
-               bearAllocReq->tft.pfList[idx].remotePort.pres;
-         msg->u.bearAllocReq.tft.pfList[idx].remotePort.port =\
+            msg->u.bearAllocReq.tft.pfList[idx].remotePort.pres =
+                bearAllocReq->tft.pfList[idx].remotePort.pres;
+            msg->u.bearAllocReq.tft.pfList[idx].remotePort.port =
                 bearAllocReq->tft.pfList[idx].remotePort.port;
          }
-         if(bearAllocReq->tft.pfList[idx].locPortRange.pres)
+         if (bearAllocReq->tft.pfList[idx].locPortRange.pres)
          {
-            msg->u.bearAllocReq.tft.pfList[idx].locPortRange.pres = \
+            msg->u.bearAllocReq.tft.pfList[idx].locPortRange.pres =
                 bearAllocReq->tft.pfList[idx].locPortRange.pres;
-         msg->u.bearAllocReq.tft.pfList[idx].locPortRange.rangeLow = \
-            bearAllocReq->tft.pfList[idx].locPortRange.rangeLow;
-         msg->u.bearAllocReq.tft.pfList[idx].locPortRange.rangeHigh =  \
-            bearAllocReq->tft.pfList[idx].locPortRange.rangeHigh;
+            msg->u.bearAllocReq.tft.pfList[idx].locPortRange.rangeLow =
+                bearAllocReq->tft.pfList[idx].locPortRange.rangeLow;
+            msg->u.bearAllocReq.tft.pfList[idx].locPortRange.rangeHigh =
+                bearAllocReq->tft.pfList[idx].locPortRange.rangeHigh;
          }
-         if(bearAllocReq->tft.pfList[idx].remPortRange.pres)
+         if (bearAllocReq->tft.pfList[idx].remPortRange.pres)
          {
-            msg->u.bearAllocReq.tft.pfList[idx].remPortRange.pres = \
-               bearAllocReq->tft.pfList[idx].remPortRange.pres;
-            msg->u.bearAllocReq.tft.pfList[idx].remPortRange.rangeLow = \
-               bearAllocReq->tft.pfList[idx].remPortRange.rangeLow;
-            msg->u.bearAllocReq.tft.pfList[idx].remPortRange.rangeHigh =  \
-               bearAllocReq->tft.pfList[idx].remPortRange.rangeHigh;
+            msg->u.bearAllocReq.tft.pfList[idx].remPortRange.pres =
+                bearAllocReq->tft.pfList[idx].remPortRange.pres;
+            msg->u.bearAllocReq.tft.pfList[idx].remPortRange.rangeLow =
+                bearAllocReq->tft.pfList[idx].remPortRange.rangeLow;
+            msg->u.bearAllocReq.tft.pfList[idx].remPortRange.rangeHigh =
+                bearAllocReq->tft.pfList[idx].remPortRange.rangeHigh;
          }
-         if(msg->u.bearAllocReq.tft.pfList[idx].secParam.pres)
+         if (msg->u.bearAllocReq.tft.pfList[idx].secParam.pres)
          {
-            msg->u.bearAllocReq.tft.pfList[idx].secParam.pres = \
-               bearAllocReq->tft.pfList[idx].secParam.pres;
-            cmMemcpy((U8 *)&msg->u.bearAllocReq.tft.pfList[idx].secParam.params, \
-               (U8 *)bearAllocReq->tft.pfList[idx].secParam.params, CM_ESM_IP_SEC_SIZE);
+            msg->u.bearAllocReq.tft.pfList[idx].secParam.pres =
+                bearAllocReq->tft.pfList[idx].secParam.pres;
+            cmMemcpy((U8 *)&msg->u.bearAllocReq.tft.pfList[idx].secParam.params,
+                     (U8 *)bearAllocReq->tft.pfList[idx].secParam.params, CM_ESM_IP_SEC_SIZE);
          }
-         if(bearAllocReq->tft.pfList[idx].tos.pres)
+         if (bearAllocReq->tft.pfList[idx].tos.pres)
          {
             msg->u.bearAllocReq.tft.pfList[idx].tos.pres = bearAllocReq->tft.pfList[idx].tos.pres;
-            msg->u.bearAllocReq.tft.pfList[idx].tos.tos =  bearAllocReq->tft.pfList[idx].tos.tos;
+            msg->u.bearAllocReq.tft.pfList[idx].tos.tos = bearAllocReq->tft.pfList[idx].tos.tos;
             msg->u.bearAllocReq.tft.pfList[idx].tos.mask = bearAllocReq->tft.pfList[idx].tos.mask;
          }
-         if(bearAllocReq->tft.pfList[idx].flowLabel.pres)
+         if (bearAllocReq->tft.pfList[idx].flowLabel.pres)
          {
-            msg->u.bearAllocReq.tft.pfList[idx].flowLabel.pres =\
-               bearAllocReq->tft.pfList[idx].flowLabel.pres;
-            cmMemcpy((U8 *)&msg->u.bearAllocReq.tft.pfList[idx].flowLabel.buf, \
-               (U8 *)bearAllocReq->tft.pfList[idx].flowLabel.buf,CM_ESM_IPV6_FLOW_LABEL_SIZE);
+            msg->u.bearAllocReq.tft.pfList[idx].flowLabel.pres =
+                bearAllocReq->tft.pfList[idx].flowLabel.pres;
+            cmMemcpy((U8 *)&msg->u.bearAllocReq.tft.pfList[idx].flowLabel.buf,
+                     (U8 *)bearAllocReq->tft.pfList[idx].flowLabel.buf, CM_ESM_IPV6_FLOW_LABEL_SIZE);
          }
       }
-      for( idx = 0 ; idx < msg->u.bearAllocReq.tft.noOfParams ; idx++)
+      for (idx = 0; idx < msg->u.bearAllocReq.tft.noOfParams; idx++)
       {
-         msg->u.bearAllocReq.tft.params[idx].len       =  bearAllocReq->tft.params[idx].len;
-         msg->u.bearAllocReq.tft.params[idx].paramType =  bearAllocReq->tft.params[idx].paramType;
-         cmMemcpy((U8 *)&msg->u.bearAllocReq.tft.params[idx].buf, \
-            (U8 *)bearAllocReq->tft.params[idx].buf,CM_ESM_TFT_MAX_PARAM_BUF);
+         msg->u.bearAllocReq.tft.params[idx].len = bearAllocReq->tft.params[idx].len;
+         msg->u.bearAllocReq.tft.params[idx].paramType = bearAllocReq->tft.params[idx].paramType;
+         cmMemcpy((U8 *)&msg->u.bearAllocReq.tft.params[idx].buf,
+                  (U8 *)bearAllocReq->tft.params[idx].buf, CM_ESM_TFT_MAX_PARAM_BUF);
       }
    }
    /* Protocol Cfg Options */
@@ -8645,13 +8606,11 @@ PRIVATE S16 ueAppUtlBldBearerResAllocReq
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 uefillDedEsmInfoToUeCb
-(
- UeCb *ueCb,
- CmNasEvnt *evnt,
- U8 drbId,
- U8 epsBearerId
-)
+PRIVATE S16 uefillDedEsmInfoToUeCb(
+    UeCb *ueCb,
+    CmNasEvnt *evnt,
+    U8 drbId,
+    U8 epsBearerId)
 {
    S16 ret = ROK;
    U8 idx = 0;
@@ -8672,23 +8631,26 @@ PRIVATE S16 uefillDedEsmInfoToUeCb
     * copy the ipv6 address from the default bearer to dedicated ueRabCb
     * Because the pdn address in ueRabCb contains only interface id
     */
-   if( (ret = ueAppUtlFndRbCb(&rbIdx, ueCb, params->lnkEpsBearId) == ROK)){
-     if ((ueCb->ueRabCb[rbIdx].pAddr.pdnType == CM_ESM_PDN_IPV4V6) ||
-       (ueCb->ueRabCb[rbIdx].pAddr.pdnType == CM_ESM_PDN_IPV6)) {
-       cmMemcpy(params->ipv6Addr, ueCb->ueRabCb[rbIdx].ipv6Addr, sizeof(params->ipv6Addr));
-     }
-   }
-   if(actReq->epsQos.pres == TRUE)
+   if ((ret = ueAppUtlFndRbCb(&rbIdx, ueCb, params->lnkEpsBearId) == ROK))
    {
-      params->epsQos.pres              = TRUE;
-      params->epsQos.lenQosCont        = actReq->epsQos.lenQosCont;
-      params->epsQos.qci               = actReq->epsQos.qci;
-      params->epsQos.maxBitRateUL      = actReq->epsQos.maxBitRateUL;
-      params->epsQos.maxBitRateDL      = actReq->epsQos.maxBitRateDL;;
-      params->epsQos.guaraBitRateUL    = actReq->epsQos.guaraBitRateUL;
-      params->epsQos.guaraBitRateDL    = actReq->epsQos.guaraBitRateDL;
-      params->epsQos.maxBitRateULExt   = actReq->epsQos.maxBitRateULExt;
-      params->epsQos.maxBitRateDLExt   = actReq->epsQos.maxBitRateDLExt;
+      if ((ueCb->ueRabCb[rbIdx].pAddr.pdnType == CM_ESM_PDN_IPV4V6) ||
+          (ueCb->ueRabCb[rbIdx].pAddr.pdnType == CM_ESM_PDN_IPV6))
+      {
+         cmMemcpy(params->ipv6Addr, ueCb->ueRabCb[rbIdx].ipv6Addr, sizeof(params->ipv6Addr));
+      }
+   }
+   if (actReq->epsQos.pres == TRUE)
+   {
+      params->epsQos.pres = TRUE;
+      params->epsQos.lenQosCont = actReq->epsQos.lenQosCont;
+      params->epsQos.qci = actReq->epsQos.qci;
+      params->epsQos.maxBitRateUL = actReq->epsQos.maxBitRateUL;
+      params->epsQos.maxBitRateDL = actReq->epsQos.maxBitRateDL;
+      ;
+      params->epsQos.guaraBitRateUL = actReq->epsQos.guaraBitRateUL;
+      params->epsQos.guaraBitRateDL = actReq->epsQos.guaraBitRateDL;
+      params->epsQos.maxBitRateULExt = actReq->epsQos.maxBitRateULExt;
+      params->epsQos.maxBitRateDLExt = actReq->epsQos.maxBitRateDLExt;
       params->epsQos.guaraBitRateULExt = actReq->epsQos.guaraBitRateULExt;
       params->epsQos.guaraBitRateDLExt = actReq->epsQos.guaraBitRateDLExt;
    }
@@ -8696,7 +8658,7 @@ PRIVATE S16 uefillDedEsmInfoToUeCb
    {
       params->epsQos.pres = FALSE;
    }
-   if(actReq->txnId.pres == TRUE)
+   if (actReq->txnId.pres == TRUE)
    {
       params->txnId.pres = TRUE;
       params->txnId.len = actReq->txnId.len;
@@ -8709,39 +8671,39 @@ PRIVATE S16 uefillDedEsmInfoToUeCb
    {
       params->txnId.pres = FALSE;
    }
-   if(actReq->qos.pres == TRUE)
+   if (actReq->qos.pres == TRUE)
    {
-      params->qos.pres              = TRUE;
-      params->qos.lenQosCont        = actReq->qos.lenQosCont;
-      params->qos.relClass          = actReq->qos.relClass;
-      params->qos.delayClass        = actReq->qos.delayClass;
-      params->qos.precClass         = actReq->qos.precClass;
-      params->qos.peakTp            = actReq->qos.peakTp;
-      params->qos.meanTp            = actReq->qos.meanTp;
-      params->qos.deliveryErrSdu    = actReq->qos.deliveryErrSdu;
-      params->qos.deliveryOrder     = actReq->qos.deliveryOrder;
-      params->qos.trafficClass      = actReq->qos.trafficClass;
-      params->qos.maxSdu            = actReq->qos.maxSdu;
-      params->qos.maxBitRateUL      = actReq->qos.maxBitRateUL;
-      params->qos.maxBitRateDL      = actReq->qos.maxBitRateDL;
-      params->qos.sduErrRatio       = actReq->qos.sduErrRatio;
-      params->qos.residualBer       = actReq->qos.residualBer;
-      params->qos.trafHandPrio      = actReq->qos.trafHandPrio;
-      params->qos.transferDelay     = actReq->qos.transferDelay;
-      params->qos.guaraBitRateUL    = actReq->qos.guaraBitRateUL;
-      params->qos.guaraBitRateDL    = actReq->qos.guaraBitRateDL;
-      params->qos.srcStatDesc       = actReq->qos.srcStatDesc;
-      params->qos.signalInd         = actReq->qos.signalInd;
-      params->qos.maxBitRateDLExt   = actReq->qos.maxBitRateDLExt;
-      params->qos.maxBitRateULExt   = actReq->qos.maxBitRateULExt;
+      params->qos.pres = TRUE;
+      params->qos.lenQosCont = actReq->qos.lenQosCont;
+      params->qos.relClass = actReq->qos.relClass;
+      params->qos.delayClass = actReq->qos.delayClass;
+      params->qos.precClass = actReq->qos.precClass;
+      params->qos.peakTp = actReq->qos.peakTp;
+      params->qos.meanTp = actReq->qos.meanTp;
+      params->qos.deliveryErrSdu = actReq->qos.deliveryErrSdu;
+      params->qos.deliveryOrder = actReq->qos.deliveryOrder;
+      params->qos.trafficClass = actReq->qos.trafficClass;
+      params->qos.maxSdu = actReq->qos.maxSdu;
+      params->qos.maxBitRateUL = actReq->qos.maxBitRateUL;
+      params->qos.maxBitRateDL = actReq->qos.maxBitRateDL;
+      params->qos.sduErrRatio = actReq->qos.sduErrRatio;
+      params->qos.residualBer = actReq->qos.residualBer;
+      params->qos.trafHandPrio = actReq->qos.trafHandPrio;
+      params->qos.transferDelay = actReq->qos.transferDelay;
+      params->qos.guaraBitRateUL = actReq->qos.guaraBitRateUL;
+      params->qos.guaraBitRateDL = actReq->qos.guaraBitRateDL;
+      params->qos.srcStatDesc = actReq->qos.srcStatDesc;
+      params->qos.signalInd = actReq->qos.signalInd;
+      params->qos.maxBitRateDLExt = actReq->qos.maxBitRateDLExt;
+      params->qos.maxBitRateULExt = actReq->qos.maxBitRateULExt;
       params->qos.guaraBitRateDLExt = actReq->qos.guaraBitRateDLExt;
       params->qos.guaraBitRateULExt = actReq->qos.guaraBitRateULExt;
    }
    else
    {
-      params->qos.pres              = FALSE;
+      params->qos.pres = FALSE;
    }
-   if(actReq->llc.pres == TRUE)
+   if (actReq->llc.pres == TRUE)
    {
       params->llc.pres = TRUE;
       params->llc.ieVal = actReq->llc.ieVal;
@@ -8750,16 +8712,16 @@ PRIVATE S16 uefillDedEsmInfoToUeCb
    {
       params->llc.pres = FALSE;
    }
-   if(actReq->radioPrio.pres == TRUE)
+   if (actReq->radioPrio.pres == TRUE)
    {
       params->radioPrio.pres = TRUE;
       params->radioPrio.ieVal = actReq->radioPrio.ieVal;
    }
    else
    {
-      params->radioPrio.pres =FALSE;
+      params->radioPrio.pres = FALSE;
    }
-   if(actReq->pktFlowId.pres == TRUE)
+   if (actReq->pktFlowId.pres == TRUE)
    {
       params->pktFlowId.pres = TRUE;
       params->pktFlowId.len = actReq->pktFlowId.len;
@@ -8770,105 +8732,105 @@ PRIVATE S16 uefillDedEsmInfoToUeCb
       params->pktFlowId.pres = FALSE;
    }
    params->tft.pres = actReq->tft.pres;
-   if(params->tft.pres == TRUE)
+   if (params->tft.pres == TRUE)
    {
-      params->tft.pres       = actReq->tft.pres;
-      params->tft.len        = actReq->tft.len;
-      params->tft.opCode     = actReq->tft.opCode;
-      params->tft.noOfPfs    = actReq->tft.noOfPfs;
-      params->tft.eBit       = actReq->tft.eBit;
+      params->tft.pres = actReq->tft.pres;
+      params->tft.len = actReq->tft.len;
+      params->tft.opCode = actReq->tft.opCode;
+      params->tft.noOfPfs = actReq->tft.noOfPfs;
+      params->tft.eBit = actReq->tft.eBit;
       params->tft.noOfParams = actReq->tft.noOfParams;
 
-      params->tft.noOfPfs  =  actReq->tft.noOfPfs;
-      for( idx = 0 ; idx < params->tft.noOfPfs ; idx++)
+      params->tft.noOfPfs = actReq->tft.noOfPfs;
+      for (idx = 0; idx < params->tft.noOfPfs; idx++)
       {
          params->tft.pfList[idx].pres = TRUE;
-         params->tft.pfList[idx].id =    actReq->tft.pfList[idx].id;
-         params->tft.pfList[idx].dir =   actReq->tft.pfList[idx].dir;
+         params->tft.pfList[idx].id = actReq->tft.pfList[idx].id;
+         params->tft.pfList[idx].dir = actReq->tft.pfList[idx].dir;
          params->tft.pfList[idx].preced = actReq->tft.pfList[idx].preced;
-         params->tft.pfList[idx].len =   actReq->tft.pfList[idx].len;
+         params->tft.pfList[idx].len = actReq->tft.pfList[idx].len;
          params->tft.pfList[idx].ipv4.pres = actReq->tft.pfList[idx].ipv4.pres;
-         if(params->tft.pfList[idx].ipv4.pres)
+         if (params->tft.pfList[idx].ipv4.pres)
          {
-            cmMemcpy((U8 *)&params->tft.pfList[idx].ipv4.ip4, \
-               (U8 *)actReq->tft.pfList[idx].ipv4.ip4,CM_ESM_IPV4_SIZE);
+            cmMemcpy((U8 *)&params->tft.pfList[idx].ipv4.ip4,
+                     (U8 *)actReq->tft.pfList[idx].ipv4.ip4, CM_ESM_IPV4_SIZE);
          }
          params->tft.pfList[idx].ipv6.pres = actReq->tft.pfList[idx].ipv6.pres;
-         if(params->tft.pfList[idx].ipv6.pres)
+         if (params->tft.pfList[idx].ipv6.pres)
          {
-            cmMemcpy((U8 *)&params->tft.pfList[idx].ipv6.ip6, \
-               (U8 *)actReq->tft.pfList[idx].ipv6.ip6,CM_ESM_IPV6_SIZE);
+            cmMemcpy((U8 *)&params->tft.pfList[idx].ipv6.ip6,
+                     (U8 *)actReq->tft.pfList[idx].ipv6.ip6, CM_ESM_IPV6_SIZE);
          }
-         params->tft.pfList[idx].protId.pres     = actReq->tft.pfList[idx].protId.pres;
-         if(params->tft.pfList[idx].protId.pres)
+         params->tft.pfList[idx].protId.pres = actReq->tft.pfList[idx].protId.pres;
+         if (params->tft.pfList[idx].protId.pres)
          {
             params->tft.pfList[idx].protId.protType = actReq->tft.pfList[idx].protId.protType;
          }
-         if(params->tft.pfList[idx].localPort.pres)
+         if (params->tft.pfList[idx].localPort.pres)
          {
-            params->tft.pfList[idx].localPort.pres  = actReq->tft.pfList[idx].localPort.pres;
-            params->tft.pfList[idx].localPort.port  = actReq->tft.pfList[idx].localPort.port;
+            params->tft.pfList[idx].localPort.pres = actReq->tft.pfList[idx].localPort.pres;
+            params->tft.pfList[idx].localPort.port = actReq->tft.pfList[idx].localPort.port;
          }
-         if(actReq->tft.pfList[idx].remotePort.pres)
+         if (actReq->tft.pfList[idx].remotePort.pres)
          {
             params->tft.pfList[idx].remotePort.pres = actReq->tft.pfList[idx].remotePort.pres;
             params->tft.pfList[idx].remotePort.port = actReq->tft.pfList[idx].remotePort.port;
          }
-         params->tft.pfList[idx].locPortRange.pres = \
+         params->tft.pfList[idx].locPortRange.pres =
              actReq->tft.pfList[idx].locPortRange.pres;
-         if(actReq->tft.pfList[idx].locPortRange.pres)
+         if (actReq->tft.pfList[idx].locPortRange.pres)
          {
             params->tft.pfList[idx].locPortRange.rangeLow =
-               actReq->tft.pfList[idx].locPortRange.rangeLow;
-            params->tft.pfList[idx].locPortRange.rangeHigh =  \
-               actReq->tft.pfList[idx].locPortRange.rangeHigh;
+                actReq->tft.pfList[idx].locPortRange.rangeLow;
+            params->tft.pfList[idx].locPortRange.rangeHigh =
+                actReq->tft.pfList[idx].locPortRange.rangeHigh;
          }
-         params->tft.pfList[idx].remPortRange.pres = \
-            actReq->tft.pfList[idx].remPortRange.pres;
-         if(params->tft.pfList[idx].remPortRange.pres)
+         params->tft.pfList[idx].remPortRange.pres =
+             actReq->tft.pfList[idx].remPortRange.pres;
+         if (params->tft.pfList[idx].remPortRange.pres)
          {
-            params->tft.pfList[idx].remPortRange.rangeLow = \
-               actReq->tft.pfList[idx].remPortRange.rangeLow;
-            params->tft.pfList[idx].remPortRange.rangeHigh =  \
-               actReq->tft.pfList[idx].remPortRange.rangeHigh;
+            params->tft.pfList[idx].remPortRange.rangeLow =
+                actReq->tft.pfList[idx].remPortRange.rangeLow;
+            params->tft.pfList[idx].remPortRange.rangeHigh =
+                actReq->tft.pfList[idx].remPortRange.rangeHigh;
          }
-         params->tft.pfList[idx].secParam.pres = \
-            actReq->tft.pfList[idx].secParam.pres;
-         if(params->tft.pfList[idx].secParam.pres)
+         params->tft.pfList[idx].secParam.pres =
+             actReq->tft.pfList[idx].secParam.pres;
+         if (params->tft.pfList[idx].secParam.pres)
          {
-            cmMemcpy((U8 *)& params->tft.pfList[idx].secParam.params, \
-               (U8 *)actReq->tft.pfList[idx].secParam.params, CM_ESM_IP_SEC_SIZE);
+            cmMemcpy((U8 *)&params->tft.pfList[idx].secParam.params,
+                     (U8 *)actReq->tft.pfList[idx].secParam.params, CM_ESM_IP_SEC_SIZE);
          }
-         if(actReq->tft.pfList[idx].tos.pres)
+         if (actReq->tft.pfList[idx].tos.pres)
          {
-            params->tft.pfList[idx].tos.pres =   actReq->tft.pfList[idx].tos.pres;
-            params->tft.pfList[idx].tos.tos  =    actReq->tft.pfList[idx].tos.tos;
-            params->tft.pfList[idx].tos.mask =  actReq->tft.pfList[idx].tos.mask;
+            params->tft.pfList[idx].tos.pres = actReq->tft.pfList[idx].tos.pres;
+            params->tft.pfList[idx].tos.tos = actReq->tft.pfList[idx].tos.tos;
+            params->tft.pfList[idx].tos.mask = actReq->tft.pfList[idx].tos.mask;
          }
-         if(actReq->tft.pfList[idx].flowLabel.pres)
+         if (actReq->tft.pfList[idx].flowLabel.pres)
          {
             params->tft.pfList[idx].flowLabel.pres = actReq->tft.pfList[idx].flowLabel.pres;
-            cmMemcpy((U8 *)&params->tft.pfList[idx].flowLabel.buf, \
-               (U8 *)actReq->tft.pfList[idx].flowLabel.buf,CM_ESM_IPV6_FLOW_LABEL_SIZE);
+            cmMemcpy((U8 *)&params->tft.pfList[idx].flowLabel.buf,
+                     (U8 *)actReq->tft.pfList[idx].flowLabel.buf, CM_ESM_IPV6_FLOW_LABEL_SIZE);
          }
       }
-      for( idx = 0 ; idx < params->tft.noOfParams ; idx++)
+      for (idx = 0; idx < params->tft.noOfParams; idx++)
       {
-         params->tft.params[idx].len       =  actReq->tft.params[idx].len;
-         params->tft.params[idx].paramType =  actReq->tft.params[idx].paramType;
-         cmMemcpy((U8 *)&params->tft.params[idx].buf, \
-            (U8 *)actReq->tft.params[idx].buf,CM_ESM_TFT_MAX_PARAM_BUF);
+         params->tft.params[idx].len = actReq->tft.params[idx].len;
+         params->tft.params[idx].paramType = actReq->tft.params[idx].paramType;
+         cmMemcpy((U8 *)&params->tft.params[idx].buf,
+                  (U8 *)actReq->tft.params[idx].buf, CM_ESM_TFT_MAX_PARAM_BUF);
       }
    }
-     if( (ret = ueAppUtlFndRbCb(&rbIdx,ueCb,params->lnkEpsBearId) == ROK))
-     {
-        /* copy the IP ADDESS FROM DEFAULT BEARER */
-         params->pAddr.pres = TRUE;
-         params->pAddr.len = ueCb->ueRabCb[rbIdx].pAddr.len;
-         params->pAddr.pdnType = ueCb->ueRabCb[rbIdx].pAddr.pdnType;
-         cmMemcpy((U8 *)&params->pAddr.addrInfo, (U8 *)&ueCb->ueRabCb[rbIdx].pAddr.addrInfo,
+   if ((ret = ueAppUtlFndRbCb(&rbIdx, ueCb, params->lnkEpsBearId) == ROK))
+   {
+      /* copy the IP ADDESS FROM DEFAULT BEARER */
+      params->pAddr.pres = TRUE;
+      params->pAddr.len = ueCb->ueRabCb[rbIdx].pAddr.len;
+      params->pAddr.pdnType = ueCb->ueRabCb[rbIdx].pAddr.pdnType;
+      cmMemcpy((U8 *)&params->pAddr.addrInfo, (U8 *)&ueCb->ueRabCb[rbIdx].pAddr.addrInfo,
                CM_ESM_MAX_LEN_PDN_ADDRESS);
-     }
+   }
    UE_LOG_EXITFN(ueAppCb, ret);
 }
 /*
@@ -8884,13 +8846,11 @@ PRIVATE S16 uefillDedEsmInfoToUeCb
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppEsmHndlIncDeActvBearerReq
-(
- UeEsmCb *esmCb,
- CmNasEvnt *evnt,
- UeCb *ueCb,
- U8 epsBearerId
-)
+PRIVATE S16 ueAppEsmHndlIncDeActvBearerReq(
+    UeEsmCb *esmCb,
+    CmNasEvnt *evnt,
+    UeCb *ueCb,
+    U8 epsBearerId)
 {
    S16 ret = ROK;
    U8 drbId = 0;
@@ -8910,7 +8870,6 @@ PRIVATE S16 ueAppEsmHndlIncDeActvBearerReq
 
 } /* ueAppEsmHndlIncActDedBearerReq */
 
-
 /*
  *
  *       Fun: ueAppEsmHndlIncActDedBearerReq
@@ -8924,13 +8883,11 @@ PRIVATE S16 ueAppEsmHndlIncDeActvBearerReq
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppEsmHndlIncActDedBearerReq
-(
- UeEsmCb *esmCb,
- CmNasEvnt *evnt,
- UeCb *ueCb,
- U8 epsBearerId
-)
+PRIVATE S16 ueAppEsmHndlIncActDedBearerReq(
+    UeEsmCb *esmCb,
+    CmNasEvnt *evnt,
+    UeCb *ueCb,
+    U8 epsBearerId)
 {
    S16 ret = ROK;
    U8 drbId = 0;
@@ -8955,7 +8912,7 @@ PRIVATE S16 ueAppEsmHndlIncActDedBearerReq
 
    ueCb->numRabs++;
 
-   ret = uefillDedEsmInfoToUeCb(ueCb, evnt, (drbId - 1),epsBearerId);
+   ret = uefillDedEsmInfoToUeCb(ueCb, evnt, (drbId - 1), epsBearerId);
 
    ueAppUtlMovEsmCbTransToBid(esmCb, ueCb);
    ueAppSendIncActDedBerReqInd(ueCb, drbId - 1);
@@ -8963,236 +8920,231 @@ PRIVATE S16 ueAppEsmHndlIncActDedBearerReq
 
 } /* ueAppEsmHndlIncActDedBearerReq */
 
-PRIVATE S16 ueAppSendIncDeActvBerReqInd(UeCb *ueCb,U8 bId)
+PRIVATE S16 ueAppSendIncDeActvBerReqInd(UeCb *ueCb, U8 bId)
 {
-  U8 idx;
-  UeAppCb *ueAppCb;
-  UetMessage *tfwMsg = NULLP;
-  UeUetDeActvBearCtxtReq *ueDeActvBerReq = NULLP;
-  U8 cause = 0;
-  UE_GET_CB(ueAppCb);
-  tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-  cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
-  tfwMsg->msg.ueDeActvBerReq.ueId   = ueCb->ueId;
-  tfwMsg->msgType = UE_EPS_DEACTIVATE_BER_REQ;
+   U8 idx;
+   UeAppCb *ueAppCb;
+   UetMessage *tfwMsg = NULLP;
+   UeUetDeActvBearCtxtReq *ueDeActvBerReq = NULLP;
+   U8 cause = 0;
+   UE_GET_CB(ueAppCb);
+   tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+   cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
+   tfwMsg->msg.ueDeActvBerReq.ueId = ueCb->ueId;
+   tfwMsg->msgType = UE_EPS_DEACTIVATE_BER_REQ;
 
-  ueDeActvBerReq = &tfwMsg->msg.ueDeActvBerReq;
-  ueDeActvBerReq->bearerId  =  bId;
-  ueDeActvBerReq->esmCause  =  cause;
+   ueDeActvBerReq = &tfwMsg->msg.ueDeActvBerReq;
+   ueDeActvBerReq->bearerId = bId;
+   ueDeActvBerReq->esmCause = cause;
 
    RETVALUE(ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst));
 }
-PRIVATE S16 ueAppSendIncActDedBerReqInd(UeCb *ueCb,U8 drbIdx)
+PRIVATE S16 ueAppSendIncActDedBerReqInd(UeCb *ueCb, U8 drbIdx)
 {
    U8 idx;
    UeAppCb *ueAppCb;
    UetMessage *tfwMsg = NULLP;
    UeUetActDedBearCtxtReq *ueActDedBerReq = NULLP;
    UeRabCb *params = NULLP;
-  UE_GET_CB(ueAppCb);
-  params = &ueCb->ueRabCb[drbIdx];
-  tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
-  cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
-  tfwMsg->msg.ueActDedBerReq.ueId   = ueCb->ueId;
-  tfwMsg->msgType = UE_EPS_DED_BER_REQ;
+   UE_GET_CB(ueAppCb);
+   params = &ueCb->ueRabCb[drbIdx];
+   tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+   cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
+   tfwMsg->msg.ueActDedBerReq.ueId = ueCb->ueId;
+   tfwMsg->msgType = UE_EPS_DED_BER_REQ;
 
-  ueActDedBerReq = &tfwMsg->msg.ueActDedBerReq;
-  ueActDedBerReq->lnkBearerId              =  params->lnkEpsBearId;
-  ueActDedBerReq->bearerId                 =  params->epsBearerId;
- if(params->epsQos.pres)
- {
-    ueActDedBerReq->epsQos.pres              =  params->epsQos.pres;
-    ueActDedBerReq->epsQos.lenQosCont        =  params->epsQos.lenQosCont;
-    ueActDedBerReq->epsQos.qci               =  params->epsQos.qci;
-    ueActDedBerReq->epsQos.maxBitRateUL      =  params->epsQos.maxBitRateUL;
-    ueActDedBerReq-> epsQos.maxBitRateDL     =  params->epsQos.maxBitRateDL;
-    ueActDedBerReq->epsQos.guaraBitRateUL    =  params->epsQos.guaraBitRateUL;
-    ueActDedBerReq->epsQos.guaraBitRateDL    =  params->epsQos.guaraBitRateDL;
+   ueActDedBerReq = &tfwMsg->msg.ueActDedBerReq;
+   ueActDedBerReq->lnkBearerId = params->lnkEpsBearId;
+   ueActDedBerReq->bearerId = params->epsBearerId;
+   if (params->epsQos.pres)
+   {
+      ueActDedBerReq->epsQos.pres = params->epsQos.pres;
+      ueActDedBerReq->epsQos.lenQosCont = params->epsQos.lenQosCont;
+      ueActDedBerReq->epsQos.qci = params->epsQos.qci;
+      ueActDedBerReq->epsQos.maxBitRateUL = params->epsQos.maxBitRateUL;
+      ueActDedBerReq->epsQos.maxBitRateDL = params->epsQos.maxBitRateDL;
+      ueActDedBerReq->epsQos.guaraBitRateUL = params->epsQos.guaraBitRateUL;
+      ueActDedBerReq->epsQos.guaraBitRateDL = params->epsQos.guaraBitRateDL;
 #if 0
  ueActDedBerReq->epsQos.maxBitRateULExt   =  params->epsQos.maxBitRateULExt;
  ueActDedBerReq->epsQos.maxBitRateDLExt   =  params->epsQos.maxBitRateDLExt;
  ueActDedBerReq-> epsQos.guaraBitRateULExt =  params->epsQos.guaraBitRateULExt;
  ueActDedBerReq->epsQos.guaraBitRateDLExt =  params->epsQos.guaraBitRateDLExt;
 #endif
- }
+   }
 
- if(params->txnId.pres)
- {
-    ueActDedBerReq->txnId.pres          = params->txnId.pres;
-    ueActDedBerReq->txnId.len           = params->txnId.len;
-    ueActDedBerReq->txnId.tiVal         = params->txnId.tiVal;
-    ueActDedBerReq->txnId.tiFlag        = params->txnId.tiFlag;
-    ueActDedBerReq->txnId.tie           = params->txnId.tie;
-    ueActDedBerReq->txnId.tiExt         = params->txnId.tiExt;
- }
- if(params->qos.pres)
- {
-    ueActDedBerReq->qos.pres            = params->qos.pres;
-    ueActDedBerReq->qos.lenQosCont      = params->qos.lenQosCont;
-    ueActDedBerReq->qos.relClass        = params->qos.relClass;
-    ueActDedBerReq->qos.delayClass      = params->qos.delayClass;
-    ueActDedBerReq->qos.precClass       = params->qos.precClass;
-    ueActDedBerReq->qos.peakTp          = params->qos.peakTp;
-    ueActDedBerReq->qos.meanTp          = params->qos.meanTp;
-    ueActDedBerReq->qos.deliveryErrSdu  = params->qos.deliveryErrSdu;
-    ueActDedBerReq->qos.deliveryOrder   = params->qos.deliveryOrder;
-    ueActDedBerReq->qos.trafficClass    = params->qos.trafficClass;
-    ueActDedBerReq->qos.maxSdu          = params->qos.maxSdu;
-    ueActDedBerReq->qos.maxBitRateUL    = params->qos.maxBitRateUL;
-    ueActDedBerReq->qos.maxBitRateDL    = params->qos.maxBitRateDL;
-    ueActDedBerReq->qos.sduErrRatio     = params->qos.sduErrRatio;
-    ueActDedBerReq->qos.residualBer     = params->qos.residualBer;
-    ueActDedBerReq->qos.trafHandPrio    = params->qos.trafHandPrio;
-    ueActDedBerReq->qos.transferDelay   = params->qos.transferDelay;
-    ueActDedBerReq->qos.guaraBitRateUL  = params->qos.guaraBitRateUL;
-    ueActDedBerReq->qos.guaraBitRateDL  = params->qos.guaraBitRateDL;
-    ueActDedBerReq->qos.srcStatDesc     = params->qos.srcStatDesc;
-    ueActDedBerReq->qos.signalInd       = params->qos.signalInd;
+   if (params->txnId.pres)
+   {
+      ueActDedBerReq->txnId.pres = params->txnId.pres;
+      ueActDedBerReq->txnId.len = params->txnId.len;
+      ueActDedBerReq->txnId.tiVal = params->txnId.tiVal;
+      ueActDedBerReq->txnId.tiFlag = params->txnId.tiFlag;
+      ueActDedBerReq->txnId.tie = params->txnId.tie;
+      ueActDedBerReq->txnId.tiExt = params->txnId.tiExt;
+   }
+   if (params->qos.pres)
+   {
+      ueActDedBerReq->qos.pres = params->qos.pres;
+      ueActDedBerReq->qos.lenQosCont = params->qos.lenQosCont;
+      ueActDedBerReq->qos.relClass = params->qos.relClass;
+      ueActDedBerReq->qos.delayClass = params->qos.delayClass;
+      ueActDedBerReq->qos.precClass = params->qos.precClass;
+      ueActDedBerReq->qos.peakTp = params->qos.peakTp;
+      ueActDedBerReq->qos.meanTp = params->qos.meanTp;
+      ueActDedBerReq->qos.deliveryErrSdu = params->qos.deliveryErrSdu;
+      ueActDedBerReq->qos.deliveryOrder = params->qos.deliveryOrder;
+      ueActDedBerReq->qos.trafficClass = params->qos.trafficClass;
+      ueActDedBerReq->qos.maxSdu = params->qos.maxSdu;
+      ueActDedBerReq->qos.maxBitRateUL = params->qos.maxBitRateUL;
+      ueActDedBerReq->qos.maxBitRateDL = params->qos.maxBitRateDL;
+      ueActDedBerReq->qos.sduErrRatio = params->qos.sduErrRatio;
+      ueActDedBerReq->qos.residualBer = params->qos.residualBer;
+      ueActDedBerReq->qos.trafHandPrio = params->qos.trafHandPrio;
+      ueActDedBerReq->qos.transferDelay = params->qos.transferDelay;
+      ueActDedBerReq->qos.guaraBitRateUL = params->qos.guaraBitRateUL;
+      ueActDedBerReq->qos.guaraBitRateDL = params->qos.guaraBitRateDL;
+      ueActDedBerReq->qos.srcStatDesc = params->qos.srcStatDesc;
+      ueActDedBerReq->qos.signalInd = params->qos.signalInd;
 #if 0
  ueActDedBerReq->qos.maxBitRateDLExt = params->qos.maxBitRateDLExt;
  ueActDedBerReq->qos.maxBitRateULExt   = params->qos.maxBitRateULExt;
  ueActDedBerReq->qos.guaraBitRateDLExt = params->qos.guaraBitRateDLExt;
  ueActDedBerReq->qos.guaraBitRateULExt = params->qos.guaraBitRateULExt;
 #endif
- }
- if(params->llc.pres)
- {
-    ueActDedBerReq->llc.pres  = params->llc.pres;
-    ueActDedBerReq->llc.ieVal = params->llc.ieVal;
- }
- if(params->radioPrio.pres)
- {
-    ueActDedBerReq->radioPrio.pres  = params->radioPrio.pres;
-    ueActDedBerReq->radioPrio.ieVal = params->radioPrio.ieVal;
- }
- if(params->pktFlowId.pres)
- {
-    ueActDedBerReq->pktFlowId.pres   = params->pktFlowId.pres;
-    ueActDedBerReq->pktFlowId.len    = params->pktFlowId.len;
-    ueActDedBerReq->pktFlowId.ieVal  = params->pktFlowId.ieVal;
- }
+   }
+   if (params->llc.pres)
+   {
+      ueActDedBerReq->llc.pres = params->llc.pres;
+      ueActDedBerReq->llc.ieVal = params->llc.ieVal;
+   }
+   if (params->radioPrio.pres)
+   {
+      ueActDedBerReq->radioPrio.pres = params->radioPrio.pres;
+      ueActDedBerReq->radioPrio.ieVal = params->radioPrio.ieVal;
+   }
+   if (params->pktFlowId.pres)
+   {
+      ueActDedBerReq->pktFlowId.pres = params->pktFlowId.pres;
+      ueActDedBerReq->pktFlowId.len = params->pktFlowId.len;
+      ueActDedBerReq->pktFlowId.ieVal = params->pktFlowId.ieVal;
+   }
 
- ueActDedBerReq->tft.pres         = params->tft.pres;
- if(params->tft.pres )
- {
-    ueActDedBerReq->tft.len          = params->tft.len;
-    ueActDedBerReq->tft.opCode       = params->tft.opCode;
-    ueActDedBerReq->tft.noOfPfs      = params->tft.noOfPfs;
-    ueActDedBerReq->tft.eBit         = params->tft.eBit;
-    ueActDedBerReq->tft.noOfParams   = params->tft.noOfParams;
+   ueActDedBerReq->tft.pres = params->tft.pres;
+   if (params->tft.pres)
+   {
+      ueActDedBerReq->tft.len = params->tft.len;
+      ueActDedBerReq->tft.opCode = params->tft.opCode;
+      ueActDedBerReq->tft.noOfPfs = params->tft.noOfPfs;
+      ueActDedBerReq->tft.eBit = params->tft.eBit;
+      ueActDedBerReq->tft.noOfParams = params->tft.noOfParams;
 
-    ueActDedBerReq->tft.noOfPfs = params->tft.noOfPfs;
-    for( idx = 0 ; idx < ueActDedBerReq->tft.noOfPfs ; idx++)
-    {
-       ueActDedBerReq->tft.pfList[idx].pres         = params->tft.pfList[idx].pres;
-       ueActDedBerReq->tft.pfList[idx].id           = params->tft.pfList[idx].id;
-       ueActDedBerReq->tft.pfList[idx].dir          = params->tft.pfList[idx].dir;
-       ueActDedBerReq->tft.pfList[idx].preced       = params->tft.pfList[idx].preced;
-       ueActDedBerReq->tft.pfList[idx].len          = params->tft.pfList[idx].len;
-       if(params->tft.pfList[idx].ipv4.pres)
-       {
-          ueActDedBerReq->tft.pfList[idx].ipv4.pres    = params->tft.pfList[idx].ipv4.pres;
-            cmMemcpy((U8 *)&ueActDedBerReq->tft.pfList[idx].ipv4.ip4, \
-               (U8 *)params->tft.pfList[idx].ipv4.ip4,CM_ESM_IPV4_SIZE);
-       }
-       if(params->tft.pfList[idx].ipv6.pres)
-       {
-          ueActDedBerReq->tft.pfList[idx].ipv6.pres =  params->tft.pfList[idx].ipv6.pres;
-            cmMemcpy((U8 *)&ueActDedBerReq->tft.pfList[idx].ipv6.ip6, \
-               (U8 *)params->tft.pfList[idx].ipv6.ip6,CM_ESM_IPV6_SIZE);
-       }
-       if(params->tft.pfList[idx].protId.pres)
-       {
-          ueActDedBerReq->tft.pfList[idx].protId.pres        = params->tft.pfList[idx].protId.pres;
-          ueActDedBerReq->tft.pfList[idx].protId.protType    = params->tft.pfList[idx].protId.protType;
-       }
-       if(params->tft.pfList[idx].localPort.pres)
-       {
-          ueActDedBerReq->tft.pfList[idx].localPort.pres     = params->tft.pfList[idx].localPort.pres;
-          ueActDedBerReq->tft.pfList[idx].localPort.port     = params->tft.pfList[idx].localPort.port;
-       }
-       if(params->tft.pfList[idx].remotePort.pres)
-       {
-          ueActDedBerReq->tft.pfList[idx].remotePort.pres    = params->tft.pfList[idx].remotePort.pres;
-          ueActDedBerReq->tft.pfList[idx].remotePort.port    = params->tft.pfList[idx].remotePort.port;
-       }
-       if(params->tft.pfList[idx].locPortRange.pres)
-       {
-          ueActDedBerReq->tft.pfList[idx].locPortRange.pres  =\
-              params->tft.pfList[idx].locPortRange.pres;
-          ueActDedBerReq->tft.pfList[idx].locPortRange.rangeLow =\
-          params->tft.pfList[idx].locPortRange.rangeLow;
-          ueActDedBerReq->tft.pfList[idx].locPortRange.rangeHigh   = \
-             params->tft.pfList[idx].locPortRange.rangeHigh;
-       }
-       if(params->tft.pfList[idx].remPortRange.pres)
-       {
-          ueActDedBerReq->tft.pfList[idx].remPortRange.pres        = \
-             params->tft.pfList[idx].remPortRange.pres;
-          ueActDedBerReq->tft.pfList[idx].remPortRange.rangeLow    = \
-             params->tft.pfList[idx].remPortRange.rangeLow;
-          ueActDedBerReq->tft.pfList[idx].remPortRange.rangeHigh   = \
-             params->tft.pfList[idx].remPortRange.rangeHigh;
-       }
-       if(params->tft.pfList[idx].secParam.pres)
-       {
-          ueActDedBerReq->tft.pfList[idx].secParam.pres  = \
-             params->tft.pfList[idx].secParam.pres;
-            cmMemcpy((U8 *)&ueActDedBerReq->tft.pfList[idx].secParam.params, \
-               (U8 *)params->tft.pfList[idx].secParam.params, CM_ESM_IP_SEC_SIZE);
-       }
-       if(ueActDedBerReq->tft.pfList[idx].tos.pres)
-       {
-          ueActDedBerReq->tft.pfList[idx].tos.pres         = params->tft.pfList[idx].tos.pres;
-          ueActDedBerReq->tft.pfList[idx].tos.tos          = params->tft.pfList[idx].tos.tos;
-          ueActDedBerReq->tft.pfList[idx].tos.mask         = params->tft.pfList[idx].tos.mask;
-       }
-       if(params->tft.pfList[idx].flowLabel.pres)
-       {
-          ueActDedBerReq->tft.pfList[idx].flowLabel.pres   = params->tft.pfList[idx].flowLabel.pres;
-            cmMemcpy((U8 *)&ueActDedBerReq->tft.pfList[idx].flowLabel.buf, \
-               (U8 *)params->tft.pfList[idx].flowLabel.buf,CM_ESM_IPV6_FLOW_LABEL_SIZE);
-       }
-      }
-      for( idx = 0 ; idx < params->tft.noOfParams ; idx++)
+      ueActDedBerReq->tft.noOfPfs = params->tft.noOfPfs;
+      for (idx = 0; idx < ueActDedBerReq->tft.noOfPfs; idx++)
       {
-       ueActDedBerReq->tft.params[idx].len          = params->tft.params[idx].len;
-       ueActDedBerReq->tft.params[idx].paramType    = params->tft.params[idx].paramType;
-       cmMemcpy((U8 *)&ueActDedBerReq->tft.params[idx].buf, \
-            (U8 *)params->tft.params[idx].buf,CM_ESM_TFT_MAX_PARAM_BUF);
+         ueActDedBerReq->tft.pfList[idx].pres = params->tft.pfList[idx].pres;
+         ueActDedBerReq->tft.pfList[idx].id = params->tft.pfList[idx].id;
+         ueActDedBerReq->tft.pfList[idx].dir = params->tft.pfList[idx].dir;
+         ueActDedBerReq->tft.pfList[idx].preced = params->tft.pfList[idx].preced;
+         ueActDedBerReq->tft.pfList[idx].len = params->tft.pfList[idx].len;
+         if (params->tft.pfList[idx].ipv4.pres)
+         {
+            ueActDedBerReq->tft.pfList[idx].ipv4.pres = params->tft.pfList[idx].ipv4.pres;
+            cmMemcpy((U8 *)&ueActDedBerReq->tft.pfList[idx].ipv4.ip4,
+                     (U8 *)params->tft.pfList[idx].ipv4.ip4, CM_ESM_IPV4_SIZE);
+         }
+         if (params->tft.pfList[idx].ipv6.pres)
+         {
+            ueActDedBerReq->tft.pfList[idx].ipv6.pres = params->tft.pfList[idx].ipv6.pres;
+            cmMemcpy((U8 *)&ueActDedBerReq->tft.pfList[idx].ipv6.ip6,
+                     (U8 *)params->tft.pfList[idx].ipv6.ip6, CM_ESM_IPV6_SIZE);
+         }
+         if (params->tft.pfList[idx].protId.pres)
+         {
+            ueActDedBerReq->tft.pfList[idx].protId.pres = params->tft.pfList[idx].protId.pres;
+            ueActDedBerReq->tft.pfList[idx].protId.protType = params->tft.pfList[idx].protId.protType;
+         }
+         if (params->tft.pfList[idx].localPort.pres)
+         {
+            ueActDedBerReq->tft.pfList[idx].localPort.pres = params->tft.pfList[idx].localPort.pres;
+            ueActDedBerReq->tft.pfList[idx].localPort.port = params->tft.pfList[idx].localPort.port;
+         }
+         if (params->tft.pfList[idx].remotePort.pres)
+         {
+            ueActDedBerReq->tft.pfList[idx].remotePort.pres = params->tft.pfList[idx].remotePort.pres;
+            ueActDedBerReq->tft.pfList[idx].remotePort.port = params->tft.pfList[idx].remotePort.port;
+         }
+         if (params->tft.pfList[idx].locPortRange.pres)
+         {
+            ueActDedBerReq->tft.pfList[idx].locPortRange.pres =
+                params->tft.pfList[idx].locPortRange.pres;
+            ueActDedBerReq->tft.pfList[idx].locPortRange.rangeLow =
+                params->tft.pfList[idx].locPortRange.rangeLow;
+            ueActDedBerReq->tft.pfList[idx].locPortRange.rangeHigh =
+                params->tft.pfList[idx].locPortRange.rangeHigh;
+         }
+         if (params->tft.pfList[idx].remPortRange.pres)
+         {
+            ueActDedBerReq->tft.pfList[idx].remPortRange.pres =
+                params->tft.pfList[idx].remPortRange.pres;
+            ueActDedBerReq->tft.pfList[idx].remPortRange.rangeLow =
+                params->tft.pfList[idx].remPortRange.rangeLow;
+            ueActDedBerReq->tft.pfList[idx].remPortRange.rangeHigh =
+                params->tft.pfList[idx].remPortRange.rangeHigh;
+         }
+         if (params->tft.pfList[idx].secParam.pres)
+         {
+            ueActDedBerReq->tft.pfList[idx].secParam.pres =
+                params->tft.pfList[idx].secParam.pres;
+            cmMemcpy((U8 *)&ueActDedBerReq->tft.pfList[idx].secParam.params,
+                     (U8 *)params->tft.pfList[idx].secParam.params, CM_ESM_IP_SEC_SIZE);
+         }
+         if (ueActDedBerReq->tft.pfList[idx].tos.pres)
+         {
+            ueActDedBerReq->tft.pfList[idx].tos.pres = params->tft.pfList[idx].tos.pres;
+            ueActDedBerReq->tft.pfList[idx].tos.tos = params->tft.pfList[idx].tos.tos;
+            ueActDedBerReq->tft.pfList[idx].tos.mask = params->tft.pfList[idx].tos.mask;
+         }
+         if (params->tft.pfList[idx].flowLabel.pres)
+         {
+            ueActDedBerReq->tft.pfList[idx].flowLabel.pres = params->tft.pfList[idx].flowLabel.pres;
+            cmMemcpy((U8 *)&ueActDedBerReq->tft.pfList[idx].flowLabel.buf,
+                     (U8 *)params->tft.pfList[idx].flowLabel.buf, CM_ESM_IPV6_FLOW_LABEL_SIZE);
+         }
+      }
+      for (idx = 0; idx < params->tft.noOfParams; idx++)
+      {
+         ueActDedBerReq->tft.params[idx].len = params->tft.params[idx].len;
+         ueActDedBerReq->tft.params[idx].paramType = params->tft.params[idx].paramType;
+         cmMemcpy((U8 *)&ueActDedBerReq->tft.params[idx].buf,
+                  (U8 *)params->tft.params[idx].buf, CM_ESM_TFT_MAX_PARAM_BUF);
       }
    }
    RETVALUE(ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst));
 }
 
-
 #ifdef ANSI
-PRIVATE Void ueAppAuthHexDump
-(
-U8    *buf,
-U16   len
-)
+PRIVATE Void ueAppAuthHexDump(
+    U8 *buf,
+    U16 len)
 #else
-PRIVATE Void ueAppAuthHexDump(name,buf, len)
-(
-U8    *buf;
-U16   len;
-)
+PRIVATE Void ueAppAuthHexDump(name, buf, len)(
+    U8 *buf;
+    U16 len;)
 #endif
 {
    U16 cnt = 0;
    printf(" \n[");
-   for(cnt = 0; cnt < len; cnt++)
+   for (cnt = 0; cnt < len; cnt++)
    {
-      if((cnt != 0) &&(0 == cnt%16))
+      if ((cnt != 0) && (0 == cnt % 16))
       {
          printf(" ]\n [");
       }
-      else if((cnt != 0) &&(0 == cnt%8))
+      else if ((cnt != 0) && (0 == cnt % 8))
       {
          printf("  ");
       }
-      else if((cnt != 0) &&(0 == cnt%4))
+      else if ((cnt != 0) && (0 == cnt % 4))
       {
          printf(" ");
       }
@@ -9270,11 +9222,9 @@ PRIVATE S16 ueBldEmmInformationToTfw(UetMessage *tfwMsg, UeCb *ueCb)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppEmmHndlInAuthReject
-(
- CmNasEvnt *evnt,
- UeCb *ueCb
-)
+PRIVATE S16 ueAppEmmHndlInAuthReject(
+    CmNasEvnt *evnt,
+    UeCb *ueCb)
 {
    S16 ret = ROK;
    UeAppCb *ueAppCb = NULLP;
@@ -9330,22 +9280,20 @@ PRIVATE S16 ueBldAuthRejToTfw(UetMessage *tfwMsg, UeCb *ueCb)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppUtlBldEsmInformationRsp
-(
- CmNasEvnt **esmEvnt,
- UeUetEsmInformationRsp  *ueEsmInformationRsp
-)
+PRIVATE S16 ueAppUtlBldEsmInformationRsp(
+    CmNasEvnt **esmEvnt,
+    UeUetEsmInformationRsp *ueEsmInformationRsp)
 {
-   CmEsmMsg    *msg = NULLP;
+   CmEsmMsg *msg = NULLP;
    printf("Building ESM Information Response for Ue\n");
 
-   if(esmEvnt == NULLP)
+   if (esmEvnt == NULLP)
    {
       RETVALUE(RFAILED);
    }
 
    /* Allocate memory for mme evnt */
-   CM_ALLOC_NASEVNT (esmEvnt, CM_ESM_PD);
+   CM_ALLOC_NASEVNT(esmEvnt, CM_ESM_PD);
    if (*esmEvnt == NULLP)
    {
       RETVALUE(RFAILED);
@@ -9372,11 +9320,14 @@ PRIVATE S16 ueAppUtlBldEsmInformationRsp
    /* PDN connectivity request message idenmtity*/
    msg->msgType = CM_ESM_MSG_ESM_INFO_RSP;
 
-   if( ueEsmInformationRsp->nasPdnApn.len != 0) {
-     msg->u.esmInfoResp.apn.pres      = TRUE;
-     encode_apn(&msg->u.esmInfoResp.apn,&ueEsmInformationRsp->nasPdnApn);
-    } else {
-     msg->u.esmInfoResp.apn.pres      = FALSE;
+   if (ueEsmInformationRsp->nasPdnApn.len != 0)
+   {
+      msg->u.esmInfoResp.apn.pres = TRUE;
+      encode_apn(&msg->u.esmInfoResp.apn, &ueEsmInformationRsp->nasPdnApn);
+   }
+   else
+   {
+      msg->u.esmInfoResp.apn.pres = FALSE;
    }
    RETVALUE(ROK);
 }
@@ -9396,13 +9347,13 @@ PRIVATE S16 ueAppUtlBldEsmInformationRsp
 PRIVATE S16 ueProcUeEsmInformationRsp(UetMessage *p_ueMsg, Pst *pst)
 {
    S16 ret = ROK;
-   U32  ueId = 0;
+   U32 ueId = 0;
    U8 isPlainMsg = TRUE;
    UeAppMsg srcMsg;
    UeAppMsg dstMsg;
    UeAppCb *ueAppCb = NULLP;
    UeCb *ueCb = NULLP;
-   CmNasEvnt           *esmInfoRspEvnt = NULLP;
+   CmNasEvnt *esmInfoRspEvnt = NULLP;
    NhuDedicatedInfoNAS nasEncPdu;
    NbuUlNasMsg *nbUeEsmInfoRsp = NULLP;
 
@@ -9412,19 +9363,19 @@ PRIVATE S16 ueProcUeEsmInformationRsp(UetMessage *p_ueMsg, Pst *pst)
    UE_LOG_DEBUG(ueAppCb, "Sending ESM Information Rsp");
    ueId = p_ueMsg->msg.ueEsmInformationRsp.ueId;
    ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
-   if( ret != ROK )
+   if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
    }
    ret = ueAppUtlBldEsmInformationRsp(&esmInfoRspEvnt,
-         &p_ueMsg->msg.ueEsmInformationRsp);
+                                      &p_ueMsg->msg.ueEsmInformationRsp);
    if (ret != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Building Esm Information Response failed");
       RETVALUE(ret);
    }
 
-   if ((ret = ueAppEsmHdlOutUeEvnt(esmInfoRspEvnt, ueCb))!= ROK)
+   if ((ret = ueAppEsmHdlOutUeEvnt(esmInfoRspEvnt, ueCb)) != ROK)
    {
       UE_LOG_ERROR(ueAppCb, "Handling ESM Information Response message failed \n");
       RETVALUE(RFAILED);
@@ -9468,11 +9419,11 @@ PRIVATE S16 ueProcUeEsmInformationRsp(UetMessage *p_ueMsg, Pst *pst)
    nbUeEsmInfoRsp->nasPdu.len = nasEncPdu.len;
    nbUeEsmInfoRsp->nasPdu.val = (U8 *)ueAlloc(nbUeEsmInfoRsp->nasPdu.len);
    cmMemcpy((U8 *)nbUeEsmInfoRsp->nasPdu.val, nasEncPdu.val,
-         nbUeEsmInfoRsp->nasPdu.len);
+            nbUeEsmInfoRsp->nasPdu.len);
 
    if (isPlainMsg)
    {
-   EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
    }
 
    ret = ueSendUlNasMsgToNb(nbUeEsmInfoRsp, &ueAppCb->nbPst);
@@ -9499,22 +9450,20 @@ PRIVATE S16 ueProcUeEsmInformationRsp(UetMessage *p_ueMsg, Pst *pst)
  *
  */
 
-PRIVATE S16 ueAppUtlBldStandAlonePdnDisconnectReq
-(
- CmNasEvnt **esmEvnt,
- UeUetPdnDisconnectReq *ueUetPdnDisConReq
-)
+PRIVATE S16 ueAppUtlBldStandAlonePdnDisconnectReq(
+    CmNasEvnt **esmEvnt,
+    UeUetPdnDisconnectReq *ueUetPdnDisConReq)
 {
-   CmEsmMsg    *msg = NULLP;
+   CmEsmMsg *msg = NULLP;
    printf("Building PDN Disconnect Request\n");
 
-   if(esmEvnt == NULLP)
+   if (esmEvnt == NULLP)
    {
       RETVALUE(RFAILED);
    }
 
    /* Allocate memory for mme evnt */
-   CM_ALLOC_NASEVNT (esmEvnt, CM_ESM_PD);
+   CM_ALLOC_NASEVNT(esmEvnt, CM_ESM_PD);
    if (*esmEvnt == NULLP)
    {
       RETVALUE(RFAILED);
@@ -9545,7 +9494,6 @@ PRIVATE S16 ueAppUtlBldStandAlonePdnDisconnectReq
    RETVALUE(ROK);
 }
 
-
 /*
  *
  *       Fun: ueProcUePdnDisconnectReq
@@ -9559,90 +9507,101 @@ PRIVATE S16 ueAppUtlBldStandAlonePdnDisconnectReq
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueProcUePdnDisconnectReq(UetMessage *p_ueMsg, Pst *pst) {
-  S16 ret = ROK;
-  U32 ueId = 0;
-  U8 isPlainMsg = TRUE;
-  UeAppMsg srcMsg;
-  UeAppMsg dstMsg;
-  UeAppCb *ueAppCb = NULLP;
-  UeCb *ueCb = NULLP;
-  CmNasEvnt *pdnDisconnectReqEvnt = NULLP;
-  NhuDedicatedInfoNAS nasEncPdu;
-  NbuUlNasMsg *nbUePdnDisconnectReq = NULLP;
+PRIVATE S16 ueProcUePdnDisconnectReq(UetMessage *p_ueMsg, Pst *pst)
+{
+   S16 ret = ROK;
+   U32 ueId = 0;
+   U8 isPlainMsg = TRUE;
+   UeAppMsg srcMsg;
+   UeAppMsg dstMsg;
+   UeAppCb *ueAppCb = NULLP;
+   UeCb *ueCb = NULLP;
+   CmNasEvnt *pdnDisconnectReqEvnt = NULLP;
+   NhuDedicatedInfoNAS nasEncPdu;
+   NbuUlNasMsg *nbUePdnDisconnectReq = NULLP;
 
-  UE_GET_CB(ueAppCb);
-  UE_LOG_ENTERFN(ueAppCb);
+   UE_GET_CB(ueAppCb);
+   UE_LOG_ENTERFN(ueAppCb);
 
-  UE_LOG_DEBUG(ueAppCb, "Recieved PDN Disconnect Request");
-  ueId = p_ueMsg->msg.ueUetPdnDisconnectReq.ueId;
-  ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
-  if (ret != ROK) {
-    UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
-  }
-  ret = ueAppUtlBldStandAlonePdnDisconnectReq(
-      &pdnDisconnectReqEvnt, &p_ueMsg->msg.ueUetPdnDisconnectReq);
-  if (ret != ROK) {
-    UE_LOG_ERROR(ueAppCb, "Building pdn disconnect req message failed");
-    RETVALUE(ret);
-  }
+   UE_LOG_DEBUG(ueAppCb, "Recieved PDN Disconnect Request");
+   ueId = p_ueMsg->msg.ueUetPdnDisconnectReq.ueId;
+   ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
+   if (ret != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
+   }
+   ret = ueAppUtlBldStandAlonePdnDisconnectReq(
+       &pdnDisconnectReqEvnt, &p_ueMsg->msg.ueUetPdnDisconnectReq);
+   if (ret != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "Building pdn disconnect req message failed");
+      RETVALUE(ret);
+   }
 
-  if ((ret = ueAppEsmHdlOutUeEvnt(pdnDisconnectReqEvnt, ueCb)) != ROK) {
-    UE_LOG_ERROR(ueAppCb, "Handling PDN disconnect Request failed \n");
-    RETVALUE(RFAILED);
-  }
+   if ((ret = ueAppEsmHdlOutUeEvnt(pdnDisconnectReqEvnt, ueCb)) != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "Handling PDN disconnect Request failed \n");
+      RETVALUE(RFAILED);
+   }
 
-  cmMemset((U8 *)&nasEncPdu, 0, sizeof(NhuDedicatedInfoNAS));
+   cmMemset((U8 *)&nasEncPdu, 0, sizeof(NhuDedicatedInfoNAS));
 
-  /* Encode the PDU */
-  ret = ueAppEdmEncode(pdnDisconnectReqEvnt, &nasEncPdu);
-  if (ret != ROK) {
-    UE_LOG_ERROR(ueAppCb, "Pdn Disconnect Req Encode Failed");
-    CM_FREE_NASEVNT(&pdnDisconnectReqEvnt);
-    RETVALUE(ret);
-  }
-  /** Integrity Protected **/
-  if (CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != pdnDisconnectReqEvnt->secHT) {
-    isPlainMsg = FALSE;
-    srcMsg.val = nasEncPdu.val;
-    srcMsg.len = nasEncPdu.len;
-    ret = ueAppCmpUplnkSec(&ueCb->secCtxt, pdnDisconnectReqEvnt->secHT, &srcMsg,
-                           &dstMsg);
-    if (ROK != ret) {
-      UE_LOG_ERROR(ueAppCb, "Uplink Security Failed");
-      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
-      pdnDisconnectReqEvnt->pdu = NULLP;
+   /* Encode the PDU */
+   ret = ueAppEdmEncode(pdnDisconnectReqEvnt, &nasEncPdu);
+   if (ret != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "Pdn Disconnect Req Encode Failed");
       CM_FREE_NASEVNT(&pdnDisconnectReqEvnt);
       RETVALUE(ret);
-    }
-    EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
-    nasEncPdu.val = dstMsg.val;
-    nasEncPdu.len = dstMsg.len;
-  }
-  CM_FREE_NASEVNT(&pdnDisconnectReqEvnt);
+   }
+   /** Integrity Protected **/
+   if (CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != pdnDisconnectReqEvnt->secHT)
+   {
+      isPlainMsg = FALSE;
+      srcMsg.val = nasEncPdu.val;
+      srcMsg.len = nasEncPdu.len;
+      ret = ueAppCmpUplnkSec(&ueCb->secCtxt, pdnDisconnectReqEvnt->secHT, &srcMsg,
+                             &dstMsg);
+      if (ROK != ret)
+      {
+         UE_LOG_ERROR(ueAppCb, "Uplink Security Failed");
+         EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+         pdnDisconnectReqEvnt->pdu = NULLP;
+         CM_FREE_NASEVNT(&pdnDisconnectReqEvnt);
+         RETVALUE(ret);
+      }
+      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+      nasEncPdu.val = dstMsg.val;
+      nasEncPdu.len = dstMsg.len;
+   }
+   CM_FREE_NASEVNT(&pdnDisconnectReqEvnt);
 
-  nbUePdnDisconnectReq = (NbuUlNasMsg *)ueAlloc(sizeof(NbuUlNasMsg));
-  nbUePdnDisconnectReq->ueId = ueId;
-  nbUePdnDisconnectReq->nasPdu.pres = TRUE;
-  nbUePdnDisconnectReq->nasPdu.len = nasEncPdu.len;
-  nbUePdnDisconnectReq->nasPdu.val =
-      (U8 *)ueAlloc(nbUePdnDisconnectReq->nasPdu.len);
-  cmMemcpy((U8 *)nbUePdnDisconnectReq->nasPdu.val, nasEncPdu.val,
-           nbUePdnDisconnectReq->nasPdu.len);
+   nbUePdnDisconnectReq = (NbuUlNasMsg *)ueAlloc(sizeof(NbuUlNasMsg));
+   nbUePdnDisconnectReq->ueId = ueId;
+   nbUePdnDisconnectReq->nasPdu.pres = TRUE;
+   nbUePdnDisconnectReq->nasPdu.len = nasEncPdu.len;
+   nbUePdnDisconnectReq->nasPdu.val =
+       (U8 *)ueAlloc(nbUePdnDisconnectReq->nasPdu.len);
+   cmMemcpy((U8 *)nbUePdnDisconnectReq->nasPdu.val, nasEncPdu.val,
+            nbUePdnDisconnectReq->nasPdu.len);
 
-  if (isPlainMsg) {
-    EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
-  }
+   if (isPlainMsg)
+   {
+      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+   }
 
-  ret = ueSendUlNasMsgToNb(nbUePdnDisconnectReq, &ueAppCb->nbPst);
-  if (ret != ROK) {
-    UE_LOG_ERROR(ueAppCb, "Sending PDN Disconnect Req to enbAPP failed");
-    ret = RFAILED;
-  } else {
-    // Decrement pdns
-    ueCb->numPdns --;
-  }
-  UE_LOG_EXITFN(ueAppCb, ret);
+   ret = ueSendUlNasMsgToNb(nbUePdnDisconnectReq, &ueAppCb->nbPst);
+   if (ret != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "Sending PDN Disconnect Req to enbAPP failed");
+      ret = RFAILED;
+   }
+   else
+   {
+      // Decrement pdns
+      ueCb->numPdns--;
+   }
+   UE_LOG_EXITFN(ueAppCb, ret);
 } /* End of ueProcUePdnDisconnectReq */
 
 /*
@@ -9670,12 +9629,12 @@ PRIVATE S16 ueAppEsmHndlOutPDNDisConnectReq(UeEsmCb *esmCb, CmNasEvnt *evnt)
    /* Update procedure transaction state */
    esmCb->pState = UE_ESM_ST_PROC_TXN_PENDING;
 
-  /* Updating transaction Id to event */
+   /* Updating transaction Id to event */
    evnt->m.esmEvnt->prTxnId = esmCb->tId;
    UE_LOG_EXITFN(ueAppCb, ROK);
 } /* ueAppEsmHndlOutPDNDisConnectReq */
 
- /*
+/*
  *
  *       Fun: ueAppEsmHndlOutPDNDisconRej
  *
@@ -9688,15 +9647,13 @@ PRIVATE S16 ueAppEsmHndlOutPDNDisConnectReq(UeEsmCb *esmCb, CmNasEvnt *evnt)
  *       File:  ue_app.c
  *
  */
-PRIVATE S16 ueAppEsmHndlIncPdnDisconRej
-(
- UeEsmCb *esmCb,
- CmNasEvnt *evnt,
- UeCb *ueCb
-)
+PRIVATE S16 ueAppEsmHndlIncPdnDisconRej(
+    UeEsmCb *esmCb,
+    CmNasEvnt *evnt,
+    UeCb *ueCb)
 {
    S16 ret = ROK;
-   UeAppCb *ueAppCb   = NULLP;
+   UeAppCb *ueAppCb = NULLP;
    UetMessage *tfwMsg = NULLP;
    UE_GET_CB(ueAppCb);
    UE_LOG_ENTERFN(ueAppCb);
@@ -9708,49 +9665,52 @@ PRIVATE S16 ueAppEsmHndlIncPdnDisconRej
    /* Update procedure transaction state */
    esmCb->pState = UE_ESM_ST_PROC_TXN_INACTIVE;
    /* send pdn disconnection reject indication to user */
-   tfwMsg = (UetMessage*)ueAlloc(sizeof(UetMessage));
+   tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
    tfwMsg->msg.ueUetPdnDisconnectRej.ueId = ueCb->ueId;
-   tfwMsg->msg.ueUetPdnDisconnectRej.cause    = \
-     evnt->m.esmEvnt->u.disconRej.cause.val;
+   tfwMsg->msg.ueUetPdnDisconnectRej.cause =
+       evnt->m.esmEvnt->u.disconRej.cause.val;
    tfwMsg->msgType = UE_PDN_DISCONNECT_REJ_TYPE;
    ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
    if (ret != ROK)
    {
-      UE_LOG_ERROR(ueAppCb, "Sending PDN Disconnect Reject to "\
-            "TFWAPP failed");
+      UE_LOG_ERROR(ueAppCb, "Sending PDN Disconnect Reject to "
+                            "TFWAPP failed");
    }
    RETVALUE(ROK);
 } /* ueAppEsmHndlIncPdnDisconRej */
 
-void ueSendErabSetupRspForFailedBearers(NbuErabsInfo *pNbuErabsInfo) {
-  S16 ret = ROK;
-  UetMessage *tfwMsg = NULLP;
-  UeAppCb *ueAppCb = NULLP;
-  UE_GET_CB(ueAppCb);
-  UE_LOG_ENTERFN(ueAppCb);
-  tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
-  cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
-  tfwMsg->msgType = UE_ERAB_SETUP_REQ_FAILED_FOR_ERABS;
-  tfwMsg->msg.ueErabsFailedToSetup.ueId = pNbuErabsInfo->ueId;
-  tfwMsg->msg.ueErabsFailedToSetup.noOfFailedErabs =
-      pNbuErabsInfo->failedErabList->noOfFailedErabs;
-  for (int indx = 0; indx < pNbuErabsInfo->failedErabList->noOfFailedErabs;
-       indx++) {
-    tfwMsg->msg.ueErabsFailedToSetup.failedErablist[indx].qci =
-        pNbuErabsInfo->failedErabList->failedErabs[indx].qci;
-    tfwMsg->msg.ueErabsFailedToSetup.failedErablist[indx].erabId =
-        pNbuErabsInfo->failedErabList->failedErabs[indx].erabId;
-    tfwMsg->msg.ueErabsFailedToSetup.failedErablist[indx].cause =
-        pNbuErabsInfo->failedErabList->failedErabs[indx].cause.val.radioNw;
-  }
-  ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
-  if (ret != ROK) {
-    UE_LOG_ERROR(ueAppCb,
-                 "Sending an indication,"
-                 "E_RAB_SETUP_REQ_FAILED_FOR_BEARERS to TFWAPP for ueId:%u \n",
-                 pNbuErabsInfo->ueId);
-  }
-  RETVOID;
+void ueSendErabSetupRspForFailedBearers(NbuErabsInfo *pNbuErabsInfo)
+{
+   S16 ret = ROK;
+   UetMessage *tfwMsg = NULLP;
+   UeAppCb *ueAppCb = NULLP;
+   UE_GET_CB(ueAppCb);
+   UE_LOG_ENTERFN(ueAppCb);
+   tfwMsg = (UetMessage *)ueAlloc(sizeof(UetMessage));
+   cmMemset((U8 *)tfwMsg, 0, sizeof(UetMessage));
+   tfwMsg->msgType = UE_ERAB_SETUP_REQ_FAILED_FOR_ERABS;
+   tfwMsg->msg.ueErabsFailedToSetup.ueId = pNbuErabsInfo->ueId;
+   tfwMsg->msg.ueErabsFailedToSetup.noOfFailedErabs =
+       pNbuErabsInfo->failedErabList->noOfFailedErabs;
+   for (int indx = 0; indx < pNbuErabsInfo->failedErabList->noOfFailedErabs;
+        indx++)
+   {
+      tfwMsg->msg.ueErabsFailedToSetup.failedErablist[indx].qci =
+          pNbuErabsInfo->failedErabList->failedErabs[indx].qci;
+      tfwMsg->msg.ueErabsFailedToSetup.failedErablist[indx].erabId =
+          pNbuErabsInfo->failedErabList->failedErabs[indx].erabId;
+      tfwMsg->msg.ueErabsFailedToSetup.failedErablist[indx].cause =
+          pNbuErabsInfo->failedErabList->failedErabs[indx].cause.val.radioNw;
+   }
+   ret = ueSendToTfwApp(tfwMsg, &ueAppCb->fwPst);
+   if (ret != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb,
+                   "Sending an indication,"
+                   "E_RAB_SETUP_REQ_FAILED_FOR_BEARERS to TFWAPP for ueId:%u \n",
+                   pNbuErabsInfo->ueId);
+   }
+   RETVOID;
 }
 
 /*
@@ -9767,28 +9727,30 @@ void ueSendErabSetupRspForFailedBearers(NbuErabsInfo *pNbuErabsInfo) {
  *
  */
 PRIVATE S16 ueProcUeStandAloneActvDfltBerCtxtRej(UetMessage *p_ueMsg,
-                                                 Pst *pst) {
-  S16 ret = ROK;
-  U32 ueId;
-  UeAppCb *ueAppCb = NULLP;
-  UeCb *ueCb = NULLP;
+                                                 Pst *pst)
+{
+   S16 ret = ROK;
+   U32 ueId;
+   UeAppCb *ueAppCb = NULLP;
+   UeCb *ueCb = NULLP;
 
-  UE_GET_CB(ueAppCb);
-  UE_LOG_ENTERFN(ueAppCb);
-  UE_LOG_DEBUG(ueAppCb, "Processing standalone activate default EPS bearer "
-                        "context reject message from TFWAPP");
+   UE_GET_CB(ueAppCb);
+   UE_LOG_ENTERFN(ueAppCb);
+   UE_LOG_DEBUG(ueAppCb, "Processing standalone activate default EPS bearer "
+                         "context reject message from TFWAPP");
 
-  ueId = p_ueMsg->msg.ueActDfltBerRej.ueId;
-  ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
-  if (ret != ROK) {
-    UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
-    RETVALUE(ret);
-  }
-  ueCb->is_actv_dflt_eps_ber_ctxt_rej = TRUE;
-  ueCb->actv_dflt_eps_bear_ctxt_reject_cause =
-      p_ueMsg->msg.ueActDfltBerRej.esmCause;
+   ueId = p_ueMsg->msg.ueActDfltBerRej.ueId;
+   ret = ueDbmFetchUe(ueId, (PTR *)&ueCb);
+   if (ret != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "UeCb List NULL ueId = %d", ueId);
+      RETVALUE(ret);
+   }
+   ueCb->is_actv_dflt_eps_ber_ctxt_rej = TRUE;
+   ueCb->actv_dflt_eps_bear_ctxt_reject_cause =
+       p_ueMsg->msg.ueActDfltBerRej.esmCause;
 
-  UE_LOG_EXITFN(ueAppCb, ret);
+   UE_LOG_EXITFN(ueAppCb, ret);
 }
 
 /*
@@ -9805,78 +9767,86 @@ PRIVATE S16 ueProcUeStandAloneActvDfltBerCtxtRej(UetMessage *p_ueMsg,
  *
  */
 
-PRIVATE S16 ueAppBuildAndSendActDefltBerContextReject(UeCb *ueCb, U8 bearerId) {
-  S16 ret = ROK;
-  U8 isPlainMsg = TRUE;
-  UeAppMsg srcMsg;
-  UeAppMsg dstMsg;
-  UeAppCb *ueAppCb = NULLP;
-  CmNasEvnt *bearerRejEvnt = NULLP;
-  NhuDedicatedInfoNAS nasEncPdu;
-  NbuUlNasMsg *nbUeBearerRejReq = NULLP;
+PRIVATE S16 ueAppBuildAndSendActDefltBerContextReject(UeCb *ueCb, U8 bearerId)
+{
+   S16 ret = ROK;
+   U8 isPlainMsg = TRUE;
+   UeAppMsg srcMsg;
+   UeAppMsg dstMsg;
+   UeAppCb *ueAppCb = NULLP;
+   CmNasEvnt *bearerRejEvnt = NULLP;
+   NhuDedicatedInfoNAS nasEncPdu;
+   NbuUlNasMsg *nbUeBearerRejReq = NULLP;
 
-  UE_GET_CB(ueAppCb);
-  UE_LOG_ENTERFN(ueAppCb);
+   UE_GET_CB(ueAppCb);
+   UE_LOG_ENTERFN(ueAppCb);
 
-  ret = ueAppUtlBldActDfltBerContextReject(ueCb, &bearerRejEvnt, bearerId);
-  if (ret != ROK) {
-    UE_LOG_ERROR(ueAppCb, "Building Activate Default Bearer Reject failed");
-    RETVALUE(ret);
-  }
+   ret = ueAppUtlBldActDfltBerContextReject(ueCb, &bearerRejEvnt, bearerId);
+   if (ret != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "Building Activate Default Bearer Reject failed");
+      RETVALUE(ret);
+   }
 
-  bearerRejEvnt->secHT = CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC;
-  if ((ret = ueAppEsmHdlOutUeEvnt(bearerRejEvnt, ueCb)) != ROK) {
-    UE_LOG_ERROR(ueAppCb, "Handling Activate Default Bearer Reject failed \n");
-    RETVALUE(RFAILED);
-  }
+   bearerRejEvnt->secHT = CM_NAS_SEC_HDR_TYPE_INT_PRTD_ENC;
+   if ((ret = ueAppEsmHdlOutUeEvnt(bearerRejEvnt, ueCb)) != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "Handling Activate Default Bearer Reject failed \n");
+      RETVALUE(RFAILED);
+   }
 
-  cmMemset((U8 *)&nasEncPdu, 0, sizeof(NhuDedicatedInfoNAS));
+   cmMemset((U8 *)&nasEncPdu, 0, sizeof(NhuDedicatedInfoNAS));
 
-  /* Encode the PDU */
-  ret = ueAppEdmEncode(bearerRejEvnt, &nasEncPdu);
-  if (ret != ROK) {
-    UE_LOG_ERROR(ueAppCb, "Activate Default Bearer Reject Failed");
-    CM_FREE_NASEVNT(&bearerRejEvnt);
-    RETVALUE(ret);
-  }
-  /** Integrity Protected **/
-  if (CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != bearerRejEvnt->secHT) {
-    isPlainMsg = FALSE;
-    srcMsg.val = nasEncPdu.val;
-    srcMsg.len = nasEncPdu.len;
-    ret = ueAppCmpUplnkSec(&ueCb->secCtxt, bearerRejEvnt->secHT, &srcMsg,
-                           &dstMsg);
-    if (ROK != ret) {
-      UE_LOG_ERROR(ueAppCb, "Uplink Security Failed");
-      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
-      bearerRejEvnt->pdu = NULLP;
+   /* Encode the PDU */
+   ret = ueAppEdmEncode(bearerRejEvnt, &nasEncPdu);
+   if (ret != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "Activate Default Bearer Reject Failed");
       CM_FREE_NASEVNT(&bearerRejEvnt);
       RETVALUE(ret);
-    }
-    EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
-    nasEncPdu.val = dstMsg.val;
-    nasEncPdu.len = dstMsg.len;
-  }
-  CM_FREE_NASEVNT(&bearerRejEvnt);
+   }
+   /** Integrity Protected **/
+   if (CM_EMM_SEC_HDR_TYPE_PLAIN_NAS_MSG != bearerRejEvnt->secHT)
+   {
+      isPlainMsg = FALSE;
+      srcMsg.val = nasEncPdu.val;
+      srcMsg.len = nasEncPdu.len;
+      ret = ueAppCmpUplnkSec(&ueCb->secCtxt, bearerRejEvnt->secHT, &srcMsg,
+                             &dstMsg);
+      if (ROK != ret)
+      {
+         UE_LOG_ERROR(ueAppCb, "Uplink Security Failed");
+         EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+         bearerRejEvnt->pdu = NULLP;
+         CM_FREE_NASEVNT(&bearerRejEvnt);
+         RETVALUE(ret);
+      }
+      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+      nasEncPdu.val = dstMsg.val;
+      nasEncPdu.len = dstMsg.len;
+   }
+   CM_FREE_NASEVNT(&bearerRejEvnt);
 
-  nbUeBearerRejReq = (NbuUlNasMsg *)ueAlloc(sizeof(NbuUlNasMsg));
-  nbUeBearerRejReq->ueId = ueCb->ueId;
-  nbUeBearerRejReq->nasPdu.pres = TRUE;
-  nbUeBearerRejReq->nasPdu.len = nasEncPdu.len;
-  nbUeBearerRejReq->nasPdu.val = (U8 *)ueAlloc(nbUeBearerRejReq->nasPdu.len);
-  cmMemcpy((U8 *)nbUeBearerRejReq->nasPdu.val, nasEncPdu.val,
-           nbUeBearerRejReq->nasPdu.len);
+   nbUeBearerRejReq = (NbuUlNasMsg *)ueAlloc(sizeof(NbuUlNasMsg));
+   nbUeBearerRejReq->ueId = ueCb->ueId;
+   nbUeBearerRejReq->nasPdu.pres = TRUE;
+   nbUeBearerRejReq->nasPdu.len = nasEncPdu.len;
+   nbUeBearerRejReq->nasPdu.val = (U8 *)ueAlloc(nbUeBearerRejReq->nasPdu.len);
+   cmMemcpy((U8 *)nbUeBearerRejReq->nasPdu.val, nasEncPdu.val,
+            nbUeBearerRejReq->nasPdu.len);
 
-  if (isPlainMsg) {
-    EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
-  }
+   if (isPlainMsg)
+   {
+      EDM_FREE(nasEncPdu.val, CM_MAX_EMM_ESM_PDU);
+   }
 
-  ret = ueSendUlNasMsgToNb(nbUeBearerRejReq, &ueAppCb->nbPst);
-  if (ret != ROK) {
-    UE_LOG_ERROR(ueAppCb, "Sending Activate Default Berarer Reject to "
-                          "Enodeb Failed");
-    ret = RFAILED;
-  }
+   ret = ueSendUlNasMsgToNb(nbUeBearerRejReq, &ueAppCb->nbPst);
+   if (ret != ROK)
+   {
+      UE_LOG_ERROR(ueAppCb, "Sending Activate Default Berarer Reject to "
+                            "Enodeb Failed");
+      ret = RFAILED;
+   }
 
-  UE_LOG_EXITFN(ueAppCb, ret);
+   UE_LOG_EXITFN(ueAppCb, ret);
 }

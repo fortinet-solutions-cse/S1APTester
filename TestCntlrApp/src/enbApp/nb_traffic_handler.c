@@ -50,37 +50,38 @@
 
 S8 ueIntf[10];
 
-#define NBAPP_ALLOC(_buf, _size)                                        \
-{                                                                       \
-   if(SGetSBuf(0, 0, (Data **) _buf, (Size) _size) == ROK)             \
-   {                                                                    \
-      cmMemset((U8 *)(*_buf), 0, _size);                                \
-   }                                                                    \
-   else                                                                 \
-   {                                                                    \
-      (*_buf) = NULLP;                                                  \
-   }                                                                    \
-}
+#define NBAPP_ALLOC(_buf, _size)                             \
+   {                                                         \
+      if (SGetSBuf(0, 0, (Data **)_buf, (Size)_size) == ROK) \
+      {                                                      \
+         cmMemset((U8 *)(*_buf), 0, _size);                  \
+      }                                                      \
+      else                                                   \
+      {                                                      \
+         (*_buf) = NULLP;                                    \
+      }                                                      \
+   }
 
-#define NBAPP_FREE(_buf, _size)                                         \
-{                                                                       \
-   (Void)SPutSBuf(0, 0, (Data *)_buf, (Size)_size);                     \
-   (_buf) = NULLP;                                                      \
-}
+#define NBAPP_FREE(_buf, _size)                         \
+   {                                                    \
+      (Void) SPutSBuf(0, 0, (Data *)_buf, (Size)_size); \
+      (_buf) = NULLP;                                   \
+   }
 
-typedef struct nbAppDataRoutCb {
-  U32 ipAddr;
-  U8 ipAddrStr[NB_APP_MAX_IP_ADDR_LEN];
-  U8 ip6AddrStr[NB_IPV6_ADDRESS_LEN];
-  U8 macAddr[NB_APP_MAC_ADDR_LEN];
+typedef struct nbAppDataRoutCb
+{
+   U32 ipAddr;
+   U8 ipAddrStr[NB_APP_MAX_IP_ADDR_LEN];
+   U8 ip6AddrStr[NB_IPV6_ADDRESS_LEN];
+   U8 macAddr[NB_APP_MAC_ADDR_LEN];
 } NbAppDataRouteCb;
 
 typedef struct _ueDataCb
 {
    U32 ueId;
-   NbAppDataRouteCb   *ipInfo[11];
+   NbAppDataRouteCb *ipInfo[11];
    U8 noOfIpsAssigned;
-}UeDataCb;
+} UeDataCb;
 
 PRIVATE U16 ueCnt = 0;
 PRIVATE UeDataCb *ueDataCbLst[NB_MAX_UE_SUPPORT_FOR_DATA] = {NULLP};
@@ -94,40 +95,36 @@ U8 nbAppIpAddrStr[NB_APP_MAX_IP_ADDR_LEN];
 U8 lclMACAddr[NB_APP_MAC_ADDR_LEN];
 S16 sockFd = 0;
 
-PRIVATE S16 nbAppInitAdaptor
-(
- Void
-)
+PRIVATE S16 nbAppInitAdaptor(
+    Void)
 {
    S8 errBuf[PCAP_ERRBUF_SIZE];
 
    /* Open the Ethernet Adaptor with LibPCAP  */
    dataHdlr = pcap_open_live(ethInf, NB_APP_PCAP_BUF_SIZE,
-         TRUE, NB_APP_PCAP_TIMEOUT, errBuf);
-   if(NULLP == dataHdlr)
+                             TRUE, NB_APP_PCAP_TIMEOUT, errBuf);
+   if (NULLP == dataHdlr)
    {
-      NB_LOG_ERROR(&nbCb,"nbAppInitAdaptor: Error opening network adaptor");
+      NB_LOG_ERROR(&nbCb, "nbAppInitAdaptor: Error opening network adaptor");
       RETVALUE(RFAILED);
    }
-   NB_LOG_DEBUG(&nbCb,"nbAppInitAdaptor: Initialized the Eth interface for capturing "\
-         "packets");
-   
+   NB_LOG_DEBUG(&nbCb, "nbAppInitAdaptor: Initialized the Eth interface for capturing "
+                       "packets");
+
    /*sockFd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);*/
    sockFd = socket(AF_INET, SOCK_RAW, IPPROTO_RAW);
-   if(sockFd == -1)
+   if (sockFd == -1)
    {
-      NB_LOG_ERROR(&nbCb,"Failed to open socket");
+      NB_LOG_ERROR(&nbCb, "Failed to open socket");
       RETVALUE(RFAILED);
    }
 
    RETVALUE(ROK);
-}/* nbAppInitAdaptor */
+} /* nbAppInitAdaptor */
 
-PRIVATE Void nbAppSendEthPkt
-(
- U8 *ethPktSnd,
- U32 len
-)
+PRIVATE Void nbAppSendEthPkt(
+    U8 *ethPktSnd,
+    U32 len)
 {
    S8 ipAddr[7];
    U16 uePort = 0;
@@ -144,26 +141,24 @@ PRIVATE Void nbAppSendEthPkt
    ipAddr[3] = '.';
    ipAddr[5] = '.';
 
-   uePort = (ethPkt[14 + ipPktLen + 2] << 8) + \
+   uePort = (ethPkt[14 + ipPktLen + 2] << 8) +
             ethPkt[14 + ipPktLen + 3];
    ueConn.sin_family = AF_INET;
    ueConn.sin_port = htons(uePort);
 
    inet_aton(ipAddr, &ueConn.sin_addr);
-   if(sendto(sockFd, &ethPkt[14], len - 14, 0,
-            (struct sockaddr *)&ueConn, sizeof(ueConn)) == -1)
+   if (sendto(sockFd, &ethPkt[14], len - 14, 0,
+              (struct sockaddr *)&ueConn, sizeof(ueConn)) == -1)
    {
       perror("Failed to send socket\n");
    }
 
    RETVOID;
-}/* nbAppSendEthPkt */
+} /* nbAppSendEthPkt */
 
-PRIVATE Void nbAppDlvrIpPkt
-(
- const u_char *pktData,
- U32 bytesRcvd
-)
+PRIVATE Void nbAppDlvrIpPkt(
+    const u_char *pktData,
+    U32 bytesRcvd)
 {
    Buffer *mBuf = NULLP;
    Pst pst;
@@ -171,12 +166,12 @@ PRIVATE Void nbAppDlvrIpPkt
    TRC2(nbAppDlvrIpPkt)
 
    SGetMsg(DFLT_REGION, DFLT_POOL, &mBuf);
-   if(mBuf == NULLP)
+   if (mBuf == NULLP)
    {
       RETVOID;
    }
 
-   if(SAddPstMsgMult((Data *)pktData + 14, bytesRcvd - 14, mBuf) != ROK)
+   if (SAddPstMsgMult((Data *)pktData + 14, bytesRcvd - 14, mBuf) != ROK)
    {
       SPutMsg(mBuf);
       RETVOID;
@@ -193,17 +188,15 @@ PRIVATE Void nbAppDlvrIpPkt
    pst.region = DFLT_REGION;
    pst.pool = DFLT_POOL;
    pst.event = EVTEUDATIND;
-   
+
    SPstTsk(&pst, mBuf);
 
    RETVOID;
-}/* nbAppDlvrIpPkt */
+} /* nbAppDlvrIpPkt */
 
-PRIVATE Void nbAppSendArpRspPkt
-(
- CONSTANT U8  *arpReqPkt,
- U32          len
-)
+PRIVATE Void nbAppSendArpRspPkt(
+    CONSTANT U8 *arpReqPkt,
+    U32 len)
 {
    U8 arpRspPkt[NB_APP_MAX_ETH_PKT_LEN]; /* ARP Response packet */
 
@@ -256,20 +249,18 @@ PRIVATE Void nbAppSendArpRspPkt
    cmMemcpy(arpRspPkt + idx, arpReqPkt + 8, 10);
    idx += 10;
 
-   NB_LOG_DEBUG(&nbCb,"nbAppSendArpRspPkt: Sending the ARP Response Packet to %d.%d.%d.%d\n",
-      arpRspPkt[38], arpRspPkt[39], arpRspPkt[40], arpRspPkt[41]);
+   NB_LOG_DEBUG(&nbCb, "nbAppSendArpRspPkt: Sending the ARP Response Packet to %d.%d.%d.%d\n",
+                arpRspPkt[38], arpRspPkt[39], arpRspPkt[40], arpRspPkt[41]);
    /* Send out ARP response packet */
 
    nbAppSendEthPkt(arpRspPkt, idx);
 
    RETVOID;
-}/* nbAppSendArpRspPkt */
+} /* nbAppSendArpRspPkt */
 
-PRIVATE Void nbAppHndlARPRequest
-(
- CONSTANT U8 *arpPktLcl,
- U32 bytesRcvd
-)
+PRIVATE Void nbAppHndlARPRequest(
+    CONSTANT U8 *arpPktLcl,
+    U32 bytesRcvd)
 {
    TRC2(nbAppHndlARPRequest)
 
@@ -279,59 +270,56 @@ PRIVATE Void nbAppHndlARPRequest
    nbAppSendArpRspPkt(arpPktLcl, bytesRcvd);
 
    RETVOID;
-}/* nbAppHndlARPRequest */
+} /* nbAppHndlARPRequest */
 
-PRIVATE Void nbAppHndlARPResponse
-(
- CONSTANT U8 *arpPktLcl,
- U32 bytesRcvd
-)
+PRIVATE Void nbAppHndlARPResponse(
+    CONSTANT U8 *arpPktLcl,
+    U32 bytesRcvd)
 {
    U16 idx = 0;
    U16 idx1 = 0;
    U32 dstIPAddr = 0;
-   U8 isFound = FALSE; 
+   U8 isFound = FALSE;
    UeDataCb *ueDatCb = NULLP;
 
    TRC2(nbAppHndlARPResponse)
 
-   NB_LOG_DEBUG(&nbCb,"nbAppHndlARPResponse: Received ARP Response");
+   NB_LOG_DEBUG(&nbCb, "nbAppHndlARPResponse: Received ARP Response");
 
-   dstIPAddr = (arpPktLcl[14] << 24) + (arpPktLcl[15] << 16) + 
+   dstIPAddr = (arpPktLcl[14] << 24) + (arpPktLcl[15] << 16) +
                (arpPktLcl[16] << 8) + arpPktLcl[17];
 
    /* Add the received sender MAC address and IP address to IP->MAC map. If
       this is the MAC address of gateway then store it in routeCb */
-   for(idx = 0; idx < ueCnt; idx++)
+   for (idx = 0; idx < ueCnt; idx++)
    {
       ueDatCb = ueDataCbLst[idx];
-      for(idx1 = 0; idx1 < ueDatCb->noOfIpsAssigned; idx1++)
+      for (idx1 = 0; idx1 < ueDatCb->noOfIpsAssigned; idx1++)
       {
-         if(dstIPAddr == (ueDatCb->ipInfo[idx1]->ipAddr))
-      {
-         NB_LOG_DEBUG(&nbCb,"nbAppHndlARPResponse: Received ARP Response for %d.%d.%d.%d\n",
-               arpPktLcl[14],arpPktLcl[15], arpPktLcl[16], arpPktLcl[17]);
+         if (dstIPAddr == (ueDatCb->ipInfo[idx1]->ipAddr))
+         {
+            NB_LOG_DEBUG(&nbCb, "nbAppHndlARPResponse: Received ARP Response for %d.%d.%d.%d\n",
+                         arpPktLcl[14], arpPktLcl[15], arpPktLcl[16], arpPktLcl[17]);
             cmMemcpy((U8 *)&(ueDatCb->ipInfo[idx1]->macAddr), arpPktLcl + 8,
-               NB_APP_MAC_ADDR_LEN);
-           isFound = TRUE;
-           break;
+                     NB_APP_MAC_ADDR_LEN);
+            isFound = TRUE;
+            break;
          }
-         if(isFound == TRUE)
-           break;
+         if (isFound == TRUE)
+            break;
       }
    }
-   NB_LOG_DEBUG(&nbCb,"nbAppHndlARPResponse: Received ARP Response From Invalid Ip "\
-         "Address %d.%d.%d.%d\n", arpPktLcl[14], arpPktLcl[15], arpPktLcl[16],
-         arpPktLcl[17]);
+   NB_LOG_DEBUG(&nbCb, "nbAppHndlARPResponse: Received ARP Response From Invalid Ip "
+                       "Address %d.%d.%d.%d\n",
+                arpPktLcl[14], arpPktLcl[15], arpPktLcl[16],
+                arpPktLcl[17]);
    RETVOID;
-}/* nbAppHndlARPResponse */
+} /* nbAppHndlARPResponse */
 
-PRIVATE Void nbAppRcvdPktHndlr
-(
- u_char *args,
- const struct pcap_pkthdr *hdr,
- const u_char *pktData
-)
+PRIVATE Void nbAppRcvdPktHndlr(
+    u_char *args,
+    const struct pcap_pkthdr *hdr,
+    const u_char *pktData)
 {
    U16 pktType;
    U32 bytesRcvd;
@@ -341,14 +329,14 @@ PRIVATE Void nbAppRcvdPktHndlr
    /* Find out the type of Ethernet packet (bytes 12-13 in Ethernet header),
       handle IP and ARP packets */
    pktType = (pktData[13] << 8) + pktData[12];
-   if(pktType == NB_APP_ETH_TYPE_IP)
+   if (pktType == NB_APP_ETH_TYPE_IP)
    {
       /* Handle the IP packet */
       nbAppDlvrIpPkt(pktData, bytesRcvd);
    }
-   else if(pktType == NB_APP_ETH_TYPE_ARP)
+   else if (pktType == NB_APP_ETH_TYPE_ARP)
    {
-      if(((U16)pktData[21] << 8 | pktData[20]) == NB_APP_ARP_RSP)
+      if (((U16)pktData[21] << 8 | pktData[20]) == NB_APP_ARP_RSP)
       {
          nbAppHndlARPResponse(pktData + 14, bytesRcvd);
       }
@@ -363,47 +351,41 @@ PRIVATE Void nbAppRcvdPktHndlr
    }
 
    RETVOID;
-}/* nbAppRcvdPktHndlr */
+} /* nbAppRcvdPktHndlr */
 
-PUBLIC Void *nbAppPktReceiver
-(
- Void *arg
-)
+PUBLIC Void *nbAppPktReceiver(
+    Void *arg)
 {
    /* Read packets from Ethernet interface and invoke nbAppRcvdPktHndlr
       callback function for every packet read */
-   NB_LOG_DEBUG(&nbCb,"nbAppPktReceiver: Processing the received  Ethernet Packet");
+   NB_LOG_DEBUG(&nbCb, "nbAppPktReceiver: Processing the received  Ethernet Packet");
    pcap_loop(dataHdlr, -1, nbAppRcvdPktHndlr, NULLP);
 
    RETVALUE(NULLP);
-}/* nbAppPktReceiver */
+} /* nbAppPktReceiver */
 
-PUBLIC Void nbAppHndlIPPkt
-(
- CONSTANT U8 *pkt,
- U32 bytesRcvd
-)
+PUBLIC Void nbAppHndlIPPkt(
+    CONSTANT U8 *pkt,
+    U32 bytesRcvd)
 {
    RETVOID;
-}/* nbAppHndlIPPkt */
+} /* nbAppHndlIPPkt */
 
-PRIVATE S16 nbAppGetNwParam
-(
- U32 selfIp
-)
+PRIVATE S16 nbAppGetNwParam(
+    U32 selfIp)
 {
-   struct ifreq       *ifr;
-   struct ifconf      ifc;
-   S32                sockfd;
-   S32                ifclen;
-   U8                 found = FALSE;
+   struct ifreq *ifr;
+   struct ifconf ifc;
+   S32 sockfd;
+   S32 ifclen;
+   U8 found = FALSE;
 
-   NB_LOG_DEBUG(&nbCb,"Getting the network parameters");
+   NB_LOG_DEBUG(&nbCb, "Getting the network parameters");
 
    /* Open a socket for ioctl */
-   if((sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP)) < 0)
+   if ((sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP)) < 0)
    {
-      NB_LOG_ERROR(&nbCb,"Failed to open a socket"); 
+      NB_LOG_ERROR(&nbCb, "Failed to open a socket");
       perror("socket");
       close(sockfd);
       RETVALUE(RFAILED);
@@ -411,9 +393,9 @@ PRIVATE S16 nbAppGetNwParam
 
    /* Get the length of configuration info of all interfaces */
    cmMemset((U8 *)&ifc, 0, sizeof(struct ifconf));
-   if(ioctl(sockfd, SIOCGIFCONF, &ifc))
+   if (ioctl(sockfd, SIOCGIFCONF, &ifc))
    {
-      NB_LOG_ERROR(&nbCb,"Failed to get length of config info of interfaces"); 
+      NB_LOG_ERROR(&nbCb, "Failed to get length of config info of interfaces");
       perror("ioctl SIOCGIFCONF");
       close(sockfd);
       RETVALUE(RFAILED);
@@ -425,18 +407,18 @@ PRIVATE S16 nbAppGetNwParam
 
    NBAPP_ALLOC((&ifc.ifc_req), ifclen);
 
-   if(NULLP == ifc.ifc_req)
+   if (NULLP == ifc.ifc_req)
    {
-      NB_LOG_ERROR(&nbCb,"Failed to alloc memory for ifc.ifc_req"); 
+      NB_LOG_ERROR(&nbCb, "Failed to alloc memory for ifc.ifc_req");
       close(sockfd);
       RETVALUE(RFAILED);
    }
 
    ifc.ifc_len = ifclen;
-   if(ioctl(sockfd, SIOCGIFCONF, &ifc))
+   if (ioctl(sockfd, SIOCGIFCONF, &ifc))
    {
 
-      NB_LOG_ERROR(&nbCb,"Failed to get config info of all interfaces"); 
+      NB_LOG_ERROR(&nbCb, "Failed to get config info of all interfaces");
       perror("ioctl SIOCGIFCONF");
       NBAPP_FREE(ifc.ifc_req, ifclen);
       close(sockfd);
@@ -445,19 +427,19 @@ PRIVATE S16 nbAppGetNwParam
 
    /* Get the ethernet interface name and address matching the selfIp from
       all configured interfaces */
-   for(ifr = ifc.ifc_req; 
-        (ifr && ((char *)ifr < (char *) ifc.ifc_req + ifc.ifc_len)); ++ifr)
+   for (ifr = ifc.ifc_req;
+        (ifr && ((char *)ifr < (char *)ifc.ifc_req + ifc.ifc_len)); ++ifr)
    {
 
-      if(!strcmp(ifr->ifr_name, ueIntf))
+      if (!strcmp(ifr->ifr_name, ueIntf))
       {
          /* Found the interface matching selfIp, get other details */
          strcpy(ethInf, ifr->ifr_name);
 
          /* Get Ethernet (Hardware) Address */
-         if(ioctl(sockfd, SIOCGIFHWADDR, ifr))
+         if (ioctl(sockfd, SIOCGIFHWADDR, ifr))
          {
-            NB_LOG_ERROR(&nbCb,"Failed to get Ethernet address"); 
+            NB_LOG_ERROR(&nbCb, "Failed to get Ethernet address");
             perror("ioctl SIOCGIFHWADDR");
             NBAPP_FREE(ifc.ifc_req, ifclen);
             close(sockfd);
@@ -472,14 +454,14 @@ PRIVATE S16 nbAppGetNwParam
    NBAPP_FREE(ifc.ifc_req, ifclen);
    close(sockfd);
 
-   if(FALSE == found)
+   if (FALSE == found)
    {
-      NB_LOG_ERROR(&nbCb,"Failed to get network parameters"); 
+      NB_LOG_ERROR(&nbCb, "Failed to get network parameters");
       RETVALUE(RFAILED);
    }
-   
+
    RETVALUE(ROK);
-}/* nbAppGetNwParam */
+} /* nbAppGetNwParam */
 
 PRIVATE S16 nbAppInitEthPkt(Void)
 {
@@ -487,7 +469,7 @@ PRIVATE S16 nbAppInitEthPkt(Void)
 
    TRC2(nbAppInitEthPkt)
 
-   NB_LOG_DEBUG(&nbCb,"nbAppInitEthPkt: Initializing the Ethernet Packet");
+   NB_LOG_DEBUG(&nbCb, "nbAppInitEthPkt: Initializing the Ethernet Packet");
 
    /* Set the destination MAC address to broadcast address (all 0xff) */
    cmMemset(ethPkt, 0xff, NB_APP_MAC_ADDR_LEN);
@@ -499,7 +481,7 @@ PRIVATE S16 nbAppInitEthPkt(Void)
    cmMemcpy(ethPkt + (NB_APP_MAC_ADDR_LEN * 2), (U8 *)&ethType, 2);
 
    RETVALUE(ROK);
-}/* nbAppInitEthPkt */
+} /* nbAppInitEthPkt */
 
 PRIVATE S16 nbAppInitArpPkt(Void)
 {
@@ -507,13 +489,13 @@ PRIVATE S16 nbAppInitArpPkt(Void)
    U16 ethProtocolType = NB_APP_ETH_TYPE_IP;
    U16 arpType = NB_APP_ARP_REQ;
    U16 arp_hardware_type_ethernet = 0x0100;
-   U8  arp_hardware_size = 0x06;
-   U8  arp_protocol_size = 0x04;
+   U8 arp_hardware_size = 0x06;
+   U8 arp_protocol_size = 0x04;
    U8 idx;
 
    TRC2(nbAppInitArpPkt)
 
-   NB_LOG_DEBUG(&nbCb,"nbAppInitArpPkt: Initializing the ARP Packet");
+   NB_LOG_DEBUG(&nbCb, "nbAppInitArpPkt: Initializing the ARP Packet");
 
    /* First Fill Ethenet Header */
    /* Set the destination MAC address to broadcast address and 
@@ -559,13 +541,11 @@ PRIVATE S16 nbAppInitArpPkt(Void)
    cmMemset(arpPkt + idx, 0xff, NB_APP_MAC_ADDR_LEN + NB_APP_MAX_IP_ADDR_LEN);
 
    RETVALUE(ROK);
-}/* nbAppInitArpPkt */
+} /* nbAppInitArpPkt */
 
-PRIVATE Void nbAppBuildEthPkt
-(
- U8   *ipPkt, 
- U32   len
-)
+PRIVATE Void nbAppBuildEthPkt(
+    U8 *ipPkt,
+    U32 len)
 {
    U16 idx = 0;
    U16 idx1 = 0;
@@ -576,37 +556,37 @@ PRIVATE Void nbAppBuildEthPkt
    U8 *dstMACAddr = NULLP;
 
    TRC2(nbAppBuildEthPkt)
-   
+
    /*NB_LOG_DEBUG(&nbCb,"nbAppBuildEthPkt: Encapsulating IP packet in a Eth packet");*/
    /* Copy IP packet into Ethernet payload */
    cmMemcpy(ethPkt + 14, ipPkt, len);
 
    /* Find out the destination MAC address using destination IP address */
-   dstIPAddr = (ethPkt[30] << 24) + (ethPkt[31] << 16) + (ethPkt[32] << 8) + \
+   dstIPAddr = (ethPkt[30] << 24) + (ethPkt[31] << 16) + (ethPkt[32] << 8) +
                ethPkt[33];
 
    /* Search the MAC map for destination MAC address */
-   for(idx = 0; idx < ueCnt; idx++)
+   for (idx = 0; idx < ueCnt; idx++)
    {
-      if(ueDataCbLst[idx] != NULLP)
+      if (ueDataCbLst[idx] != NULLP)
       {
          ueDatCb = ueDataCbLst[idx];
-         for( idx1 = 0 ; idx1 < ueDatCb->noOfIpsAssigned ; idx1++)
-      {
-            if((ueDatCb->ipInfo[idx1] != NULLP) && (dstIPAddr == ueDatCb->ipInfo[idx1]->ipAddr))
+         for (idx1 = 0; idx1 < ueDatCb->noOfIpsAssigned; idx1++)
+         {
+            if ((ueDatCb->ipInfo[idx1] != NULLP) && (dstIPAddr == ueDatCb->ipInfo[idx1]->ipAddr))
             {
                dstMACAddr = ueDatCb->ipInfo[idx1]->macAddr;
                isFound = TRUE;
                break;
             }
          }
-         if(isFound == TRUE)
+         if (isFound == TRUE)
             break;
       }
    }
-   if(dstMACAddr == NULLP)
+   if (dstMACAddr == NULLP)
    {
-      NB_LOG_ERROR(&nbCb,"nbAppBuildEthPkt: Could not find MAC address");
+      NB_LOG_ERROR(&nbCb, "nbAppBuildEthPkt: Could not find MAC address");
       RETVOID;
    }
 
@@ -614,13 +594,11 @@ PRIVATE Void nbAppBuildEthPkt
    cmMemcpy(ethPkt, dstMACAddr, NB_APP_MAC_ADDR_LEN);
 
    RETVOID;
-}/* nbAppBuildEthPkt */
+} /* nbAppBuildEthPkt */
 
-PUBLIC U16 nbAppCalcIPChecksum
-(
- U8 *ipPkt, 
- U32 ipHdrLen
-)
+PUBLIC U16 nbAppCalcIPChecksum(
+    U8 *ipPkt,
+    U32 ipHdrLen)
 {
    U16 word;
    U16 idx;
@@ -628,17 +606,17 @@ PUBLIC U16 nbAppCalcIPChecksum
 
    TRC2(nbAppCalcIPChecksum)
 
-   NB_LOG_ERROR(&nbCb,"nbAppCalcIPChecksum: Calculating IP check sum");
+   NB_LOG_ERROR(&nbCb, "nbAppCalcIPChecksum: Calculating IP check sum");
    /* Make 16 bit words out of every two adjacent 8 bit octets in
       the packet and add them up */
-   for(idx = 0; idx < ipHdrLen; idx += 2)
+   for (idx = 0; idx < ipHdrLen; idx += 2)
    {
       word = (((U16)ipPkt[idx] << 8) & 0xFF00) + (ipPkt[idx + 1] & 0xFF);
       chksum += (U32)word;
    }
 
    /* Take only 16 bits out of the 32 bit checksum */
-   while(chksum >> 16)
+   while (chksum >> 16)
    {
       chksum = (chksum & 0xFFFF) + (chksum >> 16);
    }
@@ -648,18 +626,16 @@ PUBLIC U16 nbAppCalcIPChecksum
 
    /* Return the 16 bit checksum */
    RETVALUE((U16)chksum);
-}/* nbAppCalcIPChecksum */
+} /* nbAppCalcIPChecksum */
 
-PRIVATE Void nbAppFragmentIPPkt
-(
- U8  *ipPkt, 
- U32  len
-)
+PRIVATE Void nbAppFragmentIPPkt(
+    U8 *ipPkt,
+    U32 len)
 {
-   U8  *ipHdr;
+   U8 *ipHdr;
    U32 ipHdrLen;
    U32 bytesSent;
-   U8  ipPacket[NB_APP_MAX_IP_PKT];
+   U8 ipPacket[NB_APP_MAX_IP_PKT];
    U32 bytesRemaining;
    U32 maxIPDatSize;
    U32 fragOffset;
@@ -669,7 +645,7 @@ PRIVATE Void nbAppFragmentIPPkt
 
    TRC2(nbAppFragmentIPPkt)
 
-   NB_LOG_ERROR(&nbCb,"nbAppFragmentIPPkt:Fragmenting IP packet of len %d", len);
+   NB_LOG_ERROR(&nbCb, "nbAppFragmentIPPkt:Fragmenting IP packet of len %d", len);
 
    /* Initialise variables */
    ipHdr = ipPkt; /* Copy IP header pointer */
@@ -680,23 +656,23 @@ PRIVATE Void nbAppFragmentIPPkt
    fragOffset = 0;
 
    /* Loop for fragmenting the IP packets */
-   while(bytesRemaining > 0)
+   while (bytesRemaining > 0)
    {
       /* Copy the original IP header to IP fragment and modify 
          the header to reflect fragmentation */
-      cmMemcpy(ipPacket, ipHdr, ipHdrLen); 
+      cmMemcpy(ipPacket, ipHdr, ipHdrLen);
 
       /* Set more flag in the IP header if this is not the last IP fragment */
-      if(bytesRemaining > maxIPDatSize)
+      if (bytesRemaining > maxIPDatSize)
       {
          ipPacket[6] |= (0x1 << 5);
       }
-      
+
       /* Set fragment offset */
       ipPacket[6] |= (U8)((fragOffset >> 8) & 0x1F);
       ipPacket[7] = (U8)(fragOffset & 0xFF);
 
-      if(bytesRemaining > maxIPDatSize)
+      if (bytesRemaining > maxIPDatSize)
       {
          totLen = NB_APP_MAX_IP_PKT;
       }
@@ -706,7 +682,7 @@ PRIVATE Void nbAppFragmentIPPkt
       }
 
       dataSent = totLen - ipHdrLen;
-      if(bytesRemaining > maxIPDatSize)
+      if (bytesRemaining > maxIPDatSize)
       {
          U32 bytesToSend;
 
@@ -733,13 +709,14 @@ PRIVATE Void nbAppFragmentIPPkt
       /* Encapsulate IP packet in an Ethernet packet */
       nbAppBuildEthPkt(ipPacket, totLen);
 
-      NB_LOG_DEBUG(&nbCb,"nbAppFragmentIPPkt: Sending IP fragment from %d.%d.%d.%d to "\
-          "%d.%d.%d.%d\n", ipPkt[12], ipPkt[13], ipPkt[14], ipPkt[15],
-          ipPkt[16], ipPkt[17], ipPkt[18], ipPkt[19]);
+      NB_LOG_DEBUG(&nbCb, "nbAppFragmentIPPkt: Sending IP fragment from %d.%d.%d.%d to "
+                          "%d.%d.%d.%d\n",
+                   ipPkt[12], ipPkt[13], ipPkt[14], ipPkt[15],
+                   ipPkt[16], ipPkt[17], ipPkt[18], ipPkt[19]);
 
       /* Send out Ethernet packet */
       nbAppSendEthPkt(ethPkt, (totLen + 14));
-      
+
       /* Update variables */
       bytesSent += dataSent;
       bytesRemaining -= dataSent;
@@ -747,31 +724,28 @@ PRIVATE Void nbAppFragmentIPPkt
    }
 
    RETVOID;
-}/* nbAppFragmentIPPkt */
+} /* nbAppFragmentIPPkt */
 
-PRIVATE S16 nbAppSendArpReqPkt
-(
- U8  *ipAddr
-)
+PRIVATE S16 nbAppSendArpReqPkt(
+    U8 *ipAddr)
 {
    TRC2(nbAppSendArpReqPkt)
-   NB_LOG_DEBUG(&nbCb,"nbAppSendArpReqPkt: Sending the ARP Request Packet");
+   NB_LOG_DEBUG(&nbCb, "nbAppSendArpReqPkt: Sending the ARP Request Packet");
 
-   NB_LOG_DEBUG(&nbCb,"nbAppSendArpReqPkt: Sending the ARP Request Packet for "\
-         "%d:%d:%d:%d\n", ipAddr[0], ipAddr[1], ipAddr[2], ipAddr[3]);
+   NB_LOG_DEBUG(&nbCb, "nbAppSendArpReqPkt: Sending the ARP Request Packet for "
+                       "%d:%d:%d:%d\n",
+                ipAddr[0], ipAddr[1], ipAddr[2], ipAddr[3]);
 
    /* Take the default ARP packet and add the destination IP address */
    cmMemcpy(arpPkt + 38, ipAddr, NB_APP_MAX_IP_ADDR_LEN);
    /* Send out ARP request packet */
 
    RETVALUE(ROK);
-}/* nbAppSendArpReqPkt */
+} /* nbAppSendArpReqPkt */
 
-PUBLIC S16 nbAppCfgrPdnAssignedAddr
-(
- U32 ueId,
- U32 pdnAsgndAddr
-)
+PUBLIC S16 nbAppCfgrPdnAssignedAddr(
+    U32 ueId,
+    U32 pdnAsgndAddr)
 {
    S16 ret;
    UeDataCb *ueDatCb = NULLP;
@@ -780,51 +754,52 @@ PUBLIC S16 nbAppCfgrPdnAssignedAddr
    U8 idx1 = 0;
    NbAppDataRouteCb *ipInfo = NULLP;
 
-   for(idx = 0; idx < ueCnt; idx++)
+   for (idx = 0; idx < ueCnt; idx++)
    {
-      if((ueDataCbLst[idx] != NULLP) &&(ueDataCbLst[idx]->ueId == ueId))
+      if ((ueDataCbLst[idx] != NULLP) && (ueDataCbLst[idx]->ueId == ueId))
       {
          ueDatCb = ueDataCbLst[idx];
-         for(idx1 = 0; idx1 < ueDatCb->noOfIpsAssigned; idx1++)
+         for (idx1 = 0; idx1 < ueDatCb->noOfIpsAssigned; idx1++)
          {
-            if((ueDatCb->ipInfo[idx1]!= NULLP) && \
-                  (ueDatCb->ipInfo[idx1]->ipAddr == pdnAsgndAddr))
+            if ((ueDatCb->ipInfo[idx1] != NULLP) &&
+                (ueDatCb->ipInfo[idx1]->ipAddr == pdnAsgndAddr))
             {
-               NB_LOG_ERROR(&nbCb,"nbAppCfgrPdnAssignedAddr: PDN Address is already assigned "\
-                     "for UeId %d", ueId);
+               NB_LOG_ERROR(&nbCb, "nbAppCfgrPdnAssignedAddr: PDN Address is already assigned "
+                                   "for UeId %d",
+                            ueId);
                RETVALUE(RFAILED);
             }
          }
          break;
       }
    }
-   if((ueDatCb == NULLP) && (ueCnt < NB_MAX_UE_SUPPORT_FOR_DATA))
+   if ((ueDatCb == NULLP) && (ueCnt < NB_MAX_UE_SUPPORT_FOR_DATA))
    {
       NBAPP_ALLOC(&ueDatCb, sizeof(UeDataCb));
-      if(ueDatCb == NULLP)
+      if (ueDatCb == NULLP)
       {
-         NB_LOG_ERROR(&nbCb,"Failed to allocate memory for ueDatCb");
+         NB_LOG_ERROR(&nbCb, "Failed to allocate memory for ueDatCb");
          RETVALUE(RFAILED);
       }
-      cmMemset((U8 *)ueDatCb,0, sizeof(UeDataCb));
+      cmMemset((U8 *)ueDatCb, 0, sizeof(UeDataCb));
       ueDatCb->ueId = ueId;
       ueDataCbLst[ueCnt] = ueDatCb;
       ueCnt++;
    }
 
-   NBAPP_ALLOC(&ipInfo,sizeof(NbAppDataRouteCb));
-   if(ipInfo == NULLP)
+   NBAPP_ALLOC(&ipInfo, sizeof(NbAppDataRouteCb));
+   if (ipInfo == NULLP)
    {
-      NB_LOG_ERROR(&nbCb,"Failed to allocate memory for ipInfo");
+      NB_LOG_ERROR(&nbCb, "Failed to allocate memory for ipInfo");
       RETVALUE(RFAILED);
    }
-   cmMemset((U8 *)ipInfo,0, sizeof(NbAppDataRouteCb));
-   ipInfo->ipAddr = pdnAsgndAddr; 
-   for(idx = 0; idx < NB_APP_MAX_IP_ADDR_LEN; idx++)
+   cmMemset((U8 *)ipInfo, 0, sizeof(NbAppDataRouteCb));
+   ipInfo->ipAddr = pdnAsgndAddr;
+   for (idx = 0; idx < NB_APP_MAX_IP_ADDR_LEN; idx++)
    {
       ipInfo->ipAddrStr[idx] = (pdnAsgndAddr >> (8 * (3 - idx)));
    }
-   if(ueDatCb == NULLP)
+   if (ueDatCb == NULLP)
    {
       NB_LOG_ERROR(&nbCb, "ueDatCb is empty");
       RETVALUE(RFAILED);
@@ -832,16 +807,17 @@ PUBLIC S16 nbAppCfgrPdnAssignedAddr
    ueDatCb->ipInfo[ueDatCb->noOfIpsAssigned] = ipInfo;
    ueDatCb->noOfIpsAssigned++;
 
-   NB_LOG_DEBUG(&nbCb,"nbAppCfgrPdnAssignedAddr: Configuring the PDN assigned IP "\
-         "Address");
+   NB_LOG_DEBUG(&nbCb, "nbAppCfgrPdnAssignedAddr: Configuring the PDN assigned IP "
+                       "Address");
 
    ipAddr[0] = (U8)((pdnAsgndAddr >> 24) & 0xff);
    ipAddr[1] = (U8)((pdnAsgndAddr >> 16) & 0xff);
    ipAddr[2] = (U8)((pdnAsgndAddr >> 8) & 0xff);
    ipAddr[3] = (U8)((pdnAsgndAddr & 0xff));
 
-   NB_LOG_DEBUG(&nbCb,"nbAppCfgrPdnAssignedAddr: Sending the ARP Request Packet "\
-         "for %d:%d:%d:%d\n", ipAddr[0], ipAddr[1], ipAddr[2], ipAddr[3]);
+   NB_LOG_DEBUG(&nbCb, "nbAppCfgrPdnAssignedAddr: Sending the ARP Request Packet "
+                       "for %d:%d:%d:%d\n",
+                ipAddr[0], ipAddr[1], ipAddr[2], ipAddr[3]);
 
 #if 0
    if(middleEntry > 0)
@@ -863,113 +839,117 @@ PUBLIC S16 nbAppCfgrPdnAssignedAddr
    ret = nbAppSendArpReqPkt(ipAddr);
 
    RETVALUE(ret);
-}/* nbAppCfgrPdnAssignedAddr */
+} /* nbAppCfgrPdnAssignedAddr */
 
-PUBLIC S16 nbAppCfgrPdnAssignedAddrIpv6(U8 ueId, U8 *ipv6Addr) {
-  UeDataCb *ueDatCb = NULLP;
-  U8 idx = 0;
-  U8 idx1 = 0;
-  NbAppDataRouteCb *ipInfo = NULLP;
+PUBLIC S16 nbAppCfgrPdnAssignedAddrIpv6(U8 ueId, U8 *ipv6Addr)
+{
+   UeDataCb *ueDatCb = NULLP;
+   U8 idx = 0;
+   U8 idx1 = 0;
+   NbAppDataRouteCb *ipInfo = NULLP;
 
-  for (idx = 0; idx < ueCnt; idx++) {
-    if ((ueDataCbLst[idx] != NULLP) && (ueDataCbLst[idx]->ueId == ueId)) {
-      ueDatCb = ueDataCbLst[idx];
-      for (idx1 = 0; idx1 < ueDatCb->noOfIpsAssigned; idx1++) {
-        if ((ueDatCb->ipInfo[idx1] != NULLP) &&
-            (!cmMemcmp(ueDatCb->ipInfo[idx1]->ip6AddrStr, ipv6Addr,
-                       NB_IPV6_ADDRESS_LEN))) {
-          NB_LOG_ERROR(
-              &nbCb,
-              "nbAppCfgrPdnAssignedAddr: IPv6 PDN Address is already assigned "
-              "for UeId %d",
-              ueId);
-          RETVALUE(RFAILED);
-        }
+   for (idx = 0; idx < ueCnt; idx++)
+   {
+      if ((ueDataCbLst[idx] != NULLP) && (ueDataCbLst[idx]->ueId == ueId))
+      {
+         ueDatCb = ueDataCbLst[idx];
+         for (idx1 = 0; idx1 < ueDatCb->noOfIpsAssigned; idx1++)
+         {
+            if ((ueDatCb->ipInfo[idx1] != NULLP) &&
+                (!cmMemcmp(ueDatCb->ipInfo[idx1]->ip6AddrStr, ipv6Addr,
+                           NB_IPV6_ADDRESS_LEN)))
+            {
+               NB_LOG_ERROR(
+                   &nbCb,
+                   "nbAppCfgrPdnAssignedAddr: IPv6 PDN Address is already assigned "
+                   "for UeId %d",
+                   ueId);
+               RETVALUE(RFAILED);
+            }
+         }
+         break;
       }
-      break;
-    }
-  }
-  if ((ueDatCb == NULLP) && (ueCnt < NB_MAX_UE_SUPPORT_FOR_DATA)) {
-    NBAPP_ALLOC(&ueDatCb, sizeof(UeDataCb));
-    if (ueDatCb == NULLP) {
-      NB_LOG_ERROR(&nbCb, "Failed to allocate memory for ueDatCb");
+   }
+   if ((ueDatCb == NULLP) && (ueCnt < NB_MAX_UE_SUPPORT_FOR_DATA))
+   {
+      NBAPP_ALLOC(&ueDatCb, sizeof(UeDataCb));
+      if (ueDatCb == NULLP)
+      {
+         NB_LOG_ERROR(&nbCb, "Failed to allocate memory for ueDatCb");
+         RETVALUE(RFAILED);
+      }
+      cmMemset((U8 *)ueDatCb, 0, sizeof(UeDataCb));
+      ueDatCb->ueId = ueId;
+      ueDataCbLst[ueCnt] = ueDatCb;
+      ueCnt++;
+   }
+
+   NBAPP_ALLOC(&ipInfo, sizeof(NbAppDataRouteCb));
+   if (ipInfo == NULLP)
+   {
+      NB_LOG_ERROR(&nbCb, "Failed to allocate memory for ipInfo");
       RETVALUE(RFAILED);
-    }
-    cmMemset((U8 *)ueDatCb, 0, sizeof(UeDataCb));
-    ueDatCb->ueId = ueId;
-    ueDataCbLst[ueCnt] = ueDatCb;
-    ueCnt++;
-  }
+   }
+   cmMemset((U8 *)ipInfo, 0, sizeof(NbAppDataRouteCb));
+   cmMemcpy(ipInfo->ip6AddrStr, ipv6Addr, NB_IPV6_ADDRESS_LEN);
+   if (ueDatCb == NULLP)
+   {
+      NB_LOG_ERROR(&nbCb, "ueDatCb is empty");
+      RETVALUE(RFAILED);
+   }
+   ueDatCb->ipInfo[ueDatCb->noOfIpsAssigned] = ipInfo;
+   ueDatCb->noOfIpsAssigned++;
 
-  NBAPP_ALLOC(&ipInfo, sizeof(NbAppDataRouteCb));
-  if (ipInfo == NULLP) {
-    NB_LOG_ERROR(&nbCb, "Failed to allocate memory for ipInfo");
-    RETVALUE(RFAILED);
-  }
-  cmMemset((U8 *)ipInfo, 0, sizeof(NbAppDataRouteCb));
-  cmMemcpy(ipInfo->ip6AddrStr, ipv6Addr, NB_IPV6_ADDRESS_LEN);
-  if (ueDatCb == NULLP) {
-    NB_LOG_ERROR(&nbCb, "ueDatCb is empty");
-    RETVALUE(RFAILED);
-  }
-  ueDatCb->ipInfo[ueDatCb->noOfIpsAssigned] = ipInfo;
-  ueDatCb->noOfIpsAssigned++;
-
-  RETVALUE(ROK);
+   RETVALUE(ROK);
 }
 
-
-PUBLIC Void nbRelCntxtInTrafficHandler
-(
- U32 ueId
-)
+PUBLIC Void nbRelCntxtInTrafficHandler(
+    U32 ueId)
 {
    U32 idx = 0;
    U8 idx1;
    UeDataCb *ueDatCb = NULLP;
 
-   for(idx = 0; idx < ueCnt; idx++)
+   for (idx = 0; idx < ueCnt; idx++)
    {
-      if((ueDataCbLst[idx] != NULLP)&& (ueDataCbLst[idx]->ueId == ueId))
+      if ((ueDataCbLst[idx] != NULLP) && (ueDataCbLst[idx]->ueId == ueId))
       {
          ueDatCb = ueDataCbLst[idx];
-         for(idx1 = 0 ; idx1 < ueDatCb->noOfIpsAssigned ; idx1 ++)
-      {
+         for (idx1 = 0; idx1 < ueDatCb->noOfIpsAssigned; idx1++)
+         {
             NBAPP_FREE(ueDatCb->ipInfo[idx1], sizeof(NbAppDataRouteCb));
          }
-         printf("Deleting Ue Context from Traffic Handler\n");
+         //printf("Deleting Ue Context from Traffic Handler\n");
          NBAPP_FREE(ueDatCb, sizeof(UeDataCb));
          ueCnt--;
-         while(idx < ueCnt)
+         while (idx < ueCnt)
          {
-            ueDataCbLst[idx] = ueDataCbLst[idx+1]; 
-               idx++;
-      }
+            ueDataCbLst[idx] = ueDataCbLst[idx + 1];
+            idx++;
+         }
          break;
-   }
+      }
    }
 }
 
-PUBLIC S16 nbAppFrwdIpPkt
-(
- U8 *ipPkt,
- U32 len
-)
+PUBLIC S16 nbAppFrwdIpPkt(
+    U8 *ipPkt,
+    U32 len)
 {
    TRC2(nbAppFrwdIpPkt)
 
    /*NB_LOG_DEBUG(&nbCb,"nbAppFrwdIpPkt: Forwarding the IP packet to client");*/
 
-   if(len > NB_APP_MAX_ETH_PKT_LEN)
+   if (len > NB_APP_MAX_ETH_PKT_LEN)
    {
-         NB_LOG_ERROR(&nbCb,"nbAppFrwdIpPkt: Failed to send the Packet as it exceeds Max"\
-               " Ethernet Packet Size");
+      NB_LOG_ERROR(&nbCb, "nbAppFrwdIpPkt: Failed to send the Packet as it exceeds Max"
+                          " Ethernet Packet Size");
       RETVALUE(RFAILED);
    }
 
    /* Fragment the IP packet if its length is greater than the 
       Maximum data size */
-   if(len < NB_APP_MAX_IP_PKT)
+   if (len < NB_APP_MAX_IP_PKT)
    {
       /* Encapsulate the IP packet in an Ethernet packet */
       nbAppBuildEthPkt(ipPkt, len);
@@ -993,13 +973,11 @@ PUBLIC S16 nbAppFrwdIpPkt
    }
 
    RETVALUE(ROK);
-}/* nbAppFrwdIpPkt */
+} /* nbAppFrwdIpPkt */
 
-PUBLIC S16 nbAppRouteInit
-(
- U32 selfIp,
- S8 *ethIntf
-)
+PUBLIC S16 nbAppRouteInit(
+    U32 selfIp,
+    S8 *ethIntf)
 {
    S16 ret = ROK;
    U16 idx = 0;
@@ -1009,17 +987,17 @@ PUBLIC S16 nbAppRouteInit
 #endif
    pthread_t pcapTid;
 
-   NB_LOG_DEBUG(&nbCb,"Initializing the Route Parameters");
+   NB_LOG_DEBUG(&nbCb, "Initializing the Route Parameters");
    nbAppIpAddr = selfIp;
-   
-   while(ethIntf[cnt])
+
+   while (ethIntf[cnt])
    {
       ueIntf[cnt] = ethIntf[cnt];
       cnt++;
    }
    ueIntf[cnt] = '\0';
 
-   for(idx = 0; idx < NB_APP_MAX_IP_ADDR_LEN; idx++)
+   for (idx = 0; idx < NB_APP_MAX_IP_ADDR_LEN; idx++)
    {
       nbAppIpAddrStr[idx] = nbAppIpAddr >> (8 * (3 - idx));
    }
@@ -1029,53 +1007,53 @@ PUBLIC S16 nbAppRouteInit
 
    /* Get Network Parameters using self assigned IP Address */
    ret = nbAppGetNwParam(nbAppIpAddr);
-   if(ROK != ret)
+   if (ROK != ret)
    {
-      NB_LOG_ERROR(&nbCb,"Failed to get network parameters"); 
+      NB_LOG_ERROR(&nbCb, "Failed to get network parameters");
       RETVALUE(RFAILED);
    }
 #ifdef DEBUGP
    addr = lclMACAddr;
 #endif
-   NB_LOG_DEBUG(&nbCb,"Ethernet address: %x:%x:%x:%x:%x:%x\n", addr[0],
-      addr[1], addr[2], addr[3], addr[4], addr[5]);
+   NB_LOG_DEBUG(&nbCb, "Ethernet address: %x:%x:%x:%x:%x:%x\n", addr[0],
+                addr[1], addr[2], addr[3], addr[4], addr[5]);
 
 #ifdef DEBUGP
    addr = nbAppIpAddrStr;
 #endif
-   NB_LOG_DEBUG(&nbCb,"App(Proxy) IP address: %d.%d.%d.%d\n", addr[0],
-      addr[1], addr[2], addr[3]);
+   NB_LOG_DEBUG(&nbCb, "App(Proxy) IP address: %d.%d.%d.%d\n", addr[0],
+                addr[1], addr[2], addr[3]);
 
    /* Initialize Ethernet packet */
    ret = nbAppInitEthPkt();
-   if(ret != ROK)
+   if (ret != ROK)
    {
-      NB_LOG_ERROR(&nbCb,"Failed to initialise Ethernet Packet"); 
+      NB_LOG_ERROR(&nbCb, "Failed to initialise Ethernet Packet");
       RETVALUE(RFAILED);
    }
 
    /* Initialize ARP packet */
    ret = nbAppInitArpPkt();
-   if(ret != ROK)
+   if (ret != ROK)
    {
-      NB_LOG_ERROR(&nbCb,"Failed to initialise ARP Packet");
+      NB_LOG_ERROR(&nbCb, "Failed to initialise ARP Packet");
       RETVALUE(RFAILED);
    }
 
    /* Open the adaptor for capturing packets - LibPcap */
    ret = nbAppInitAdaptor();
-   if(ret != ROK)
+   if (ret != ROK)
    {
-      NB_LOG_ERROR(&nbCb,"Failed to initialise Adaptor"); 
+      NB_LOG_ERROR(&nbCb, "Failed to initialise Adaptor");
       RETVALUE(RFAILED);
    }
 
    /* Create the thread for capturing the packets */
-   if(pthread_create(&pcapTid, NULLP, nbAppPktReceiver, NULLP))
+   if (pthread_create(&pcapTid, NULLP, nbAppPktReceiver, NULLP))
    {
-      NB_LOG_ERROR(&nbCb,"nbAppPktReceiver thread creation failed"); 
+      NB_LOG_ERROR(&nbCb, "nbAppPktReceiver thread creation failed");
       RETVALUE(RFAILED);
    }
 
    RETVALUE(ROK);
-}/* nbAppRouteInit */
+} /* nbAppRouteInit */

@@ -38,8 +38,6 @@
 
 *********************************************************************21*/
 
-
-
 /* header include files -- defines (.h) */
 #include <sys/types.h>
 #include <sys/time.h>
@@ -48,28 +46,28 @@
 #include <sys/epoll.h>
 #include <sys/ioctl.h>
 #include <errno.h>
-#include "envopt.h"        /* environment options */
-#include "envdep.h"        /* environment dependent */
-#include "envind.h"        /* environment independent */
-#include "gen.h"           /* general */
-#include "ssi.h"           /* system services */
-#include "cm_hash.h"       /* common hashing */
-#include "cm_llist.h"      /* common linked list */
-#include "cm5.h"           /* common timer */
-#include "cm_inet.h"       /* common network address */
-#include "cm_tpt.h"        /* common transport defines */
-#include "cm_dns.h"      /* common DNS library */
+#include "envopt.h"   /* environment options */
+#include "envdep.h"   /* environment dependent */
+#include "envind.h"   /* environment independent */
+#include "gen.h"      /* general */
+#include "ssi.h"      /* system services */
+#include "cm_hash.h"  /* common hashing */
+#include "cm_llist.h" /* common linked list */
+#include "cm5.h"      /* common timer */
+#include "cm_inet.h"  /* common network address */
+#include "cm_tpt.h"   /* common transport defines */
+#include "cm_dns.h"   /* common DNS library */
 
 /* header/extern include files (.x) */
-#include "gen.x"           /* general */
-#include "ssi.x"           /* system services */
-#include "cm_hash.x"       /* common hashing */
-#include "cm_llist.x"      /* common linked list */
-#include "cm_lib.x"        /* common library */
-#include "cm5.x"           /* common timer */
-#include "cm_inet.x"       /* common network address */
-#include "cm_tpt.x"        /* common transport address */
-#include "cm_dns.x"        /* common DNS library */
+#include "gen.x"      /* general */
+#include "ssi.x"      /* system services */
+#include "cm_hash.x"  /* common hashing */
+#include "cm_llist.x" /* common linked list */
+#include "cm_lib.x"   /* common library */
+#include "cm5.x"      /* common timer */
+#include "cm_inet.x"  /* common network address */
+#include "cm_tpt.x"   /* common transport address */
+#include "cm_dns.x"   /* common DNS library */
 
 #include "leg.h"
 #include "egt.h"
@@ -94,25 +92,23 @@ U32 g_egtpSockDropsDueToReason19;
 int ntl_hLib = -1;
 #endif
 
-EXTERN  Void EgTLSendEgtpMsg(Bool);
+EXTERN Void EgTLSendEgtpMsg(Bool);
 #ifndef LTE_ENB_PAL
 typedef struct egMsgData
 {
-   struct cmsghdr hdr;
-   U8   data;
-}EgMsgData;
+    struct cmsghdr hdr;
+    U8 data;
+} EgMsgData;
 #endif
 
 U32 egTLUplnkSocket; /*!< Workaround for Uplink ZBC: Socket is used to send Uplink Traffic */
 
-PUBLIC S16 egFpTunProcEguDatReq
- (
- U32 lclTeid,
- U32 remTeid,
- U8  tos,
- U32 tPduSise,
- Buffer *mBuf
- );
+PUBLIC S16 egFpTunProcEguDatReq(
+    U32 lclTeid,
+    U32 remTeid,
+    U8 tos,
+    U32 tPduSise,
+    Buffer *mBuf);
 #ifdef ENB_CPU_OVERLOAD_CONTROL
 /* !< The upper threshold for IDLE CPU to increase the number of packets
  * to be read from socket to control the CPU load
@@ -140,11 +136,10 @@ struct timespec tsStart1;
  * @return  ROK, RFAILED
  */
 #ifndef DHI
-PRIVATE U32 egTLCloseServerReq
-(
-U32 connId             /* !< Connection Id of the socket to be closed. */
+PRIVATE U32 egTLCloseServerReq(
+    U32 connId /* !< Connection Id of the socket to be closed. */
 );
-#endif 
+#endif
 /** @details
  *     This function is used by ThinLayer to build I/O vector to send a message.
  *
@@ -164,15 +159,14 @@ U32 connId             /* !< Connection Id of the socket to be closed. */
  *                       maximum number of dBufs are not sufficient
  *                       to hold the entire message
  */
-PRIVATE S16 egTLBuildSendIovec
-(
-    Buffer         *mBuf,           /* Message buffer */
-    MsgLen         msgLen,          /* Length of mBuf */
-    CmInetIovec    txArr[],         /* transmit scatter vector array */
-    S16            numDBufs,        /* Maximum number of dBufs to use */
-    S16            *numIovElems,    /* Number of iov elements in array */
-    U32            *strtEndDBufNum, /* dBuf number to start and end */
-    MsgLen         *ioLen           /* Len of dbuf packed into IO-vector */
+PRIVATE S16 egTLBuildSendIovec(
+    Buffer *mBuf,        /* Message buffer */
+    MsgLen msgLen,       /* Length of mBuf */
+    CmInetIovec txArr[], /* transmit scatter vector array */
+    S16 numDBufs,        /* Maximum number of dBufs to use */
+    S16 *numIovElems,    /* Number of iov elements in array */
+    U32 *strtEndDBufNum, /* dBuf number to start and end */
+    MsgLen *ioLen        /* Len of dbuf packed into IO-vector */
 );
 
 /** @details
@@ -299,13 +293,11 @@ Bool           isStrmMsg        /* Is a TCP message */
  * @param [out]  mBuf    -  Buffer containing read packet from the socket.
  * @return  ROK, RFAILED
  */
-PRIVATE S16 egTLRecvZbcUdpMsgFB
-(
-U32           sockFd,
-CmTptAddr     *remAddr,
-U8            **recvBuf,
-U32           *bufLen
-);
+PRIVATE S16 egTLRecvZbcUdpMsgFB(
+    U32 sockFd,
+    CmTptAddr *remAddr,
+    U8 **recvBuf,
+    U32 *bufLen);
 #endif
 
 /** @details
@@ -319,13 +311,11 @@ U32           *bufLen
  */
 
 #if (defined(TENB_T2K3K_SPECIFIC_CHANGES)) && (!defined(TENB_DISABLE_DL_ZBC))
-PRIVATE S16 egTLRecvZbcUdpMsg
-(
-U32 sockFd,
-CmTptAddr *remAddr,
-CmInetMemInfo memInfo,
-Buffer             **mBuf
-);
+PRIVATE S16 egTLRecvZbcUdpMsg(
+    U32 sockFd,
+    CmTptAddr *remAddr,
+    CmInetMemInfo memInfo,
+    Buffer **mBuf);
 #endif
 #ifdef FLAT_BUFFER_OPT
 /** @details
@@ -336,13 +326,11 @@ Buffer             **mBuf
  * @param [out]  mBuf    -  Buffer containing read packet from the socket.
  * @return  ROK, RFAILED
  */
-PRIVATE S16 egTLHndlRecv
-(
-EgTLServerCb       *egTLServerCb,
-U8                 *recvBuf,
-U32                bufLen,
-CmTptAddr          *remAddr
-);
+PRIVATE S16 egTLHndlRecv(
+    EgTLServerCb *egTLServerCb,
+    U8 *recvBuf,
+    U32 bufLen,
+    CmTptAddr *remAddr);
 #endif
 
 /*Private Function Declaration*/
@@ -357,13 +345,11 @@ CmTptAddr          *remAddr
  * @param [out]  mBuf    -  Buffer containing read packet from the socket.
  * @return  ROK, RFAILED
  */
-PRIVATE S16 egTLRecvMsgFromSocketFB
-(
-U32        sockFd,
-CmTptAddr *remAddr,
-U8        *buf,
-U32       *bufLen
-);
+PRIVATE S16 egTLRecvMsgFromSocketFB(
+    U32 sockFd,
+    CmTptAddr *remAddr,
+    U8 *buf,
+    U32 *bufLen);
 #endif /* #if !((defined(TENB_T2K3K_SPECIFIC_CHANGES)) && (!defined(TENB_DISABLE_DL_ZBC)))*/
 #endif
 
@@ -378,13 +364,11 @@ U32       *bufLen
  */
 /*fix for ccpu00136421 */
 #if !((defined(TENB_T2K3K_SPECIFIC_CHANGES)) && (!defined(TENB_DISABLE_DL_ZBC)))
-PRIVATE S16 egTLRecvMsgFromSocket
-(
-U32 sockFd,
-CmTptAddr *remAddr,
-CmInetMemInfo memInfo,
-Buffer             **mBuf
-);
+PRIVATE S16 egTLRecvMsgFromSocket(
+    U32 sockFd,
+    CmTptAddr *remAddr,
+    CmInetMemInfo memInfo,
+    Buffer **mBuf);
 #endif
 
 PRIVATE U32 egTLQueueAddOne(U32 idx);
@@ -408,20 +392,17 @@ PUBLIC Void egUpdatePacketInfo(Void);
 
 PRIVATE U32 egTLQueueAddOne(U32 idx)
 {
-   /* */
-   RETVALUE((idx + 1) & (MAX_QUEUE_LEN - 1));
+    /* */
+    RETVALUE((idx + 1) & (MAX_QUEUE_LEN - 1));
 }
 #ifdef TENB_UL_FP
-PUBLIC S16 egFpTunProcEguDatReq
-(
-U32 lclTeid,       /* Event from UI */
-U32 remTeid,
-U8  tos,
-U32 tPduSize,
-Buffer* mBuf
-);
+PUBLIC S16 egFpTunProcEguDatReq(
+    U32 lclTeid, /* Event from UI */
+    U32 remTeid,
+    U8 tos,
+    U32 tPduSize,
+    Buffer *mBuf);
 #endif
-
 
 #ifdef ENB_CPU_OVERLOAD_CONTROL
 /** @details
@@ -434,17 +415,16 @@ Buffer* mBuf
 
 PRIVATE U32 egGetQueueLen(U32 front, U32 rear)
 {
-   if(rear < front)
-   {
-      RETVALUE((rear - front) + MAX_QUEUE_LEN);
-   }
-   else
-   {
-      RETVALUE(rear - front);
-   }
+    if (rear < front)
+    {
+        RETVALUE((rear - front) + MAX_QUEUE_LEN);
+    }
+    else
+    {
+        RETVALUE(rear - front);
+    }
 }
 #endif /* ENB_CPU_OVERLOAD_CONTROL */
-
 
 #ifndef DHI
 /** @details
@@ -459,19 +439,18 @@ PRIVATE U32 egGetQueueLen(U32 front, U32 rear)
  * @return  ROK, RFAILED
  */
 #ifdef ANSI
-PUBLIC U32 EgTLOpenServerReq
-(
-Pst          *pst,
-SpId         spId,                       /* SAP ID */
-UConnId      servConId,                  /* Server Connection*/
-CmTptAddr    *servTAddr                 /* Address */
+PUBLIC U32 EgTLOpenServerReq(
+    Pst *pst,
+    SpId spId,           /* SAP ID */
+    UConnId servConId,   /* Server Connection*/
+    CmTptAddr *servTAddr /* Address */
 )
 #else
 PUBLIC U32 EgTLOpenServerReq(pst, spId, servConId, servTAddr)
-Pst          *pst,
-SpId         spId,                       /* SAP ID */
-UConnId      servConId,                  /* Server Connection*/
-CmTptAddr    *servTAddr                 /* Address */
+    Pst *pst,
+    SpId spId,           /* SAP ID */
+    UConnId servConId,   /* Server Connection*/
+    CmTptAddr *servTAddr /* Address */
 #endif
 {
     Pst cfmPst;
@@ -479,28 +458,27 @@ CmTptAddr    *servTAddr                 /* Address */
     struct sockaddr_in *sockAddrPtr;
 #ifdef IPV6_SUPPORTED
     struct sockaddr_in6 srcAddr6; /* local IPV6 address/port */
-#endif /* IPV6_SUPPORTED */
+#endif                            /* IPV6_SUPPORTED */
     U32 sizeOfAddr;
-/* klocworks: Initialize the ret value */    
-    S32 ret= SOCK_ERROR;
+    /* klocworks: Initialize the ret value */
+    S32 ret = SOCK_ERROR;
     EgTLServerCb *egTLServerCb;
     S32 domain;
 
 #ifdef ERRCHK
-    if ((MAX_SERVER_NUM <= servConId
-            || (egTLCb.servers[servConId].sockFd != SOCK_ERROR)))
+    if ((MAX_SERVER_NUM <= servConId || (egTLCb.servers[servConId].sockFd != SOCK_ERROR)))
     {
 #ifdef ALIGN_64BIT
-        printf("\n Incorrect Connection Id = [%d]",servConId);
+        printf("\n Incorrect Connection Id = [%d]", servConId);
 #else
-        printf("\n Incorrect Connection Id = [%ld]",servConId);
+        printf("\n Incorrect Connection Id = [%ld]", servConId);
 #endif
         RETVALUE(RFAILED);
     }
 
-    if(NULLP == servTAddr)
+    if (NULLP == servTAddr)
     {
-        printf("\n Incorrect Connection Parameters Id ServerAddr=[%p]",(Void *)servTAddr);
+        printf("\n Incorrect Connection Parameters Id ServerAddr=[%p]", (Void *)servTAddr);
         /*Make and send a Message for failure to open server*/
         RETVALUE(RFAILED);
     }
@@ -510,105 +488,102 @@ CmTptAddr    *servTAddr                 /* Address */
 #ifdef IPV6_SUPPORTED
     if (servTAddr->type == CM_INET_IPV6ADDR_TYPE)
     {
-        cmMemset((U8*)&srcAddr6, 0, sizeof(srcAddr6));
-        srcAddr6.sin6_family      = AF_INET6;
-        srcAddr6.sin6_port        = CM_INET_HTON_U16(servTAddr->u.ipv6TptAddr.port);
+        cmMemset((U8 *)&srcAddr6, 0, sizeof(srcAddr6));
+        srcAddr6.sin6_family = AF_INET6;
+        srcAddr6.sin6_port = CM_INET_HTON_U16(servTAddr->u.ipv6TptAddr.port);
         CM_INET_COPY_IPV6ADDR(&srcAddr6.sin6_addr,
                               &servTAddr->u.ipv6TptAddr.ipv6NetAddr);
-        sizeOfAddr               = sizeof(struct sockaddr_in6);
-        sockAddrPtr              = (struct sockaddr_in *)&srcAddr6;
-        domain                   = AF_INET6;
+        sizeOfAddr = sizeof(struct sockaddr_in6);
+        sockAddrPtr = (struct sockaddr_in *)&srcAddr6;
+        domain = AF_INET6;
     }
     else
 #endif
     {
-        cmMemset((U8*)&srcAddr, 0, sizeof(srcAddr));
-        srcAddr.sin_family      = AF_INET;
-        srcAddr.sin_port        = CM_INET_HTON_U16(servTAddr->u.ipv4TptAddr.port);
+        cmMemset((U8 *)&srcAddr, 0, sizeof(srcAddr));
+        srcAddr.sin_family = AF_INET;
+        srcAddr.sin_port = CM_INET_HTON_U16(servTAddr->u.ipv4TptAddr.port);
         srcAddr.sin_addr.s_addr = CM_INET_HTON_U32(servTAddr->u.ipv4TptAddr.address);
-        sizeOfAddr               = sizeof(struct sockaddr_in);
-        sockAddrPtr              = (struct sockaddr_in *)&srcAddr;
-        domain                   = AF_INET;
+        sizeOfAddr = sizeof(struct sockaddr_in);
+        sockAddrPtr = (struct sockaddr_in *)&srcAddr;
+        domain = AF_INET;
     }
 
     egTLServerCb = &egTLCb.servers[servConId];
 
-
 #if (defined(TENB_T2K3K_SPECIFIC_CHANGES)) && (!defined(TENB_DISABLE_DL_ZBC))
 
 #ifdef NTL_LIB
-    printf ("NTL Lib attach\n");
+    printf("NTL Lib attach\n");
 #ifdef T2200_2GB_DDR_CHANGES
-    ntl_hLib = ntl_init(1024*6, 779, 0);
+    ntl_hLib = ntl_init(1024 * 6, 779, 0);
 #else
     //ntl_hLib = ntl_init(1024*3, 779, 0); TODO: verify why this is changed
     ntl_hLib = ntl_init(1024, 779, 0);
 #endif
-    printf ("NTL Lib HANDLE: %d\n", ntl_hLib);
+    printf("NTL Lib HANDLE: %d\n", ntl_hLib);
 #endif
     /*!< Open a ZBC Socket in Downlink Direction */
 #ifdef EG_IPV6_SUPPORTED
     if (servTAddr->type == CM_INET_IPV6ADDR_TYPE)
     {
-      if(EGTPU_PORT == servTAddr->u.ipv6TptAddr.port)
-      {
-       
-#ifdef NTL_LIB    
-          if (ntl_hLib < 0)
-              egTLServerCb->sockFd = socket(domain,(SOCK_DGRAM | EG_SOCK_TYPE),0);
-          else
-          {
-      	       egTLServerCb->sockFd = ntl_socket(ntl_hLib, domain,(SOCK_DGRAM | EG_SOCK_TYPE),IPPROTO_UDP);
-#ifdef NTL_LIB_DIS_FOR_UL
-              /* Adding Seprate Socket for TX without NTL */
-               egTLServerCb->sockFdUL = socket(AF_INET,(SOCK_DGRAM | (1 << 30)),0);
-               printf(" egTLServerCb->sockFdUL created in UL is %lu \n", egTLServerCb->sockFdUL);
-#endif /* NTL_LIB_DIS_FOR_UL */
-          }
-#else 
-          egTLServerCb->sockFd = socket(domain,(SOCK_DGRAM | EG_SOCK_TYPE),0);
-#endif
+        if (EGTPU_PORT == servTAddr->u.ipv6TptAddr.port)
+        {
 
-      }
+#ifdef NTL_LIB
+            if (ntl_hLib < 0)
+                egTLServerCb->sockFd = socket(domain, (SOCK_DGRAM | EG_SOCK_TYPE), 0);
+            else
+            {
+                egTLServerCb->sockFd = ntl_socket(ntl_hLib, domain, (SOCK_DGRAM | EG_SOCK_TYPE), IPPROTO_UDP);
+#ifdef NTL_LIB_DIS_FOR_UL
+                /* Adding Seprate Socket for TX without NTL */
+                egTLServerCb->sockFdUL = socket(AF_INET, (SOCK_DGRAM | (1 << 30)), 0);
+                printf(" egTLServerCb->sockFdUL created in UL is %lu \n", egTLServerCb->sockFdUL);
+#endif /* NTL_LIB_DIS_FOR_UL */
+            }
+#else
+            egTLServerCb->sockFd = socket(domain, (SOCK_DGRAM | EG_SOCK_TYPE), 0);
+#endif
+        }
     }
     else
 #endif /* EG_IPV6_SUPPORTED */
     {
-      if(EGTPU_PORT == servTAddr->u.ipv4TptAddr.port)
-      {
-       
-#ifdef NTL_LIB    
-          if (ntl_hLib < 0)
-              egTLServerCb->sockFd = socket(domain,(SOCK_DGRAM | EG_SOCK_TYPE),0);
-          else
-          {
-      	       egTLServerCb->sockFd = ntl_socket(ntl_hLib, domain,(SOCK_DGRAM | EG_SOCK_TYPE),IPPROTO_UDP);
-#ifdef NTL_LIB_DIS_FOR_UL
-              /* Adding Seprate Socket for TX without NTL */
-               egTLServerCb->sockFdUL = socket(AF_INET,(SOCK_DGRAM | (1 << 30)),0);
-               printf(" egTLServerCb->sockFdUL created in UL is %lu \n", egTLServerCb->sockFdUL);
-#endif /* NTL_LIB_DIS_FOR_UL */
-          }
-#else 
-          egTLServerCb->sockFd = socket(domain,(SOCK_DGRAM | EG_SOCK_TYPE),0);
-#endif
+        if (EGTPU_PORT == servTAddr->u.ipv4TptAddr.port)
+        {
 
-      }
+#ifdef NTL_LIB
+            if (ntl_hLib < 0)
+                egTLServerCb->sockFd = socket(domain, (SOCK_DGRAM | EG_SOCK_TYPE), 0);
+            else
+            {
+                egTLServerCb->sockFd = ntl_socket(ntl_hLib, domain, (SOCK_DGRAM | EG_SOCK_TYPE), IPPROTO_UDP);
+#ifdef NTL_LIB_DIS_FOR_UL
+                /* Adding Seprate Socket for TX without NTL */
+                egTLServerCb->sockFdUL = socket(AF_INET, (SOCK_DGRAM | (1 << 30)), 0);
+                printf(" egTLServerCb->sockFdUL created in UL is %lu \n", egTLServerCb->sockFdUL);
+#endif /* NTL_LIB_DIS_FOR_UL */
+            }
+#else
+            egTLServerCb->sockFd = socket(domain, (SOCK_DGRAM | EG_SOCK_TYPE), 0);
+#endif
+        }
     }
 
     /*!<Create Non-ZBC Socket for Uplink Direction*/
-    egTLUplnkSocket = socket(domain,SOCK_DGRAM,IPPROTO_UDP);
+    egTLUplnkSocket = socket(domain, SOCK_DGRAM, IPPROTO_UDP);
 
-    if((SOCK_ERROR == egTLServerCb->sockFd) || (SOCK_ERROR == egTLUplnkSocket))
+    if ((SOCK_ERROR == egTLServerCb->sockFd) || (SOCK_ERROR == egTLUplnkSocket))
     {
-       printf("\n Unable to Get a ZBC socket Descriptor, Failed with reason =[%d]",errno);
-       RETVALUE(RFAILED);
-   }
+        printf("\n Unable to Get a ZBC socket Descriptor, Failed with reason =[%d]", errno);
+        RETVALUE(RFAILED);
+    }
 #else
-   egTLServerCb->sockFd = socket(domain,SOCK_DGRAM,0);
-   if((SOCK_ERROR == egTLServerCb->sockFd))
-   {
-        printf("\n Unable to Get a socket Descriptor, Failed with reason =[%d]",errno);
+    egTLServerCb->sockFd = socket(domain, SOCK_DGRAM, 0);
+    if ((SOCK_ERROR == egTLServerCb->sockFd))
+    {
+        printf("\n Unable to Get a socket Descriptor, Failed with reason =[%d]", errno);
         RETVALUE(RFAILED);
     }
 #endif
@@ -619,31 +594,29 @@ CmTptAddr    *servTAddr                 /* Address */
     if (ntl_hLib < 0)
         ret = ioctl(egTLServerCb->sockFd, FIONBIO, &egTLServerCb->isSocketNonBlocking);
     else
-        printf ("NTL: skipped ioctl for socket 0x%ld\n", egTLServerCb->sockFd);
-#else 
+        printf("NTL: skipped ioctl for socket 0x%ld\n", egTLServerCb->sockFd);
+#else
     ret = ioctl(egTLServerCb->sockFd, FIONBIO, &egTLServerCb->isSocketNonBlocking);
 #endif
-
-
 
 #ifdef NTL_LIB
     if (SOCK_ERROR == ret && ntl_hLib < 0)
 #else
     if (SOCK_ERROR == ret)
-#endif 
+#endif
     {
 #ifdef ALIGN_64BIT
-      printf("\n Failed to make Socket Non-Blocking Server {[ConID]-[FD]} ={[%d]-[%d]} with reason =[%d]",
-                servConId,egTLServerCb->sockFd,errno);
+        printf("\n Failed to make Socket Non-Blocking Server {[ConID]-[FD]} ={[%d]-[%d]} with reason =[%d]",
+               servConId, egTLServerCb->sockFd, errno);
 #else
-      printf("\n Failed to make Socket Non-Blocking Server {[ConID]-[FD]} ={[%ld]-[%ld]} with reason =[%d]",
-                servConId,egTLServerCb->sockFd,errno);
+        printf("\n Failed to make Socket Non-Blocking Server {[ConID]-[FD]} ={[%ld]-[%ld]} with reason =[%d]",
+               servConId, egTLServerCb->sockFd, errno);
 #endif
 
-      /*Close the socket Descriptor as we failed to bind */
-      (Void)close(egTLServerCb->sockFd);
+        /*Close the socket Descriptor as we failed to bind */
+        (Void) close(egTLServerCb->sockFd);
 
-      RETVALUE(RFAILED);
+        RETVALUE(RFAILED);
     }
 #ifndef NTL_LIB
     ret = bind(egTLServerCb->sockFd, (struct sockaddr *)sockAddrPtr, sizeOfAddr);
@@ -654,56 +627,54 @@ CmTptAddr    *servTAddr                 /* Address */
     else
     {
         ret = ntl_bind(ntl_hLib, egTLServerCb->sockFd, (struct sockaddr *)sockAddrPtr, sizeOfAddr);
-	    printf ("NTL:bind rc=%ld\n", ret);
-		
-	    ret = ntl_socket_ctrl(ntl_hLib, egTLServerCb->sockFd, KSD_SOCKET_CTRL_RX_ENABLED);
-	    printf ("Enable rx for socket(0x%ld), res=%ld\n", egTLServerCb->sockFd, ret);
+        printf("NTL:bind rc=%ld\n", ret);
+
+        ret = ntl_socket_ctrl(ntl_hLib, egTLServerCb->sockFd, KSD_SOCKET_CTRL_RX_ENABLED);
+        printf("Enable rx for socket(0x%ld), res=%ld\n", egTLServerCb->sockFd, ret);
     }
-#endif    
+#endif
     if (SOCK_ERROR == ret)
     {
 #ifdef ALIGN_64BIT
-       printf("\n Bind failed for Server {[ConID]-[FD]} ={[%d]-[%d]} with reason =[%d]",
-                  servConId,egTLServerCb->sockFd,errno);
+        printf("\n Bind failed for Server {[ConID]-[FD]} ={[%d]-[%d]} with reason =[%d]",
+               servConId, egTLServerCb->sockFd, errno);
 #else
-       printf("\n Bind failed for Server {[ConID]-[FD]} ={[%ld]-[%ld]} with reason =[%d]",
-                  servConId,egTLServerCb->sockFd,errno);
+        printf("\n Bind failed for Server {[ConID]-[FD]} ={[%ld]-[%ld]} with reason =[%d]",
+               servConId, egTLServerCb->sockFd, errno);
 #endif
 
-       /*Close the socket Descriptor as we failed to bind */
-       (Void)close(egTLServerCb->sockFd);
+        /*Close the socket Descriptor as we failed to bind */
+        (Void) close(egTLServerCb->sockFd);
 
-       RETVALUE(RFAILED);
+        RETVALUE(RFAILED);
     }
 
-
-    cmMemcpy((U8 *) &egTLServerCb->serverAddress,(CONSTANT U8 *) servTAddr,sizeof(CmTptAddr));
+    cmMemcpy((U8 *)&egTLServerCb->serverAddress, (CONSTANT U8 *)servTAddr, sizeof(CmTptAddr));
     egTLServerCb->srvConId = servConId;
 
-    if(EGTPU_PORT == servTAddr->u.ipv4TptAddr.port)
+    if (EGTPU_PORT == servTAddr->u.ipv4TptAddr.port)
     {
         egTLServerCb->sockType = TH_SERVER;
-        printf("\n Server Socket FD =[%lu]",egTLServerCb->sockFd);
+        //printf("\n Server Socket FD =[%lu]",egTLServerCb->sockFd);
     }
     else
     {
         egTLServerCb->sockType = TH_CLIENT;
     }
 
-
-    cmMemcpy((U8 *) &cfmPst,(CONSTANT U8 *) pst,sizeof(Pst));
+    cmMemcpy((U8 *)&cfmPst, (CONSTANT U8 *)pst, sizeof(Pst));
     cfmPst.dstEnt = pst->srcEnt;
 
-    EgLiHitConCfm(&cfmPst,spId,servConId,servConId,servTAddr);
+    EgLiHitConCfm(&cfmPst, spId, servConId, servConId, servTAddr);
 #ifdef S1SIMAPP
-    egSchedTmr(&egTLCb, EG_TMR_EGT_RXTXDATA, TMR_START,1);
-    
+    egSchedTmr(&egTLCb, EG_TMR_EGT_RXTXDATA, TMR_START, 1);
+
     gettimeofday(&tsStart1, NULL);
 #endif
     RETVALUE(ROK);
 }
 /*purecov ccompilation error fix:ccpu00136421 */
-#endif 
+#endif
 
 /*************************************************************************
  *      Fun:   egUPlatTunnTeidAdd
@@ -718,17 +689,15 @@ CmTptAddr    *servTAddr                 /* Address */
  *      File:   eg_socklayer.c
 ***********************************************************************/
 #ifdef ANSI
-PUBLIC S16 egUPlatTunnTeidAdd
-(
-EgDestAddrCb *dstCb
-)
+PUBLIC S16 egUPlatTunnTeidAdd(
+    EgDestAddrCb *dstCb)
 #else
 PUBLIC S16 egUPlatTunnTeidAdd(dstCb)
-EgDestAddrCb *dstCb;
+    EgDestAddrCb *dstCb;
 #endif
 
 {
-   RETVALUE(ROK);
+    RETVALUE(ROK);
 }
 
 /*************************************************************************
@@ -745,16 +714,14 @@ EgDestAddrCb *dstCb;
 ***********************************************************************/
 
 #ifdef ANSI
-PUBLIC S16 egUPlatTunnTeidDel
-(
-EgDestAddrCb *dstCb
-)
+PUBLIC S16 egUPlatTunnTeidDel(
+    EgDestAddrCb *dstCb)
 #else
 PUBLIC S16 egUPlatTunnTeidDel(dstCb)
-EgDestAddrCb *dstCb;
+    EgDestAddrCb *dstCb;
 #endif
 {
-   RETVALUE(ROK);
+    RETVALUE(ROK);
 }
 
 #ifdef LC_EGTP_THREAD
@@ -773,15 +740,14 @@ PUBLIC Void EgTLSendEgtpMsg(Bool param)
 PUBLIC Void EgTLSendEgtpMsg(Bool param)
 #endif
 {
-    U32              i;
+    U32 i;
     S16 ret;
-    CmInetFd       sockFd;
+    CmInetFd sockFd;
     CmInetAddr dstAddr;
     EgTLServerCb *egTLServerCb;
-    U32              numPackets;
-    U32              localFront;
-    U32              maxNumPacketsToSend = MAX_QUEUE_LEN;
-
+    U32 numPackets;
+    U32 localFront;
+    U32 maxNumPacketsToSend = MAX_QUEUE_LEN;
 
 #if 0
     /*!< Update the socket FD to use uplink Nonm-ZBC Socket for sending out message */
@@ -803,25 +769,25 @@ PUBLIC Void EgTLSendEgtpMsg(Bool param)
     /* Send the minimum number of packets if this function call is made due to
      * queue full.
      */
-    if((param == TRUE) && (maxNumPacketsToSend < EG_MIN_PACKETS_TO_SEND))
+    if ((param == TRUE) && (maxNumPacketsToSend < EG_MIN_PACKETS_TO_SEND))
     {
-       maxNumPacketsToSend = EG_MIN_PACKETS_TO_SEND;
+        maxNumPacketsToSend = EG_MIN_PACKETS_TO_SEND;
     }
 #else
     UNUSED(param);
 #endif /* ENB_CPU_OVERLOAD_CONTROL */
 
-    for(i=0; i< MAX_SERVER_NUM; i++)
+    for (i = 0; i < MAX_SERVER_NUM; i++)
     {
-       egTLServerCb = &egTLCb.servers[i];
-       if((egTLServerCb->sockFd != SOCK_ERROR))
-       {
-          localFront = egTLServerCb->egtpPktFront;
+        egTLServerCb = &egTLCb.servers[i];
+        if ((egTLServerCb->sockFd != SOCK_ERROR))
+        {
+            localFront = egTLServerCb->egtpPktFront;
 
-          while((egTLQueueAddOne(egTLServerCb->egtpPktRear)) != localFront)
-          {
-             EgTLMsgQueue *msgQueue = &egTLServerCb->egtpMsgQueue[localFront];
-#if (defined( NTL_LIB ) && defined( NTL_LIB_DIS_FOR_UL )) 
+            while ((egTLQueueAddOne(egTLServerCb->egtpPktRear)) != localFront)
+            {
+                EgTLMsgQueue *msgQueue = &egTLServerCb->egtpMsgQueue[localFront];
+#if (defined(NTL_LIB) && defined(NTL_LIB_DIS_FOR_UL))
                 sockFd.fd = egTLServerCb->sockFdUL;
 #else
                 sockFd.fd = egTLServerCb->sockFd;
@@ -829,69 +795,68 @@ PUBLIC Void EgTLSendEgtpMsg(Bool param)
 
                 /*!< Init the Structures for sending message*/
 #ifdef EG_IPV6_SUPPORTED
-                if(msgQueue->dstAddr.type == CM_TPTADDR_IPV6)
+                if (msgQueue->dstAddr.type == CM_TPTADDR_IPV6)
                 {
-                   dstAddr.type = CM_TPTADDR_IPV6;
-                   dstAddr.u.ipv6Addr.port = EGTPU_PORT;
-                   CM_INET_COPY_IPV6ADDR(&dstAddr.u.ipv6Addr.ipv6NetAddr, 
-                      msgQueue->dstAddr.u.ipv6TptAddr.ipv6NetAddr);
+                    dstAddr.type = CM_TPTADDR_IPV6;
+                    dstAddr.u.ipv6Addr.port = EGTPU_PORT;
+                    CM_INET_COPY_IPV6ADDR(&dstAddr.u.ipv6Addr.ipv6NetAddr,
+                                          msgQueue->dstAddr.u.ipv6TptAddr.ipv6NetAddr);
                 }
                 else
                 {
-                   dstAddr.type = CM_TPTADDR_IPV4;
-                   dstAddr.u.ipv4Addr.port = EGTPU_PORT;
-                   dstAddr.u.ipv4Addr.address = 
-                      msgQueue->dstAddr.u.ipv4TptAddr.address;
-               
+                    dstAddr.type = CM_TPTADDR_IPV4;
+                    dstAddr.u.ipv4Addr.port = EGTPU_PORT;
+                    dstAddr.u.ipv4Addr.address =
+                        msgQueue->dstAddr.u.ipv4TptAddr.address;
                 }
 #else
                 {
-                   dstAddr.port = EGTPU_PORT;
-                   dstAddr.address = msgQueue->dstAddr.u.ipv4TptAddr.address;
+                    dstAddr.port = EGTPU_PORT;
+                    dstAddr.address = msgQueue->dstAddr.u.ipv4TptAddr.address;
                 }
 #endif /* EG_IPV6_SUPPORTED */
-             if(msgQueue->mBuf != NULL)
-             {
-                ret = egTLSendSockMsg(&sockFd,
-                                  &dstAddr,
-                                  &egTLCb.memInfo,
-                                    msgQueue->mBuf,
-                                   &msgQueue->msglen,
-                                    msgQueue->tos);
-
-                if(19 == ret)
+                if (msgQueue->mBuf != NULL)
                 {
-                    g_egtpSockDropsDueToReason19++;
-                }
-                else if(ROK != ret)
-                {
-                    printf("\n egTLSendSockMsg Failed : with Reason =[%d]",ret);
-                }
-                packetData.numOfPktsSent++;
-                packetData.numBytesSent += msgQueue->msglen;
+                    ret = egTLSendSockMsg(&sockFd,
+                                          &dstAddr,
+                                          &egTLCb.memInfo,
+                                          msgQueue->mBuf,
+                                          &msgQueue->msglen,
+                                          msgQueue->tos);
 
-                /*Success or Failure: Free the Message queued.*/
-                msgQueue->flag = FALSE;
-                SPutMsg(msgQueue->mBuf);
-                msgQueue->mBuf = NULLP;
-             }
-             else
-             {
-                printf("\n Mbuf is NULL before send itself  !!!!\n");
-             }
-             localFront = egTLQueueAddOne(localFront);
-             egTLServerCb->egtpPktFront= localFront;
-             numPackets++;
-             if(numPackets >= maxNumPacketsToSend)
-             {
-                break;
-             }
-          }
-          egTLCb.servers[i].qLen = 0;
-       }
-       if(numPackets >= maxNumPacketsToSend)
-       {
-          break;
+                    if (19 == ret)
+                    {
+                        g_egtpSockDropsDueToReason19++;
+                    }
+                    else if (ROK != ret)
+                    {
+                        printf("\n egTLSendSockMsg Failed : with Reason =[%d]", ret);
+                    }
+                    packetData.numOfPktsSent++;
+                    packetData.numBytesSent += msgQueue->msglen;
+
+                    /*Success or Failure: Free the Message queued.*/
+                    msgQueue->flag = FALSE;
+                    SPutMsg(msgQueue->mBuf);
+                    msgQueue->mBuf = NULLP;
+                }
+                else
+                {
+                    printf("\n Mbuf is NULL before send itself  !!!!\n");
+                }
+                localFront = egTLQueueAddOne(localFront);
+                egTLServerCb->egtpPktFront = localFront;
+                numPackets++;
+                if (numPackets >= maxNumPacketsToSend)
+                {
+                    break;
+                }
+            }
+            egTLCb.servers[i].qLen = 0;
+        }
+        if (numPackets >= maxNumPacketsToSend)
+        {
+            break;
         }
     }
 }
@@ -911,16 +876,15 @@ PUBLIC Void EgTLSendMsg(Bool param)
 PUBLIC Void EgTLSendMsg(Bool param)
 #endif
 {
-    U32              i;
-    U32              j=0;
+    U32 i;
+    U32 j = 0;
     S16 ret;
-    CmInetFd       sockFd;
+    CmInetFd sockFd;
     CmInetAddr dstAddr;
     EgTLServerCb *egTLServerCb;
-    U32              numPackets;
-    U32              localFront;
-    U32              maxNumPacketsToSend = MAX_QUEUE_LEN;
-
+    U32 numPackets;
+    U32 localFront;
+    U32 maxNumPacketsToSend = MAX_QUEUE_LEN;
 
 #if 0
     /*!< Update the socket FD to use uplink Nonm-ZBC Socket for sending out message */
@@ -942,25 +906,25 @@ PUBLIC Void EgTLSendMsg(Bool param)
     /* Send the minimum number of packets if this function call is made due to
      * queue full.
      */
-    if((param == TRUE) && (maxNumPacketsToSend < EG_MIN_PACKETS_TO_SEND))
+    if ((param == TRUE) && (maxNumPacketsToSend < EG_MIN_PACKETS_TO_SEND))
     {
-       maxNumPacketsToSend = EG_MIN_PACKETS_TO_SEND;
+        maxNumPacketsToSend = EG_MIN_PACKETS_TO_SEND;
     }
 #else
     UNUSED(param);
 #endif /* ENB_CPU_OVERLOAD_CONTROL */
 
-    for(i=0; i< MAX_SERVER_NUM; i++)
+    for (i = 0; i < MAX_SERVER_NUM; i++)
     {
-       egTLServerCb = &egTLCb.servers[i];
-       if((egTLServerCb->sockFd != SOCK_ERROR))
-       {
-          localFront = egTLServerCb->front;
+        egTLServerCb = &egTLCb.servers[i];
+        if ((egTLServerCb->sockFd != SOCK_ERROR))
+        {
+            localFront = egTLServerCb->front;
 
-          while((egTLQueueAddOne(egTLServerCb->rear)) != localFront)
-          {
-             EgTLMsgQueue *msgQueue = &egTLServerCb->msgQueue[localFront];
-#if (defined( NTL_LIB ) && defined( NTL_LIB_DIS_FOR_UL )) 
+            while ((egTLQueueAddOne(egTLServerCb->rear)) != localFront)
+            {
+                EgTLMsgQueue *msgQueue = &egTLServerCb->msgQueue[localFront];
+#if (defined(NTL_LIB) && defined(NTL_LIB_DIS_FOR_UL))
                 sockFd.fd = egTLServerCb->sockFdUL;
 #else
                 sockFd.fd = egTLServerCb->sockFd;
@@ -968,75 +932,73 @@ PUBLIC Void EgTLSendMsg(Bool param)
 
                 /*!< Init the Structures for sending message*/
 #ifdef EG_IPV6_SUPPORTED
-                if(msgQueue->dstAddr.type == CM_TPTADDR_IPV6)
+                if (msgQueue->dstAddr.type == CM_TPTADDR_IPV6)
                 {
-                   dstAddr.type = CM_TPTADDR_IPV6;
-                   dstAddr.u.ipv6Addr.port = EGTPU_PORT;
-                   CM_INET_COPY_IPV6ADDR(&dstAddr.u.ipv6Addr.ipv6NetAddr, 
-                      msgQueue->dstAddr.u.ipv6TptAddr.ipv6NetAddr);
+                    dstAddr.type = CM_TPTADDR_IPV6;
+                    dstAddr.u.ipv6Addr.port = EGTPU_PORT;
+                    CM_INET_COPY_IPV6ADDR(&dstAddr.u.ipv6Addr.ipv6NetAddr,
+                                          msgQueue->dstAddr.u.ipv6TptAddr.ipv6NetAddr);
                 }
                 else
                 {
-                   dstAddr.type = CM_TPTADDR_IPV4;
-                   dstAddr.u.ipv4Addr.port = EGTPU_PORT;
-                   dstAddr.u.ipv4Addr.address = msgQueue->dstAddr.u.ipv4TptAddr.address;
-               
+                    dstAddr.type = CM_TPTADDR_IPV4;
+                    dstAddr.u.ipv4Addr.port = EGTPU_PORT;
+                    dstAddr.u.ipv4Addr.address = msgQueue->dstAddr.u.ipv4TptAddr.address;
                 }
 #else
                 {
-                   dstAddr.port = EGTPU_PORT;
-                   dstAddr.address = msgQueue->dstAddr.u.ipv4TptAddr.address;
+                    dstAddr.port = EGTPU_PORT;
+                    dstAddr.address = msgQueue->dstAddr.u.ipv4TptAddr.address;
                 }
 #endif /* EG_IPV6_SUPPORTED */
-             if(msgQueue->mBuf != NULL)
-             {
-                ret = egTLSendSockMsg(&sockFd,
-                                      &dstAddr,
-                                      &egTLCb.memInfo,
-                                       msgQueue->mBuf,
-                                       &msgQueue->msglen,
-                                       msgQueue->tos);
-
-                if(19 == ret)
+                if (msgQueue->mBuf != NULL)
                 {
-                    g_egtpSockDropsDueToReason19++;
+                    ret = egTLSendSockMsg(&sockFd,
+                                          &dstAddr,
+                                          &egTLCb.memInfo,
+                                          msgQueue->mBuf,
+                                          &msgQueue->msglen,
+                                          msgQueue->tos);
+
+                    if (19 == ret)
+                    {
+                        g_egtpSockDropsDueToReason19++;
+                    }
+                    else if (ROK != ret)
+                    {
+                        printf("\n egTLSendSockMsg Failed : with Reason =[%d]", ret);
+                    }
+                    packetData.numOfPktsSent++;
+                    packetData.numBytesSent += msgQueue->msglen;
+
+                    /*Success or Failure: Free the Message queued.*/
+                    msgQueue->flag = FALSE;
+                    egTLServerCb->latestFront = localFront;
+                    egTLServerCb->latestRear = egTLServerCb->rear;
+
+                    SPutMsg(msgQueue->mBuf);
+                    msgQueue->mBuf = NULLP;
                 }
-                else if(ROK != ret)
+                else
                 {
-                    printf("\n egTLSendSockMsg Failed : with Reason =[%d]",ret);
+                    printf("\n Mbuf is NULL before send itself  !!!!\n");
                 }
-                packetData.numOfPktsSent++;
-                packetData.numBytesSent += msgQueue->msglen;
-
-                /*Success or Failure: Free the Message queued.*/
-                msgQueue->flag = FALSE;
-                egTLServerCb->latestFront = localFront;
-                egTLServerCb->latestRear =  egTLServerCb->rear;
-
-                SPutMsg(msgQueue->mBuf);
-                msgQueue->mBuf = NULLP;
-             }
-             else
-             {
-                printf("\n Mbuf is NULL before send itself  !!!!\n");
-             }
-             localFront = egTLQueueAddOne(localFront);
-             egTLServerCb->front = localFront;
-             numPackets++;
-             if(numPackets >= maxNumPacketsToSend)
-             {
-                break;
-             }
-          }
-          egTLCb.servers[i].qLen = 0;
-       }
-       if(numPackets >= maxNumPacketsToSend)
-       {
-          break;
-       }
+                localFront = egTLQueueAddOne(localFront);
+                egTLServerCb->front = localFront;
+                numPackets++;
+                if (numPackets >= maxNumPacketsToSend)
+                {
+                    break;
+                }
+            }
+            egTLCb.servers[i].qLen = 0;
+        }
+        if (numPackets >= maxNumPacketsToSend)
+        {
+            break;
+        }
     }
 }
-
 
 /** @details
  * This primitive is used by eGTP-U initialize Thin Socket Layer.
@@ -1048,24 +1010,23 @@ PUBLIC Void EgTLSendMsg(Bool param)
  */
 
 #ifdef ANSI
-PUBLIC Void EgTLInitReq
-(
-Region region,      /* !< Memory Region to be used by thin layer */
-Pool pool           /* !< Memory Pool to be used by thin layer */
+PUBLIC Void EgTLInitReq(
+    Region region, /* !< Memory Region to be used by thin layer */
+    Pool pool      /* !< Memory Pool to be used by thin layer */
 )
 #else
 PUBLIC Void EgTLInitReq(region, pool)
-Region region;     /* !< Memory Region to be used by thin layer */
+    Region region; /* !< Memory Region to be used by thin layer */
 Pool pool;         /* !< Memory Pool to be used by thin layer */
 #endif
 {
     U32 i;
 #ifdef ENB_CPU_OVERLOAD_CONTROL
-    FILE  *mipsFd;
+    FILE *mipsFd;
 #endif
 
     /*Initialize the basic parameter*/
-    for (i=0; i< MAX_SERVER_NUM; i++)
+    for (i = 0; i < MAX_SERVER_NUM; i++)
     {
         egTLCb.servers[i].qLen = 0;
         egTLCb.servers[i].sockFd = -1;
@@ -1092,36 +1053,34 @@ Pool pool;         /* !< Memory Pool to be used by thin layer */
     egTLCb.egPst.pool = pool;
     egTLCb.egPst.selector = 0; /* Default Loose coupling */
 
-
     /* egTLCb.memInfo.pool   = pool; */
-    egTLCb.memInfo.pool   = 3;
+    egTLCb.memInfo.pool = 3;
     egTLCb.memInfo.region = region;
 #ifdef S1SIMAPP
-    egCmInitTimer (&egTLCb.egtTxRxTmrNode);
+    egCmInitTimer(&egTLCb.egtTxRxTmrNode);
 #endif
 #ifdef ENB_CPU_OVERLOAD_CONTROL
-    egTLCb.dlPktCntrl.maxNumPacketsToRead = 
-             (EG_MAX_PACKETS_TO_READ_WINDOW - EG_MIN_PACKETS_TO_READ_WINDOW);
+    egTLCb.dlPktCntrl.maxNumPacketsToRead =
+        (EG_MAX_PACKETS_TO_READ_WINDOW - EG_MIN_PACKETS_TO_READ_WINDOW);
     egTLCb.dlPktCntrl.dlTimeWindow = EG_DL_PACKET_WINDOW_SIZE;
 
     egTLCb.ulPktCntrl.maxNumPacketsToSend = EG_MAX_PACKETS_TO_SEND_WINDOW;
     egTLCb.ulPktCntrl.ulTimeWindow = EG_UL_PACKET_WINDOW_SIZE;
-/*    egTLCb.maxMsgToread   = MAX_MSG_TO_READ_PER_FRAME; */
+    /*    egTLCb.maxMsgToread   = MAX_MSG_TO_READ_PER_FRAME; */
 
     mipsFd = fopen(MIPS_FILE, "r");
 
-    if(NULLP != mipsFd)
+    if (NULLP != mipsFd)
     {
-       egTLCb.isCpuBasedContrl = TRUE;
-       fclose(mipsFd);
+        egTLCb.isCpuBasedContrl = TRUE;
+        fclose(mipsFd);
     }
     else
     {
-       egTLCb.isCpuBasedContrl = FALSE;
+        egTLCb.isCpuBasedContrl = FALSE;
     }
 #endif /* ENB_CPU_OVERLOAD_CONTROL */
 }
-
 
 /** @details
  * This primitive is used by eGTP-U to indicate reception of Data from Thin Socket Layer.
@@ -1133,39 +1092,38 @@ Pool pool;         /* !< Memory Pool to be used by thin layer */
  * @return  ROK, RFAILED
  */
 #ifdef ANSI
-PUBLIC U32 EgTLReadMsg
-(
-U32 timeOut,               /* !< Time in milliseconds to wait for ePoll event to happen. */
-U32 maxEvent               /* !< Max events to capture from ePOll. */
+PUBLIC U32 EgTLReadMsg(
+    U32 timeOut, /* !< Time in milliseconds to wait for ePoll event to happen. */
+    U32 maxEvent /* !< Max events to capture from ePOll. */
 )
 #else
 PUBLIC U32 EgTLReadMsg(timeOut, maxEvent)
-U32 timeOut;               /* !< Time in milliseconds to wait for ePoll event to happen. */
-U32 maxEvent;              /* !< Max events to capture from ePOll. */
+    U32 timeOut; /* !< Time in milliseconds to wait for ePoll event to happen. */
+U32 maxEvent;    /* !< Max events to capture from ePOll. */
 #endif
 {
 
-   U32                j;
-   register U32       i;
-   Buffer             *mbuf;
-   CmIpHdrParm        ipHdrParm;
-   EgTLServerCb       *egTLServerCb;
+    U32 j;
+    register U32 i;
+    Buffer *mbuf;
+    CmIpHdrParm ipHdrParm;
+    EgTLServerCb *egTLServerCb;
 
 #ifdef TENB_DISABLE_DL_ZBC
-   CmInetFd           fd;
-   fd.type = CM_INET_DGRAM;
-   CmTptAddr         remAddr;
+    CmInetFd fd;
+    fd.type = CM_INET_DGRAM;
+    CmTptAddr remAddr;
 #else
-   CmTptAddr          remAddr;
-   remAddr.type = CM_INET_IPV4ADDR_TYPE;
+    CmTptAddr remAddr;
+    remAddr.type = CM_INET_IPV4ADDR_TYPE;
 #endif
-   U32  numPackets = MAX_MSG_READ_PER_TTI;
+    U32 numPackets = MAX_MSG_READ_PER_TTI;
 
 #ifdef ENB_CPU_OVERLOAD_CONTROL
-   numPackets = egGetNumPacketsToRead();
+    numPackets = egGetNumPacketsToRead();
 #endif /* ENB_CPU_OVERLOAD_CONTROL */
 
-   /*Steps for Reading Message
+    /*Steps for Reading Message
      1. For Each Socket Descriptor indicated by Epoll - Do Following
      1.1: Find a configured server
      1.1.1: If Server is Found
@@ -1175,48 +1133,47 @@ U32 maxEvent;              /* !< Max events to capture from ePOll. */
      1.1.2.1 :Indicate to User [Currently only Print]
      1.2: Iterate by 1.1.1 until all the server's are processed
     */
-   for(i=0; i< MAX_SERVER_NUM; i++)
-   {
-      egTLServerCb = &egTLCb.servers[i];
+    for (i = 0; i < MAX_SERVER_NUM; i++)
+    {
+        egTLServerCb = &egTLCb.servers[i];
 
-      if(egTLServerCb->sockFd == 0xFFFFFFFF)
-           continue;
+        if (egTLServerCb->sockFd == 0xFFFFFFFF)
+            continue;
 
-      /*Read the Max Defined Data for the each Server*/
-      for(j = 0; j < numPackets; j++)
-      {
+        /*Read the Max Defined Data for the each Server*/
+        for (j = 0; j < numPackets; j++)
+        {
 #if (defined(TENB_T2K3K_SPECIFIC_CHANGES)) && (!defined(TENB_DISABLE_DL_ZBC))
-         if(ROK == egTLRecvZbcUdpMsg(egTLServerCb->sockFd, &remAddr, egTLCb.memInfo, &mbuf))
+            if (ROK == egTLRecvZbcUdpMsg(egTLServerCb->sockFd, &remAddr, egTLCb.memInfo, &mbuf))
 #else
-#ifdef TENB_DISABLE_DL_ZBC  
-         fd.fd = egTLServerCb->sockFd;
-#endif         
-/* purecov compilation error fix:ccpu00136421 */
-/*       if(ROK == cmInetRecvMsg(&fd, &remAddr,&egTLCb.memInfo,&mbuf,&len,0)) */
-         if(ROK == egTLRecvMsgFromSocket(egTLServerCb->sockFd, &remAddr, egTLCb.memInfo, &mbuf))
+#ifdef TENB_DISABLE_DL_ZBC
+            fd.fd = egTLServerCb->sockFd;
 #endif
-         {
-            /*Send Buffer to application*/
+            /* purecov compilation error fix:ccpu00136421 */
+            /*       if(ROK == cmInetRecvMsg(&fd, &remAddr,&egTLCb.memInfo,&mbuf,&len,0)) */
+            if (ROK == egTLRecvMsgFromSocket(egTLServerCb->sockFd, &remAddr, egTLCb.memInfo, &mbuf))
+#endif
+            {
+                /*Send Buffer to application*/
 #ifdef REVIEW
-            EgLiHitUDatInd(&egTLCb.egPst,egTLServerCb->srvConId,egTLServerCb->srvConId,
-                  &remAddr,&egTLServerCb->serverAddress,&ipHdrParm,mbuf);
+                EgLiHitUDatInd(&egTLCb.egPst, egTLServerCb->srvConId, egTLServerCb->srvConId,
+                               &remAddr, &egTLServerCb->serverAddress, &ipHdrParm, mbuf);
 #else
 
-            cmPkHitUDatInd(&egTLCb.egPst,egTLServerCb->srvConId,egTLServerCb->srvConId,
-                  &remAddr,&egTLServerCb->serverAddress,&ipHdrParm,mbuf);
+                cmPkHitUDatInd(&egTLCb.egPst, egTLServerCb->srvConId, egTLServerCb->srvConId,
+                               &remAddr, &egTLServerCb->serverAddress, &ipHdrParm, mbuf);
 #endif
-         }
-         else
-         {
-            /* printf("\n No more data to read from the socket."); */
-            break;
-         }
-      }
-   }
+            }
+            else
+            {
+                /* printf("\n No more data to read from the socket."); */
+                break;
+            }
+        }
+    }
 
-   RETVALUE(ROK);
+    RETVALUE(ROK);
 }
-
 
 #ifdef FLAT_BUFFER_OPT
 /** @details
@@ -1229,39 +1186,38 @@ U32 maxEvent;              /* !< Max events to capture from ePOll. */
  * @return  ROK, RFAILED
  */
 #ifdef ANSI
-PUBLIC U32 EgTLReadMsgFB
-(
-U32 timeOut,               /* !< Time in milliseconds to wait for ePoll event to happen. */
-U32 maxEvent               /* !< Max events to capture from ePOll. */
+PUBLIC U32 EgTLReadMsgFB(
+    U32 timeOut, /* !< Time in milliseconds to wait for ePoll event to happen. */
+    U32 maxEvent /* !< Max events to capture from ePOll. */
 )
 #else
 PUBLIC U32 EgTLReadMsgFB(timeOut, maxEvent)
-U32 timeOut;               /* !< Time in milliseconds to wait for ePoll event to happen. */
-U32 maxEvent;              /* !< Max events to capture from ePOll. */
+    U32 timeOut; /* !< Time in milliseconds to wait for ePoll event to happen. */
+U32 maxEvent;    /* !< Max events to capture from ePOll. */
 #endif
 {
 
-   U32                j;
-   register U32       i;
-   U8                 *buf;
-   EgTLServerCb       *egTLServerCb;
+    U32 j;
+    register U32 i;
+    U8 *buf;
+    EgTLServerCb *egTLServerCb;
 
 #ifdef TENB_DISABLE_DL_ZBC
-   MsgLen             len = CM_INET_READ_ANY;
-   CmInetFd           fd;
-   fd.type = CM_INET_DGRAM;
-   CmInetAddr         remAddr;
+    MsgLen len = CM_INET_READ_ANY;
+    CmInetFd fd;
+    fd.type = CM_INET_DGRAM;
+    CmInetAddr remAddr;
 #else
-   CmTptAddr          remAddr;
-   remAddr.type = CM_INET_IPV4ADDR_TYPE;
+    CmTptAddr remAddr;
+    remAddr.type = CM_INET_IPV4ADDR_TYPE;
 #endif
-   U32  numPackets = MAX_MSG_READ_PER_TTI;
+    U32 numPackets = MAX_MSG_READ_PER_TTI;
 
 #ifdef ENB_CPU_OVERLOAD_CONTROL
-   numPackets = egGetNumPacketsToRead();
+    numPackets = egGetNumPacketsToRead();
 #endif /* ENB_CPU_OVERLOAD_CONTROL */
 
-   /*Steps for Reading Message
+    /*Steps for Reading Message
      1. For Each Socket Descriptor indicated by Epoll - Do Following
      1.1: Find a configured server
      1.1.1: If Server is Found
@@ -1271,37 +1227,36 @@ U32 maxEvent;              /* !< Max events to capture from ePOll. */
      1.1.2.1 :Indicate to User [Currently only Print]
      1.2: Iterate by 1.1.1 until all the server's are processed
     */
-   for(i=0; i< MAX_SERVER_NUM; i++)
-   {
-      egTLServerCb = &egTLCb.servers[i];
+    for (i = 0; i < MAX_SERVER_NUM; i++)
+    {
+        egTLServerCb = &egTLCb.servers[i];
 
-      if(egTLServerCb->sockFd == 0xFFFFFFFF)
-           continue;
+        if (egTLServerCb->sockFd == 0xFFFFFFFF)
+            continue;
 
-      /*Read the Max Defined Data for the each Server*/
-      for(j = 0; j < numPackets; j++)
-      {
-         U32 bufLen = 0;
+        /*Read the Max Defined Data for the each Server*/
+        for (j = 0; j < numPackets; j++)
+        {
+            U32 bufLen = 0;
 #if (defined(TENB_T2K3K_SPECIFIC_CHANGES)) && (!defined(TENB_DISABLE_DL_ZBC))
-         if(ROK == egTLRecvZbcUdpMsgFB(egTLServerCb->sockFd, &remAddr,&buf, &bufLen))
+            if (ROK == egTLRecvZbcUdpMsgFB(egTLServerCb->sockFd, &remAddr, &buf, &bufLen))
 #else
-         if(ROK == egTLRecvMsgFromSocketFB(egTLServerCb->sockFd, &remAddr, buf, &bufLen))
+            if (ROK == egTLRecvMsgFromSocketFB(egTLServerCb->sockFd, &remAddr, buf, &bufLen))
 #endif
-         {
-              egTLHndlRecv(egTLServerCb,buf, bufLen, &remAddr); 
-         }
-         else
-         {
-            /* printf("\n No more data to read from the socket."); */
-            break;
-         }
-      }
-   }
+            {
+                egTLHndlRecv(egTLServerCb, buf, bufLen, &remAddr);
+            }
+            else
+            {
+                /* printf("\n No more data to read from the socket."); */
+                break;
+            }
+        }
+    }
 
-   RETVALUE(ROK);
+    RETVALUE(ROK);
 }
 #endif
-
 
 /** @details
  * This primitive is used by eGTP-U to de-init thin Socket Layer.s
@@ -1316,16 +1271,16 @@ PUBLIC Void EgTLThShutdownReq(Void)
 {
     U32 i;
 #ifdef NTL_LIB
-    if(ntl_hLib !=-1)
+    if (ntl_hLib != -1)
     {
-      printf ("NTL Lib detach\n");
-      ntl_close(ntl_hLib, 0);
-      ntl_hLib = -1;
+        printf("NTL Lib detach\n");
+        ntl_close(ntl_hLib, 0);
+        ntl_hLib = -1;
     }
-#endif 
-    for (i=0; i < MAX_SERVER_NUM; i++)
+#endif
+    for (i = 0; i < MAX_SERVER_NUM; i++)
     {
-        if( SOCK_ERROR != egTLCb.servers[i].sockFd)
+        if (SOCK_ERROR != egTLCb.servers[i].sockFd)
             close(egTLCb.servers[i].sockFd);
     }
 }
@@ -1344,89 +1299,85 @@ PUBLIC Void EgTLThShutdownReq(Void)
  */
 #ifndef DHI
 #ifdef ANSI
-PUBLIC U32 EgTLDatReq
-(
-UConnId     spConId,       /* service providers connection Id */
-CmTptAddr   *remAddr,      /* remote address */
-CmTptAddr   *srcAddr,      /* source address */
-CmIpHdrParm *hdrParm,      /* header parameters */
-Buffer      *mBuf          /* message buffer */
+PUBLIC U32 EgTLDatReq(
+    UConnId spConId,      /* service providers connection Id */
+    CmTptAddr *remAddr,   /* remote address */
+    CmTptAddr *srcAddr,   /* source address */
+    CmIpHdrParm *hdrParm, /* header parameters */
+    Buffer *mBuf          /* message buffer */
 )
 #else
 PUBLIC U32 EgTLDatReq(spConId, remAddr, srcAddr, hdrParm, mBuf)
-UConnId     spConId,       /* service providers connection Id */
-CmTptAddr   *remAddr,      /* remote address */
-CmTptAddr   *srcAddr,      /* source address */
-CmIpHdrParm *hdrParm,      /* header parameters */
-Buffer      *mBuf          /* message buffer */
+    UConnId spConId,      /* service providers connection Id */
+    CmTptAddr *remAddr,   /* remote address */
+    CmTptAddr *srcAddr,   /* source address */
+    CmIpHdrParm *hdrParm, /* header parameters */
+    Buffer *mBuf          /* message buffer */
 #endif
 {
-   EgTLServerCb *egTLServerCb = &egTLCb.servers[spConId];;
-   EgTLMsgQueue *msgQueue;
-   U32           tmpRear;
-   U32           locFront;
-   MsgLen        msgLen;
+    EgTLServerCb *egTLServerCb = &egTLCb.servers[spConId];
+    ;
+    EgTLMsgQueue *msgQueue;
+    U32 tmpRear;
+    U32 locFront;
+    MsgLen msgLen;
 
 #ifdef ERRCHK
-   if((NULLP == remAddr)
-         ||(NULLP == srcAddr)
-         ||(NULLP == mBuf))
-   {
-      printf("\n Incorrect Parameter Passed");
-      RETVALUE(RFAILED);
-   }
+    if ((NULLP == remAddr) || (NULLP == srcAddr) || (NULLP == mBuf))
+    {
+        printf("\n Incorrect Parameter Passed");
+        RETVALUE(RFAILED);
+    }
 
-   if(cmMemcmp((CONSTANT U8 *) &egTLServerCb->serverAddress,(CONSTANT U8 *) srcAddr,sizeof(CmTptAddr)))
-   {
-      printf("\n Source Address MisMatch");
-      RETVALUE(RFAILED);
-   }
+    if (cmMemcmp((CONSTANT U8 *)&egTLServerCb->serverAddress, (CONSTANT U8 *)srcAddr, sizeof(CmTptAddr)))
+    {
+        printf("\n Source Address MisMatch");
+        RETVALUE(RFAILED);
+    }
 #endif
 
-
-#ifndef LC_EGTP_THREAD  
-   tmpRear = egTLQueueAddOne(egTLServerCb->rear);
-   locFront = egTLServerCb->front;
-#else
-   tmpRear = egTLQueueAddOne(egTLServerCb->egtpPktRear);
-   locFront = egTLServerCb->egtpPktFront;
-#endif
-   if(egTLQueueAddOne(egTLQueueAddOne(tmpRear)) == locFront)
-   {
-      /* Dropping Packets */
-      SPutMsg(mBuf);
-      RETVALUE(ROK);
-      /* EgTLSendMsg(TRUE); */
-   }
-   
 #ifndef LC_EGTP_THREAD
-   msgQueue =  &egTLServerCb->msgQueue[tmpRear],
+    tmpRear = egTLQueueAddOne(egTLServerCb->rear);
+    locFront = egTLServerCb->front;
 #else
-   msgQueue =  &egTLServerCb->egtpMsgQueue[tmpRear],
+    tmpRear = egTLQueueAddOne(egTLServerCb->egtpPktRear);
+    locFront = egTLServerCb->egtpPktFront;
+#endif
+    if (egTLQueueAddOne(egTLQueueAddOne(tmpRear)) == locFront)
+    {
+        /* Dropping Packets */
+        SPutMsg(mBuf);
+        RETVALUE(ROK);
+        /* EgTLSendMsg(TRUE); */
+    }
+
+#ifndef LC_EGTP_THREAD
+    msgQueue = &egTLServerCb->msgQueue[tmpRear],
+#else
+    msgQueue = &egTLServerCb->egtpMsgQueue[tmpRear],
 #endif
 
-   cmMemcpy((U8 *) &msgQueue->dstAddr,(CONSTANT U8 *)remAddr, sizeof(CmTptAddr));
-   msgQueue->mBuf = mBuf;
-   SFndLenMsg(mBuf, &msgLen);
-   msgQueue->msglen = msgLen;
-   msgQueue->flag   = TRUE;
+    cmMemcpy((U8 *)&msgQueue->dstAddr, (CONSTANT U8 *)remAddr, sizeof(CmTptAddr));
+    msgQueue->mBuf = mBuf;
+    SFndLenMsg(mBuf, &msgLen);
+    msgQueue->msglen = msgLen;
+    msgQueue->flag = TRUE;
 
 #ifdef IPV6_OPTS_SUPPORTED
-   cmMemcpy((U8 *)&msgQueue->ipHdrParams, (CONSTANT U8 *)hdrParm,
-                                                  sizeof(CmIpHdrParm));
+    cmMemcpy((U8 *)&msgQueue->ipHdrParams, (CONSTANT U8 *)hdrParm,
+             sizeof(CmIpHdrParm));
 #endif
 #ifndef LC_EGTP_THREAD
-   egTLServerCb->rear = tmpRear;
-   egTLServerCb->qLen++;
+    egTLServerCb->rear = tmpRear;
+    egTLServerCb->qLen++;
 #else
-   egTLServerCb->egtpPktRear  = tmpRear;
-   egTLServerCb->egtpPktQLen++;
+    egTLServerCb->egtpPktRear = tmpRear;
+    egTLServerCb->egtpPktQLen++;
 #endif
 
-   RETVALUE(ROK);
-
+    RETVALUE(ROK);
 }
-#endif 
+#endif
 
 /** @details
  * This primitive is used by eGTP-U to open server for Tx/Rx of Data
@@ -1440,23 +1391,22 @@ Buffer      *mBuf          /* message buffer */
  */
 
 #ifdef ANSI
-PUBLIC U32 EgTLBndReq
-(
-Pst  *pst,                /* post structure */
-SuId suId,                /* service user SAP ID */
-SpId spId                 /* service provider SAP ID */
+PUBLIC U32 EgTLBndReq(
+    Pst *pst,  /* post structure */
+    SuId suId, /* service user SAP ID */
+    SpId spId  /* service provider SAP ID */
 )
 #else
 PUBLIC U32 EgTLBndReq(pst, suId, spId)
-Pst  *pst;                /* post structure */
-SuId suId;                /* service user SAP ID */
-SpId spId;                /* service provider SAP ID */
+    Pst *pst; /* post structure */
+SuId suId;    /* service user SAP ID */
+SpId spId;    /* service provider SAP ID */
 #endif
 {
     Pst cfmPst;
 
 #ifdef ERRCHK
-    if(NULLP == pst)
+    if (NULLP == pst)
     {
         printf("\n Incorrect Parameter Passed");
         RETVALUE(RFAILED);
@@ -1465,15 +1415,14 @@ SpId spId;                /* service provider SAP ID */
 
     /* copy bind configuration parameters */
     cfmPst.dstProcId = pst->srcProcId;
-    cfmPst.dstEnt    = pst->srcEnt;
-    cfmPst.dstInst   = pst->srcInst;
+    cfmPst.dstEnt = pst->srcEnt;
+    cfmPst.dstInst = pst->srcInst;
     cfmPst.srcProcId = pst->dstProcId;
-    cfmPst.srcInst   = pst->dstInst;
+    cfmPst.srcInst = pst->dstInst;
 
     EgLiHitBndCfm(&cfmPst, suId, CM_BND_OK);
     RETVALUE(ROK);
 }
-
 
 /** @details
  * This primitive is used by eGTP-U to unbind with eg_socklayer.
@@ -1486,17 +1435,16 @@ SpId spId;                /* service provider SAP ID */
  */
 
 #ifdef ANSI
-PUBLIC U32 EgTLUbndReq
-(
-Pst    *pst,              /* post structure */
-SpId   spId,              /* service provider SAP ID */
-Reason reason             /* reason */
+PUBLIC U32 EgTLUbndReq(
+    Pst *pst,     /* post structure */
+    SpId spId,    /* service provider SAP ID */
+    Reason reason /* reason */
 )
 #else
 PUBLIC U32 EgTLUbndReq(pst, spId, reason)
-Pst    *pst;              /* post structure */
-SpId   spId;              /* service provider SAP ID */
-Reason reason;             /* reason */
+    Pst *pst;  /* post structure */
+SpId spId;     /* service provider SAP ID */
+Reason reason; /* reason */
 #endif
 {
     RETVALUE(ROK);
@@ -1517,23 +1465,22 @@ Reason reason;             /* reason */
  */
 
 #ifdef ANSI
-PUBLIC U32 EgTLDiscServerReq
-(
-UConnId     conId         /* connection Id */
+PUBLIC U32 EgTLDiscServerReq(
+    UConnId conId /* connection Id */
 )
 #else
 PUBLIC U32 EgTLDiscServerReq(conId)
-UConnId     conId;         /* connection Id */
+    UConnId conId; /* connection Id */
 #endif
 {
     U32 ret = ROK;
 
-    if(egTLCb.servers[conId].sockFd != SOCK_ERROR )
+    if (egTLCb.servers[conId].sockFd != SOCK_ERROR)
     {
         /*Close the Socket*/
         /*De-register the SockFd from the ePoll*/
         ret = egTLCloseServerReq(conId);
-        if(ROK != ret)
+        if (ROK != ret)
         {
             printf("\n Failed to Close Socket");
             RETVALUE(RFAILED);
@@ -1542,7 +1489,7 @@ UConnId     conId;         /* connection Id */
 
     RETVALUE(ROK);
 }
-#endif 
+#endif
 
 #ifndef DHI
 /** @details
@@ -1553,58 +1500,57 @@ UConnId     conId;         /* connection Id */
  * @return  ROK, RFAILED
  */
 #ifdef ANSI
-PRIVATE U32 egTLCloseServerReq
-(
-U32 connId             /* !< Connection Id of the socket to be closed. */
+PRIVATE U32 egTLCloseServerReq(
+    U32 connId /* !< Connection Id of the socket to be closed. */
 )
 #else
 PRIVATE U32 egTLCloseServerReq(connId)
-U32 connId;           /* !< Connection Id of the socket to be closed. */
+    U32 connId; /* !< Connection Id of the socket to be closed. */
 #endif
 {
-   U32 ret=ROK; /* kwork fix */
+    U32 ret = ROK; /* kwork fix */
 #ifdef NTL_LIB
-	ntl_socket_ctrl(ntl_hLib, egTLCb.servers[connId].sockFd, KSD_SOCKET_CTRL_RX_DISABLED);
-   printf("Closing NTL socket egTLCb.servers[connId].sockFd %lu  \n",egTLCb.servers[connId].sockFd);  
-   if ( SOCK_ERROR == ntl_socket_close (ntl_hLib, egTLCb.servers[connId].sockFd))
-   {
+    ntl_socket_ctrl(ntl_hLib, egTLCb.servers[connId].sockFd, KSD_SOCKET_CTRL_RX_DISABLED);
+    printf("Closing NTL socket egTLCb.servers[connId].sockFd %lu  \n", egTLCb.servers[connId].sockFd);
+    if (SOCK_ERROR == ntl_socket_close(ntl_hLib, egTLCb.servers[connId].sockFd))
+    {
 #ifdef ALIGN_64BIT
-      printf("\n Unable to Close the Socket FD =[%d] for ServerId=[%d] with Error=[%d]",
-            egTLCb.servers[connId].sockFd,
-            connId,
-            errno);
-#else
-      printf("\n Unable to Close the Socket FD =[%ld] for ServerId=[%ld] with Error=[%d]",
-            egTLCb.servers[connId].sockFd,
-            connId,
-            errno);
-#endif
-      ret = RFAILED;
-   }
-#ifdef NTL_LIB_DIS_FOR_UL    
-   printf("Closing Normal UL socket egTLCb.servers[connId].sockFd %lu  \n",egTLCb.servers[connId].sockFdUL);  
-   if(egTLCb.servers[connId].sockFdUL)
-   {  
-      if(SOCK_ERROR == close(egTLCb.servers[connId].sockFdUL))
-      {
-#ifdef ALIGN_64BIT
-         printf("\n Unable to Close the Socket FD =[%d] for ServerId=[%d] with Error=[%d]",
+        printf("\n Unable to Close the Socket FD =[%d] for ServerId=[%d] with Error=[%d]",
                egTLCb.servers[connId].sockFd,
                connId,
                errno);
 #else
-         printf("\n Unable to Close the Socket FD =[%ld] for ServerId=[%ld] with Error=[%d]",
+        printf("\n Unable to Close the Socket FD =[%ld] for ServerId=[%ld] with Error=[%d]",
                egTLCb.servers[connId].sockFd,
                connId,
                errno);
 #endif
-         ret = RFAILED;
-      }
-      egTLCb.servers[connId].sockFdUL =0;
-   }
+        ret = RFAILED;
+    }
+#ifdef NTL_LIB_DIS_FOR_UL
+    printf("Closing Normal UL socket egTLCb.servers[connId].sockFd %lu  \n", egTLCb.servers[connId].sockFdUL);
+    if (egTLCb.servers[connId].sockFdUL)
+    {
+        if (SOCK_ERROR == close(egTLCb.servers[connId].sockFdUL))
+        {
+#ifdef ALIGN_64BIT
+            printf("\n Unable to Close the Socket FD =[%d] for ServerId=[%d] with Error=[%d]",
+                   egTLCb.servers[connId].sockFd,
+                   connId,
+                   errno);
+#else
+            printf("\n Unable to Close the Socket FD =[%ld] for ServerId=[%ld] with Error=[%d]",
+                   egTLCb.servers[connId].sockFd,
+                   connId,
+                   errno);
+#endif
+            ret = RFAILED;
+        }
+        egTLCb.servers[connId].sockFdUL = 0;
+    }
 #endif /* NTL_LIB_DIS_FOR_UL */
-#else 
-    if(SOCK_ERROR == close(egTLCb.servers[connId].sockFd))
+#else
+    if (SOCK_ERROR == close(egTLCb.servers[connId].sockFd))
     {
 #ifdef ALIGN_64BIT
         printf("\n Unable to Close the Socket FD =[%d] for ServerId=[%d] with Error=[%d]",
@@ -1620,11 +1566,11 @@ U32 connId;           /* !< Connection Id of the socket to be closed. */
 #endif
         ret = RFAILED;
     }
-#endif /* NTL_LIB */ 
+#endif /* NTL_LIB */
     RETVALUE(ret);
 }
 
-#endif 
+#endif
 /*
  *
  *      Fun:   egTLSendSockMsg
@@ -1655,184 +1601,181 @@ U32 connId;           /* !< Connection Id of the socket to be closed. */
  */
 
 #ifdef ANSI
-PUBLIC S16 egTLSendSockMsg
-(
- CmInetFd       *sockFd,         /* socket file descriptor */
- CmInetAddr     *dstAddr,        /* destination Internet address/port */
- CmInetMemInfo  *info,           /* buffer allocation info */
- Buffer         *mBuf,           /* buffer structure to send */
- MsgLen         *len,            /* number of actually sent octets */
- U8              tos
- )
+PUBLIC S16 egTLSendSockMsg(
+    CmInetFd *sockFd,    /* socket file descriptor */
+    CmInetAddr *dstAddr, /* destination Internet address/port */
+    CmInetMemInfo *info, /* buffer allocation info */
+    Buffer *mBuf,        /* buffer structure to send */
+    MsgLen *len,         /* number of actually sent octets */
+    U8 tos)
 #else
-PUBLIC S16 egTLSendSockMsg(sockFd, dstAddr, info, mBuf, len,tos)
-   CmInetFd       *sockFd;         /* socket file descriptor */
-   CmInetAddr     *dstAddr;        /* destination Internet address/port */
-   CmInetMemInfo  *info;           /* buffer allocation info */
-   Buffer         *mBuf;           /* buffer structure to send */
-   MsgLen         *len;            /* number of actually sent octets */
-   U8              tos;
+PUBLIC S16 egTLSendSockMsg(sockFd, dstAddr, info, mBuf, len, tos)
+    CmInetFd *sockFd; /* socket file descriptor */
+CmInetAddr *dstAddr;  /* destination Internet address/port */
+CmInetMemInfo *info;  /* buffer allocation info */
+Buffer *mBuf;         /* buffer structure to send */
+MsgLen *len;          /* number of actually sent octets */
+U8 tos;
 #endif /* ANSI */
 {
-   S32 ret;                     /* temporary return value */
-   S32 retVal;                  /* temporary return value */
-   S16 i;                       /* loop index */
-   CmInetIovec  txArr[CM_INET_MAX_DBUF]; /* scatter vector */
-   S16      numDBufs;           /* number of dBufs in message */
-   struct   msghdr msg;         /* sendmsg() message header */
-   MsgLen   msgLen;             /* message length */ 
-   U32      strtEndDBufNum;     /* starting/ending DBuf number */ 
-   MsgLen   unSentLen;          /* sent len */
-   Bool     sentMsg;            /* flag to indicate the entire message is
+    S32 ret;                             /* temporary return value */
+    S32 retVal;                          /* temporary return value */
+    S16 i;                               /* loop index */
+    CmInetIovec txArr[CM_INET_MAX_DBUF]; /* scatter vector */
+    S16 numDBufs;                        /* number of dBufs in message */
+    struct msghdr msg;                   /* sendmsg() message header */
+    MsgLen msgLen;                       /* message length */
+    U32 strtEndDBufNum;                  /* starting/ending DBuf number */
+    MsgLen unSentLen;                    /* sent len */
+    Bool sentMsg;                        /* flag to indicate the entire message is
                                  * sent */
 
-   struct  sockaddr_in remAddr; /* remote Internet address */   
+    struct sockaddr_in remAddr; /* remote Internet address */
 #ifdef IPV6_SUPPORTED
-   struct   sockaddr_in6  remAddr6; /* remote Internet address */   
-#endif /* IPV6_SUPPORTED */
-   CmInetSockAddr *sockAddrPtr;
-   U32            sizeOfAddr;    
+    struct sockaddr_in6 remAddr6; /* remote Internet address */
+#endif                            /* IPV6_SUPPORTED */
+    CmInetSockAddr *sockAddrPtr;
+    U32 sizeOfAddr;
 #ifndef LTE_ENB_PAL
-   EgMsgData aux;
+    EgMsgData aux;
 #endif
-   MsgLen         ioLen; 
+    MsgLen ioLen;
 
-   TRC2(egTLSendSockMsg)
+    TRC2(egTLSendSockMsg)
 
 #if (ERRCLASS & ERRCLS_INT_PAR)
-      /* error check on parameters */
-      if ((sockFd == NULLP) || CM_INET_INV_SOCK_FD(sockFd) ||
-            (info == NULLP) || (len == NULLP))
-      {
-         RETVALUE(RFAILED);
-      }
+    /* error check on parameters */
+    if ((sockFd == NULLP) || CM_INET_INV_SOCK_FD(sockFd) ||
+        (info == NULLP) || (len == NULLP))
+    {
+        RETVALUE(RFAILED);
+    }
 #endif /* ERRCLASS & ERRCLS_INT_PAR */
 
-   msgLen = 0;  
-   sockAddrPtr = NULLP;
-   sizeOfAddr = 0;
+    msgLen = 0;
+    sockAddrPtr = NULLP;
+    sizeOfAddr = 0;
 
-   /* setup remote address */
-   if (dstAddr != NULLP)
-   {
+    /* setup remote address */
+    if (dstAddr != NULLP)
+    {
 #ifdef IPV6_SUPPORTED
-      if (dstAddr->type == CM_INET_IPV6ADDR_TYPE)
-      {
-         cmMemset((U8*)&remAddr6, 0, sizeof(remAddr6));
-         remAddr6.sin6_family = AF_INET6;
-         remAddr6.sin6_port   = CM_INET_HTON_U16(dstAddr->u.ipv6Addr.port);
-         CM_INET_COPY_IPV6ADDR(&remAddr6.sin6_addr, 
-               &dstAddr->u.ipv6Addr.ipv6NetAddr); 
-         sizeOfAddr = sizeof(remAddr6);
-         sockAddrPtr = (CmInetSockAddr *)&remAddr6;
-      }
-      else
-      {
-         cmMemset((U8*)&remAddr, 0, sizeof(remAddr));
-         remAddr.sin_family = AF_INET;
-         remAddr.sin_port   = CM_INET_HTON_U16(dstAddr->u.ipv4Addr.port);
-         remAddr.sin_addr.s_addr = 
-            CM_INET_HTON_U32(dstAddr->u.ipv4Addr.address);
-         sizeOfAddr = sizeof(remAddr);
-         sockAddrPtr = (CmInetSockAddr *)&remAddr;
-      }
+        if (dstAddr->type == CM_INET_IPV6ADDR_TYPE)
+        {
+            cmMemset((U8 *)&remAddr6, 0, sizeof(remAddr6));
+            remAddr6.sin6_family = AF_INET6;
+            remAddr6.sin6_port = CM_INET_HTON_U16(dstAddr->u.ipv6Addr.port);
+            CM_INET_COPY_IPV6ADDR(&remAddr6.sin6_addr,
+                                  &dstAddr->u.ipv6Addr.ipv6NetAddr);
+            sizeOfAddr = sizeof(remAddr6);
+            sockAddrPtr = (CmInetSockAddr *)&remAddr6;
+        }
+        else
+        {
+            cmMemset((U8 *)&remAddr, 0, sizeof(remAddr));
+            remAddr.sin_family = AF_INET;
+            remAddr.sin_port = CM_INET_HTON_U16(dstAddr->u.ipv4Addr.port);
+            remAddr.sin_addr.s_addr =
+                CM_INET_HTON_U32(dstAddr->u.ipv4Addr.address);
+            sizeOfAddr = sizeof(remAddr);
+            sockAddrPtr = (CmInetSockAddr *)&remAddr;
+        }
 #else
-      /*      cmMemset((U8*)&remAddr, 0, sizeof(remAddr)); */
-      remAddr.sin_family      = AF_INET;
-      remAddr.sin_port        = CM_INET_HTON_U16(dstAddr->port);
-      remAddr.sin_addr.s_addr = CM_INET_HTON_U32(dstAddr->address);
-      sizeOfAddr = sizeof(remAddr);
-      sockAddrPtr = (CmInetSockAddr *)&remAddr;
+        /*      cmMemset((U8*)&remAddr, 0, sizeof(remAddr)); */
+        remAddr.sin_family = AF_INET;
+        remAddr.sin_port = CM_INET_HTON_U16(dstAddr->port);
+        remAddr.sin_addr.s_addr = CM_INET_HTON_U32(dstAddr->address);
+        sizeOfAddr = sizeof(remAddr);
+        sockAddrPtr = (CmInetSockAddr *)&remAddr;
 #endif /* IPV6_SUPPORTED */
-   }
+    }
 
-   ret = SFndLenMsg(mBuf, &msgLen);
-   if (ret != ROK)
-   {
-      RETVALUE(RFAILED);
-   }
+    ret = SFndLenMsg(mBuf, &msgLen);
+    if (ret != ROK)
+    {
+        RETVALUE(RFAILED);
+    }
 
-   msg.msg_flags = 0;
-   if (dstAddr != NULLP)
-   {
-      msg.msg_name    = (caddr_t)sockAddrPtr;
-      msg.msg_namelen = sizeOfAddr;
-   }
-   else
-   {
-      msg.msg_name    = NULLP;         
-      msg.msg_namelen = 0;
-   }
+    msg.msg_flags = 0;
+    if (dstAddr != NULLP)
+    {
+        msg.msg_name = (caddr_t)sockAddrPtr;
+        msg.msg_namelen = sizeOfAddr;
+    }
+    else
+    {
+        msg.msg_name = NULLP;
+        msg.msg_namelen = 0;
+    }
 
-   msg.msg_control    = NULLP;
-   msg.msg_controllen  = 0;
+    msg.msg_control = NULLP;
+    msg.msg_controllen = 0;
 
-   /* allocate scatter vector */
-   numDBufs = CM_INET_MAX_DBUF;
-   retVal = RNA;
-   ret = ROK;
-   unSentLen = msgLen;
-   strtEndDBufNum = 0;
-   *len = 0;
-   sentMsg = FALSE;
+    /* allocate scatter vector */
+    numDBufs = CM_INET_MAX_DBUF;
+    retVal = RNA;
+    ret = ROK;
+    unSentLen = msgLen;
+    strtEndDBufNum = 0;
+    *len = 0;
+    sentMsg = FALSE;
 
-
-   do
-   {
-      /* build the send vector */ 
-      /* cm_inet_c_001.main_50 - Partial send handling. Added variable to hold
+    do
+    {
+        /* build the send vector */
+        /* cm_inet_c_001.main_50 - Partial send handling. Added variable to hold
          total length of the packed dbufs */
-      retVal = egTLBuildSendIovec(mBuf, unSentLen, txArr, numDBufs, &i, 
-            &strtEndDBufNum, &ioLen);
-      if (retVal != ROK)
-      {
-         if (retVal == RNA)
-         {
-            /* Incase of UDP/RAW messages call SCompressMsg. */
-            if (sockFd->type != CM_INET_STREAM)
+        retVal = egTLBuildSendIovec(mBuf, unSentLen, txArr, numDBufs, &i,
+                                    &strtEndDBufNum, &ioLen);
+        if (retVal != ROK)
+        {
+            if (retVal == RNA)
             {
-               /* Compress the message into a single dBuf */
-               ret = SCompressMsg(mBuf);
-               if (ret != ROK)
-                  RETVALUE(RFAILED);
+                /* Incase of UDP/RAW messages call SCompressMsg. */
+                if (sockFd->type != CM_INET_STREAM)
+                {
+                    /* Compress the message into a single dBuf */
+                    ret = SCompressMsg(mBuf);
+                    if (ret != ROK)
+                        RETVALUE(RFAILED);
 
-               strtEndDBufNum = 0;
-               /* Rebuild the send vector */
-               /* cm_inet_c_001.main_50 - Partial send handling. Added variable to hold
+                    strtEndDBufNum = 0;
+                    /* Rebuild the send vector */
+                    /* cm_inet_c_001.main_50 - Partial send handling. Added variable to hold
                   total length of the packed dbuf */
-               ret = egTLBuildSendIovec(mBuf, unSentLen, txArr, numDBufs, &i,
-                     &strtEndDBufNum, &ioLen);
-               if (ret != ROK)
-                  RETVALUE(RFAILED);
+                    ret = egTLBuildSendIovec(mBuf, unSentLen, txArr, numDBufs, &i,
+                                             &strtEndDBufNum, &ioLen);
+                    if (ret != ROK)
+                        RETVALUE(RFAILED);
 
-               retVal = ROK;
+                    retVal = ROK;
+                }
             }
-         }
-         else
-            RETVALUE(RFAILED);
-      }
-   msg.msg_iov           = txArr;
-   msg.msg_iovlen        = i;
+            else
+                RETVALUE(RFAILED);
+        }
+        msg.msg_iov = txArr;
+        msg.msg_iovlen = i;
 
 #ifndef LTE_ENB_PAL
-   aux.hdr.cmsg_len = sizeof(EgMsgData);
-   aux.hdr.cmsg_level = SOL_IP;
-   aux.hdr.cmsg_type = IP_TOS;
-   aux.data = tos;
+        aux.hdr.cmsg_len = sizeof(EgMsgData);
+        aux.hdr.cmsg_level = SOL_IP;
+        aux.hdr.cmsg_type = IP_TOS;
+        aux.data = tos;
 
-   msg.msg_control = &aux;
-   msg.msg_controllen = sizeof (aux);
+        msg.msg_control = &aux;
+        msg.msg_controllen = sizeof(aux);
 #endif
-#if (defined( NTL_LIB ) && (!defined( NTL_LIB_DIS_FOR_UL ))) 
-   ret = ntl_sendmsg(ntl_hLib, sockFd->fd, &msg, 0);
-#else 
-   ret = sendmsg(sockFd->fd, &msg, 0);
-#endif 
+#if (defined(NTL_LIB) && (!defined(NTL_LIB_DIS_FOR_UL)))
+        ret = ntl_sendmsg(ntl_hLib, sockFd->fd, &msg, 0);
+#else
+        ret = sendmsg(sockFd->fd, &msg, 0);
+#endif
 
         if (-1 == ret)
         {
-            if((errno == EAGAIN) ||
-                    (errno == EWOULDBLOCK))
+            if ((errno == EAGAIN) ||
+                (errno == EWOULDBLOCK))
             {
                 /* cm_inet_c_001.main_50 - Return without making length 0, if in case the partial
                    message was sent earlier */
@@ -1840,7 +1783,8 @@ PUBLIC S16 egTLSendSockMsg(sockFd, dstAddr, info, mBuf, len,tos)
             }
 
             printf("thUtlSendMsg() Failed : error(%d),"
-                   " sockFd->fd(%ld)\n", errno, sockFd->fd);
+                   " sockFd->fd(%ld)\n",
+                   errno, sockFd->fd);
 
             /* check if network is reacheble or not */
             if ((errno == ENETUNREACH))
@@ -1850,8 +1794,8 @@ PUBLIC S16 egTLSendSockMsg(sockFd, dstAddr, info, mBuf, len,tos)
 
             /*  Check if connection was closed by the peer */
             if ((errno == EPIPE) ||
-                    (errno == ECONNREFUSED) ||
-                    (errno == ECONNABORTED))
+                (errno == ECONNREFUSED) ||
+                (errno == ECONNABORTED))
             {
                 *len = 0;
                 RETVALUE(RCLOSED);
@@ -1871,7 +1815,7 @@ PUBLIC S16 egTLSendSockMsg(sockFd, dstAddr, info, mBuf, len,tos)
         unSentLen -= ret;
 
     } while (*len < msgLen);
-   RETVALUE(ROK);
+    RETVALUE(ROK);
 
 } /* end of egTLSendSockMsg */
 #if 0
@@ -2632,7 +2576,7 @@ S32              flags;         /* additional control flags */
                 *len = (MsgLen)recvLen;
                 break;
             }
-#else /* CM_INET2 */
+#else  /* CM_INET2 */
             if (sockFd->type == CM_INET_DGRAM)
             {
                 /* cm_inet_c_001.main_54: Fix for Klockworks issue */
@@ -2709,7 +2653,6 @@ S32              flags;         /* additional control flags */
  *            ROKDNA  - ok, data not available
  *            RFAILED - failedROK, RFAILED
  */
-
 
 #ifdef ANSI
 PRIVATE S16 egTLBuildRecvMsg
@@ -2809,35 +2752,34 @@ cleanup:
  */
 
 #ifdef ANSI
-PRIVATE S16 egTLBuildSendIovec
-(
-    Buffer         *mBuf,           /* Message buffer */
-    MsgLen         msgLen,          /* Length of mBuf */
-    CmInetIovec    txArr[],         /* transmit scatter vector array */
-    S16            numDBufs,        /* Maximum number of dBufs to use */
-    S16            *numIovElems,    /* Number of iov elements in array */
-    U32            *strtEndDBufNum, /* dBuf number to start and end */
-    MsgLen         *ioLen           /* Len of dbuf packed into IO-vector */
+PRIVATE S16 egTLBuildSendIovec(
+    Buffer *mBuf,        /* Message buffer */
+    MsgLen msgLen,       /* Length of mBuf */
+    CmInetIovec txArr[], /* transmit scatter vector array */
+    S16 numDBufs,        /* Maximum number of dBufs to use */
+    S16 *numIovElems,    /* Number of iov elements in array */
+    U32 *strtEndDBufNum, /* dBuf number to start and end */
+    MsgLen *ioLen        /* Len of dbuf packed into IO-vector */
 )
 #else
 PRIVATE S16 egTLBuildSendIovec(mBuf, msgLen, txArr, numDBufs, numIovElems,
-                            strtEndDBufNum,ioLen)
-Buffer         *mBuf;           /* Message buffer */
-MsgLen         msgLen;          /* Length of mBuf */
-CmInetIovec    txArr[];         /* transmit scatter vector array */
-S16            numDBufs;        /* Maximum number of dBufs to use */
-S16            *numIovElems;    /* Number of iov elements in array */
-U32            *strtEndDBufNum; /* dBuf number to start and end */
-MsgLen         *ioLen;          /* Len of dbuf packed into IO-vector */
+                               strtEndDBufNum, ioLen)
+    Buffer *mBuf;    /* Message buffer */
+MsgLen msgLen;       /* Length of mBuf */
+CmInetIovec txArr[]; /* transmit scatter vector array */
+S16 numDBufs;        /* Maximum number of dBufs to use */
+S16 *numIovElems;    /* Number of iov elements in array */
+U32 *strtEndDBufNum; /* dBuf number to start and end */
+MsgLen *ioLen;       /* Len of dbuf packed into IO-vector */
 #endif
 {
-    S16         ret;
-    MsgLen      dLen;
-    S16         iovIdx;
-    Buffer      *dBuf;
-    Data        *dPtr;
-    MsgLen      allocLen;
-    U32         dBufsToSkip;
+    S16 ret;
+    MsgLen dLen;
+    S16 iovIdx;
+    Buffer *dBuf;
+    Data *dPtr;
+    MsgLen allocLen;
+    U32 dBufsToSkip;
 
     /* Initialisations */
     (*numIovElems) = 0;
@@ -2862,12 +2804,12 @@ MsgLen         *ioLen;          /* Len of dbuf packed into IO-vector */
         /* Skip through the required number of dBufs */
         dBufsToSkip = *strtEndDBufNum;
 
-        while(dBufsToSkip)
+        while (dBufsToSkip)
         {
             ret = SGetNxtDBuf(mBuf, &dBuf);
             if (ret != ROK)
                 RETVALUE(RFAILED);
-            dBufsToSkip --;
+            dBufsToSkip--;
         }
     }
 
@@ -2888,7 +2830,7 @@ MsgLen         *ioLen;          /* Len of dbuf packed into IO-vector */
 
             allocLen += dLen;
         }
-        else if  (ret == ROKDNA)
+        else if (ret == ROKDNA)
         {
             ret = ROK;
             break;
@@ -2917,7 +2859,6 @@ MsgLen         *ioLen;          /* Len of dbuf packed into IO-vector */
     *ioLen = allocLen;
 
     RETVALUE(ret);
-
 }
 
 #if 0
@@ -3084,84 +3025,80 @@ PUBLIC U32 egRcvPackCnt;
  * *
  * */
 #ifdef ANSI
-PRIVATE S16 egTLRecvZbcUdpMsg
-(
-U32 sockFd,
-CmTptAddr *remAddr,
-CmInetMemInfo memInfo,
-Buffer             **mBuf
-)
+PRIVATE S16 egTLRecvZbcUdpMsg(
+    U32 sockFd,
+    CmTptAddr *remAddr,
+    CmInetMemInfo memInfo,
+    Buffer **mBuf)
 #else
 PRIVATE S16 egTLRecvZbcUdpMsg(sockFd, remAddr, memInfo, mBuf)
-U32 sockFd;
+    U32 sockFd;
 CmTptAddr *remAddr;
 CmInetMemInfo memInfo;
-Buffer            **mBuf;
+Buffer **mBuf;
 #endif
 {
-/* kloc_works: initialize the recvBuf */   
-   Data              *recvBuf = NULLP;  /* Buffer for receiving the payload from socket */
-   MsgLen             recvBufLen;
-   struct sockaddr_in frmAddr = {0};
-//   MsgLen             frmLen = sizeof(struct sockaddr);
-   socklen_t            frmLen = sizeof(frmAddr);
+    /* kloc_works: initialize the recvBuf */
+    Data *recvBuf = NULLP; /* Buffer for receiving the payload from socket */
+    MsgLen recvBufLen;
+    struct sockaddr_in frmAddr = {0};
+    //   MsgLen             frmLen = sizeof(struct sockaddr);
+    socklen_t frmLen = sizeof(frmAddr);
 
 #ifndef NTL_LIB
-    recvBufLen = recvfrom(sockFd, &recvBuf, -1, 0, 
-                        (struct sockaddr*)(&frmAddr), &frmLen);
+    recvBufLen = recvfrom(sockFd, &recvBuf, -1, 0,
+                          (struct sockaddr *)(&frmAddr), &frmLen);
 #else
     if (ntl_hLib >= 0)
     {
-        recvBufLen = ntl_recvfrom(ntl_hLib, sockFd, &recvBuf, -1, MSG_DONTWAIT, 
-                            (struct sockaddr*)(&frmAddr), &frmLen);
+        recvBufLen = ntl_recvfrom(ntl_hLib, sockFd, &recvBuf, -1, MSG_DONTWAIT,
+                                  (struct sockaddr *)(&frmAddr), &frmLen);
     }
     else
     {
-        recvBufLen = recvfrom(sockFd, &recvBuf, -1, 0, 
-                        (struct sockaddr*)(&frmAddr), &frmLen);
+        recvBufLen = recvfrom(sockFd, &recvBuf, -1, 0,
+                              (struct sockaddr *)(&frmAddr), &frmLen);
     }
 #endif
 
-   if(SOCK_ERROR == recvBufLen)
-   {
-      if((errno == EAGAIN) || (errno == EWOULDBLOCK))
-      {
-         RETVALUE(ROKDNA);
-      }
-      printf("\n Failed to receive from socketFD =[%lu] Error Code =[%s]",sockFd,strerror(errno));
-      printf("\n Parameter passed sockFd=[%lu],MSG_DONTWAIT=[%d],frmLen=[%d],frmAddr Address=[%lu]",sockFd,MSG_DONTWAIT, frmLen, (U32)&frmAddr);
-      RETVALUE(RFAILED);
-   }
+    if (SOCK_ERROR == recvBufLen)
+    {
+        if ((errno == EAGAIN) || (errno == EWOULDBLOCK))
+        {
+            RETVALUE(ROKDNA);
+        }
+        printf("\n Failed to receive from socketFD =[%lu] Error Code =[%s]", sockFd, strerror(errno));
+        printf("\n Parameter passed sockFd=[%lu],MSG_DONTWAIT=[%d],frmLen=[%d],frmAddr Address=[%lu]", sockFd, MSG_DONTWAIT, frmLen, (U32)&frmAddr);
+        RETVALUE(RFAILED);
+    }
 
-   /* Added check for invalid address received from Socket interface */
-   if(recvBuf < (U8*)(0x90000000))
-   {
-      printf("Received invalid address from socekt 0x%pn\n", recvBuf);
-      RETVALUE(RFAILED);
-   }
+    /* Added check for invalid address received from Socket interface */
+    if (recvBuf < (U8 *)(0x90000000))
+    {
+        printf("Received invalid address from socekt 0x%pn\n", recvBuf);
+        RETVALUE(RFAILED);
+    }
 #ifdef T2K_MEM_LEAK_DBG
-   if(ROK != (SAttachPtrToBufNew(memInfo.region, memInfo.pool, recvBuf,
-               recvBufLen, mBuf,__FILE__,__LINE__)))
+    if (ROK != (SAttachPtrToBufNew(memInfo.region, memInfo.pool, recvBuf,
+                                   recvBufLen, mBuf, __FILE__, __LINE__)))
 #else
-    if(ROK != (SAttachPtrToBuf(memInfo.region, memInfo.pool, recvBuf,
-               recvBufLen, mBuf)))
+    if (ROK != (SAttachPtrToBuf(memInfo.region, memInfo.pool, recvBuf,
+                                recvBufLen, mBuf)))
 #endif
-   {
-      printf("Failed to attach the pointer to mBuf\n");
-      RETVALUE(RFAILED);
-   }
-
+    {
+        printf("Failed to attach the pointer to mBuf\n");
+        RETVALUE(RFAILED);
+    }
 
 #ifdef T2K_MEM_LEAK_DBG
-   InsertToT2kMemLeakInfo((U32)(recvBuf - ((U32)recvBuf % 512)),recvBufLen,__LINE__,__FILE__);
+    InsertToT2kMemLeakInfo((U32)(recvBuf - ((U32)recvBuf % 512)), recvBufLen, __LINE__, __FILE__);
 #endif
-   remAddr->u.ipv4TptAddr.port    = CM_INET_NTOH_U16(frmAddr.sin_port);
-   remAddr->u.ipv4TptAddr.address = CM_INET_NTOH_U32(frmAddr.sin_addr.s_addr);
-   remAddr->type = CM_TPTADDR_IPV4;
+    remAddr->u.ipv4TptAddr.port = CM_INET_NTOH_U16(frmAddr.sin_port);
+    remAddr->u.ipv4TptAddr.address = CM_INET_NTOH_U32(frmAddr.sin_addr.s_addr);
+    remAddr->type = CM_TPTADDR_IPV4;
 
-   RETVALUE(ROK);
+    RETVALUE(ROK);
 }
-
 
 #ifdef FLAT_BUFFER_OPT
 /*
@@ -3179,48 +3116,46 @@ Buffer            **mBuf;
  * *
  * */
 #ifdef ANSI
-PRIVATE S16 egTLRecvZbcUdpMsgFB
-(
-U32           sockFd,
-CmTptAddr    *remAddr,
-U8            **recvBuf,
-U32           *bufLen
-)
+PRIVATE S16 egTLRecvZbcUdpMsgFB(
+    U32 sockFd,
+    CmTptAddr *remAddr,
+    U8 **recvBuf,
+    U32 *bufLen)
 #else
 PRIVATE S16 egTLRecvZbcUdpMsgFB(sockFd, remAddr, mBuf, bufLen)
-U32           sockFd;
-CmTptAddr *   remAddr;
-U8            **recvBuf;
-U32           *bufLen;
+    U32 sockFd;
+CmTptAddr *remAddr;
+U8 **recvBuf;
+U32 *bufLen;
 #endif
 {
-   struct sockaddr_in frmAddr = {0};
-   socklen_t            frmLen = sizeof(frmAddr);
+    struct sockaddr_in frmAddr = {0};
+    socklen_t frmLen = sizeof(frmAddr);
 
 #ifndef NTL_LIB
-    *bufLen = recvfrom(sockFd, recvBuf, -1, 0, (struct sockaddr*)(&frmAddr), &frmLen);
+    *bufLen = recvfrom(sockFd, recvBuf, -1, 0, (struct sockaddr *)(&frmAddr), &frmLen);
 #else
     if (ntl_hLib >= 0)
     {
-        *bufLen = ntl_recvfrom(ntl_hLib, sockFd, recvBuf, -1, MSG_DONTWAIT, 
-                        (struct sockaddr*)(&frmAddr), &frmLen);
+        *bufLen = ntl_recvfrom(ntl_hLib, sockFd, recvBuf, -1, MSG_DONTWAIT,
+                               (struct sockaddr *)(&frmAddr), &frmLen);
     }
     else
     {
-    	*bufLen = recvfrom(sockFd, recvBuf, -1, 0,
-                            (struct sockaddr*)(&frmAddr), &frmLen);
+        *bufLen = recvfrom(sockFd, recvBuf, -1, 0,
+                           (struct sockaddr *)(&frmAddr), &frmLen);
     }
 #endif
-   if(SOCK_ERROR == *bufLen)
-   {
-      if((errno == EAGAIN) || (errno == EWOULDBLOCK))
-      {
-         RETVALUE(ROKDNA);
-      }
-      printf("\n Failed to receive from socketFD =[%lu] Error Code =[%s]",sockFd,strerror(errno));
-      printf("\n Parameter passed sockFd=[%lu],MSG_DONTWAIT=[%d],frmLen=[%d],frmAddr Address=[%lu]",sockFd,MSG_DONTWAIT, frmLen, (U32)&frmAddr);
-      RETVALUE(RFAILED);
-   }
+    if (SOCK_ERROR == *bufLen)
+    {
+        if ((errno == EAGAIN) || (errno == EWOULDBLOCK))
+        {
+            RETVALUE(ROKDNA);
+        }
+        printf("\n Failed to receive from socketFD =[%lu] Error Code =[%s]", sockFd, strerror(errno));
+        printf("\n Parameter passed sockFd=[%lu],MSG_DONTWAIT=[%d],frmLen=[%d],frmAddr Address=[%lu]", sockFd, MSG_DONTWAIT, frmLen, (U32)&frmAddr);
+        RETVALUE(RFAILED);
+    }
 
 #if 0
    if(ROK != (SAttachPtrToBuf(memInfo.region, memInfo.pool, recvBuf,
@@ -3230,17 +3165,17 @@ U32           *bufLen;
       RETVALUE(RFAILED);
    }
 #endif
-   packetData.numOfPktsRcvd++;
-   packetData.numBytesRcvd += *bufLen;
+    packetData.numOfPktsRcvd++;
+    packetData.numBytesRcvd += *bufLen;
 
 #ifdef T2K_MEM_LEAK_DBG
-   InsertToT2kMemLeakInfo((U32)(*recvBuf - ((U32)*recvBuf % 512)),(U32)*bufLen,__LINE__,__FILE__);
+    InsertToT2kMemLeakInfo((U32)(*recvBuf - ((U32)*recvBuf % 512)), (U32)*bufLen, __LINE__, __FILE__);
 #endif
-   remAddr->u.ipv4TptAddr.port    = CM_INET_NTOH_U16(frmAddr.sin_port);
-   remAddr->u.ipv4TptAddr.address = CM_INET_NTOH_U32(frmAddr.sin_addr.s_addr);
-   remAddr->type = CM_TPTADDR_IPV4;
+    remAddr->u.ipv4TptAddr.port = CM_INET_NTOH_U16(frmAddr.sin_port);
+    remAddr->u.ipv4TptAddr.address = CM_INET_NTOH_U32(frmAddr.sin_addr.s_addr);
+    remAddr->type = CM_TPTADDR_IPV4;
 
-   RETVALUE(ROK);
+    RETVALUE(ROK);
 }
 #endif
 #endif
@@ -3261,62 +3196,59 @@ U32           *bufLen;
  * *
  * */
 #ifdef ANSI
-PRIVATE S16 egTLRecvMsgFromSocket
-(
-U32 sockFd,
-CmTptAddr *remAddr,
-CmInetMemInfo memInfo,
-Buffer             **mBuf
-)
+PRIVATE S16 egTLRecvMsgFromSocket(
+    U32 sockFd,
+    CmTptAddr *remAddr,
+    CmInetMemInfo memInfo,
+    Buffer **mBuf)
 #else
 PRIVATE S16 egTLRecvMsgFromSocket(sockFd, remAddr, memInfo, mBuf)
-U32 sockFd;
+    U32 sockFd;
 CmTptAddr *remAddr;
 CmInetMemInfo memInfo;
-Buffer            **mBuf;
+Buffer **mBuf;
 #endif
 {
-   Data              recvBuf[6000];  /* Buffer for receiving the payload from socket */
-/*purecov compilation error fix:ccpu00136421 */
-   /* Data              *recvBuf;   Buffer for receiving the payload from socket */
-   MsgLen             recvBufLen;
-   struct sockaddr_in frmAddr = {0};
-/*purecov compilation error fix:ccpu00136421 */   
-/* socklen_t            frmLen = sizeof(struct sockaddr); */
-   socklen_t            frmLen = sizeof(frmAddr);
-   U16                myLen=0;
+    Data recvBuf[6000]; /* Buffer for receiving the payload from socket */
+                        /*purecov compilation error fix:ccpu00136421 */
+    /* Data              *recvBuf;   Buffer for receiving the payload from socket */
+    MsgLen recvBufLen;
+    struct sockaddr_in frmAddr = {0};
+    /*purecov compilation error fix:ccpu00136421 */
+    /* socklen_t            frmLen = sizeof(struct sockaddr); */
+    socklen_t frmLen = sizeof(frmAddr);
+    U16 myLen = 0;
 
-   recvBufLen = recvfrom(sockFd, &recvBuf[0], sizeof(recvBuf), 0, 
-                        (struct sockaddr*)(&frmAddr), &frmLen);
+    recvBufLen = recvfrom(sockFd, &recvBuf[0], sizeof(recvBuf), 0,
+                          (struct sockaddr *)(&frmAddr), &frmLen);
 
+    if (SOCK_ERROR == recvBufLen)
+    {
+        if ((errno == EAGAIN) || (errno == EWOULDBLOCK))
+        {
+            RETVALUE(ROKDNA);
+        }
+        printf("\n Failed to receive from socketFD =[%lu] Error Code =[%s]", sockFd, strerror(errno));
+        printf("\n Parameter passed sockFd=[%lu],MSG_DONTWAIT=[%d],frmLen=[%d],frmAddr Address=[%lu]", sockFd, MSG_DONTWAIT, frmLen, (U32)&frmAddr);
+        RETVALUE(RFAILED);
+    }
+    myLen = (recvBuf[2] << 8) | recvBuf[3];
 
-   if(SOCK_ERROR == recvBufLen)
-   {
-      if((errno == EAGAIN) || (errno == EWOULDBLOCK))
-      {
-         RETVALUE(ROKDNA);
-      }
-      printf("\n Failed to receive from socketFD =[%lu] Error Code =[%s]",sockFd,strerror(errno));
-      printf("\n Parameter passed sockFd=[%lu],MSG_DONTWAIT=[%d],frmLen=[%d],frmAddr Address=[%lu]",sockFd,MSG_DONTWAIT, frmLen, (U32)&frmAddr);
-      RETVALUE(RFAILED);
-   }
-   myLen = (recvBuf[2] << 8) | recvBuf[3];
+    if (recvBufLen - 8 != myLen)
+    {
+        printf("Len received = %d ... len inside buf = %02x %02x\n", recvBufLen, recvBuf[2], recvBuf[3]);
+    }
 
-   if(recvBufLen - 8 != myLen)
-   {
-      printf("Len received = %d ... len inside buf = %02x %02x\n",recvBufLen, recvBuf[2],recvBuf[3]);
-   }
+    if (SGetMsg(memInfo.region, memInfo.pool, mBuf) != ROK)
+    {
+        RETVALUE(RFAILED);
+    }
+    remAddr->u.ipv4TptAddr.port = CM_INET_NTOH_U16(frmAddr.sin_port);
+    remAddr->u.ipv4TptAddr.address = CM_INET_NTOH_U32(frmAddr.sin_addr.s_addr);
+    remAddr->type = CM_TPTADDR_IPV4;
 
-   if(SGetMsg(memInfo.region, memInfo.pool,mBuf) != ROK)
-   {
-      RETVALUE(RFAILED);
-   }
-   remAddr->u.ipv4TptAddr.port    = CM_INET_NTOH_U16(frmAddr.sin_port);
-   remAddr->u.ipv4TptAddr.address = CM_INET_NTOH_U32(frmAddr.sin_addr.s_addr);
-   remAddr->type = CM_TPTADDR_IPV4;
-
-   SAddPstMsgMult(recvBuf, recvBufLen, *mBuf);
-   RETVALUE(ROK);
+    SAddPstMsgMult(recvBuf, recvBufLen, *mBuf);
+    RETVALUE(ROK);
 }
 #endif
 
@@ -3337,42 +3269,39 @@ Buffer            **mBuf;
  * *
  * */
 #ifdef ANSI
-PRIVATE S16 egTLRecvMsgFromSocketFB
-(
-U32 sockFd,
-CmTptAddr *remAddr,
-U8        *buf,
-U32       *bufLen
-)
+PRIVATE S16 egTLRecvMsgFromSocketFB(
+    U32 sockFd,
+    CmTptAddr *remAddr,
+    U8 *buf,
+    U32 *bufLen)
 #else
 PRIVATE S16 egTLRecvMsgFromSocketFB(sockFd, remAddr, memInfo, mBuf)
-U32 sockFd;
+    U32 sockFd;
 CmTptAddr *remAddr;
-U8        *buf;
-U32       *bufLen;
+U8 *buf;
+U32 *bufLen;
 #endif
 {
-//   Data              *recvBuf;  /* Buffer for receiving the payload from socket */
-   struct sockaddr_in frmAddr = {0};
-   //socklen_t            frmLen = sizeof(struct sockaddr);
-   socklen_t            frmLen = sizeof(frmAddr);
+    //   Data              *recvBuf;  /* Buffer for receiving the payload from socket */
+    struct sockaddr_in frmAddr = {0};
+    //socklen_t            frmLen = sizeof(struct sockaddr);
+    socklen_t frmLen = sizeof(frmAddr);
 
-   *bufLen = recvfrom(sockFd, buf, -1, 0, 
-                        (struct sockaddr*)(&frmAddr), &frmLen);
+    *bufLen = recvfrom(sockFd, buf, -1, 0,
+                       (struct sockaddr *)(&frmAddr), &frmLen);
 
+    if (SOCK_ERROR == *bufLen)
+    {
+        if ((errno == EAGAIN) || (errno == EWOULDBLOCK))
+        {
+            RETVALUE(ROKDNA);
+        }
+        printf("\n Failed to receive from socketFD =[%lu] Error Code =[%s]", sockFd, strerror(errno));
+        printf("\n Parameter passed sockFd=[%lu],MSG_DONTWAIT=[%d],frmLen=[%d],frmAddr Address=[%lu]", sockFd, MSG_DONTWAIT, frmLen, (U32)&frmAddr);
+        RETVALUE(RFAILED);
+    }
 
-   if(SOCK_ERROR == *bufLen)
-   {
-      if((errno == EAGAIN) || (errno == EWOULDBLOCK))
-      {
-         RETVALUE(ROKDNA);
-      }
-      printf("\n Failed to receive from socketFD =[%lu] Error Code =[%s]",sockFd,strerror(errno));
-      printf("\n Parameter passed sockFd=[%lu],MSG_DONTWAIT=[%d],frmLen=[%d],frmAddr Address=[%lu]",sockFd,MSG_DONTWAIT, frmLen, (U32)&frmAddr);
-      RETVALUE(RFAILED);
-   }
-
-   RETVALUE(ROK);
+    RETVALUE(ROK);
 }
 #endif /* #ifndef (defined(TENB_T2K3K_SPECIFIC_CHANGES)) && (!defined(TENB_DISABLE_DL_ZBC))*/
 /*
@@ -3390,90 +3319,87 @@ U32       *bufLen;
  * *
  * */
 #ifdef ANSI
-PRIVATE S16 egTLHndlRecv
-(
-EgTLServerCb       *egTLServerCb,
-U8                 *recvBuf,
-U32                bufLen,
-CmTptAddr          *remAddr
-)
+PRIVATE S16 egTLHndlRecv(
+    EgTLServerCb *egTLServerCb,
+    U8 *recvBuf,
+    U32 bufLen,
+    CmTptAddr *remAddr)
 #else
 PRIVATE S16 egTLHndlRecv(egTlServerCb, recvBuf, bufLen, remAddr)
-EgTLServerCb       *egTLServerCb;
-U8                 *recvBuf;
-U32                buflen;
-CmTptAddr          *remAddr;
+    EgTLServerCb *egTLServerCb;
+U8 *recvBuf;
+U32 buflen;
+CmTptAddr *remAddr;
 #endif
 {
-   Buffer *mBuf;
-   CmIpHdrParm *ipHdrParm = NULLP;
-   EgTptSrvCb        *serverCb;
-   EgTSapCb          *tSapCb;
+    Buffer *mBuf;
+    CmIpHdrParm *ipHdrParm = NULLP;
+    EgTptSrvCb *serverCb;
+    EgTSapCb *tSapCb;
 
-   /* Added check for invalid address received from Socket interface */
-   if(recvBuf < (U8*)(0x90000000))
-   {
-      printf("Received invalid address from socekt 0x%p\n\n", recvBuf);
-      RETVALUE(RFAILED);
-   }
+    /* Added check for invalid address received from Socket interface */
+    if (recvBuf < (U8 *)(0x90000000))
+    {
+        printf("Received invalid address from socekt 0x%p\n\n", recvBuf);
+        RETVALUE(RFAILED);
+    }
 
-   if(ROK != (egHndlRecvFb(recvBuf, bufLen)))
-   {
+    if (ROK != (egHndlRecvFb(recvBuf, bufLen)))
+    {
 #if (defined(TENB_T2K3K_SPECIFIC_CHANGES)) && (!defined(TENB_DISABLE_DL_ZBC))
 #ifdef T2K_MEM_LEAK_DBG
-     if(ROK != (SAttachPtrToBufNew(egTLCb.memInfo.region, egTLCb.memInfo.pool, recvBuf,
-                   bufLen, &mBuf,__FILE__,__LINE__)))
+        if (ROK != (SAttachPtrToBufNew(egTLCb.memInfo.region, egTLCb.memInfo.pool, recvBuf,
+                                       bufLen, &mBuf, __FILE__, __LINE__)))
 #else
-     if(ROK != (SAttachPtrToBuf(egTLCb.memInfo.region, egTLCb.memInfo.pool, recvBuf,
-                   bufLen, &mBuf)))
+        if (ROK != (SAttachPtrToBuf(egTLCb.memInfo.region, egTLCb.memInfo.pool, recvBuf,
+                                    bufLen, &mBuf)))
 #endif
-     {
-        printf("Failed to attach the pointer to mBuf\n");
-        RETVALUE(RFAILED);
-     }
+        {
+            printf("Failed to attach the pointer to mBuf\n");
+            RETVALUE(RFAILED);
+        }
 #else
-      S16               ret;
-     ret = SGetMsg(egTLCb.memInfo.region, egTLCb.memInfo.pool, &mBuf);
-     if (ret != ROK)
-     {
-         RETVALUE(ret);
-     }
-     ret = SAddPstMsgMult(recvBuf, bufLen, mBuf);
-     if (ret != ROK)
-     {
-        SPutMsg(mBuf);
-        RETVALUE(ret);
-     }
+        S16 ret;
+        ret = SGetMsg(egTLCb.memInfo.region, egTLCb.memInfo.pool, &mBuf);
+        if (ret != ROK)
+        {
+            RETVALUE(ret);
+        }
+        ret = SAddPstMsgMult(recvBuf, bufLen, mBuf);
+        if (ret != ROK)
+        {
+            SPutMsg(mBuf);
+            RETVALUE(ret);
+        }
 
 #endif
 
-      /*Send Buffer to application*/
-      EgLiHitUDatInd(&egTLCb.egPst,egTLServerCb->srvConId,egTLServerCb->srvConId,
-            remAddr, &egTLServerCb->serverAddress, ipHdrParm, mBuf);
-   }
-   else
-   {
-      tSapCb = egCb.tSapCb;
-      serverCb = tSapCb->tptSrvCbLst[egTLServerCb->srvConId];
-      /*********************
+        /*Send Buffer to application*/
+        EgLiHitUDatInd(&egTLCb.egPst, egTLServerCb->srvConId, egTLServerCb->srvConId,
+                       remAddr, &egTLServerCb->serverAddress, ipHdrParm, mBuf);
+    }
+    else
+    {
+        tSapCb = egCb.tSapCb;
+        serverCb = tSapCb->tptSrvCbLst[egTLServerCb->srvConId];
+        /*********************
        * Update Statistics *
        *********************/
-      serverCb->stats.totalMsgsRx++;
-      serverCb->ipCbPtr->ipStats.totalMsgsRx++; 
-
-   }
-   RETVALUE(ROK);
+        serverCb->stats.totalMsgsRx++;
+        serverCb->ipCbPtr->ipStats.totalMsgsRx++;
+    }
+    RETVALUE(ROK);
 }
 #endif
 
 /* EGTP Statistics for debugging*/
 PUBLIC Void PrintEGTPStats(void)
 {
-   printf("EGTP: SendDropsReason19 = (%lu)\n",g_egtpSockDropsDueToReason19);
+    printf("EGTP: SendDropsReason19 = (%lu)\n", g_egtpSockDropsDueToReason19);
 }
 PUBLIC Void ResetEGTPStats(void)
 {
-   g_egtpSockDropsDueToReason19 = 0;
+    g_egtpSockDropsDueToReason19 = 0;
 }
 /* EGTP Statistics for debugging*/
 #ifdef TENB_UL_FP
@@ -3491,69 +3417,66 @@ PUBLIC Void ResetEGTPStats(void)
  *      File:   eg_socklayer.c
 ***********************************************************************/
 #ifdef ANSI
-PUBLIC S16 egFpTunProcEguDatReq
-(
-U32 lclTeid,       /* Event from UI */
-U32 remTeid,
-U8  tos,
-U32 tPduSize,
-Buffer* mBuf
-)
+PUBLIC S16 egFpTunProcEguDatReq(
+    U32 lclTeid, /* Event from UI */
+    U32 remTeid,
+    U8 tos,
+    U32 tPduSize,
+    Buffer *mBuf)
 #else
-PUBLIC S16 egFpTunProcEguDatReq (egtUEvnt, usap, pst)
-U32 lclTeid;       /* Event from UI*/
-U32 remTeid;       /*Upper Sap CB*/
-U8  tos;
+PUBLIC S16 egFpTunProcEguDatReq(egtUEvnt, usap, pst)
+    U32 lclTeid; /* Event from UI*/
+U32 remTeid;     /*Upper Sap CB*/
+U8 tos;
 U32 tPduSize;
-Buffer* mbuf;
+Buffer *mbuf;
 #endif
 {
-   EgTeIdCb          *teIdCb = NULLP;
-   S32               ret = ROK;
-   EgTptSrvCb        *serverCb;
+    EgTeIdCb *teIdCb = NULLP;
+    S32 ret = ROK;
+    EgTptSrvCb *serverCb;
 #ifdef IPV6_OPTS_SUPPORTED
-   CmIpHdrParm       ipHdrParm;           /* IP Header Parameter Holder */
+    CmIpHdrParm ipHdrParm; /* IP Header Parameter Holder */
 #endif
-   EgTLServerCb      *egTLServerCb = NULLP;
-   UConnId           spConId;
-   U8 eGtpuHdr[EG_LEN_EIGHT];
-   U32           tmpRear;
-   U32           locFront;
+    EgTLServerCb *egTLServerCb = NULLP;
+    UConnId spConId;
+    U8 eGtpuHdr[EG_LEN_EIGHT];
+    U32 tmpRear;
+    U32 locFront;
 
-   /***************************
+    /***************************
     * Find TEID Control Block *
     ***************************/
-   cmHashListFind(&(egCb.egTeidHashListCp),
-         (U8*)&(lclTeid),
-         sizeof(U32), 0, (PTR *)&(teIdCb));
+    cmHashListFind(&(egCb.egTeidHashListCp),
+                   (U8 *)&(lclTeid),
+                   sizeof(U32), 0, (PTR *)&(teIdCb));
 
-   if(teIdCb)
-   {
-      eGtpuHdr[7]  = GTP_FLAG_OPTIONS; /* GTP Flags : GTP  Version rel 99 (1)  and Prtocol type GTP(1)  */
-      eGtpuHdr[6]  = GTP_TPDU_TYPE; /*Message  Type T-PDU */
-      eGtpuHdr[5]  = (U8)GetHiByte(tPduSize); /* T_PDU Size 2 bytes */ 
-      eGtpuHdr[4]  = (U8)GetLoByte(tPduSize);
-      eGtpuHdr[3]  = (remTeid >> 24) & 0xff; /* 4 bytes Teid */
-      eGtpuHdr[2]  = (remTeid >> 16) & 0xff;
-      eGtpuHdr[1]  = (remTeid >> 8) & 0xff;
-      eGtpuHdr[0]  = remTeid & 0xff; 
- 
-      SAddPreMsgMult(&eGtpuHdr[0], 8, mBuf);
+    if (teIdCb)
+    {
+        eGtpuHdr[7] = GTP_FLAG_OPTIONS;        /* GTP Flags : GTP  Version rel 99 (1)  and Prtocol type GTP(1)  */
+        eGtpuHdr[6] = GTP_TPDU_TYPE;           /*Message  Type T-PDU */
+        eGtpuHdr[5] = (U8)GetHiByte(tPduSize); /* T_PDU Size 2 bytes */
+        eGtpuHdr[4] = (U8)GetLoByte(tPduSize);
+        eGtpuHdr[3] = (remTeid >> 24) & 0xff; /* 4 bytes Teid */
+        eGtpuHdr[2] = (remTeid >> 16) & 0xff;
+        eGtpuHdr[1] = (remTeid >> 8) & 0xff;
+        eGtpuHdr[0] = remTeid & 0xff;
 
-      serverCb = teIdCb->tptSrvrCb;
+        SAddPreMsgMult(&eGtpuHdr[0], 8, mBuf);
+
+        serverCb = teIdCb->tptSrvrCb;
 #ifdef IPV6_OPTS_SUPPORTED
-      ipHdrParm.type = CM_HDRPARM_NOTPRSNT;
+        ipHdrParm.type = CM_HDRPARM_NOTPRSNT;
 #endif
-      spConId = serverCb->spConnId;
-      egTLServerCb = &egTLCb.servers[spConId];
+        spConId = serverCb->spConnId;
+        egTLServerCb = &egTLCb.servers[spConId];
 
+        tmpRear = egTLQueueAddOne(egTLServerCb->rear);
+        locFront = egTLServerCb->front;
 
-      tmpRear = egTLQueueAddOne(egTLServerCb->rear);
-      locFront = egTLServerCb->front;
-
-      if(egTLQueueAddOne(egTLQueueAddOne(tmpRear)) == locFront)
-      {
-         /* Dropping packets */
+        if (egTLQueueAddOne(egTLQueueAddOne(tmpRear)) == locFront)
+        {
+            /* Dropping packets */
 #if 0
          {
             extern unsigned int gEgtpUlPktDropCount;
@@ -3561,35 +3484,33 @@ Buffer* mbuf;
          }
 
 #endif
-         SPutMsg(mBuf);
-         RETVALUE(ROK);
-         //EgTLSendMsg(TRUE);
-      }
+            SPutMsg(mBuf);
+            RETVALUE(ROK);
+            //EgTLSendMsg(TRUE);
+        }
 
-      cmMemcpy((U8 *) &egTLServerCb->msgQueue[tmpRear].dstAddr,
-            (CONSTANT U8 *) &teIdCb->dstAddrCb->destIpAddr,
-            sizeof(CmTptAddr));
+        cmMemcpy((U8 *)&egTLServerCb->msgQueue[tmpRear].dstAddr,
+                 (CONSTANT U8 *)&teIdCb->dstAddrCb->destIpAddr,
+                 sizeof(CmTptAddr));
 
-      egTLServerCb->msgQueue[tmpRear].mBuf = mBuf;
-      egTLServerCb->msgQueue[tmpRear].tos = tos;
-      egTLServerCb->msgQueue[tmpRear].flag = TRUE;
+        egTLServerCb->msgQueue[tmpRear].mBuf = mBuf;
+        egTLServerCb->msgQueue[tmpRear].tos = tos;
+        egTLServerCb->msgQueue[tmpRear].flag = TRUE;
 
 #ifdef IPV6_OPTS_SUPPORTED
-      cmMemcpy((U8 *)&egTLServerCb->msgQueue[egTLServerCb->qLen].ipHdrParams,
-            (CONSTANT U8 *)&ipHdrParm,
-            sizeof(CmIpHdrParm));
+        cmMemcpy((U8 *)&egTLServerCb->msgQueue[egTLServerCb->qLen].ipHdrParams,
+                 (CONSTANT U8 *)&ipHdrParm,
+                 sizeof(CmIpHdrParm));
 #endif
 
-      egTLServerCb->rear = tmpRear;
-      egTLServerCb->qLen++;
-   }
-   else
-   {
-      printf ("egFpTunProcEguDatReq: Failed to get teIdCb\n");
-      SPutMsg(mBuf);
-   }
-   RETVALUE(ret);
+        egTLServerCb->rear = tmpRear;
+        egTLServerCb->qLen++;
+    }
+    else
+    {
+        printf("egFpTunProcEguDatReq: Failed to get teIdCb\n");
+        SPutMsg(mBuf);
+    }
+    RETVALUE(ret);
 }
 #endif /* TENB_UL_FP */
-
-

@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 /**********************************************************************
 
      Name:     S1SIM Test Controller Stub 
@@ -37,21 +36,21 @@
 #include "ts_utls.x"
 
 void enbCfgWithS1SetupFail();
-int  s1SetUpReq(int result);
+int s1SetUpReq(int result);
 void enbCfgWithWrongPlmn();
 void enbCfgWithAllIEs();
 
 int s1SetUpReq(int result)
 {
-   void* msgptr = NULL;
+   void *msgptr = NULL;
 
-   printf("\n[Stub]: Sending S1 SETUP Request\n");
+   //printf("\n[Stub]: Sending S1 SETUP Request\n");
    tfwApi(ENB_S1_SETUP_REQ, msgptr);
 
    /* receive eNbApp config complete indication */
    if (TC_msg_recv(result, 10) == 0)
    {
-      printf("\n[Stub]: RECEIVED S1-SETUP RESPONSE FROM TFWAPP\n");
+      //printf("\n[Stub]: RECEIVED S1-SETUP RESPONSE FROM TFWAPP\n");
       return 0;
    }
    else
@@ -63,23 +62,23 @@ int s1SetUpReq(int result)
 
 void enbCfg()
 {
-   void* msgptr = NULL;
+   void *msgptr = NULL;
 
    /* send eNbApp config msg */
    msgptr = malloc(sizeof(FwNbConfigReq_t));
    memset(msgptr, 0, sizeof(FwNbConfigReq_t));
-   ((FwNbConfigReq_t*)msgptr)->cellId_pr.pres = TRUE;
-   ((FwNbConfigReq_t*)msgptr)->cellId_pr.cell_id = 10;
+   ((FwNbConfigReq_t *)msgptr)->cellId_pr.pres = TRUE;
+   ((FwNbConfigReq_t *)msgptr)->cellId_pr.cell_id = 10;
 
    /* Send EnodeB Config */
-   printf("\n[Stub]: Sending eNodeB Config\n");
-   tfwApi(ENB_CONFIG,msgptr);
+   //printf("\n[Stub]: Sending eNodeB Config\n");
+   tfwApi(ENB_CONFIG, msgptr);
    free(msgptr);
 
    /* Wait for eNbApp config complete indication */
-   if (TC_msg_recv(ENB_CONFIG_CONFIRM,10) == 0)
+   if (TC_msg_recv(ENB_CONFIG_CONFIRM, 10) == 0)
    {
-      printf("\n[Stub]: eNb Config Completed\n");
+      //printf("\n[Stub]: eNb Config Completed\n");
    }
    else
    {
@@ -89,15 +88,15 @@ void enbCfg()
 
 void enbInactvTmrCfg(int inactvTmrVal, int maxRetries)
 {
-   void* msgptr = NULL;
+   void *msgptr = NULL;
 
    /* send eNbApp config msg */
    msgptr = malloc(sizeof(FwNbConfigReq_t));
    memset(msgptr, 0, sizeof(FwNbConfigReq_t));
-   ((FwNbConfigReq_t*)msgptr)->inactvTmrVal_pr.pres = TRUE;
-   ((FwNbConfigReq_t*)msgptr)->inactvTmrVal_pr.val = inactvTmrVal;
-   ((FwNbConfigReq_t*)msgptr)->maxExpires_pr.pres = TRUE;
-   ((FwNbConfigReq_t*)msgptr)->maxExpires_pr.val = maxRetries;
+   ((FwNbConfigReq_t *)msgptr)->inactvTmrVal_pr.pres = TRUE;
+   ((FwNbConfigReq_t *)msgptr)->inactvTmrVal_pr.val = inactvTmrVal;
+   ((FwNbConfigReq_t *)msgptr)->maxExpires_pr.pres = TRUE;
+   ((FwNbConfigReq_t *)msgptr)->maxExpires_pr.val = maxRetries;
 
    /* Send EnodeB Config */
    printf("\n[Stub]: Sending eNodeB Inactivity Timer Config\n");
@@ -130,18 +129,18 @@ void enbCfgAndS1SetupWithAllIEs()
 
 void enbCfgWithWrongPlmn()
 {
-   void* msgptr;
+   void *msgptr;
 
    /* Send eNbApp config msg */
    msgptr = malloc(sizeof(FwNbConfigReq_t));
    memset(msgptr, 0, sizeof(FwNbConfigReq_t));
-   ((FwNbConfigReq_t*)msgptr)->cellId_pr.pres = TRUE;
-   ((FwNbConfigReq_t*)msgptr)->cellId_pr.cell_id = 10;
-   memcpy(((FwNbConfigReq_t*)msgptr)->plmnId_pr.plmn_id, "40502",
+   ((FwNbConfigReq_t *)msgptr)->cellId_pr.pres = TRUE;
+   ((FwNbConfigReq_t *)msgptr)->cellId_pr.cell_id = 10;
+   memcpy(((FwNbConfigReq_t *)msgptr)->plmnId_pr.plmn_id, "40502",
           strlen("40502"));
-   ((FwNbConfigReq_t*)msgptr)->plmnId_pr.pres = TRUE;
+   ((FwNbConfigReq_t *)msgptr)->plmnId_pr.pres = TRUE;
    printf("\n[Stub]: Sending Enb Config.\n");
-   tfwApi(ENB_CONFIG,msgptr);
+   tfwApi(ENB_CONFIG, msgptr);
    free(msgptr);
 
    /* Receive eNbApp config complete indication */
@@ -154,22 +153,22 @@ void enbCfgWithWrongPlmn()
       printf("\n[Stub]: eNb Config failed\n");
    }
 }
- 
+
 void enbCfgWithWrongMmeIp()
 {
-   void* msgptr;
+   void *msgptr;
    /* send eNbApp config msg */
    msgptr = malloc(sizeof(FwNbConfigReq_t));
    memset(msgptr, 0, sizeof(FwNbConfigReq_t));
 
-   ((FwNbConfigReq_t*)msgptr)->cellId_pr.pres = TRUE;
-   ((FwNbConfigReq_t*)msgptr)->cellId_pr.cell_id = 10;
+   ((FwNbConfigReq_t *)msgptr)->cellId_pr.pres = TRUE;
+   ((FwNbConfigReq_t *)msgptr)->cellId_pr.cell_id = 10;
 
-   ((FwNbConfigReq_t*)msgptr)->mmeAddr_pr.pres = TRUE;
-   ((FwNbConfigReq_t*)msgptr)->mmeAddr_pr.mme_addr = 3232286811; /* 192.168.200.91 */
+   ((FwNbConfigReq_t *)msgptr)->mmeAddr_pr.pres = TRUE;
+   ((FwNbConfigReq_t *)msgptr)->mmeAddr_pr.mme_addr = 3232286811; /* 192.168.200.91 */
 
    printf("\n[Stub]: Sending S1 Enb Config.\n");
-   tfwApi(ENB_CONFIG,msgptr);
+   tfwApi(ENB_CONFIG, msgptr);
    free(msgptr);
 
    /* receive eNbApp config complete indication */
@@ -185,10 +184,10 @@ void enbCfgWithWrongMmeIp()
 
 void enbCfgWithAllIEs()
 {
-   void* msgptr;
+   void *msgptr;
    FwSuppTAList *suppTAs;
-   U8 mcc[5][3] = { {5,0,5}, {4,0,4}, {4,0,4}, {4,0,4}, {4,0,5} };
-   U8 mnc[5][3] = { {0,2,0}, {4,5,0}, {4,6,0}, {4,7,0}, {8,4,7} };
+   U8 mcc[5][3] = {{5, 0, 5}, {4, 0, 4}, {4, 0, 4}, {4, 0, 4}, {4, 0, 5}};
+   U8 mnc[5][3] = {{0, 2, 0}, {4, 5, 0}, {4, 6, 0}, {4, 7, 0}, {8, 4, 7}};
 
    printf("\n[Stub]: Sending eNodeB Config with HPLMN, Broadcasted PLMNS, "
           "eNodeB type, CSG IDs\n");
@@ -211,7 +210,7 @@ void enbCfgWithAllIEs()
 #endif
 
    /* Supported TAs */
-   suppTAs = &((FwNbConfigReq_t*)msgptr)->suppTAs;
+   suppTAs = &((FwNbConfigReq_t *)msgptr)->suppTAs;
    suppTAs->pres = TRUE;
    suppTAs->numTAs = 5;
 
@@ -251,17 +250,17 @@ void enbCfgWithAllIEs()
    memcpy(suppTAs->suppTA[4].bPlmnList.bPlmn[0].mnc, &mnc[4], 3);
 
    /* eNodeB type: Macro eNodeB or Home eNodeB */
-   ((FwNbConfigReq_t*)msgptr)->eNodeBType.pres = TRUE;
-   ((FwNbConfigReq_t*)msgptr)->eNodeBType.val = TFW_ENODEB_TYPE_MACRO;
+   ((FwNbConfigReq_t *)msgptr)->eNodeBType.pres = TRUE;
+   ((FwNbConfigReq_t *)msgptr)->eNodeBType.val = TFW_ENODEB_TYPE_MACRO;
 
    /* CSG List */
-   ((FwNbConfigReq_t*)msgptr)->csgIdList.pres = TRUE;
+   ((FwNbConfigReq_t *)msgptr)->csgIdList.pres = TRUE;
    /* Fill number of CSG IDs */
-   ((FwNbConfigReq_t*)msgptr)->csgIdList.numCsgIds = 0x03;
+   ((FwNbConfigReq_t *)msgptr)->csgIdList.numCsgIds = 0x03;
    /* Fill CSG IDs (only lower 27 bits valid) */
-   ((FwNbConfigReq_t*)msgptr)->csgIdList.csgId[0] = 0x0000001;
-   ((FwNbConfigReq_t*)msgptr)->csgIdList.csgId[1] = 0x1234567;
-   ((FwNbConfigReq_t*)msgptr)->csgIdList.csgId[2] = 0x7FFFFFF;
+   ((FwNbConfigReq_t *)msgptr)->csgIdList.csgId[0] = 0x0000001;
+   ((FwNbConfigReq_t *)msgptr)->csgIdList.csgId[1] = 0x1234567;
+   ((FwNbConfigReq_t *)msgptr)->csgIdList.csgId[2] = 0x7FFFFFF;
 
    printf("\n[Stub]: Sending eNodeB Config\n");
    tfwApi(ENB_CONFIG, msgptr);
@@ -280,16 +279,15 @@ void enbCfgWithAllIEs()
 
 void enbCfgWithS1SetupFail()
 {
-  enbCfgWithWrongPlmn();
-  /* trigger the s1Setup Req */
-  s1SetUpReq(ENB_S1_SETUP_RESP);
-
+   enbCfgWithWrongPlmn();
+   /* trigger the s1Setup Req */
+   s1SetUpReq(ENB_S1_SETUP_RESP);
 }
 
 void enbCfgWithS1SetupTimeOut()
 {
    static int s1Retry = 0;
-   if(s1Retry == 0)
+   if (s1Retry == 0)
       enbCfgWithWrongMmeIp();
 
    s1SetUpReq(ENB_S1_SETUP_TIMEOUT_IND);
@@ -302,7 +300,7 @@ void enbCfgWithS1SetupTimeOut()
 
 void tsSendSctpAbort()
 {
-   void* msgptr = NULL;
+   void *msgptr = NULL;
 
    msgptr = malloc(sizeof(FwSctpAbortReq_t));
    memset(msgptr, 0, sizeof(FwSctpAbortReq_t));
@@ -310,7 +308,7 @@ void tsSendSctpAbort()
    printf("\n[Stub]: Sending SCTP ABORT from Stub\n");
 
    /* Fill user defined cause/reason for Abort */
-   ((FwSctpAbortReq_t*)msgptr)->cause = TFW_ERR_USER_INITD_SCTP_ABORT;
+   ((FwSctpAbortReq_t *)msgptr)->cause = TFW_ERR_USER_INITD_SCTP_ABORT;
 
    tfwApi(SCTP_ABORT_REQ, msgptr);
    free(msgptr);
@@ -320,7 +318,7 @@ void tsSendSctpAbort()
 
 void tsSendSctpShutdown()
 {
-   void* msgptr = NULL;
+   void *msgptr = NULL;
 
    /* No parameters to be filled */
 

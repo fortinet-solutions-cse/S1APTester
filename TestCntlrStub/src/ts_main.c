@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 /**********************************************************************
 
      Name:     S1SIM Test Controller Stub 
@@ -32,6 +31,8 @@
 #include <unistd.h>
 #include <signal.h>
 #include <sys/time.h>
+#include <sys/stat.h>
+#include <mqueue.h>
 #include <time.h>
 #include <errno.h>
 #include <pthread.h>
@@ -43,7 +44,7 @@
 
 #define PID_FILE "/var/run/s1sim.pid"
 
-char noTauComplete; /* If 1, don't send TAU complete */
+char noTauComplete;   /* If 1, don't send TAU complete */
 char requestedIdType; /* Requested mobile ID type in IDENTITY REQUEST message */
 int T3412 = 0;
 int msgQid = -1;
@@ -53,7 +54,7 @@ extern pthread_mutex_t timer_queue_mutex;
 
 UeIpInfo UeIpInfoLst[32];
 UeDedBerInfo UeDedBerLst[32];
-void tsPrintHelp(void);
+//void tsPrintHelp(void);
 void enbCfg(void);
 void enbCfgWithS1Setup(void);
 void enbCfgAndS1SetupWithAllIEs(void);
@@ -71,6 +72,12 @@ static void timer_signal_term(int signal)
    exit(0);
 }
 
+static int interrupted = FALSE;
+static void signal_int(int signal)
+{
+   interrupted = TRUE;
+}
+
 static int signals_init(void)
 {
    int rc;
@@ -78,7 +85,13 @@ static int signals_init(void)
    struct sigaction sa;
 
    sigemptyset(&sigmask);
-   if((rc = sigaddset(&sigmask, SIGTERM))) {
+   if ((rc = sigaddset(&sigmask, SIGTERM)))
+   {
+      printf("sigaddset: %s\n", strerror(errno));
+      return -1;
+   }
+   if ((rc = sigaddset(&sigmask, SIGINT)))
+   {
       printf("sigaddset: %s\n", strerror(errno));
       return -1;
    }
@@ -86,11 +99,19 @@ static int signals_init(void)
    sa.sa_flags = 0;
    sigemptyset(&sa.sa_mask);
    sa.sa_handler = timer_signal_term;
-   if((rc = sigaction(SIGTERM, &sa, NULL))) {
+   if ((rc = sigaction(SIGTERM, &sa, NULL)))
+   {
       printf("signal SIGTERM not registered: %s\n", strerror(errno));
       return -1;
    }
-
+   sa.sa_flags = 0;
+   sigemptyset(&sa.sa_mask);
+   sa.sa_handler = signal_int;
+   if ((rc = sigaction(SIGINT, &sa, NULL)))
+   {
+      printf("signal SIGINT not registered: %s\n", strerror(errno));
+      return -1;
+   }
    return 0;
 }
 
@@ -121,6 +142,125 @@ static int init_timer(void)
    return rtn;
 }
 
+static void tsPrintHelp(const char *appname)
+{
+   printf("   Usage:\n");
+   printf("     %s <connect_time> <startUE> [numUEs]\n", appname);
+   printf("        connect_time in seconds, zero for infinite\n");
+   printf("        startUE is index (from 1) in ue.txt file\n");
+   printf("        numUEs is 1 by default. Use negative value to make repeat attaches of same UE\n");
+   printf("\n");
+}
+
+int main(int argc, char **argv)
+{
+   int ueAttachTime, startUE, numUEs;
+   int i;
+
+   if (argc > 2)
+   {
+      ueAttachTime = atoi(argv[1]);
+      startUE = atoi(argv[2]);
+      if (startUE == 0)
+      {
+         goto error;
+      }
+      if (ueAttachTime == 0)
+      {
+         /* "infinite time". We will still sleep, since we want to be able to 
+            interrupt the connections to close gracefully. */
+         ueAttachTime = 0x7fffffff;
+      }
+      if (argc == 3)
+      {
+         numUEs = 1;
+         goto run_test;
+      }
+      else if (argc == 4)
+      {
+         numUEs = atoi(argv[3]);
+         if (numUEs > 0)
+         {
+            goto run_test;
+         }
+      }
+   }
+error:
+   tsPrintHelp(argv[0]);
+   exit(1);
+
+run_test:
+   initTestFrameWork(TC_API);
+   trf_test_init();
+   init_timer();
+
+   struct mq_attr mqa;
+
+   mqa.mq_maxmsg = 10;
+   mqa.mq_msgsize = sizeof(MsgBuf);
+
+   //msgQid = msgget((key_t)1234, 0666 | IPC_CREAT);
+   msgQid = mq_open("/testq", O_RDWR | O_CREAT, 00777, &mqa);
+
+   if (msgQid == -1)
+   {
+      perror("[Stub] mq_open failed with error");
+      exit(1);
+   }
+   tsUeAppConfig();
+
+   /* Configure EnodeB App */
+   enbCfgWithS1Setup();
+   printf("EnodeB connected\n");
+
+   /* Read imsi from file and send ue config request for 
+    * required num of Ues */
+   tsReadImsiAndSendUeConfig(numUEs); /*(noOfUe);*/
+
+   if (ueAttachTime < 0)
+   {
+      // connect all but one, then malfunction the last by
+      // continually connecting and disconnecting
+      for (i = startUE; i < (startUE + numUEs - 1); i++)
+      {
+         printf("Attaching UE %d: ", i);
+         tsCompleteAttach(i);
+      }
+      while (!interrupted)
+      {
+         printf("Attaching UE %d: ", i);
+         tsCompleteAttach(i);
+         printf("Detaching UE %d\n", i);
+         tsSendDetachRequest(i, UE_SWITCHOFF_DETACH, UE_IN_CONNECTED_MODE);
+      }
+      printf("\n");
+
+      // now clean up by disconnecting all
+      for (i = startUE; i < (startUE + numUEs); i++)
+      {
+         printf("Detaching UE %d\n", i);
+         tsSendDetachRequest(i, UE_SWITCHOFF_DETACH, UE_IN_CONNECTED_MODE);
+      }
+   }
+   else
+   {
+      for (i = startUE; i < (startUE + numUEs); i++)
+      {
+         printf("Attaching UE %d: ", i);
+         tsCompleteAttach(i);
+      }
+      sleep(ueAttachTime);
+      printf("\n");
+
+      for (i = startUE; i < (startUE + numUEs); i++)
+      {
+         printf("Detaching UE %d\n", i);
+         tsSendDetachRequest(i, UE_SWITCHOFF_DETACH, UE_IN_CONNECTED_MODE);
+      }
+   }
+}
+
+/*
 int main(int argc, char *argv[])
 {
    int noOfUe = 0;
@@ -131,11 +271,10 @@ int main(int argc, char *argv[])
    char testcase[50], noUe[5];
    FILE *myFile;
 
-
    if (argc <= 1)
    {
       printf("ERROR: Insufficient command line arguments to run test cases\n");
-      /* Invoke help function */
+      // Invoke help function
       tsPrintHelp();
       exit(0);
    }
@@ -146,14 +285,14 @@ int main(int argc, char *argv[])
       exit(0);
    }
 
-   if ((argv[1][0] ==  '-') && strcmp(argv[1], "-h") && strcmp(argv[1], "-f") )
+   if ((argv[1][0] == '-') && strcmp(argv[1], "-h") && strcmp(argv[1], "-f"))
    {
       printf("\nIncorrect option\n");
       exit(0);
    }
 
    if (!strcmp(argv[1], "-f") && (argv[2] == NULL))
-   {   
+   {
       printf("Please enter \"file name\" which has list of testcases to run\n");
       printf("   Example: # ./testCntrlr -f testCaseList_1.txt\n");
       exit(0);
@@ -165,14 +304,14 @@ int main(int argc, char *argv[])
       exit(0);
    }
 
-   if(!strcmp(argv[1], "-f") )
+   if (!strcmp(argv[1], "-f"))
    {
-      isFile= 1;
-      while(!feof(myFile))
+      isFile = 1;
+      while (!feof(myFile))
       {
          fscanf(myFile, "%s %s", testcase, noUe);
          currue = atoi(noUe);
-         if(currue > maxue)
+         if (currue > maxue)
          {
             maxue = currue;
          }
@@ -229,13 +368,13 @@ int main(int argc, char *argv[])
       }
       else if (!strcmp(argv[1], "SendSctpAbort"))
       {
-         /* Configure Ue App */
+         // Configure Ue App
          tsUeAppConfig();
          noOfUe = 1;
          id = 1;
 
-         /* Read imsi from file and send UE config request for 
-          * required num of UEs */
+         // Read imsi from file and send UE config request for 
+         // required num of UEs
          if (isFile)
             tsReadImsiAndSendUeConfig(maxue);
          else
@@ -268,13 +407,13 @@ int main(int argc, char *argv[])
       }
       else if (!strcmp(argv[1], "SendSctpShutdown"))
       {
-         /* Configure Ue App */
+         // Configure Ue App 
          tsUeAppConfig();
          noOfUe = 1;
          id = 1;
 
-         /* Read imsi from file and send UE config request for 
-          * required num of UEs */
+         // Read imsi from file and send UE config request for 
+         // required num of UEs
          if (isFile)
             tsReadImsiAndSendUeConfig(maxue);
          else
@@ -310,28 +449,31 @@ int main(int argc, char *argv[])
          return 0;
    }
 
-   /* Configure Ue App */
-   if (argc < 2) {
+   // Configure Ue App
+   if (argc < 2)
+   {
       printf("UE tests require the <num UEs> parameter");
       exit(1);
    }
    tsUeAppConfig();
    noOfUe = atoi(argv[2]);
-   if (argc == 4) {
+   if (argc == 4)
+   {
       ueAttachTime = atoi(argv[3]);
-   } else {
+   }
+   else
+   {
       ueAttachTime = 30; // 30 seconds default time between UE attach and detach
    }
 
-   /* Read imsi from file and send ue config request for 
-    * required num of Ues */
-   if(isFile)
-      tsReadImsiAndSendUeConfig(maxue);/*(noOfUe);*/
+   // Read imsi from file and send ue config request for 
+   // required num of Ues
+   if (isFile)
+      tsReadImsiAndSendUeConfig(maxue);
    else
-      tsReadImsiAndSendUeConfig(noOfUe);/*(noOfUe);*/
+      tsReadImsiAndSendUeConfig(noOfUe);
 
-
-   /* Configure EnodeB App */
+   // Configure EnodeB App
    enbCfgWithS1Setup();
 
    if (argc > 4)
@@ -340,21 +482,21 @@ int main(int argc, char *argv[])
       exit(0);
    }
 
-   for (;((argc > 2) && !eof); )
+   for (; ((argc > 2) && !eof);)
    {
-      if(isFile)
+      if (isFile)
       {
-         fscanf(myFile, "%s %s", testcase, noUe);  
+         fscanf(myFile, "%s %s", testcase, noUe);
          strcpy(argv[1], testcase);
          noOfUe = atoi(noUe);
-         if((eof = feof(myFile)))
+         if ((eof = feof(myFile)))
          {
             printf("\n============\nTC file ends\n============\n");
             break;
          }
       }
-      if(argv[1][0] == '#')
-           continue;
+      if (argv[1][0] == '#')
+         continue;
 
       if (!strcmp(argv[1], "StepAttachWithImsi"))
       {
@@ -408,8 +550,8 @@ int main(int argc, char *argv[])
       {
          for (id = 1; id <= noOfUe; id++)
          {
-            printf("[Stub] Performing step by step ATTACH(IMSI) and"\
-                  "RE-ATTACH(GUTI) procedure\n");
+            printf("[Stub] Performing step by step ATTACH(IMSI) and"
+                   "RE-ATTACH(GUTI) procedure\n");
             printf("[Stub] ueId(%d)\n", id);
             tsStepByStepReAttach(id);
          }
@@ -434,14 +576,14 @@ int main(int argc, char *argv[])
 
          sleep(ueAttachTime);
          printf("[Stub] Detaching UEs...\n");
-   
+
          for (id = 1; id <= noOfUe; id++)
          {
             tsSendDetachRequest(id, UE_SWITCHOFF_DETACH, UE_IN_CONNECTED_MODE);
          }
          sleep(2);
       }
-      else if(!strcmp(argv[1], "AttachRequest_PCO_DRX"))
+      else if (!strcmp(argv[1], "AttachRequest_PCO_DRX"))
       {
          for (id = 1; id <= noOfUe; id++)
          {
@@ -571,7 +713,8 @@ int main(int argc, char *argv[])
          }
          unsigned int attempts = 0;
          int fd;
-         do {
+         do
+         {
             sleep((1 << attempts++) - 1);
             fd = open(PID_FILE, O_CREAT | O_EXCL | O_WRONLY);
          } while (-1 == fd);
@@ -586,18 +729,20 @@ int main(int argc, char *argv[])
             sleep(1);
          }
          int i;
-         for (i = 0; i < 13 && fopen(PID_FILE, "r"); i++) {
+         for (i = 0; i < 13 && fopen(PID_FILE, "r"); i++)
+         {
             sleep(10);
          }
-         if (fopen(PID_FILE, "r")) {
+         if (fopen(PID_FILE, "r"))
+         {
             close(fd);
             unlink(PID_FILE);
          }
-         for(id = 1; id <= noOfUe; id++)
+         for (id = 1; id <= noOfUe; id++)
          {
             tsSendDetachRequest(id, UE_SWITCHOFF_DETACH, UE_IN_CONNECTED_MODE);
          }
-         for(id = 1; id <= noOfUe; id++)
+         for (id = 1; id <= noOfUe; id++)
          {
             deleteCfgdUeIps(id);
          }
@@ -613,7 +758,8 @@ int main(int argc, char *argv[])
          }
          unsigned int attempts = 0;
          int fd;
-         do {
+         do
+         {
             sleep((1 << attempts++) - 1);
             fd = open(PID_FILE, O_CREAT | O_EXCL | O_WRONLY);
          } while (-1 == fd);
@@ -623,10 +769,12 @@ int main(int argc, char *argv[])
             sleep(1);
          }
          int i;
-         for (i = 0; i < 13 && fopen(PID_FILE, "r"); i++) {
+         for (i = 0; i < 13 && fopen(PID_FILE, "r"); i++)
+         {
             sleep(10);
          }
-         if (fopen(PID_FILE, "r")) {
+         if (fopen(PID_FILE, "r"))
+         {
             close(fd);
             unlink(PID_FILE);
          }
@@ -634,7 +782,7 @@ int main(int argc, char *argv[])
          {
             tsSendDetachRequest(id, UE_SWITCHOFF_DETACH, UE_IN_CONNECTED_MODE);
          }
-         for(id = 1; id <= noOfUe; id++)
+         for (id = 1; id <= noOfUe; id++)
          {
             deleteCfgdUeIps(id);
          }
@@ -661,12 +809,12 @@ int main(int argc, char *argv[])
       }
       else if (!strcmp(argv[1], "PeriodicTauNoTauComplete"))
       {
-         /* Test periodic TAU, don't send TAU Complete after TAU Accept */
+         //Test periodic TAU, don't send TAU Complete after TAU Accept
          for (id = 1; id <= noOfUe; id++)
          {
             printf("[Stub] Performing periodic TAU, without TAU Complete\n");
             printf("[Stub] ueId(%d)\n", id);
-            /* Set the flag, not to send TAU Complete */
+            // Set the flag, not to send TAU Complete
             noTauComplete = 1;
             testPeriodicTauRequest(id);
             sleep(5);
@@ -719,7 +867,7 @@ int main(int argc, char *argv[])
             sleep(2);
          }
       }
-      else if(!strcmp(argv[1], "NormalTauRequestWithActFlag"))
+      else if (!strcmp(argv[1], "NormalTauRequestWithActFlag"))
       {
          for (id = 1; id <= noOfUe; id++)
          {
@@ -727,7 +875,7 @@ int main(int argc, char *argv[])
             sleep(2);
          }
       }
-      else if(!strcmp(argv[1], "NormalPaging"))
+      else if (!strcmp(argv[1], "NormalPaging"))
       {
          for (id = 1; id <= noOfUe; id++)
          {
@@ -735,7 +883,7 @@ int main(int argc, char *argv[])
             sleep(2);
          }
       }
-      else if(!strcmp(argv[1], "TimeoutPaging"))
+      else if (!strcmp(argv[1], "TimeoutPaging"))
       {
          for (id = 1; id <= noOfUe; id++)
          {
@@ -805,14 +953,14 @@ int main(int argc, char *argv[])
          }
       }
       else if (!strcmp(argv[1], "NwInitDetach"))
-      {   
+      {
          testNwInitDetach(1);
-      }   
+      }
       else if (!strcmp(argv[1], "Flush"))
-      {   
+      {
          flush(noOfUe);
       }
-      else if(!strcmp(argv[1], "CompleteResetRequest"))
+      else if (!strcmp(argv[1], "CompleteResetRequest"))
       {
          for (id = 1; id <= noOfUe; id++)
          {
@@ -824,7 +972,7 @@ int main(int argc, char *argv[])
 
          sleep(5);
       }
-      else if(!strcmp(argv[1], "PartialResetRequest"))
+      else if (!strcmp(argv[1], "PartialResetRequest"))
       {
          for (id = 1; id <= noOfUe; id++)
          {
@@ -860,10 +1008,10 @@ int main(int argc, char *argv[])
             testUePdnConnReq(id);
             sleep(2);
          }
-         for(id = 1; id <= noOfUe; id++)
+         for (id = 1; id <= noOfUe; id++)
          {
             tsSendErabRelReq(id, ueErabInfo[id - 1].numOfBrs - 1,
-                  &ueErabInfo[id - 1].brLst[1]);
+                             &ueErabInfo[id - 1].brLst[1]);
             sleep(2);
          }
          sleep(5);
@@ -889,11 +1037,11 @@ int main(int argc, char *argv[])
       }
       else if (!strcmp(argv[1], "AttachTAUDetach"))
       {
-         /* Configure the inactivity timer to a small value */
+         // Configure the inactivity timer to a small value
          enbInactvTmrCfg(200, 3);
          tsAttach_tau_detach(noOfUe, 3);
          sleep(5);
-         /* Configure the inactivity timer to a large value */
+         // Configure the inactivity timer to a large value
          enbInactvTmrCfg(2000000, 2000);
       }
       else if (!strcmp(argv[1], "UeInitiatedDedBer"))
@@ -941,14 +1089,14 @@ int main(int argc, char *argv[])
       {
          printf("[Stub] Please use \"testCntrlr -h\" for help\n");
       }
-      if(isFile == 1)
+      if (isFile == 1)
       {
          sleep(2);
          continue;
       }
       else
       {
-         break; 
+         break;
       }
    }
    printf("[Stub] Cleaning SCTP connection\n");
@@ -957,8 +1105,6 @@ int main(int argc, char *argv[])
    return 0;
 }
 
-
-/* Prints help : How to run test cases */
 void tsPrintHelp()
 {
    printf("   Usage:\n");
@@ -1093,3 +1239,4 @@ void tsPrintHelp()
    printf("      # ./testCntrlr -f testCaseList_1.txt\n");
    printf("\n");
 }
+*/

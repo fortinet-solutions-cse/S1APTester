@@ -120,11 +120,11 @@ $(OBJ_DIR)/ts_Att_tau_det.o: $(SRC_DIR)/ts_Att_tau_det.c $(DEPS)
 
 all: $(tcObjs)
 	@echo "Linking Objects, Creating binary"
-	$(LL) $(OBJ_DIR)/*.o -ltfw -lpthread -L ../../TestCntlrApp/lib \
+	$(LL) $(OBJ_DIR)/*.o -ltfw -lpthread -lrt -L ../../TestCntlrApp/lib \
 	   -liperf -L ../../Trfgen/lib/ \
 	   -ltrfgen -L ../../Trfgen/lib -o $(BIN_DIR)/testCntrlr -lm
 
-	\ln -sf $(CFG_DIR)/imsi.txt $(BIN_DIR)/imsi.txt
+	\ln -sf $(CFG_DIR)/ue.txt $(BIN_DIR)/ue.txt
 	\ln -sf $(CFG_DIR)/nbAppCfg.txt $(BIN_DIR)/nbAppCfg.txt
 	\ln -sf $(CFG_DIR)/tfwAppcfg.txt $(BIN_DIR)/tfwAppcfg.txt
 	\ln -sf $(CFG_DIR)/ueAppCfg.txt $(BIN_DIR)/ueAppCfg.txt

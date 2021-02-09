@@ -6,7 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-
 /**********************************************************************
 
      Name:     S1SIM Test Controller Stub 
@@ -20,52 +19,52 @@
      Prg:      
 
 **********************************************************************/
-#define TRUE  1
+#define TRUE 1
 #define FALSE 0
 
 #define TEST_TYPE_SERVICE_REQUEST 0
-#define TEST_TYPE_SERVICE_REJECT  1
-#define TEST_TYPE_PAGING          2
+#define TEST_TYPE_SERVICE_REJECT 1
+#define TEST_TYPE_PAGING 2
 
-#define TEST_TYPE_TAU_REQUEST     0
-#define TEST_TYPE_TAU_REJECT      1
+#define TEST_TYPE_TAU_REQUEST 0
+#define TEST_TYPE_TAU_REJECT 1
 
 extern char videoSrvrIp[];
 
 typedef struct _msgbuf
 {
-   long msgType;
-   long msgLen;
-   char msg[BUFSIZE];
-}MsgBuf;
+  long msgType;
+  long msgLen;
+  char msg[BUFSIZE];
+} MsgBuf;
 
 typedef struct _tsErabList
 {
-   int numOfBrs;
-   unsigned char *brLst;
-}tsErabLst;
+  int numOfBrs;
+  unsigned char *brLst;
+} tsErabLst;
 
 extern tsErabLst ueErabInfo[];
 
 typedef struct _ueIpInfo
 {
   unsigned char UeIpAdrLst[11][4];
-  unsigned char noIfAssinedIps; 
-}UeIpInfo;
+  unsigned char noIfAssinedIps;
+} UeIpInfo;
 
 typedef struct _ueDedBerInfo
 {
   unsigned char ueId;
   unsigned char dedBerIdLst[10];
-  unsigned char noOfDedBer; 
-}UeDedBerInfo;
-
+  unsigned char noOfDedBer;
+} UeDedBerInfo;
 
 int testUeInitiatedDedBerReq(unsigned char ueId);
 int testActvDedBerRejWithIvalidEpsBerId(unsigned char ueId);
 int s1SetUpReq(int result);
 
-void tsUeConfig(unsigned char, unsigned char*, int imsiLen);
+void tsUeConfig(unsigned char, unsigned char *imsi, int imsiLen,
+                unsigned char *imei, U32 negFlags);
 void tsUeAppConfig(void);
 void tsEnbConfig(void);
 void testUePdnConnReq(unsigned char ueId);
@@ -88,6 +87,7 @@ void testErrIndMsg(unsigned char ueId);
 void tsAttachWithAUTV(unsigned char);
 void TC_API(short int, void *, short int);
 int TC_msg_recv(int, int);
+int TC_msg_recv_multi(int *, int *, int);
 
 void trf_test_init(void);
 
@@ -95,9 +95,9 @@ void tsSendAttachRequest(unsigned char);
 int tsSendServiceRequest(unsigned char, unsigned char);
 void tsSendDetachRequest(unsigned char, unsigned char, Ue_Mode);
 void tsStartPeriodicTauTimer(unsigned char, unsigned char);
-void tsSendTauRequest(unsigned char, char*, unsigned char, unsigned char);
+void tsSendTauRequest(unsigned char, char *, unsigned char, unsigned char);
 int tsSendUeCntxtReleaseRequest(unsigned char, unsigned char);
-int tsSendUeRadCapUpdReq(U8 ueId, U8 * msg, U8 len, Bool sndS1AP  );
+int tsSendUeRadCapUpdReq(U8 ueId, U8 *msg, U8 len, Bool sndS1AP);
 
 void tsCleanup(void);
 void tsStartUlData(unsigned char);
@@ -119,13 +119,13 @@ void testUeCntxtRelRequest(unsigned char);
 void testUeRadCapModReq(unsigned char ueId);
 int testNormalPaging(unsigned char);
 int testTimeoutPaging(unsigned char);
-int testNwInitDetach(unsigned char );
+int testNwInitDetach(unsigned char);
 void tsSendDetachAccept(unsigned char);
 void flush(int);
 void tsSendErrIndMsg(void *msgptr);
 void testErrIndWithIvalidUeS1apIds(unsigned char);
 int tsSendResetReq(unsigned int resetType, int numOfUes, unsigned char *ueLst);
-int tsSendErabRelReq(unsigned char, unsigned char, unsigned char*);
+int tsSendErabRelReq(unsigned char, unsigned char, unsigned char *);
 void tsAttach_tau_detach(unsigned char nUE, unsigned char nTAUReq);
 void testNasNonDelivery(unsigned char ueId);
 void testInitialContextSetupFailure(unsigned char ueId);

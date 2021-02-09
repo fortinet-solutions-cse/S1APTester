@@ -1,9 +1,9 @@
 CELL_ID                  1
 TAC                      5
-ENB_IP_ADDR              172.30.13.10
+ENB_IP_ADDR              172.30.111.10
 MME_ID                   1
-MME_ADDR                 172.30.13.2
-SCTP_IP_ADDR             172.30.13.10
+MME_ADDR                 172.30.111.2
+SCTP_IP_ADDR             172.30.111.10
 ENB_NAME                 "RADISYS"
 PLMN_ID                  20893
 HEARTBEAT_INTERVAL       5000
