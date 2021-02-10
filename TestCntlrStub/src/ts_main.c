@@ -142,13 +142,15 @@ static int init_timer(void)
    return rtn;
 }
 
+#define MAX_UEID 255
 static void tsPrintHelp(const char *appname)
 {
-   printf("   Usage:\n");
-   printf("     %s <connect_time> <startUE> [numUEs]\n", appname);
-   printf("        connect_time in seconds, zero for infinite\n");
-   printf("        startUE is index (from 1) in ue.txt file\n");
-   printf("        numUEs is 1 by default. Use negative value to make repeat attaches of same UE\n");
+   printf("Usage:\n");
+   printf("  %s <UE config file> <connect_time> <startUE> [numUEs]\n", appname);
+   printf("         connect_time in seconds, zero for infinite\n");
+   printf("         startUE is index (from 1) in ue config file\n");
+   printf("         numUEs is from 1 to 255, default value is 1\n");
+   printf("         Note that startUE + numUEs must be less than 256\n");
    printf("\n");
 }
 
@@ -156,11 +158,20 @@ int main(int argc, char **argv)
 {
    int ueAttachTime, startUE, numUEs;
    int i;
+   FILE *fp;
+   const char *ueFile;
 
-   if (argc > 2)
+   if (argc > 3)
    {
-      ueAttachTime = atoi(argv[1]);
-      startUE = atoi(argv[2]);
+      if ((fp = fopen(argv[1], "r")) == NULL) {
+         printf("\nERROR: Cannot open config file \"%s\"\n", argv[1]);
+         goto error;
+      } else {
+         fclose(fp);
+      }
+      ueFile = argv[1];
+      ueAttachTime = atoi(argv[2]);
+      startUE = atoi(argv[3]);
       if (startUE == 0)
       {
          goto error;
@@ -171,15 +182,15 @@ int main(int argc, char **argv)
             interrupt the connections to close gracefully. */
          ueAttachTime = 0x7fffffff;
       }
-      if (argc == 3)
+      if (argc == 4)
       {
          numUEs = 1;
          goto run_test;
       }
-      else if (argc == 4)
+      else if (argc == 5)
       {
-         numUEs = atoi(argv[3]);
-         if (numUEs > 0)
+         numUEs = atoi(argv[4]);
+         if ((numUEs > 0) && ((startUE + numUEs - 1) <= MAX_UEID))
          {
             goto run_test;
          }
@@ -215,7 +226,7 @@ run_test:
 
    /* Read imsi from file and send ue config request for 
     * required num of Ues */
-   tsReadImsiAndSendUeConfig(numUEs); /*(noOfUe);*/
+   tsReadImsiAndSendUeConfig(ueFile, startUE + numUEs - 1);
 
    if (ueAttachTime < 0)
    {

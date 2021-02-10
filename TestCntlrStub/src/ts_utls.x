@@ -77,7 +77,7 @@ void tsStepByStepAttachWithIdProc(unsigned char);
 void tsAttach_PCO_DRX(unsigned char);
 void tsCompleteAttach(unsigned char);
 void tsAttachEmergency(unsigned char);
-void tsReadImsiAndSendUeConfig(int);
+void tsReadImsiAndSendUeConfig(const char *, int);
 void SyncFailureWithWrapARound(unsigned char ueId);
 void SyncFailureWithAgeLimit(unsigned char ueId);
 void SyncFailureWithDelta(unsigned char ueId);

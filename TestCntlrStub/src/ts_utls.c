@@ -42,8 +42,8 @@
 
 int paging_ueid = 0;
 int nwInitDetach_ueid = 0;
-tsErabLst ueErabInfo[32];
-FwErabRelCmd_t erabRelCmdInfo[32];
+tsErabLst ueErabInfo[300];
+FwErabRelCmd_t erabRelCmdInfo[300];
 extern char videoSrvrIp[20]; /* Values will be stored from reading the nbCfg.txt */
 extern S8 ueIntf[];          /* This is defined in ennApp/nb_traffic_handler.c */
 
@@ -69,39 +69,31 @@ void trf_test_init(void)
    trfgen_configure_test(test_parms.test_id, test_parms);
 }
 
-void tsReadImsiAndSendUeConfig(int noOfUe)
+void tsReadImsiAndSendUeConfig(const char *ue_file, int noOfUe)
 {
    FILE *fp;
    unsigned char imsi[15] = {0};
    unsigned char imei[16] = {0};
    U32 negFlags;
    char temp[100] = {0};
-   unsigned char id = 0;
+   int id = 0;
    int i;
    char c;
    int imsi_len;
    int token_idx;
 
    //printf("[Stub] Entering tsReadImsiAndSendUeConfig()\n");
-   if ((fp = fopen("ue.txt", "r")) == NULL)
+   if ((fp = fopen(ue_file, "r")) == NULL)
    {
       /* imsi file checking */
-      printf("[Stub] ue.txt::FAILED to open a file\n");
+      printf("FAILED to open UE config file\n");
       exit(0);
    } /* end of if statement */
 
-   for (id = 1; id <= noOfUe; id++)
-   {
+   while (fgets(temp, 100, fp) != NULL) {
       token_idx = 0;
-      while (1) {
-         if (fgets(temp, 100, fp) != NULL) {
-            if (strlen(temp) > 2) {
-               break;
-            }
-         } else {
-            // EOF, recycle the file contents
-            rewind(fp);
-         }
+      if (strlen(temp) < 2) {
+         continue;
       }
       // IMSI
       memset(imsi, '\0', sizeof(imsi));
@@ -200,10 +192,15 @@ void tsReadImsiAndSendUeConfig(int noOfUe)
          }
       }
    finished:
-      printf("Adding UE %d\n", id);
+      printf("Adding UE %d (imsi ending %d%d%d%d)\n", ++id,
+                    imsi[imsi_len - 4], imsi[imsi_len-3], imsi[imsi_len-2], imsi[imsi_len-1]);
       tsUeConfig(id, imsi, imsi_len, imei, negFlags);
    }
    fclose(fp);
+   if (id < noOfUe) {
+      printf("ERROR: Need %d UEs, but only %d in UE config file\n", noOfUe, id);
+      exit(1);
+   }
 }
 
 void convertIpToString(char *bindAddr, unsigned char *ipAddr)
